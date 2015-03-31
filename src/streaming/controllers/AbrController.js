@@ -237,7 +237,7 @@ MediaPlayer.dependencies.AbrController = function () {
                     (elementWidth < representation[idx].width || elementHeight < representation[idx].height) &&
                     (
                         elementWidth - representation[idx-1].width < representation[idx].width - elementWidth ||
-                        elementHeight - representation[idx-1].height < representation[idx].height - elementHeigh
+                        elementHeight - representation[idx-1].height < representation[idx].height - elementHeight
                     )
                 ) {
                     idx = idx -1;
@@ -257,6 +257,7 @@ MediaPlayer.dependencies.AbrController = function () {
         streamController:undefined,
         manifestExt: undefined,
         manifestModel: undefined,
+        limitBitrateByPortal: undefined,
 
         setup: function() {
             this[MediaPlayer.dependencies.FragmentLoader.eventList.ENAME_LOADING_PROGRESS] = onFragmentLoadProgress;
