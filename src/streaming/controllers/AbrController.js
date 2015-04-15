@@ -36,6 +36,7 @@ MediaPlayer.dependencies.AbrController = function () {
         qualityDict = {},
         confidenceDict = {},
         bitrateDict = {},
+        ratioDict = {},
         streamProcessorDict={},
         abandonmentStateDict = {},
         abandonmentTimeout,
@@ -84,11 +85,41 @@ MediaPlayer.dependencies.AbrController = function () {
         },
 
         getInitialBitrate = function(type) {
-            return bitrateDict[type];
+            var initialBitrate;
+
+            if (!bitrateDict.hasOwnProperty(type)) {
+                if (!ratioDict.hasOwnProperty(type)) {
+                    bitrateDict[type] = (type === "video") ? MediaPlayer.dependencies.AbrController.DEFAULT_VIDEO_BITRATE : MediaPlayer.dependencies.AbrController.DEFAULT_AUDIO_BITRATE;
+                } else {
+                    var manifest = this.manifestModel.getValue(),
+                        representation = this.manifestExt.getAdaptationForType(manifest, 0, type).Representation;
+                    if (Array.isArray(representation)) {
+                        bitrateDict[type] = representation[Math.round(representation.length * ratioDict[type])-1].bandwidth;
+                    } else {
+                        bitrateDict[type] = 0;
+                    }
+                }
+            }
+
+            initialBitrate = bitrateDict[type];
+
+            return initialBitrate;
         },
 
         setInitialBitrate = function(type, value) {
             bitrateDict[type] = value;
+        },
+
+        getInitialRepresentationRatio = function(type) {
+            if (!ratioDict.hasOwnProperty(type)) {
+                return null;
+            }
+
+            return ratioDict[type];
+        },
+
+        setInitialRepresentationRatio = function(type, value) {
+            ratioDict[type] = value;
         },
 
         getMaxBitrate = function(type) {
