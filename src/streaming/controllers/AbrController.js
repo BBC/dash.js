@@ -105,6 +105,18 @@ MediaPlayer.dependencies.AbrController = function () {
             bitrateDict.max[type] = value;
         },
 
+        getMaxRepresentationRatio = function(type) {
+            if (ratioDict.hasOwnProperty("max") && ratioDict.max.hasOwnProperty(type)){
+                return ratioDict.max[type];
+            }
+            return 1;
+        },
+
+        setMaxRepresentationRatio = function(type, value) {
+            ratioDict.max = ratioDict.max || {};
+            ratioDict.max[type] = value;
+        },
+
         getTopQualityIndex = function(type, id) {
             var idx;
 
@@ -115,6 +127,8 @@ MediaPlayer.dependencies.AbrController = function () {
             }
 
             idx = checkMaxBitrate.call(this, topQualities[id][type], type);
+            idx = checkMaxRepresentationRatio.call(this, idx, type, topQualities[id][type]);
+            idx = checkPortalSize.call(this, idx, type);
 
             return idx;
         },
@@ -128,8 +142,21 @@ MediaPlayer.dependencies.AbrController = function () {
             return Math.min (idx , maxIdx);
         },
 
-        onFragmentLoadProgress = function(evt) {
+        checkMaxRepresentationRatio = function(idx, type, maxIdx){
+            var maxRepresentationRatio = getMaxRepresentationRatio(type);
+            if (isNaN(maxRepresentationRatio) || maxRepresentationRatio >= 1) {
+                return idx;
+            }
+            return Math.min( idx , Math.round(maxIdx * maxRepresentationRatio) );
+        },
 
+        checkPortalSize = function(idx, type) {
+            if (type !== 'video' || !this.limitBitrateByPortal || !streamProcessorDict[type]) {
+                return idx;
+            }
+        },
+
+        onFragmentLoadProgress = function(evt) {
             if (MediaPlayer.dependencies.ScheduleController.LOADING_REQUEST_THRESHOLD === 0) { //check to see if there are parallel request or just one at a time.
 
                 var self = this,
@@ -280,7 +307,7 @@ MediaPlayer.dependencies.AbrController = function () {
          * @param {number} value A value of the initial bitrate, kbps
          * @memberof AbrController#
          */
-        setInitialBitrateFor: function(type, value){
+        setInitialBitrateFor: function(type, value) {
             setInitialBitrate(type, value);
         },
 
@@ -289,8 +316,44 @@ MediaPlayer.dependencies.AbrController = function () {
          * @returns {number} A value of the initial bitrate, kbps
          * @memberof AbrController#
          */
-        getInitialBitrateFor: function(type){
-            return getInitialBitrate(type);
+        getInitialBitrateFor: function(type) {
+            return getInitialBitrate.call(this, type);
+        },
+
+        /**
+         * @param type
+         * @param {number} value A value of the initial ratio, between 0 and 1
+         * @memberof AbrController#
+         */
+        setInitialRepresentationRatioFor: function(type, value) {
+            setInitialRepresentationRatio(type, value);
+        },
+
+        /**
+         * @param type
+         * @returns {number} A value of the initial ratio, between 0 and 1
+         * @memberof AbrController#
+         */
+        getInitialRepresentationRatioFor: function(type, value) {
+            getInitialRepresentationRatio(type, value);
+        },
+
+        /**
+         * @param type audio or video
+         * @param value A number between 0 and 1
+         * @memberof AbrController#
+         */
+        setMaxAllowedRepresentationRatioFor: function(type, value) {
+            setMaxRepresentationRatio(type, value);
+        },
+
+        /**
+         * @param type audio or video
+         * @returns {number} A value between 0 and 1
+         * @memberof AbrController#
+         */
+        getMaxAllowedRepresentationRatioFor: function(type, value) {
+            getMaxRepresentationRatio(type, value);
         },
 
 
