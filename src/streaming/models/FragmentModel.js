@@ -179,6 +179,8 @@ MediaPlayer.dependencies.FragmentModel = function () {
         notify: undefined,
         subscribe: undefined,
         unsubscribe: undefined,
+        videoModel: undefined,
+        sourceBufferExt: undefined,
 
         setup: function() {
             this[MediaPlayer.dependencies.BufferController.eventList.ENAME_BUFFER_LEVEL_OUTRUN] = onBufferLevelOutrun;
@@ -204,7 +206,7 @@ MediaPlayer.dependencies.FragmentModel = function () {
         },
 
         addRequest: function(value) {
-            if (!value || this.isFragmentLoadedOrPending(value)) return false;
+            if (!value || this.isFragmentLoadedOrPendingAndNotDiscarded(value)) return false;
 
             pendingRequests.push(value);
             addSchedulingInfoMetrics.call(this, value, MediaPlayer.dependencies.FragmentModel.states.PENDING);
@@ -212,7 +214,7 @@ MediaPlayer.dependencies.FragmentModel = function () {
             return true;
         },
 
-        isFragmentLoadedOrPending: function(request) {
+        isFragmentLoadedOrPendingAndNotDiscarded: function(request) {
             var isEqualComplete = function(req1, req2) {
                     return ((req1.action === "complete") && (req1.action === req2.action));
                 },
@@ -223,6 +225,11 @@ MediaPlayer.dependencies.FragmentModel = function () {
 
                 isEqualInit = function(req1, req2) {
                     return isNaN(req1.index) && isNaN(req2.index) && (req1.quality === req2.quality);
+                },
+
+                isDiscarded = function() {
+                    var buffer = this.videoModel.getElement();
+                    return this.sourceBufferExt.getBufferRange(buffer, request.availabilityStartTime) === null;
                 },
 
                 check = function(arr) {
@@ -244,7 +251,7 @@ MediaPlayer.dependencies.FragmentModel = function () {
                     return isLoaded;
                 };
 
-            return (check(pendingRequests) || check(loadingRequests) || check(executedRequests));
+            return (check(pendingRequests) || check(loadingRequests) || (check(executedRequests) && !isDiscarded.call(this)));
         },
 
         /**
