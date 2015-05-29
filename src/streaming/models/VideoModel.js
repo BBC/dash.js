@@ -33,6 +33,7 @@ MediaPlayer.models.VideoModel = function () {
 
     var element,
         stalledStreams = [],
+        previousPlaybackRate,
         //_currentTime = 0,
 
         isStalled = function () {
@@ -45,7 +46,11 @@ MediaPlayer.models.VideoModel = function () {
             }
 
             // Halt playback until nothing is stalled.
-            this.setPlaybackRate(0);
+            if (!isStalled()) {
+                previousPlaybackRate = this.getPlaybackRate();
+                this.setPlaybackRate(0);
+                element.dispatchEvent(new CustomEvent("waiting"));
+            }
 
             if (stalledStreams[type] === true) {
                 return;
@@ -68,7 +73,8 @@ MediaPlayer.models.VideoModel = function () {
 
             // If nothing is stalled resume playback.
             if (isStalled() === false) {
-                this.setPlaybackRate(1);
+                this.setPlaybackRate(previousPlaybackRate);
+                element.dispatchEvent(new CustomEvent("playing"));
             }
         },
 
@@ -78,7 +84,18 @@ MediaPlayer.models.VideoModel = function () {
             } else {
                 removeStalledStream.call(this, type);
             }
-        };
+        },
+
+        onBufferLevelStateChanged = function(e) {
+            var type = e.sender.streamProcessor.getType();
+            stallStream.call(this, type, !e.data.hasSufficientBuffer);
+        }
+        /*,
+        handleSetCurrentTimeNotification = function () {
+            if (element.currentTime !== _currentTime) {
+                element.currentTime = _currentTime;
+            }
+        }*/;
 
     return {
         system : undefined,
@@ -153,7 +170,9 @@ MediaPlayer.models.VideoModel = function () {
         },
 
         setSource: function (source) {
-            element.src = source;
+            if (source) {
+                element.src = source;
+            }
         }
     };
 };
