@@ -228,10 +228,6 @@ MediaPlayer.dependencies.BufferController = function () {
             checkGapBetweenBuffers.call(self);
             checkIfSufficientBuffer.call(self);
 
-            if (bufferLevel < STALL_THRESHOLD) {
-                notifyIfSufficientBufferStateChanged.call(self, false);
-            }
-
             return true;
         },
 
