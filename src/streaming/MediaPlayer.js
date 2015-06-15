@@ -83,6 +83,7 @@ MediaPlayer = function (context) {
         playing = false,
         autoPlay = true,
         scheduleWhilePaused = false,
+        limitBitrateByPortal = true,
         bufferMax = MediaPlayer.dependencies.BufferController.BUFFER_SIZE_REQUIRED,
         useManifestDateHeaderTimeSource = true,
         UTCTimingSources = [],
@@ -124,6 +125,10 @@ MediaPlayer = function (context) {
                 streamController.loadWithManifest(source);
             }
             streamController.setUTCTimingSources(UTCTimingSources, useManifestDateHeaderTimeSource);
+
+            abrController = system.getObject('abrController');
+            abrController.limitBitrateByPortal = limitBitrateByPortal;
+
             system.mapValue("scheduleWhilePaused", scheduleWhilePaused);
             system.mapOutlet("scheduleWhilePaused", "stream");
             system.mapOutlet("scheduleWhilePaused", "scheduleController");
@@ -439,6 +444,35 @@ MediaPlayer = function (context) {
         },
 
         /**
+         * When switching multi-bitrate content (auto or manual mode) this property specifies the maximum representation allowed,
+         * as a proportion of the size of the representation set.
+         *
+         * You can set or remove this cap at anytime before or during playback. To clear this setting you must use the API
+         * and set the value param to NaN.
+         *
+         * If both this and maxAllowedBitrate are defined, maxAllowedBitrate is evaluated first, then maxAllowedRepresentation,
+         * i.e. the lowest value from executing these rules is used.
+         *
+         * This feature is typically used to reserve higher representations for playback only when connected over a fast connection.
+         *
+         * @param type String 'video' or 'audio' are the type options.
+         * @param value number between 0 and 1, where 1 is allow all representations, and 0 is allow only the lowest.
+         * @memberof MediaPlayer#
+         */
+        setMaxAllowedRepresentationRatioFor:function(type, value) {
+            abrController.setMaxAllowedRepresentationRatioFor(type, value);
+        },
+
+        /**
+         * @param type String 'video' or 'audio' are the type options.
+         * @memberof MediaPlayer#
+         * @see {@link MediaPlayer#setMaxAllowedRepresentationRatioFor setMaxAllowedRepresentationRatioFor()}
+         */
+        getMaxAllowedRepresentationRatioFor:function(type) {
+            return abrController.getMaxAllowedRepresentationRatioFor(type);
+        },
+
+        /**
          * <p>Set to false to prevent stream from auto-playing when the view is attached.</p>
          *
          * @param value {boolean}
@@ -473,6 +507,22 @@ MediaPlayer = function (context) {
          */
         getScheduleWhilePaused: function() {
             return scheduleWhilePaused;
+        },
+
+        /**
+         * @param value
+         * @memberof MediaPlayer#
+         */
+        setLimitBitrateByPortal: function(value) {
+            limitBitrateByPortal = value;
+        },
+
+        /**
+         * @returns {boolean}
+         * @memberof MediaPlayer#
+         */
+        getLimitBitrateByPortal: function() {
+            return limitBitrateByPortal;
         },
 
         /**
@@ -554,6 +604,24 @@ MediaPlayer = function (context) {
          */
         getInitialBitrateFor: function(type) {
             return abrController.getInitialBitrateFor(type);
+        },
+
+        /**
+         * @param type
+         * @param {number} value A value of the initial ratio, between 0 and 1
+         * @memberof MediaPlayer#
+         */
+        setInitialRepresentationRatioFor: function(type, value) {
+            abrController.setInitialRepresentationRatioFor(type, value);
+        },
+
+        /**
+         * @param type
+         * @returns {number} A value of the initial ratio, between 0 and 1
+         * @memberof MediaPlayer#
+         */
+        getInitialRepresentationRatioFor: function(type) {
+            return abrController.getInitialRepresentationRatioFor(type);
         },
 
         /**
