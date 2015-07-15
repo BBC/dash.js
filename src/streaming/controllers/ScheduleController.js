@@ -44,6 +44,7 @@ MediaPlayer.dependencies.ScheduleController = function () {
         playListTraceMetrics = null,
         playListTraceMetricsClosed = true,
 
+
         clearPlayListTraceMetrics = function (endTime, stopreason) {
             var duration = 0,
                 startTime = null;
@@ -131,7 +132,7 @@ MediaPlayer.dependencies.ScheduleController = function () {
             });
         },
 
-        replaceCanceledPendingRequests = function(canceledRequests) {
+        replaceCanceledRequests = function(canceledRequests) {
             var ln = canceledRequests.length,
             // EPSILON is used to avoid javascript floating point issue, e.g. if request.startTime = 19.2,
             // request.duration = 3.83, than request.startTime + request.startTime = 19.2 + 1.92 = 21.119999999999997
@@ -143,7 +144,7 @@ MediaPlayer.dependencies.ScheduleController = function () {
             for (i = 0; i < ln; i += 1) {
                 request = canceledRequests[i];
                 time = request.startTime + (request.duration / 2) + EPSILON;
-                request = this.adapter.getFragmentRequestForTime(this.streamProcessor, currentTrackInfo, time, {timeThreshold: 0});
+                request = this.adapter.getFragmentRequestForTime(this.streamProcessor, currentTrackInfo, time, {timeThreshold: 0, ignoreIsFinished: true});
                 this.fragmentController.prepareFragmentForLoading(fragmentModel, request);
             }
         },
@@ -187,23 +188,12 @@ MediaPlayer.dependencies.ScheduleController = function () {
 
             lastValidationTime = now;
             getRequiredFragmentCount.call(this, onGetRequiredFragmentCount.bind(this));
-
-        },
-
-        clearMetrics = function () {
-            var self = this;
-
-            if (type === null || type === "") {
-                return;
-            }
-
-            self.metricsModel.clearCurrentMetricsForType(type);
         },
 
         onDataUpdateCompleted = function(e) {
             if (e.error) return;
 
-            currentTrackInfo = this.adapter.convertDataToTrack(e.data.currentRepresentation);
+            currentTrackInfo = this.adapter.convertDataToTrack(this.manifestModel.getValue(), e.data.currentRepresentation);
         },
 
         onStreamUpdated = function(e) {
@@ -211,7 +201,7 @@ MediaPlayer.dependencies.ScheduleController = function () {
 
             currentTrackInfo = this.streamProcessor.getCurrentTrack();
 
-            if (!isDynamic) {
+            if (!isDynamic || this.liveEdgeFinder.getLiveEdge() !== null) {
                 ready = true;
             }
 
@@ -272,9 +262,7 @@ MediaPlayer.dependencies.ScheduleController = function () {
             }
         },
 
-        onBufferLevelUpdated = function(e) {
-            var self = this;
-            self.metricsModel.addBufferLevel(type, new Date(), e.data.bufferLevel);
+        onBufferLevelUpdated = function(/*e*/) {
             validate.call(this);
         },
 
@@ -295,7 +283,7 @@ MediaPlayer.dependencies.ScheduleController = function () {
                 throw "Unexpected error!";
             }
 
-            replaceCanceledPendingRequests.call(self, canceledReqs);
+            replaceCanceledRequests.call(self, canceledReqs);
             clearPlayListTraceMetrics(new Date(), MediaPlayer.vo.metrics.PlayList.Trace.REPRESENTATION_SWITCH_STOP_REASON);
         },
 
@@ -358,14 +346,14 @@ MediaPlayer.dependencies.ScheduleController = function () {
             var self = this,
                 liveEdgeTime = e.data.liveEdge,
                 manifestInfo = currentTrackInfo.mediaInfo.streamInfo.manifestInfo,
-                startTime = liveEdgeTime - Math.min((manifestInfo.minBufferTime * 2), manifestInfo.DVRWindowSize / 2),
+                startTime = liveEdgeTime - Math.min((self.playbackController.getLiveDelay(currentTrackInfo.fragmentDuration)), manifestInfo.DVRWindowSize / 2),
                 request,
                 metrics = self.metricsModel.getMetricsFor("stream"),
                 manifestUpdateInfo = self.metricsExt.getCurrentManifestUpdate(metrics),
                 currentLiveStart = self.playbackController.getLiveStartTime(),
                 actualStartTime;
             // get a request for a start time
-            request = self.adapter.getFragmentRequestForTime(self.streamProcessor, currentTrackInfo, startTime);
+            request = self.adapter.getFragmentRequestForTime(self.streamProcessor, currentTrackInfo, startTime, {ignoreIsFinished: true});
             actualStartTime = request.startTime;
 
             if (isNaN(currentLiveStart) || (actualStartTime > currentLiveStart)) {
@@ -373,24 +361,28 @@ MediaPlayer.dependencies.ScheduleController = function () {
             }
 
             self.metricsModel.updateManifestUpdateInfo(manifestUpdateInfo, {currentTime: actualStartTime, presentationStartTime: liveEdgeTime, latency: liveEdgeTime - actualStartTime, clientTimeOffset: self.timelineConverter.getClientTimeOffset()});
-            ready = true;
 
-            if (currentTrackInfo) {
-                startOnReady.call(self);
-            }
+            // ready will checked in onStreamUpdated and scheduling started
+            // based on its value
+            ready = true;
         };
+
+
 
     return {
         log: undefined,
         system: undefined,
         metricsModel: undefined,
+        manifestModel: undefined,
         metricsExt: undefined,
         scheduleWhilePaused: undefined,
         timelineConverter: undefined,
         abrController: undefined,
+        playbackController: undefined,
         adapter: undefined,
         scheduleRulesCollection: undefined,
         rulesController: undefined,
+        numOfParallelRequestAllowed:undefined,
 
         setup: function() {
             this[MediaPlayer.dependencies.LiveEdgeFinder.eventList.ENAME_LIVE_EDGE_SEARCH_COMPLETED] = onLiveEdgeSearchCompleted;
@@ -426,12 +418,12 @@ MediaPlayer.dependencies.ScheduleController = function () {
             type = typeValue;
             self.setMediaType(type);
             self.streamProcessor = streamProcessor;
-            self.playbackController = streamProcessor.playbackController;
             self.fragmentController = streamProcessor.fragmentController;
             self.liveEdgeFinder = streamProcessor.liveEdgeFinder;
             self.bufferController = streamProcessor.bufferController;
             isDynamic = streamProcessor.isDynamic();
             fragmentModel = this.fragmentController.getModel(this);
+            MediaPlayer.dependencies.ScheduleController.LOADING_REQUEST_THRESHOLD = self.numOfParallelRequestAllowed;
 
             if (self.scheduleRulesCollection.bufferLevelRule) {
                 self.scheduleRulesCollection.bufferLevelRule.setScheduleController(self);
@@ -454,6 +446,8 @@ MediaPlayer.dependencies.ScheduleController = function () {
             return fragmentsToLoad;
         },
 
+        replaceCanceledRequests:replaceCanceledRequests,
+
         reset: function() {
             var self = this;
 
@@ -462,7 +456,6 @@ MediaPlayer.dependencies.ScheduleController = function () {
             self.bufferController.unsubscribe(MediaPlayer.dependencies.BufferController.eventList.ENAME_BUFFER_LEVEL_BALANCED, self.scheduleRulesCollection.bufferLevelRule);
             fragmentModel.abortRequests();
             self.fragmentController.detachModel(fragmentModel);
-            clearMetrics.call(self);
             fragmentsToLoad = 0;
         },
 
@@ -474,3 +467,5 @@ MediaPlayer.dependencies.ScheduleController = function () {
 MediaPlayer.dependencies.ScheduleController.prototype = {
     constructor: MediaPlayer.dependencies.ScheduleController
 };
+
+MediaPlayer.dependencies.ScheduleController.LOADING_REQUEST_THRESHOLD = 0;

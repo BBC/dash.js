@@ -34,7 +34,7 @@ MediaPlayer.dependencies.ManifestLoader = function () {
     var RETRY_ATTEMPTS = 3,
         RETRY_INTERVAL = 500,
         parseBaseUrl = function (url) {
-            var base = null;
+            var base = "";
 
             if (url.indexOf("/") !== -1)
             {
@@ -81,13 +81,19 @@ MediaPlayer.dependencies.ManifestLoader = function () {
                                                  null,
                                                  request.getAllResponseHeaders());
 
+                // Handle redirects for the MPD - as per RFC3986 Section 5.1.3
+                if (request.responseURL) {
+                    baseUrl = parseBaseUrl(request.responseURL);
+                    url = request.responseURL;
+                }
+
                 manifest = self.parser.parse(request.responseText, baseUrl);
 
                 if (manifest) {
                     manifest.url = url;
                     manifest.loadedTime = loadedTime;
                     self.metricsModel.addManifestUpdate("stream", manifest.type, requestTime, loadedTime, manifest.availabilityStartTime);
-                    self.notify(MediaPlayer.dependencies.ManifestLoader.eventList.ENAME_MANIFEST_LOADED, {manifest: manifest});
+                    self.xlinkController.resolveManifestOnLoad(manifest);
                 } else {
                     self.notify(MediaPlayer.dependencies.ManifestLoader.eventList.ENAME_MANIFEST_LOADED, {manifest: null}, new MediaPlayer.vo.Error(null, "Failed loading manifest: " + url, null));
                 }
@@ -135,6 +141,9 @@ MediaPlayer.dependencies.ManifestLoader = function () {
             } catch(e) {
                 request.onerror();
             }
+        },
+        onXlinkReady = function(event) {
+            this.notify(MediaPlayer.dependencies.ManifestLoader.eventList.ENAME_MANIFEST_LOADED, {manifest: event.data.manifest});
         };
 
     return {
@@ -146,9 +155,14 @@ MediaPlayer.dependencies.ManifestLoader = function () {
         notify: undefined,
         subscribe: undefined,
         unsubscribe: undefined,
+        xlinkController: undefined,
 
         load: function(url) {
             doLoad.call(this, url, RETRY_ATTEMPTS);
+        },
+        setup: function() {
+            onXlinkReady = onXlinkReady.bind(this);
+            this.xlinkController.subscribe(MediaPlayer.dependencies.XlinkController.eventList.ENAME_XLINK_READY,this,onXlinkReady);
         }
     };
 };

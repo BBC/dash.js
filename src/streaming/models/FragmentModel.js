@@ -32,11 +32,12 @@
 MediaPlayer.dependencies.FragmentModel = function () {
     "use strict";
 
-    var context,
+    var context = null,
         executedRequests = [],
         pendingRequests = [],
         loadingRequests = [],
         rejectedRequests = [],
+        failedRequests = [],
 
         isLoadingPostponed = false,
 
@@ -112,6 +113,9 @@ MediaPlayer.dependencies.FragmentModel = function () {
                 case MediaPlayer.dependencies.FragmentModel.states.REJECTED:
                     requests = rejectedRequests;
                     break;
+                case MediaPlayer.dependencies.FragmentModel.states.FAILED:
+                    requests = failedRequests;
+                    break;
                 default:
                     requests = [];
             }
@@ -143,6 +147,8 @@ MediaPlayer.dependencies.FragmentModel = function () {
 
             if (response && !error) {
                 executedRequests.push(request);
+            } else {
+                failedRequests.push(request);
             }
 
             addSchedulingInfoMetrics.call(this, request, error ? MediaPlayer.dependencies.FragmentModel.states.FAILED : MediaPlayer.dependencies.FragmentModel.states.EXECUTED);
@@ -179,6 +185,8 @@ MediaPlayer.dependencies.FragmentModel = function () {
         notify: undefined,
         subscribe: undefined,
         unsubscribe: undefined,
+        videoModel: undefined,
+        sourceBufferExt: undefined,
 
         setup: function() {
             this[MediaPlayer.dependencies.BufferController.eventList.ENAME_BUFFER_LEVEL_OUTRUN] = onBufferLevelOutrun;
@@ -204,7 +212,7 @@ MediaPlayer.dependencies.FragmentModel = function () {
         },
 
         addRequest: function(value) {
-            if (!value || this.isFragmentLoadedOrPending(value)) return false;
+            if (!value || this.isFragmentLoadedOrPendingAndNotDiscarded(value)) return false;
 
             pendingRequests.push(value);
             addSchedulingInfoMetrics.call(this, value, MediaPlayer.dependencies.FragmentModel.states.PENDING);
@@ -212,7 +220,7 @@ MediaPlayer.dependencies.FragmentModel = function () {
             return true;
         },
 
-        isFragmentLoadedOrPending: function(request) {
+        isFragmentLoadedOrPendingAndNotDiscarded: function(request) {
             var isEqualComplete = function(req1, req2) {
                     return ((req1.action === "complete") && (req1.action === req2.action));
                 },
@@ -223,6 +231,28 @@ MediaPlayer.dependencies.FragmentModel = function () {
 
                 isEqualInit = function(req1, req2) {
                     return isNaN(req1.index) && isNaN(req2.index) && (req1.quality === req2.quality);
+                },
+
+                isDiscarded = function() {
+                    var buffer = this.videoModel.getElement(),
+                        inBuffer = this.sourceBufferExt.getBufferRange(buffer, request.availabilityStartTime) !== null,
+                        req,
+                        d;
+
+                    // It can take a few moments to get into the buffer
+                    if (!inBuffer) {
+                        d = new Date();
+                        d.setSeconds(d.getSeconds() + 3);
+                        for (var i = 0; i < executedRequests.length; i += 1) {
+                            req = executedRequests[i];
+
+                            if (isEqualMedia(request, req) && req.requestEndDate <= d) {
+                                return false;
+                            }
+                        }
+                    }
+
+                    return !inBuffer;
                 },
 
                 check = function(arr) {
@@ -244,7 +274,7 @@ MediaPlayer.dependencies.FragmentModel = function () {
                     return isLoaded;
                 };
 
-            return (check(pendingRequests) || check(loadingRequests) || check(executedRequests));
+            return (check(pendingRequests) || check(loadingRequests) || check(failedRequests) || (check(executedRequests) && !isDiscarded.call(this)));
         },
 
         /**
@@ -352,13 +382,17 @@ MediaPlayer.dependencies.FragmentModel = function () {
         },
 
         abortRequests: function() {
+            var reqs = [];
             this.fragmentLoader.abort();
 
-            for (var i = 0, ln = loadingRequests.length; i < ln; i += 1) {
-                removeRequest.call(this, executedRequests, loadingRequests[i]);
+            while (loadingRequests.length > 0) {
+                reqs.push(loadingRequests[0]);
+                removeRequest.call(this, loadingRequests, loadingRequests[0]);
             }
 
             loadingRequests = [];
+            
+            return reqs;
         },
 
         executeRequest: function(request) {
@@ -389,6 +423,12 @@ MediaPlayer.dependencies.FragmentModel = function () {
         reset: function() {
             this.abortRequests();
             this.cancelPendingRequests();
+            context = null;
+            executedRequests = [];
+            pendingRequests = [];
+            loadingRequests = [];
+            rejectedRequests = [];
+            isLoadingPostponed = false;
         }
     };
 };

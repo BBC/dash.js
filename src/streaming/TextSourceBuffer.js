@@ -35,18 +35,18 @@ MediaPlayer.dependencies.TextSourceBuffer = function () {
 
     return {
         system:undefined,
+        videoModel: undefined,
         eventBus:undefined,
         errHandler: undefined,
 
         initialize: function (type, bufferController) {
             mimeType = type;
-            this.videoModel = bufferController.videoModel;
             mediaInfo = bufferController.streamProcessor.getCurrentTrack().mediaInfo;
             this.buffered =  this.system.getObject("customTimeRanges");
             this.initializationSegmentReceived= false;
             this.timescale= 90000;
         },
-        append: function (bytes,appendedBytesInfo) {
+        append: function (bytes, chunk) {
             var self = this,
                 result,
                 label,
@@ -72,7 +72,7 @@ MediaPlayer.dependencies.TextSourceBuffer = function () {
                     samplesInfo=fragmentExt.getSamplesInfo(bytes.buffer);
                     for(i= 0 ; i<samplesInfo.length ;i++) {
                         if(!this.firstSubtitleStart){
-                            this.firstSubtitleStart=samplesInfo[0].cts-appendedBytesInfo.startTime*this.timescale;
+                            this.firstSubtitleStart=samplesInfo[0].cts-chunk.start*this.timescale;
                         }
                         samplesInfo[i].cts-=this.firstSubtitleStart;
                         this.buffered.add(samplesInfo[i].cts/this.timescale,(samplesInfo[i].cts+samplesInfo[i].duration)/this.timescale);

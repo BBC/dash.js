@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!--
+Maven build phases:
+http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
+-->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>bbc.mp.smp</groupId>
+    <artifactId>dashjs</artifactId>
+
+    <version>${version.artifact}</version>
+
+    <name>Dash.js for SMP</name>
+    <packaging>jar</packaging>
+
+    <organization>
+        <name>BBC Media Playout</name>
+        <url>http://www.bbc.co.uk/emp</url>
+    </organization>
+
+    <parent>
+        <groupId>bbc.forge.maven.parents</groupId>
+        <artifactId>root</artifactId>
+        <version>2.0.17</version>
+    </parent>
+
+    <scm>
+        <connection>scm:git:https://www.github.com/BBC/dash.js</connection>
+    </scm>
+
+    <properties>
+        <!-- deployment url -->
+        <deploy.to.path>${basedir}/bin/target/releases</deploy.to.path>
+
+        <!-- git revision -->
+        <revision>${git.commitsCount}</revision>
+
+        <version.number>0.1.3-1.4.0</version.number>
+        <version.suffix></version.suffix>
+        <version.artifact>${version.number}${version.suffix}</version.artifact>
+        <version.token>${version.number}-${revision}${version.suffix}</version.token>
+
+        <!-- use -Dgrunt.phase=none to not run grunt as part of build -->
+        <grunt.phase>compile</grunt.phase>
+    </properties>
+
+    <build>
+        <outputDirectory>${basedir}/bin/target</outputDirectory>
+        <testOutputDirectory>${basedir}/bin/target/test-classes</testOutputDirectory>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.1</version>
+            </plugin>
+
+            <!-- Clean plugin, cleans target dir before each build -->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                <execution>
+                <id>auto-clean</id>
+                <phase>initialize</phase>
+                <goals>
+                    <goal>clean</goal>
+                </goals>
+                </execution>
+                </executions>
+            </plugin>
+
+            <!-- git revision plugin, pulls out the git information -->
+            <plugin>
+                <groupId>ru.concerteza.buildnumber</groupId>
+                <artifactId>maven-jgit-buildnumber-plugin</artifactId>
+                <version>1.2.8</version>
+                <executions>
+                    <execution>
+                        <id>jgit-buildnumber</id>
+                        <goals>
+                            <goal>extract-buildnumber</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Build the thing -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.16</version>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <phase>${grunt.phase}</phase>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v0.10.26</nodeVersion>
+                            <npmVersion>1.4.3</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>grunt</id>
+                        <phase>${grunt.phase}</phase>
+                        <goals>
+                            <goal>grunt</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- The artifactory bit -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!-- Plug in the version number -->
+        <resources>
+            <resource>
+                <directory>../dist</directory>
+                <includes>
+                    <include>*.js</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <!-- Use Unix SCP, not Jenkins -->
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>1.0-beta-6</version>
+            </extension>
+        </extensions>
+    </build>
+
+    <!-- Use write Artifactory server -->
+    <distributionManagement>
+        <repository>
+            <id>bbc-release</id>
+            <url>${bbc.release.url}</url>
+        </repository>
+        <snapshotRepository>
+            <id>bbc-snapshot</id>
+            <url>${bbc.snapshot.url}</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.1</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>
