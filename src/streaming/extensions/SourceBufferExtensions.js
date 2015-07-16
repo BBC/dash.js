@@ -131,6 +131,21 @@ MediaPlayer.dependencies.SourceBufferExtensions.prototype = {
         }
     },
 
+    getTotalBufferedTime: function(buffer) {
+        var ranges = this.getAllRanges(buffer),
+            totalBufferedTime = 0,
+            ln,
+            i;
+
+        if (!ranges) return totalBufferedTime;
+
+        for (i = 0, ln = ranges.length; i < ln; i += 1) {
+            totalBufferedTime += ranges.end(i) - ranges.start(i);
+        }
+
+        return totalBufferedTime;
+    },
+
     getBufferLength: function (buffer, time, tolerance) {
         "use strict";
 
@@ -186,15 +201,16 @@ MediaPlayer.dependencies.SourceBufferExtensions.prototype = {
         }
     },
 
-    append: function (buffer, bytes,appendedBytesInfo) {
+    append: function (buffer, chunk) {
         var self = this,
+            bytes = chunk.bytes,
             appendMethod = ("append" in buffer) ? "append" : (("appendBuffer" in buffer) ? "appendBuffer" : null);
 
         if (!appendMethod) return;
 
         try {
             self.waitForUpdateEnd(buffer, function() {
-                buffer[appendMethod](bytes,appendedBytesInfo);
+                buffer[appendMethod](bytes, chunk);
 
                 // updating is in progress, we should wait for it to complete before signaling that this operation is done
                 self.waitForUpdateEnd(buffer, function() {
@@ -211,12 +227,14 @@ MediaPlayer.dependencies.SourceBufferExtensions.prototype = {
 
         try {
             // make sure that the given time range is correct. Otherwise we will get InvalidAccessError
-            if ((start >= 0) && (end > start) && (mediaSource.readyState !== "ended")) {
-                buffer.remove(start, end);
-            }
-            // updating is in progress, we should wait for it to complete before signaling that this operation is done
-            this.waitForUpdateEnd(buffer, function() {
-                self.notify(MediaPlayer.dependencies.SourceBufferExtensions.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED, {buffer: buffer, from: start, to: end});
+            self.waitForUpdateEnd(buffer, function() {
+                if ((start >= 0) && (end > start) && (mediaSource.readyState !== "ended")) {
+                    buffer.remove(start, end);
+                }
+                // updating is in progress, we should wait for it to complete before signaling that this operation is done
+                self.waitForUpdateEnd(buffer, function() {
+                    self.notify(MediaPlayer.dependencies.SourceBufferExtensions.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED, {buffer: buffer, from: start, to: end});
+                });
             });
         } catch (err) {
             self.notify(MediaPlayer.dependencies.SourceBufferExtensions.eventList.ENAME_SOURCEBUFFER_REMOVE_COMPLETED, {buffer: buffer, from: start, to: end}, new MediaPlayer.vo.Error(err.code, err.message, null));

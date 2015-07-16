@@ -45,6 +45,8 @@ Dash.vo.Representation = function () {
     this.MSETimeOffset = NaN;
     this.segmentAvailabilityRange = null;
     this.availableSegmentsNumber = 0;
+    this.bandwidth = NaN;
+    this.maxPlayoutRate = NaN;
 };
 
 Dash.vo.Representation.prototype = {

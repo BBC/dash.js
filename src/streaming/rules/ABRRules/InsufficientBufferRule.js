@@ -46,14 +46,23 @@ MediaPlayer.rules.InsufficientBufferRule = function () {
         setBufferInfo = function (type, state) {
             bufferStateDict[type] = bufferStateDict[type] || {};
             bufferStateDict[type].state = state;
-            if (state === MediaPlayer.dependencies.BufferController.BUFFER_LOADED) {
+            if (state === MediaPlayer.dependencies.BufferController.BUFFER_LOADED && !bufferStateDict[type].firstBufferLoadedEvent) {
                 bufferStateDict[type].firstBufferLoadedEvent = true;
             }
+        },
+
+        onPlaybackSeeking = function () {
+            bufferStateDict = {};
         };
 
     return {
         log: undefined,
         metricsModel: undefined,
+        playbackController: undefined,
+
+        setup: function() {
+            this[MediaPlayer.dependencies.PlaybackController.eventList.ENAME_PLAYBACK_SEEKING] = onPlaybackSeeking;
+        },
 
         execute: function (context, callback) {
             var self = this,
@@ -61,12 +70,6 @@ MediaPlayer.rules.InsufficientBufferRule = function () {
                 mediaType = context.getMediaInfo().type,
                 current = context.getCurrentValue(),
                 metrics = self.metricsModel.getReadOnlyMetricsFor(mediaType),
-                streamInfo = context.getStreamInfo(),
-                duration = streamInfo.duration,
-                currentTime = context.getStreamProcessor().getPlaybackController().getTime(),
-                sp = context.getStreamProcessor(),
-                isDynamic = sp.isDynamic(),
-                lastBufferLevelVO = (metrics.BufferLevel.length > 0) ? metrics.BufferLevel[metrics.BufferLevel.length - 1] : null,
                 lastBufferStateVO = (metrics.BufferState.length > 0) ? metrics.BufferState[metrics.BufferState.length - 1] : null,
                 switchRequest = new MediaPlayer.rules.SwitchRequest(MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE, MediaPlayer.rules.SwitchRequest.prototype.WEAK);
 
@@ -80,16 +83,6 @@ MediaPlayer.rules.InsufficientBufferRule = function () {
             // After the sessions first buffer loaded event , if we ever have a buffer empty event we want to switch all the way down.
             if (lastBufferStateVO.state === MediaPlayer.dependencies.BufferController.BUFFER_EMPTY && bufferStateDict[mediaType].firstBufferLoadedEvent !== undefined) {
                 switchRequest = new MediaPlayer.rules.SwitchRequest(0, MediaPlayer.rules.SwitchRequest.prototype.STRONG);
-
-            } else if ( !isDynamic && //TODO Need to make LOW_BUFFER_THRESHOLD dynamic maybe use fragment duration ? may work better for dynamic content as well. Once fragment abandonment
-                        bufferStateDict[mediaType].state === MediaPlayer.dependencies.BufferController.BUFFER_LOADED &&
-                        lastBufferLevelVO.level < (MediaPlayer.dependencies.BufferController.LOW_BUFFER_THRESHOLD * 2) &&
-                        currentTime < (duration - MediaPlayer.dependencies.BufferController.LOW_BUFFER_THRESHOLD * 2)) {
-
-                var p = lastBufferLevelVO.level > MediaPlayer.dependencies.BufferController.LOW_BUFFER_THRESHOLD ?
-                    MediaPlayer.rules.SwitchRequest.prototype.DEFAULT : MediaPlayer.rules.SwitchRequest.prototype.STRONG;
-
-                switchRequest = new MediaPlayer.rules.SwitchRequest(Math.max(current - 1, 0), p);
             }
 
             if (switchRequest.value !== MediaPlayer.rules.SwitchRequest.prototype.NO_CHANGE && switchRequest.value !== current) {
@@ -97,6 +90,7 @@ MediaPlayer.rules.InsufficientBufferRule = function () {
                     switchRequest.priority === MediaPlayer.rules.SwitchRequest.prototype.DEFAULT ? "Default" :
                         switchRequest.priority === MediaPlayer.rules.SwitchRequest.prototype.STRONG ? "Strong" : "Weak");
             }
+
             lastSwitchTime = now;
             callback(switchRequest);
         },
