@@ -87,7 +87,7 @@ MediaPlayer = function (context) {
         bufferMax = MediaPlayer.dependencies.BufferController.BUFFER_SIZE_REQUIRED,
         useManifestDateHeaderTimeSource = true,
         UTCTimingSources = [],
-        liveDelayFragmentCount = 4,
+        liveDelayFragmentCount = 3,
         usePresentationDelay = false,
 
         isReady = function () {
