@@ -84,7 +84,6 @@
 
         onCanPlay = function(/*e*/) {
             canPlay = true;
-            startAutoPlay.call(this);
         },
 
         onError = function (e) {
