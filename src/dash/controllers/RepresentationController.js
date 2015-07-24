@@ -142,6 +142,7 @@ Dash.dependencies.RepresentationController = function () {
                     for (var i = 0; i < availableRepresentations.length; i += 1) {
                         self.indexHandler.updateRepresentation(availableRepresentations[i], true);
                     }
+                    this.streamController.videoModel.play();
                 };
 
             updating = false;
