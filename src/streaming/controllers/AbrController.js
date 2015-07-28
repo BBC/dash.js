@@ -235,6 +235,7 @@ MediaPlayer.dependencies.AbrController = function () {
                 while (
                     idx > 0 &&
                     (elementWidth < representation[idx].width || elementHeight < representation[idx].height) &&
+                    representation[idx].width > representation[idx-1].width &&
                     (
                         elementWidth - representation[idx-1].width < representation[idx].width - elementWidth ||
                         elementHeight - representation[idx-1].height < representation[idx].height - elementHeight
