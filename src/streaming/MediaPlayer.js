@@ -628,20 +628,22 @@ MediaPlayer = function (context) {
          * @returns {boolean} Current state of adaptive bitrate switching
          * @memberof MediaPlayer#
          *
+         * @param type {string}
          */
-        getAutoSwitchQuality : function () {
-            return abrController.getAutoSwitchBitrate();
+        getAutoSwitchQuality : function (type) {
+            return abrController.getAutoSwitchBitrate(type);
         },
 
         /**
          * Set to false to switch off adaptive bitrate switching.
          *
+         * @param type {string}
          * @param value {boolean}
          * @default {boolean} true
          * @memberof MediaPlayer#
          */
-        setAutoSwitchQuality : function (value) {
-            abrController.setAutoSwitchBitrate(value);
+        setAutoSwitchQuality : function (type, value) {
+            abrController.setAutoSwitchBitrate(type, value);
         },
 
         /**
