@@ -34,6 +34,7 @@ MediaPlayer.rules.BufferLevelExecutionRule = function () {
     return {
         metricsExt: undefined,
         metricsModel: undefined,
+        log: undefined,
 
         execute: function(context, callback) {
             var mediaType = context.getMediaInfo().type;
@@ -42,7 +43,7 @@ MediaPlayer.rules.BufferLevelExecutionRule = function () {
                 bufferLevel = this.metricsExt.getCurrentBufferLevel(metrics) ? this.metricsExt.getCurrentBufferLevel(metrics).level : 0;
 
             if (bufferLevel > 45) {
-                console.log('Long buffer. Don\'t go running away.');
+                this.log('Long buffer. Don\'t go running away.');
                 callback(new MediaPlayer.rules.SwitchRequest([], MediaPlayer.rules.SwitchRequest.prototype.STRONG));
             } else {
                 callback(new MediaPlayer.rules.SwitchRequest([], MediaPlayer.rules.SwitchRequest.prototype.WEAK));
