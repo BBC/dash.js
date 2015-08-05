@@ -53,7 +53,6 @@ MediaPlayer.models.VideoModel = function () {
             }
 
             stalledStreams.push(type);
-            stalledStreams[type] = true;
         },
 
         removeStalledStream = function (type) {
@@ -61,7 +60,6 @@ MediaPlayer.models.VideoModel = function () {
                 return;
             }
 
-            stalledStreams[type] = false;
             var index = stalledStreams.indexOf(type);
             if (index !== -1) {
                 stalledStreams.splice(index, 1);
