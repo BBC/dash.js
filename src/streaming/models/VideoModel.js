@@ -41,25 +41,21 @@ MediaPlayer.models.VideoModel = function () {
         },
 
         addStalledStream = function (type) {
-            if (type === null || element.seeking || stalledStreams.indexOf(type) !== -1) {
+            if (element.seeking || stalledStreams.indexOf(type) !== -1) {
                 return;
             }
 
+            stalledStreams.push(type);
+
             // Halt playback until nothing is stalled.
-            if (!isStalled()) {
+            if (stalledStreams.length === 1) {
                 previousPlaybackRate = this.getPlaybackRate();
                 this.setPlaybackRate(0);
                 element.dispatchEvent(new CustomEvent("waiting"));
             }
-
-            stalledStreams.push(type);
         },
 
         removeStalledStream = function (type) {
-            if (type === null) {
-                return;
-            }
-
             var index = stalledStreams.indexOf(type);
             if (index !== -1) {
                 stalledStreams.splice(index, 1);
@@ -73,6 +69,10 @@ MediaPlayer.models.VideoModel = function () {
         },
 
         stallStream = function (type, isStalled) {
+            if (type === null) {
+                return;
+            }
+
             if (isStalled) {
                 addStalledStream.call(this, type);
             } else {
