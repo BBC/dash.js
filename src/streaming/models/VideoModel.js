@@ -41,7 +41,7 @@ MediaPlayer.models.VideoModel = function () {
         },
 
         addStalledStream = function (type) {
-            if (type === null || element.seeking) {
+            if (type === null || element.seeking || stalledStreams.indexOf(type) !== -1) {
                 return;
             }
 
@@ -50,10 +50,6 @@ MediaPlayer.models.VideoModel = function () {
                 previousPlaybackRate = this.getPlaybackRate();
                 this.setPlaybackRate(0);
                 element.dispatchEvent(new CustomEvent("waiting"));
-            }
-
-            if (stalledStreams[type] === true) {
-                return;
             }
 
             stalledStreams.push(type);
