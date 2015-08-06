@@ -41,6 +41,7 @@ MediaPlayer.models.VideoModel = function () {
         },
 
         addStalledStream = function (type) {
+            var event;
             if (element.seeking || stalledStreams.indexOf(type) !== -1) {
                 return;
             }
@@ -49,22 +50,27 @@ MediaPlayer.models.VideoModel = function () {
 
             // Halt playback until nothing is stalled.
             if (stalledStreams.length === 1) {
+                event = document.createEvent('Event');
+                event.initEvent('waiting', true, false);
                 previousPlaybackRate = this.getPlaybackRate();
                 this.setPlaybackRate(0);
-                element.dispatchEvent(new CustomEvent("waiting"));
+                element.dispatchEvent(event);
             }
         },
 
         removeStalledStream = function (type) {
-            var index = stalledStreams.indexOf(type);
+            var index = stalledStreams.indexOf(type),
+                event;
             if (index !== -1) {
                 stalledStreams.splice(index, 1);
             }
 
             // If nothing is stalled resume playback.
             if (isStalled() === false && element.playbackRate === 0) {
+                event = document.createEvent('Event');
+                event.initEvent('playing', true, false);
                 this.setPlaybackRate(previousPlaybackRate || 1);
-                element.dispatchEvent(new CustomEvent("playing"));
+                element.dispatchEvent(event);
             }
         },
 
