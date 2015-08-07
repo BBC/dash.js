@@ -255,7 +255,8 @@ MediaPlayer.dependencies.PlaybackController = function () {
                 time = this.getTime(),
                 type = e.sender.streamProcessor.getType(),
                 stream = this.system.getObject("streamController").getStreamById(streamInfo.id),
-                currentEarliestTime = commonEarliestTime[id];
+                currentEarliestTime = commonEarliestTime[id],
+                seeking = this.videoModel.getElement().seeking;
 
             // if index is zero it means that the first segment of the Period has been appended
             if (e.data.index === 0) {
@@ -271,7 +272,8 @@ MediaPlayer.dependencies.PlaybackController = function () {
 
             // do nothing if common earliest time has not changed or if the firts segment has not been appended or if current
             // time exceeds the common earliest time
-            if ((currentEarliestTime === commonEarliestTime[id] && (time === currentEarliestTime)) || !firstAppended.ready || (time > commonEarliestTime[id])) return;
+            // or we're seeking
+            if (seeking || (currentEarliestTime === commonEarliestTime[id] && (time === currentEarliestTime)) || !firstAppended.ready || (time > commonEarliestTime[id])) return;
 
             // seek to the start of buffered range to avoid stalling caused by a shift between audio and video media time
             this.seek(commonEarliestTime[id]);
