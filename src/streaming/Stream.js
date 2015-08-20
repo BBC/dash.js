@@ -62,20 +62,20 @@ MediaPlayer.dependencies.Stream = function () {
                 streamProcessor,
                 mediaInfo = self.adapter.getMediaInfoForType(manifest, streamInfo, type);
 
-            if (type === "text") {
-                getCodecOrMimeType = function(mediaInfo) {
-                    mimeType = mediaInfo.mimeType;
-
-                    return mimeType;
-                };
-            } else if (type === "muxed") {
-                msg = "Multiplexed representations are intentionally not supported, as they are not compliant with the DASH-AVC/264 guidelines";
-                this.log(msg);
-                this.errHandler.manifestError(msg, "multiplexedrep", this.manifestModel.getValue());
-                return;
-            }
-
             if (mediaInfo !== null) {
+                if (type === "text") {
+                    getCodecOrMimeType = function(mediaInfo) {
+                        mimeType = mediaInfo.mimeType;
+
+                        return mimeType;
+                    };
+                } else if (type === "muxed") {
+                    msg = "Multiplexed representations are intentionally not supported, as they are not compliant with the DASH-AVC/264 guidelines";
+                    this.log(msg);
+                    this.errHandler.manifestError(msg, "multiplexedrep", this.manifestModel.getValue());
+                    return;
+                }
+
                 //self.log("Create " + type + " buffer.");
                 var codecOrMime = getCodecOrMimeType.call(self, mediaInfo),
                     contentProtectionData;
