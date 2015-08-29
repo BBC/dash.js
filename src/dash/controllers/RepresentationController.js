@@ -142,9 +142,14 @@ Dash.dependencies.RepresentationController = function () {
                     for (var i = 0; i < availableRepresentations.length; i += 1) {
                         self.indexHandler.updateRepresentation(availableRepresentations[i], true);
                     }
+                    this.streamController.videoModel.play();
                 };
 
             updating = false;
+            self.eventBus.dispatchEvent({
+                type: MediaPlayer.events.AST_IN_FUTURE,
+                data: {delay: delay}
+            });
             setTimeout(update.bind(this), delay);
         },
 
@@ -257,6 +262,7 @@ Dash.dependencies.RepresentationController = function () {
         subscribe: undefined,
         unsubscribe: undefined,
         DOMStorage:undefined,
+        eventBus: undefined,
 
         setup: function() {
             this[MediaPlayer.dependencies.AbrController.eventList.ENAME_QUALITY_CHANGED] = onQualityChanged;

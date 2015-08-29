@@ -33,6 +33,7 @@ MediaPlayer.models.VideoModel = function () {
 
     var element,
         stalledStreams = [],
+        previousPlaybackRate,
         //_currentTime = 0,
 
         isStalled = function () {
@@ -40,39 +41,44 @@ MediaPlayer.models.VideoModel = function () {
         },
 
         addStalledStream = function (type) {
-            if (type === null || element.seeking) {
-                return;
-            }
-
-            // Halt playback until nothing is stalled.
-            this.setPlaybackRate(0);
-
-            if (stalledStreams[type] === true) {
+            var event;
+            if (element.seeking || stalledStreams.indexOf(type) !== -1) {
                 return;
             }
 
             stalledStreams.push(type);
-            stalledStreams[type] = true;
+
+            // Halt playback until nothing is stalled.
+            if (stalledStreams.length === 1) {
+                event = document.createEvent('Event');
+                event.initEvent('waiting', true, false);
+                previousPlaybackRate = this.getPlaybackRate();
+                this.setPlaybackRate(0);
+                element.dispatchEvent(event);
+            }
         },
 
         removeStalledStream = function (type) {
-            if (type === null) {
-                return;
-            }
-
-            stalledStreams[type] = false;
-            var index = stalledStreams.indexOf(type);
+            var index = stalledStreams.indexOf(type),
+                event;
             if (index !== -1) {
                 stalledStreams.splice(index, 1);
             }
 
             // If nothing is stalled resume playback.
-            if (isStalled() === false) {
-                this.setPlaybackRate(1);
+            if (isStalled() === false && element.playbackRate === 0) {
+                event = document.createEvent('Event');
+                event.initEvent('playing', true, false);
+                this.setPlaybackRate(previousPlaybackRate || 1);
+                element.dispatchEvent(event);
             }
         },
 
         stallStream = function (type, isStalled) {
+            if (type === null) {
+                return;
+            }
+
             if (isStalled) {
                 addStalledStream.call(this, type);
             } else {
@@ -153,7 +159,9 @@ MediaPlayer.models.VideoModel = function () {
         },
 
         setSource: function (source) {
-            element.src = source;
+            if (source) {
+                element.src = source;
+            }
         }
     };
 };

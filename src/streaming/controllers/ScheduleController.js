@@ -346,7 +346,8 @@ MediaPlayer.dependencies.ScheduleController = function () {
             var self = this,
                 liveEdgeTime = e.data.liveEdge,
                 manifestInfo = currentTrackInfo.mediaInfo.streamInfo.manifestInfo,
-                startTime = liveEdgeTime - Math.min((self.playbackController.getLiveDelay(currentTrackInfo.fragmentDuration)), manifestInfo.DVRWindowSize / 2),
+                // startTime should probably never be less than 0
+                startTime = Math.max(0, liveEdgeTime - Math.min((self.playbackController.getLiveDelay(currentTrackInfo.fragmentDuration)), manifestInfo.DVRWindowSize / 2)),
                 request,
                 metrics = self.metricsModel.getMetricsFor("stream"),
                 manifestUpdateInfo = self.metricsExt.getCurrentManifestUpdate(metrics),
@@ -361,11 +362,10 @@ MediaPlayer.dependencies.ScheduleController = function () {
             }
 
             self.metricsModel.updateManifestUpdateInfo(manifestUpdateInfo, {currentTime: actualStartTime, presentationStartTime: liveEdgeTime, latency: liveEdgeTime - actualStartTime, clientTimeOffset: self.timelineConverter.getClientTimeOffset()});
-            ready = true;
 
-            if (currentTrackInfo) {
-                startOnReady.call(self);
-            }
+            // ready will checked in onStreamUpdated and scheduling started
+            // based on its value
+            ready = true;
         };
 
 

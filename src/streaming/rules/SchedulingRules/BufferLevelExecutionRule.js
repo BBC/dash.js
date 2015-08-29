@@ -3,7 +3,7 @@
  * included below. This software may be subject to other third party and contributor
  * rights, including patent rights, and no such rights are granted under this license.
  *
- * Copyright (c) 2013, Dash Industry Forum.
+ * Copyright (c) 2015, BBC.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,47 +28,33 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-MediaPlayer.rules.ScheduleRulesCollection = function () {
+MediaPlayer.rules.BufferLevelExecutionRule = function () {
     "use strict";
 
-    var fragmentsToScheduleRules = [],
-        fragmentsToExecuteRules = [],
-        nextFragmentRules = [];
-
-
     return {
-        bufferLevelRule: undefined,
-        pendingRequestsRule: undefined,
-        playbackTimeRule: undefined,
-        sameTimeRequestRule: undefined,
-        bufferLevelExecutionRule: undefined,
+        metricsExt: undefined,
+        metricsModel: undefined,
+        videoModel: undefined,
+        log: undefined,
 
-        getRules: function (type) {
-            switch (type) {
-                case MediaPlayer.rules.ScheduleRulesCollection.prototype.FRAGMENTS_TO_SCHEDULE_RULES:
-                    return fragmentsToScheduleRules;
-                case MediaPlayer.rules.ScheduleRulesCollection.prototype.NEXT_FRAGMENT_RULES:
-                    return nextFragmentRules;
-                case MediaPlayer.rules.ScheduleRulesCollection.prototype.FRAGMENTS_TO_EXECUTE_RULES:
-                    return fragmentsToExecuteRules;
-                default:
-                    return null;
+        execute: function(context, callback) {
+            var mediaType = context.getMediaInfo().type;
+
+            var metrics = this.metricsModel.getReadOnlyMetricsFor(mediaType),
+                bufferLevel = this.metricsExt.getCurrentBufferLevel(metrics) ? this.metricsExt.getCurrentBufferLevel(metrics).level : 0;
+
+            if (bufferLevel > 45 && !this.videoModel.getElement().seeking) {
+                this.log('Long buffer. Don\'t go running away.');
+                callback(new MediaPlayer.rules.SwitchRequest([], MediaPlayer.rules.SwitchRequest.prototype.STRONG));
+            } else {
+                callback(new MediaPlayer.rules.SwitchRequest([], MediaPlayer.rules.SwitchRequest.prototype.WEAK));
             }
         },
 
-        setup: function () {
-            fragmentsToScheduleRules.push(this.bufferLevelRule);
-            fragmentsToScheduleRules.push(this.pendingRequestsRule);
-            nextFragmentRules.push(this.playbackTimeRule);
-            fragmentsToExecuteRules.push(this.sameTimeRequestRule);
-            fragmentsToExecuteRules.push(this.bufferLevelExecutionRule);
-        }
+        reset: function() {}
     };
 };
 
-MediaPlayer.rules.ScheduleRulesCollection.prototype = {
-    constructor: MediaPlayer.rules.ScheduleRulesCollection,
-    FRAGMENTS_TO_SCHEDULE_RULES: "fragmentsToScheduleRules",
-    NEXT_FRAGMENT_RULES: "nextFragmentRules",
-    FRAGMENTS_TO_EXECUTE_RULES: "fragmentsToExecuteRules"
+MediaPlayer.rules.BufferLevelExecutionRule.prototype = {
+    constructor: MediaPlayer.rules.BufferLevelExecutionRule
 };
