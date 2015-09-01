@@ -226,7 +226,7 @@ MediaPlayer.dependencies.FragmentModel = function () {
                 },
 
                 isEqualMedia = function(req1, req2) {
-                    return ((req1.mediaType === req2.mediaType) && (req1.startTime === req2.startTime));
+                    return ((req1.url === req2.url) && (req1.startTime === req2.startTime));
                 },
 
                 isEqualInit = function(req1, req2) {
@@ -236,7 +236,7 @@ MediaPlayer.dependencies.FragmentModel = function () {
                 isDiscarded = function() {
                     var streamInfo = this.streamController.getActiveStreamInfo(),
                         stream = this.streamController.getStreamById(streamInfo.id),
-                        inBuffer = stream.hasBufferForTime(request.availabilityStartTime),
+                        inBuffer = stream.hasBufferForTime(request.startTime),
                         req,
                         d,
                         i;
