@@ -186,7 +186,7 @@ MediaPlayer.dependencies.FragmentModel = function () {
         subscribe: undefined,
         unsubscribe: undefined,
         videoModel: undefined,
-        sourceBufferExt: undefined,
+        streamController: undefined,
 
         setup: function() {
             this[MediaPlayer.dependencies.BufferController.eventList.ENAME_BUFFER_LEVEL_OUTRUN] = onBufferLevelOutrun;
@@ -234,19 +234,21 @@ MediaPlayer.dependencies.FragmentModel = function () {
                 },
 
                 isDiscarded = function() {
-                    var buffer = this.videoModel.getElement(),
-                        inBuffer = this.sourceBufferExt.getBufferRange(buffer, request.availabilityStartTime) !== null,
+                    var streamInfo = this.streamController.getActiveStreamInfo(),
+                        stream = this.streamController.getStreamById(streamInfo.id),
+                        inBuffer = stream.hasBufferForTime(request.startTime),
                         req,
-                        d;
+                        d,
+                        i;
 
                     // It can take a few moments to get into the buffer
                     if (!inBuffer) {
                         d = new Date();
-                        d.setSeconds(d.getSeconds() + 3);
-                        for (var i = 0; i < executedRequests.length; i += 1) {
+                        d.setSeconds(d.getSeconds() - 3);
+                        for (i = 0; i < executedRequests.length; i += 1) {
                             req = executedRequests[i];
 
-                            if (isEqualMedia(request, req) && req.requestEndDate <= d) {
+                            if (isEqualMedia(request, req) && req.requestEndDate >= d) {
                                 return false;
                             }
                         }

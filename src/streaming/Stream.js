@@ -260,6 +260,16 @@ MediaPlayer.dependencies.Stream = function () {
 
             isUpdating = false;
             checkIfInitializationCompleted.call(self);
+        },
+
+        hasBufferForTime = function(time) {
+            var i;
+            for (i = 0; i < streamProcessors.length; i += 1) {
+                if (this.sourceBufferExt.getBufferRange(streamProcessors[i].createBuffer(), time) === null) {
+                    return false;
+                }
+            }
+            return streamProcessors.length > 0;
         };
 
     return {
@@ -398,6 +408,10 @@ MediaPlayer.dependencies.Stream = function () {
 
         hasMedia: function(type){
             return (getMediaInfo.call(this, type) !== null);
+        },
+
+        hasBufferForTime: function(time){
+            return hasBufferForTime.call(this, time);
         },
 
         /**
