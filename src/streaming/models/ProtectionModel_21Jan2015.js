@@ -174,6 +174,7 @@ MediaPlayer.models.ProtectionModel_21Jan2015 = function () {
         teardown: function() {
             if (videoElement) {
                 videoElement.removeEventListener("encrypted", eventHandler);
+                videoElement.setMediaKeys(null);
             }
             for (var i = 0; i < sessions.length; i++) {
                 this.closeKeySession(sessions[i]);
@@ -203,7 +204,7 @@ MediaPlayer.models.ProtectionModel_21Jan2015 = function () {
 
         setMediaElement: function(mediaElement) {
             if (videoElement) {
-                videoElement.removeEventListener("encrypted", eventHandler().bind(this));
+                videoElement.removeEventListener("encrypted", eventHandler);
             }
             videoElement = mediaElement;
             videoElement.addEventListener("encrypted", eventHandler);
@@ -219,9 +220,9 @@ MediaPlayer.models.ProtectionModel_21Jan2015 = function () {
 
             var self = this;
             mediaKeys.setServerCertificate(serverCertificate).then(function() {
-                self.notify(MediaPlayer.models.ProtectionModel.ENAME_SERVER_CERTIFICATE_UPDATED);
+                self.notify(MediaPlayer.models.ProtectionModel.eventList.ENAME_SERVER_CERTIFICATE_UPDATED);
             }).catch(function(error) {
-                self.notify(MediaPlayer.models.ProtectionModel.ENAME_SERVER_CERTIFICATE_UPDATED,
+                self.notify(MediaPlayer.models.ProtectionModel.eventList.ENAME_SERVER_CERTIFICATE_UPDATED,
                         null, "Error updating server certificate -- " + error.name);
             });
         },
@@ -245,7 +246,7 @@ MediaPlayer.models.ProtectionModel_21Jan2015 = function () {
             // Generate initial key request
             var self = this;
             session.generateRequest("cenc", initData).then(function() {
-                self.notify(MediaPlayer.models.ProtectionModel.ENAME_KEY_SESSION_CREATED, sessionToken);
+                self.notify(MediaPlayer.models.ProtectionModel.eventList.ENAME_KEY_SESSION_CREATED, sessionToken);
             }).catch(function(error) {
                 // TODO: Better error string
                 removeSession(sessionToken);

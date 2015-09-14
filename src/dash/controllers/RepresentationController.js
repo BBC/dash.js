@@ -41,7 +41,8 @@ Dash.dependencies.RepresentationController = function () {
             var self = this,
                 bitrate = null,
                 streamInfo = self.streamProcessor.getStreamInfo(),
-                quality;
+                quality,
+                maxQuality = self.abrController.getTopQualityIndexFor(type, streamInfo.id);
 
             updating = true;
             self.notify(Dash.dependencies.RepresentationController.eventList.ENAME_DATA_UPDATE_STARTED);
@@ -55,13 +56,16 @@ Dash.dependencies.RepresentationController = function () {
                 quality = self.abrController.getQualityFor(type, streamInfo);
             }
 
+            if (quality > maxQuality) {
+                quality = maxQuality;
+            }
+
             currentRepresentation = getRepresentationForQuality.call(self, quality);
             data = dataValue;
 
             if (type !== "video" && type !== "audio" && type !== "fragmentedText") {
                 updating = false;
                 self.notify(Dash.dependencies.RepresentationController.eventList.ENAME_DATA_UPDATE_COMPLETED, {data: data, currentRepresentation: currentRepresentation});
-                addRepresentationSwitch.call(self);
                 return;
             }
 
@@ -95,12 +99,17 @@ Dash.dependencies.RepresentationController = function () {
 
         isAllRepresentationsUpdated = function() {
             for (var i = 0, ln = availableRepresentations.length; i < ln; i += 1) {
-                if (availableRepresentations[i].segmentAvailabilityRange === null || availableRepresentations[i].initialization === null) return false;
+                var segmentInfoType = availableRepresentations[i].segmentInfoType;
+                if (availableRepresentations[i].segmentAvailabilityRange === null || availableRepresentations[i].initialization === null ||
+                        ((segmentInfoType === "SegmentBase" || segmentInfoType === "BaseURL") && !availableRepresentations[i].segments)
+                ) {
+                    return false;
+                }
             }
 
             return true;
         },
-
+    
         updateRepresentations = function(adaptation) {
             var self = this,
                 reps,
@@ -133,9 +142,14 @@ Dash.dependencies.RepresentationController = function () {
                     for (var i = 0; i < availableRepresentations.length; i += 1) {
                         self.indexHandler.updateRepresentation(availableRepresentations[i], true);
                     }
+                    this.streamController.videoModel.play();
                 };
 
             updating = false;
+            self.eventBus.dispatchEvent({
+                type: MediaPlayer.events.AST_IN_FUTURE,
+                data: {delay: delay}
+            });
             setTimeout(update.bind(this), delay);
         },
 
@@ -144,11 +158,13 @@ Dash.dependencies.RepresentationController = function () {
 
             var self = this,
                 r = e.data.representation,
-                metrics = self.metricsModel.getMetricsFor("stream"),
-                manifestUpdateInfo = self.metricsExt.getCurrentManifestUpdate(metrics),
+                streamMetrics = self.metricsModel.getMetricsFor("stream"),
+                metrics = self.metricsModel.getMetricsFor(this.getCurrentRepresentation().adaptation.type),
+                manifestUpdateInfo = self.metricsExt.getCurrentManifestUpdate(streamMetrics),
                 repInfo,
                 err,
-                alreadyAdded = false;
+                alreadyAdded = false,
+                repSwitch;
 
             if (e.error && e.error.code === Dash.dependencies.DashHandler.SEGMENTS_UNAVAILABLE_ERROR_CODE) {
                 addDVRMetric.call(this);
@@ -159,25 +175,33 @@ Dash.dependencies.RepresentationController = function () {
                 return;
             }
 
-            for (var i = 0; i < manifestUpdateInfo.trackInfo.length; i += 1) {
-                repInfo = manifestUpdateInfo.trackInfo[i];
-                if (repInfo.index === r.index && repInfo.mediaType === self.streamProcessor.getType()) {
-                    alreadyAdded = true;
-                    break;
+            if (manifestUpdateInfo) {
+                for (var i = 0; i < manifestUpdateInfo.trackInfo.length; i += 1) {
+                    repInfo = manifestUpdateInfo.trackInfo[i];
+                    if (repInfo.index === r.index && repInfo.mediaType === self.streamProcessor.getType()) {
+                        alreadyAdded = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!alreadyAdded) {
-                self.metricsModel.addManifestUpdateTrackInfo(manifestUpdateInfo, r.id, r.index, r.adaptation.period.index,
-                    self.streamProcessor.getType(),r.presentationTimeOffset, r.startNumber, r.segmentInfoType);
+                if (!alreadyAdded) {
+                    self.metricsModel.addManifestUpdateTrackInfo(manifestUpdateInfo, r.id, r.index, r.adaptation.period.index,
+                            self.streamProcessor.getType(),r.presentationTimeOffset, r.startNumber, r.segmentInfoType);
+                }
             }
 
             if (isAllRepresentationsUpdated()) {
                 updating = false;
                 self.abrController.setPlaybackQuality(self.streamProcessor.getType(), self.streamProcessor.getStreamInfo(), getQualityForRepresentation.call(this, currentRepresentation));
                 self.metricsModel.updateManifestUpdateInfo(manifestUpdateInfo, {latency: currentRepresentation.segmentAvailabilityRange.end - self.streamProcessor.playbackController.getTime()});
+
+                repSwitch = self.metricsExt.getCurrentRepresentationSwitch(metrics);
+
+                if (!repSwitch) {
+                    addRepresentationSwitch.call(self);
+                }
+
                 this.notify(Dash.dependencies.RepresentationController.eventList.ENAME_DATA_UPDATE_COMPLETED, {data: data, currentRepresentation: currentRepresentation});
-                addRepresentationSwitch.call(self);
             }
         },
 
@@ -193,8 +217,15 @@ Dash.dependencies.RepresentationController = function () {
 
             // we need to update checkTime after we have found the live edge because its initial value
             // does not take into account clientServerTimeShift
-            var manifest = this.manifestModel.getValue();
-            currentRepresentation.adaptation.period.mpd.checkTime = this.manifestExt.getCheckTime(manifest, currentRepresentation.adaptation.period);
+            var manifest = this.manifestModel.getValue(),
+                period = currentRepresentation.adaptation.period,
+                streamInfo = this.streamController.getActiveStreamInfo();
+
+            if (streamInfo.isLast) {
+                period.mpd.checkTime = this.manifestExt.getCheckTime(manifest, period);
+                period.duration = this.manifestExt.getEndTimeForLastPeriod(this.manifestModel.getValue(), period) - period.start;
+                streamInfo.duration = period.duration;
+            }
         },
 
         onBufferLevelUpdated = function(/*e*/) {
@@ -207,7 +238,14 @@ Dash.dependencies.RepresentationController = function () {
             if (e.data.mediaType !== self.streamProcessor.getType() || self.streamProcessor.getStreamInfo().id !== e.data.streamInfo.id) return;
 
             currentRepresentation = self.getRepresentationForQuality(e.data.newQuality);
+            setLocalStorage.call(self, e.data.mediaType, currentRepresentation.bandwidth);
             addRepresentationSwitch.call(self);
+        },
+
+        setLocalStorage = function(type, bitrate) {
+            if (type === "video" || type === "audio") {
+                this.DOMStorage.storeBitrate(MediaPlayer.utils.DOMStorage.STORAGE_TYPE_LOCAL, type, bitrate/1000);
+            }
         };
 
     return {
@@ -218,10 +256,13 @@ Dash.dependencies.RepresentationController = function () {
         metricsModel: undefined,
         metricsExt: undefined,
         abrController: undefined,
+        streamController: undefined,
         timelineConverter: undefined,
         notify: undefined,
         subscribe: undefined,
         unsubscribe: undefined,
+        DOMStorage:undefined,
+        eventBus: undefined,
 
         setup: function() {
             this[MediaPlayer.dependencies.AbrController.eventList.ENAME_QUALITY_CHANGED] = onQualityChanged;

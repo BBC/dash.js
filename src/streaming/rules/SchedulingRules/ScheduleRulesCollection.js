@@ -35,11 +35,13 @@ MediaPlayer.rules.ScheduleRulesCollection = function () {
         fragmentsToExecuteRules = [],
         nextFragmentRules = [];
 
+
     return {
         bufferLevelRule: undefined,
         pendingRequestsRule: undefined,
         playbackTimeRule: undefined,
         sameTimeRequestRule: undefined,
+        bufferLevelExecutionRule: undefined,
 
         getRules: function (type) {
             switch (type) {
@@ -59,6 +61,7 @@ MediaPlayer.rules.ScheduleRulesCollection = function () {
             fragmentsToScheduleRules.push(this.pendingRequestsRule);
             nextFragmentRules.push(this.playbackTimeRule);
             fragmentsToExecuteRules.push(this.sameTimeRequestRule);
+            fragmentsToExecuteRules.push(this.bufferLevelExecutionRule);
         }
     };
 };

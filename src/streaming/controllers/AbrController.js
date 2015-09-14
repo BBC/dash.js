@@ -31,11 +31,15 @@
 MediaPlayer.dependencies.AbrController = function () {
     "use strict";
 
-    var autoSwitchBitrate = true,
+    var autoSwitchBitrate = {"video": true, "audio": true},
         topQualities = {},
         qualityDict = {},
         confidenceDict = {},
         bitrateDict = {},
+        ratioDict = {},
+        streamProcessorDict={},
+        abandonmentStateDict = {},
+        abandonmentTimeout,
 
         getInternalQuality = function (type, id) {
             var quality;
@@ -84,7 +88,17 @@ MediaPlayer.dependencies.AbrController = function () {
             var initialBitrate;
 
             if (!bitrateDict.hasOwnProperty(type)) {
-                bitrateDict[type] = (type === "video") ? MediaPlayer.dependencies.AbrController.DEFAULT_VIDEO_BITRATE : MediaPlayer.dependencies.AbrController.DEFAULT_AUDIO_BITRATE;
+                if (!ratioDict.hasOwnProperty(type)) {
+                    bitrateDict[type] = (type === "video") ? MediaPlayer.dependencies.AbrController.DEFAULT_VIDEO_BITRATE : MediaPlayer.dependencies.AbrController.DEFAULT_AUDIO_BITRATE;
+                } else {
+                    var manifest = this.manifestModel.getValue(),
+                        representation = this.manifestExt.getAdaptationForType(manifest, 0, type).Representation;
+                    if (Array.isArray(representation)) {
+                        bitrateDict[type] = representation[Math.round(representation.length * ratioDict[type])-1].bandwidth;
+                    } else {
+                        bitrateDict[type] = 0;
+                    }
+                }
             }
 
             initialBitrate = bitrateDict[type];
@@ -96,18 +110,143 @@ MediaPlayer.dependencies.AbrController = function () {
             bitrateDict[type] = value;
         },
 
+        getInitialRepresentationRatio = function(type) {
+            if (!ratioDict.hasOwnProperty(type)) {
+                return null;
+            }
+
+            return ratioDict[type];
+        },
+
+        setInitialRepresentationRatio = function(type, value) {
+            ratioDict[type] = value;
+        },
+
+        getMaxBitrate = function(type) {
+            if (bitrateDict.hasOwnProperty("max") && bitrateDict.max.hasOwnProperty(type)){
+                return bitrateDict.max[type];
+            }
+            return NaN;
+        },
+
+        //TODO  change bitrateDict structure to hold one object for video and audio with initial and max values internal.
+        // This means you need to update all the logic around intial bitrate DOMStorage, RebController etc...
+        setMaxBitrate = function(type, value) {
+            bitrateDict.max = bitrateDict.max || {};
+            bitrateDict.max[type] = value;
+        },
+
+        getMaxRepresentationRatio = function(type) {
+            if (ratioDict.hasOwnProperty("max") && ratioDict.max.hasOwnProperty(type)){
+                return ratioDict.max[type];
+            }
+            return 1;
+        },
+
+        setMaxRepresentationRatio = function(type, value) {
+            ratioDict.max = ratioDict.max || {};
+            ratioDict.max[type] = value;
+        },
+
         getTopQualityIndex = function(type, id) {
             var idx;
 
             topQualities[id] = topQualities[id] || {};
 
             if (!topQualities[id].hasOwnProperty(type)) {
-                topQualities[id][type] = 0;
+                    topQualities[id][type] = 0;
             }
 
-            idx = topQualities[id][type];
+            idx = checkMaxBitrate.call(this, topQualities[id][type], type);
+            idx = checkMaxRepresentationRatio.call(this, idx, type, topQualities[id][type]);
+            idx = checkPortalSize.call(this, idx, type);
 
             return idx;
+        },
+
+        checkMaxBitrate = function(idx, type){
+            var maxBitrate = getMaxBitrate(type);
+            if (isNaN(maxBitrate) || !streamProcessorDict[type]) {
+                return idx;
+            }
+            var maxIdx = this.getQualityForBitrate(streamProcessorDict[type].getMediaInfo(), maxBitrate);
+            return Math.min (idx , maxIdx);
+        },
+
+        checkMaxRepresentationRatio = function(idx, type, maxIdx){
+            var maxRepresentationRatio = getMaxRepresentationRatio(type);
+            if (isNaN(maxRepresentationRatio) || maxRepresentationRatio >= 1) {
+                return idx;
+            }
+            return Math.min( idx , Math.round(maxIdx * maxRepresentationRatio) );
+        },
+
+        onFragmentLoadProgress = function(evt) {
+            if (MediaPlayer.dependencies.ScheduleController.LOADING_REQUEST_THRESHOLD === 0) { //check to see if there are parallel request or just one at a time.
+
+                var self = this,
+                    type = evt.data.request.mediaType,
+                    rules = self.abrRulesCollection.getRules(MediaPlayer.rules.ABRRulesCollection.prototype.ABANDON_FRAGMENT_RULES),
+                    schduleController = streamProcessorDict[type].getScheduleController(),
+                    fragmentModel = schduleController.getFragmentModel(),
+                    callback = function (switchRequest) {
+
+                        function setupTimeout(type){
+                            abandonmentTimeout = setTimeout(function () {
+                                self.setAbandonmentStateFor(type, MediaPlayer.dependencies.AbrController.ALLOW_LOAD);
+                            }, MediaPlayer.dependencies.AbrController.ABANDON_TIMEOUT);
+                        }
+
+                        if (switchRequest.confidence === MediaPlayer.rules.SwitchRequest.prototype.STRONG) {
+
+                            var requests = fragmentModel.getRequests({state:MediaPlayer.dependencies.FragmentModel.states.LOADING}),
+                                newQuality = switchRequest.value,
+                                currentQuality = self.getQualityFor(type, self.streamController.getActiveStreamInfo());
+
+                            if (newQuality < currentQuality){
+
+                                fragmentModel.abortRequests();
+                                self.setAbandonmentStateFor(type, MediaPlayer.dependencies.AbrController.ABANDON_LOAD);
+                                self.setPlaybackQuality(type, self.streamController.getActiveStreamInfo() , newQuality);
+                                schduleController.replaceCanceledRequests(requests);
+                                setupTimeout(type);
+                            }
+                        }
+                    };
+
+                self.rulesController.applyRules(rules, streamProcessorDict[type], callback, evt, function(currentValue, newValue) {
+                    return newValue;
+                });
+            }
+        },
+
+        checkPortalSize = function(idx, type) {
+            if (type !== 'video' || !this.limitBitrateByPortal || !streamProcessorDict[type]) {
+                return idx;
+            }
+
+            var element = streamProcessorDict[type].videoModel.getElement(),
+                elementWidth = element.clientWidth,
+                elementHeight = element.clientHeight,
+                manifest = this.manifestModel.getValue(),
+                representation = this.manifestExt.getAdaptationForType(manifest, 0, type).Representation,
+                newIdx = idx;
+
+            if (elementWidth > 0 && elementHeight > 0) {
+                while (
+                    newIdx > 0 &&
+                    elementWidth < representation[newIdx].width &&
+                    elementWidth - representation[newIdx-1].width < representation[newIdx].width - elementWidth
+                ) {
+                    newIdx = newIdx -1;
+                }
+
+                if (representation.length - 2 >= newIdx && representation[newIdx].width === representation[newIdx+1].width) {
+                    newIdx = Math.min(idx, newIdx+1);
+                }
+            }
+
+            return newIdx;
         };
 
     return {
@@ -117,13 +256,27 @@ MediaPlayer.dependencies.AbrController = function () {
         notify: undefined,
         subscribe: undefined,
         unsubscribe: undefined,
+        streamController:undefined,
+        manifestExt: undefined,
+        manifestModel: undefined,
+        limitBitrateByPortal: undefined,
 
-        getAutoSwitchBitrate: function () {
-            return autoSwitchBitrate;
+        setup: function() {
+            this[MediaPlayer.dependencies.FragmentLoader.eventList.ENAME_LOADING_PROGRESS] = onFragmentLoadProgress;
         },
 
-        setAutoSwitchBitrate: function (value) {
-            autoSwitchBitrate = value;
+        initialize: function(type, streamProcessor) {
+            streamProcessorDict[type] = streamProcessor;
+            abandonmentStateDict[type] = abandonmentStateDict[type] || {};
+            abandonmentStateDict[type].state = MediaPlayer.dependencies.AbrController.ALLOW_LOAD;
+        },
+
+        getAutoSwitchBitrate: function (type) {
+            return autoSwitchBitrate[type];
+        },
+
+        setAutoSwitchBitrate: function (type, value) {
+            autoSwitchBitrate[type] = value;
         },
 
         getPlaybackQuality: function (streamProcessor) {
@@ -136,7 +289,7 @@ MediaPlayer.dependencies.AbrController = function () {
                 confidence,
 
                 callback = function(res) {
-                    var topQualityIdx = getTopQualityIndex(type, streamId);
+                    var topQualityIdx = getTopQualityIndex.call(self, type, streamId);
 
                     quality = res.value;
                     confidence = res.confidence;
@@ -150,9 +303,9 @@ MediaPlayer.dependencies.AbrController = function () {
                         quality = topQualityIdx;
                     }
 
-                    oldQuality = getInternalQuality(type, streamId);
+                    oldQuality = getInternalQuality.call(this, type, streamId);
 
-                    if (quality === oldQuality) return;
+                    if (quality === oldQuality || (abandonmentStateDict[type].state === MediaPlayer.dependencies.AbrController.ABANDON_LOAD &&  quality > oldQuality)) return;
 
                     setInternalQuality(type, streamId, quality);
                     //self.log("New quality of " + quality);
@@ -162,12 +315,12 @@ MediaPlayer.dependencies.AbrController = function () {
                     self.notify(MediaPlayer.dependencies.AbrController.eventList.ENAME_QUALITY_CHANGED, {mediaType: type, streamInfo: streamProcessor.getStreamInfo(), oldQuality: oldQuality, newQuality: quality});
                 };
 
-            quality = getInternalQuality(type, streamId);
+            quality = getInternalQuality.call(this, type, streamId);
             confidence = getInternalConfidence(type, streamId);
 
 
             //self.log("ABR enabled? (" + autoSwitchBitrate + ")");
-            if (!autoSwitchBitrate) return;
+            if (!autoSwitchBitrate[type]) return;
 
             //self.log("Check ABR rules.");
             rules = self.abrRulesCollection.getRules(MediaPlayer.rules.ABRRulesCollection.prototype.QUALITY_SWITCH_RULES);
@@ -179,19 +332,27 @@ MediaPlayer.dependencies.AbrController = function () {
 
         setPlaybackQuality: function (type, streamInfo, newPlaybackQuality) {
             var id = streamInfo.id,
-                quality = getInternalQuality(type, id),
+                quality = getInternalQuality.call(this, type, id),
                 isInt = newPlaybackQuality !== null && !isNaN(newPlaybackQuality) && (newPlaybackQuality % 1 === 0);
 
             if (!isInt) throw "argument is not an integer";
 
-            if (newPlaybackQuality !== quality && newPlaybackQuality >= 0 && topQualities[id].hasOwnProperty(type) && newPlaybackQuality <= topQualities[id][type]) {
+            if (newPlaybackQuality !== quality && newPlaybackQuality >= 0 && newPlaybackQuality <= getTopQualityIndex.call(this, type, id)) {
                 setInternalQuality(type, streamInfo.id, newPlaybackQuality);
                 this.notify(MediaPlayer.dependencies.AbrController.eventList.ENAME_QUALITY_CHANGED, {mediaType: type, streamInfo: streamInfo, oldQuality: quality, newQuality: newPlaybackQuality});
             }
         },
 
+        setAbandonmentStateFor: function (type, state) {
+            abandonmentStateDict[type].state = state;
+        },
+
+        getAbandonmentStateFor: function (type) {
+            return abandonmentStateDict[type].state;
+        },
+
         getQualityFor: function (type, streamInfo) {
-            return getInternalQuality(type, streamInfo.id);
+            return getInternalQuality.call(this, type, streamInfo.id);
         },
 
         getConfidenceFor: function(type, streamInfo) {
@@ -203,7 +364,7 @@ MediaPlayer.dependencies.AbrController = function () {
          * @param {number} value A value of the initial bitrate, kbps
          * @memberof AbrController#
          */
-        setInitialBitrateFor: function(type, value){
+        setInitialBitrateFor: function(type, value) {
             setInitialBitrate(type, value);
         },
 
@@ -212,25 +373,71 @@ MediaPlayer.dependencies.AbrController = function () {
          * @returns {number} A value of the initial bitrate, kbps
          * @memberof AbrController#
          */
-        getInitialBitrateFor: function(type){
-            return getInitialBitrate(type);
+        getInitialBitrateFor: function(type) {
+            return getInitialBitrate.call(this, type);
+        },
+
+        /**
+         * @param type
+         * @param {number} value A value of the initial ratio, between 0 and 1
+         * @memberof AbrController#
+         */
+        setInitialRepresentationRatioFor: function(type, value) {
+            setInitialRepresentationRatio(type, value);
+        },
+
+        /**
+         * @param type
+         * @returns {number} A value of the initial ratio, between 0 and 1
+         * @memberof AbrController#
+         */
+        getInitialRepresentationRatioFor: function(type, value) {
+            getInitialRepresentationRatio(type, value);
+        },
+
+        /**
+         * @param type audio or video
+         * @param value A number between 0 and 1
+         * @memberof AbrController#
+         */
+        setMaxAllowedRepresentationRatioFor: function(type, value) {
+            setMaxRepresentationRatio(type, value);
+        },
+
+        /**
+         * @param type audio or video
+         * @returns {number} A value between 0 and 1
+         * @memberof AbrController#
+         */
+        getMaxAllowedRepresentationRatioFor: function(type, value) {
+            getMaxRepresentationRatio(type, value);
+        },
+
+
+        setMaxAllowedBitrateFor:function(type, value) {
+            setMaxBitrate(type, value);
+        },
+        getMaxAllowedBitrateFor:function(type) {
+            return getMaxBitrate(type);
         },
 
         /**
          * @param mediaInfo
          * @param bitrate A bitrate value, kbps
-         * @returns {number} A quality index for the given bitrate
+         * @returns {number} A quality index <= for the given bitrate
          * @memberof AbrController#
          */
         getQualityForBitrate: function(mediaInfo, bitrate) {
             var bitrateList = this.getBitrateList(mediaInfo),
-                ln = bitrateList.length,
+                ln = bitrateList ? bitrateList.length : 0,
                 bitrateInfo;
 
             for (var i = 0; i < ln; i +=1) {
                 bitrateInfo = bitrateList[i];
 
-                if (bitrate*1000 <= bitrateInfo.bitrate) return i;
+                if (bitrate*1000 <= bitrateInfo.bitrate) {
+                    return Math.max(i-1, 0);
+                }
             }
 
             return (ln-1);
@@ -266,9 +473,6 @@ MediaPlayer.dependencies.AbrController = function () {
                 max;
 
             max = mediaInfo.trackCount - 1;
-
-            if (getTopQualityIndex(type, streamId) === max) return max;
-
             setTopQualityIndex(type, streamId, max);
 
             return max;
@@ -281,18 +485,23 @@ MediaPlayer.dependencies.AbrController = function () {
                 audioQuality = self.getQualityFor("audio", streamInfo),
                 videoQuality = self.getQualityFor("video", streamInfo);
 
-            isAtTop = (audioQuality === getTopQualityIndex("audio", streamId)) &&
-                (videoQuality === getTopQualityIndex("video", streamId));
+            isAtTop = (audioQuality === getTopQualityIndex.call(this, "audio", streamId)) &&
+                (videoQuality === getTopQualityIndex.call(this, "video", streamId));
 
             return isAtTop;
         },
 
+        getTopQualityIndexFor:getTopQualityIndex,
+
         reset: function() {
-            autoSwitchBitrate = true;
+            autoSwitchBitrate = {"video": true, "audio": true};
             topQualities = {};
             qualityDict = {};
             confidenceDict = {};
-            bitrateDict = {};
+            streamProcessorDict = {};
+            abandonmentStateDict = {};
+            clearTimeout(abandonmentTimeout);
+            abandonmentTimeout = null;
         }
     };
 };
@@ -309,3 +518,7 @@ MediaPlayer.dependencies.AbrController.eventList = {
 MediaPlayer.dependencies.AbrController.DEFAULT_VIDEO_BITRATE = 1000;
 // Default initial audio bitrate, kbps
 MediaPlayer.dependencies.AbrController.DEFAULT_AUDIO_BITRATE = 100;
+MediaPlayer.dependencies.AbrController.ABANDON_LOAD = "abandonload";
+MediaPlayer.dependencies.AbrController.ALLOW_LOAD = "allowload";
+MediaPlayer.dependencies.AbrController.ABANDON_TIMEOUT = 10000;
+MediaPlayer.dependencies.AbrController.BANDWIDTH_SAFETY = 0.9;
