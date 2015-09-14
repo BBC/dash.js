@@ -39,7 +39,7 @@ MediaPlayer.utils.DOMStorage = function () {
                     //Checks local storage to see if there is valid, non-expired bit rate
                     //hinting from the last play session to use as a starting bit rate. if not,
                     // it uses the default video and audio value in MediaPlayer.dependencies.AbrController
-                    if (this.isSupported(MediaPlayer.utils.DOMStorage.STORAGE_TYPE_LOCAL) && enableLastBitrateCaching) {
+                    if (enableLastBitrateCaching && this.isSupported(MediaPlayer.utils.DOMStorage.STORAGE_TYPE_LOCAL)) {
                         var key = MediaPlayer.utils.DOMStorage["LOCAL_STORAGE_"+value.toUpperCase()+"_BITRATE_KEY"],
                             obj = JSON.parse(localStorage.getItem(key)) || {},
                             isExpired = (new Date().getTime() - parseInt(obj.timestamp)) >= MediaPlayer.utils.DOMStorage.LOCAL_STORAGE_BITRATE_EXPIRATION || false,
@@ -70,6 +70,16 @@ MediaPlayer.utils.DOMStorage = function () {
             enableLastBitrateCaching = enable;
             if (ttl !== undefined && !isNaN(ttl) && typeof(ttl) === "number"){
                 MediaPlayer.utils.DOMStorage.LOCAL_STORAGE_BITRATE_EXPIRATION = ttl;
+            }
+        },
+        storeBitrate: function(storage, type, bitrate) {
+            var store = window[storage];
+            if (store && enableLastBitrateCaching) {
+                var key = MediaPlayer.utils.DOMStorage["LOCAL_STORAGE_"+type.toUpperCase()+"_BITRATE_KEY"];
+                // round to the nearest 10 minutes to avoid
+                // fingerprinting user
+                var timestamp = Math.round(new Date().getTime() / 600000)*600000;
+                store.setItem(key, JSON.stringify({bitrate:bitrate, timestamp:timestamp}));
             }
         },
         //type can be local, session
