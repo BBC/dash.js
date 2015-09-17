@@ -399,7 +399,11 @@
                 var manifestUTCTimingSources = this.manifestExt.getUTCTimingSources(e.data.manifest),
                     allUTCTimingSources = manifestUTCTimingSources.concat(UTCTimingSources); //manifest utc time source(s) take precedence over default or explicitly added sources.
 
-                this.timeSyncController.initialize(allUTCTimingSources, useManifestDateHeaderTimeSource);
+                if (e.data.manifest.type === "dynamic") {
+                    this.timeSyncController.initialize(allUTCTimingSources, useManifestDateHeaderTimeSource);
+                } else {
+                    composeStreams.call(this);
+                }
             } else {
                 this.reset();
             }
