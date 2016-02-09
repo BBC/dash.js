@@ -29,7 +29,7 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 /**
- * @ignore
+ * @Module FactoryMaker
  */
 let FactoryMaker = (function () {
 
@@ -37,47 +37,63 @@ let FactoryMaker = (function () {
     let extensions = [];
     let singletonContexts = [];
 
-    function extend(name, childInstance, context) {
+    function extend(name, childInstance, override, context) {
         let extensionContext = getExtensionContext(context);
-
         if (!extensionContext[name] && childInstance) {
-            extensionContext[name] = childInstance;
+            extensionContext[name] = {instance: childInstance, override: override};
         }
     }
 
+    /**
+     * Use this method from your extended object.  this.factory is injected into your object.
+     * this.factory.getSingletonInstance(this.context, 'VideoModel')
+     * will return the video model for use in the extended object.
+     *
+     * @param context {Object} injected into extended object as this.context
+     * @param className {String} string name found in all dash.js objects
+     * with name __dashjs_factory_name Will be at the bottom. Will be the same as the object's name.
+     * @returns {*} Context aware instance of specified singleton name.
+     * @memberof module:FactoryMaker
+     * @instance
+     */
     function getSingletonInstance(context, className) {
         for (let i in singletonContexts) {
-            const obj = singletonContexts[i];
+            let obj = singletonContexts[i];
             if (obj.context === context && obj.name === className) {
                 return obj.instance;
             }
         }
-
         return null;
     }
 
+    /**
+     * Use this method to add an singleton instance to the system.  Useful for unit testing to mock objects etc.
+     *
+     * @param context
+     * @param className
+     * @param instance
+     * @memberof module:FactoryMaker
+     * @instance
+     */
     function setSingletonInstance(context, className, instance) {
         for (let i in singletonContexts) {
-            const obj = singletonContexts[i];
+            let obj = singletonContexts[i];
             if (obj.context === context && obj.name === className) {
                 singletonContexts[i].instance = instance;
                 return;
             }
         }
-
         singletonContexts.push({ name: className, context: context, instance: instance });
     }
 
     function getClassFactory(classConstructor) {
         return function (context) {
-
             if (context === undefined) {
                 context = {};
             }
-
             return {
                 create: function () {
-                    return merge(classConstructor.name, classConstructor.apply({ context: context }, arguments), context);
+                    return merge(classConstructor.__dashjs_factory_name, classConstructor.apply({ context: context }, arguments), context, arguments);
                 }
             };
         };
@@ -85,38 +101,41 @@ let FactoryMaker = (function () {
 
     function getSingletonFactory(classConstructor) {
         return function (context) {
+            let instance;
             if (context === undefined) {
                 context = {};
             }
-
-            let instance = getSingletonInstance(context, classConstructor.name);
-
             return {
                 getInstance: function () {
-                    if (instance) {
-                        return instance;
+                    // If we don't have an instance yet check for one on the context
+                    if (!instance) {
+                        instance = getSingletonInstance(context, classConstructor.__dashjs_factory_name);
                     }
-
-                    instance = merge(classConstructor.name, classConstructor.apply({ context: context }, arguments), context);
-                    singletonContexts.push({ name: classConstructor.name, context: context, instance: instance });
-
+                    // If there's no instance on the context then create one
+                    if (!instance) {
+                        instance = merge(classConstructor.__dashjs_factory_name, classConstructor.apply({ context: context }, arguments), context, arguments);
+                        singletonContexts.push({ name: classConstructor.__dashjs_factory_name, context: context, instance: instance });
+                    }
                     return instance;
                 }
             };
         };
     }
 
-    function merge(name, classConstructor, context) {
-
+    function merge(name, classConstructor, context, args) {
         let extensionContext = getExtensionContext(context);
-        let extension = extensionContext[name];
-
-        if (extension) {
-            extension = extension.apply({ context: context, factory: instance, parent: classConstructor});
-            for (const prop in extension) {
-                if (classConstructor.hasOwnProperty(prop)) {
-                    classConstructor[prop] = extension[prop];
+        let extensionObject = extensionContext[name];
+        if (extensionObject) {
+            let extension = extensionObject.instance;
+            if (extensionObject.override) { //Override public methods in parent but keep parent.
+                extension = extension.apply({ context: context, factory: instance, parent: classConstructor}, args);
+                for (const prop in extension) {
+                    if (classConstructor.hasOwnProperty(prop)) {
+                        classConstructor[prop] = extension[prop];
+                    }
                 }
+            } else { //replace parent object completely with new object. Same as dijon.
+                return extension.apply({ context: context, factory: instance}, args);
             }
         }
         return classConstructor;
@@ -124,17 +143,14 @@ let FactoryMaker = (function () {
 
     function getExtensionContext(context) {
         let extensionContext;
-
         extensions.forEach(function (obj) {
             if (obj === context) {
                 extensionContext = obj;
             }
         });
-
         if (!extensionContext) {
             extensionContext = extensions.push(context);
         }
-
         return extensionContext;
     }
 

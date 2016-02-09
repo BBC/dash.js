@@ -35,7 +35,7 @@
  * which encapsulates a set of protection information (EME APIs, selected key system,
  * key sessions).  The APIs of ProtectionController mostly align with the latest EME
  * APIs.  Key system selection is mostly automated when combined with app-overrideable
- * functionality provided in {@link ProtectionExtensions}.
+ * functionality provided in {@link ProtectionKeyController}.
  *
  * @class ProtectionController
  * @todo ProtectionController does almost all of its tasks automatically after init() is
@@ -52,7 +52,7 @@ import Protection from '../Protection.js';
 
 function ProtectionController(config) {
 
-    let protectionExt = config.protectionExt;
+    let protectionKeyController = config.protectionKeyController;
     let protectionModel = config.protectionModel;
     let adapter = config.adapter;
     let eventBus = config.eventBus;
@@ -69,14 +69,12 @@ function ProtectionController(config) {
         keySystem;
 
     function setup() {
-        keySystems = protectionExt.getKeySystems();
+        keySystems = protectionKeyController.getKeySystems();
         pendingNeedKeyData = [];
         initialized = false;
         sessionType = 'temporary';
 
         Events.extend(Protection.events);
-        eventBus.on(Events.NEED_KEY, onNeedKey, this);
-        eventBus.on(Events.INTERNAL_KEY_MESSAGE, onKeyMessage, this);
     }
 
     /**
@@ -117,7 +115,7 @@ function ProtectionController(config) {
 
             // ContentProtection elements are specified at the AdaptationSet level, so the CP for audio
             // and video will be the same.  Just use one valid MediaInfo object
-            var supportedKS = protectionExt.getSupportedKeySystemsFromContentProtection(mediaInfo.contentProtection);
+            var supportedKS = protectionKeyController.getSupportedKeySystemsFromContentProtection(mediaInfo.contentProtection);
             if (supportedKS && supportedKS.length > 0) {
                 selectKeySystem(supportedKS, true);
             }
@@ -146,8 +144,8 @@ function ProtectionController(config) {
             // Check for duplicate initData
             var currentInitData = protectionModel.getAllInitData();
             for (var i = 0; i < currentInitData.length; i++) {
-                if (protectionExt.initDataEquals(initDataForKS, currentInitData[i])) {
-                    log('Ignoring initData because we have already seen it!');
+                if (protectionKeyController.initDataEquals(initDataForKS, currentInitData[i])) {
+                    log('DRM: Ignoring initData because we have already seen it!');
                     return;
                 }
             }
@@ -233,9 +231,11 @@ function ProtectionController(config) {
         if (element) {
             protectionModel.setMediaElement(element);
             eventBus.on(Events.NEED_KEY, onNeedKey, this);
+            eventBus.on(Events.INTERNAL_KEY_MESSAGE, onKeyMessage, this);
         } else if (element === null) {
             protectionModel.setMediaElement(element);
             eventBus.off(Events.NEED_KEY, onNeedKey, this);
+            eventBus.off(Events.INTERNAL_KEY_MESSAGE, onKeyMessage, this);
         }
     }
 
@@ -275,8 +275,6 @@ function ProtectionController(config) {
      */
     function reset() {
         setMediaElement(null);
-        eventBus.off(Events.INTERNAL_KEY_MESSAGE, onKeyMessage, this);
-        eventBus.off(Events.NEED_KEY, onNeedKey, this);
 
         keySystem = undefined;//TODO-Refactor look at why undefined is needed for this. refactor
 
@@ -335,7 +333,7 @@ function ProtectionController(config) {
                                 eventBus.trigger(Events.KEY_SYSTEM_SELECTED, {error: 'DRM: KeySystem Access Denied! -- ' + event.error});
                             }
                         } else {
-                            log('KeySystem Access Granted');
+                            log('DRM: KeySystem Access Granted');
                             eventBus.trigger(Events.KEY_SYSTEM_SELECTED, {data: event.data});
                             createKeySession(supportedKS[ksIdx].initData);
                         }
@@ -368,7 +366,7 @@ function ProtectionController(config) {
                     }
                 } else {
                     keySystemAccess = event.data;
-                    log('KeySystem Access Granted (' + keySystemAccess.keySystem.systemString + ')!  Selecting key system...');
+                    log('DRM: KeySystem Access Granted (' + keySystemAccess.keySystem.systemString + ')!  Selecting key system...');
                     protectionModel.selectKeySystem(keySystemAccess);
                 }
             };
@@ -407,6 +405,7 @@ function ProtectionController(config) {
     }
 
     function onKeyMessage(e) {
+        log('DRM: onKeyMessage');
         if (e.error) {
             log(e.error);
             return;
@@ -420,7 +419,7 @@ function ProtectionController(config) {
         var sessionToken = keyMessage.sessionToken;
         var protData = getProtData(keySystem);
         var keySystemString = keySystem.systemString;
-        var licenseServerData = protectionExt.getLicenseServer(keySystem, protData, messageType);
+        var licenseServerData = protectionKeyController.getLicenseServer(keySystem, protData, messageType);
         var eventData = { sessionToken: sessionToken, messageType: messageType };
 
         // Message not destined for license server
@@ -431,8 +430,8 @@ function ProtectionController(config) {
         }
 
         // Perform any special handling for ClearKey
-        if (protectionExt.isClearKey(keySystem)) {
-            var clearkeys = protectionExt.processClearKeyLicenseRequest(protData, message);
+        if (protectionKeyController.isClearKey(keySystem)) {
+            var clearkeys = protectionKeyController.processClearKeyLicenseRequest(protData, message);
             if (clearkeys)  {
                 log('DRM: ClearKey license request handled by application!');
                 sendLicenseRequestCompleteEvent(eventData);
@@ -519,6 +518,7 @@ function ProtectionController(config) {
     }
 
     function onNeedKey(event) {
+        log('DRM: onNeedKey');
         // Ignore non-cenc initData
         if (event.key.initDataType !== 'cenc') {
             log('DRM:  Only \'cenc\' initData is supported!  Ignoring initData of type: ' + event.key.initDataType);
@@ -532,9 +532,11 @@ function ProtectionController(config) {
             abInitData = abInitData.buffer;
         }
 
-        var supportedKS = protectionExt.getSupportedKeySystems(abInitData);
+        log('DRM: initData:', String.fromCharCode.apply(null, new Uint8Array(abInitData)));
+
+        var supportedKS = protectionKeyController.getSupportedKeySystems(abInitData);
         if (supportedKS.length === 0) {
-            log('Received needkey event with initData, but we don\'t support any of the key systems!');
+            log('DRM: Received needkey event with initData, but we don\'t support any of the key systems!');
             return;
         }
 
@@ -558,4 +560,5 @@ function ProtectionController(config) {
     return instance;
 }
 
+ProtectionController.__dashjs_factory_name = 'ProtectionController';
 export default FactoryMaker.getClassFactory(ProtectionController);

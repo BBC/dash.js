@@ -29,9 +29,10 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-import VideoModel from '../models/VideoModel.js';
+import PlaybackController from '../controllers/PlaybackController.js';
 import FactoryMaker from '../../core/FactoryMaker.js';
 import Debug from '../../core/Debug.js';
+import EventBus from '../../core/EventBus.js';
 
 function EventController() {
 
@@ -40,6 +41,7 @@ function EventController() {
 
     let context = this.context;
     let log = Debug(context).getInstance().log;
+    let eventBus = EventBus(context).getInstance();
 
     let instance,
         inlineEvents, // Holds all Inline Events not triggered yet
@@ -49,27 +51,33 @@ function EventController() {
         refreshDelay, // refreshTime for the setInterval
         presentationTimeThreshold,
         manifestModel,
-        manifestUpdater;
+        manifestUpdater,
+        playbackController,
+        isStarted;
 
     function initialize() {
+        isStarted = false;
         inlineEvents = {};
         inbandEvents = {};
         activeEvents = {};
         eventInterval = null;
         refreshDelay = 100;
         presentationTimeThreshold = refreshDelay / 1000;
+        playbackController = PlaybackController(context).getInstance();
     }
 
     function clear() {
-        if (eventInterval !== null) {
+        if (eventInterval !== null && isStarted) {
             clearInterval(eventInterval);
             eventInterval = null;
+            isStarted = false;
         }
     }
 
     function start() {
         log('Start Event Controller');
-        if (!isNaN(refreshDelay)) {
+        if (!isStarted && !isNaN(refreshDelay)) {
+            isStarted = true;
             eventInterval = setInterval(onEventTimer, refreshDelay);
         }
     }
@@ -104,7 +112,26 @@ function EventController() {
             } else {
                 log('Repeated event with id ' + event.id);
             }
+        }
+    }
 
+    /**
+     * Remove events which are over from the list
+     */
+    function removeEvents() {
+        if (activeEvents) {
+            var currentVideoTime = playbackController.getTime();
+            var eventIds = Object.keys(activeEvents);
+
+            for (var i = 0; i < eventIds.length; i++) {
+                var eventId = eventIds[i];
+                var curr = activeEvents[eventId];
+                if (curr !== null && (curr.duration + curr.presentationTime) / curr.eventStream.timescale < currentVideoTime) {
+                    log('Remove Event ' + eventId + ' at time ' + currentVideoTime);
+                    curr = null;
+                    delete activeEvents[eventId];
+                }
+            }
         }
     }
 
@@ -117,8 +144,19 @@ function EventController() {
         removeEvents();
     }
 
+    function refreshManifest() {
+        var manifest = manifestModel.getValue();
+        var url = manifest.url;
+
+        if (manifest.hasOwnProperty('Location')) {
+            url = manifest.Location;
+        }
+        log('Refresh manifest @ ' + url);
+        manifestUpdater.getManifestLoader().load(url);
+    }
+
     function triggerEvents(events) {
-        var currentVideoTime = VideoModel(context).getInstance().getCurrentTime();
+        var currentVideoTime = playbackController.getTime();
         var presentationTime;
 
         /* == Trigger events that are ready == */
@@ -132,45 +170,19 @@ function EventController() {
                     presentationTime = curr.presentationTime / curr.eventStream.timescale;
                     if (presentationTime === 0 || (presentationTime <= currentVideoTime && presentationTime + presentationTimeThreshold > currentVideoTime)) {
                         log('Start Event ' + eventId + ' at ' + currentVideoTime);
-                        if (curr.duration > 0) activeEvents[eventId] = curr;
-                        if (curr.eventStream.schemeIdUri == MPD_RELOAD_SCHEME && curr.eventStream.value == MPD_RELOAD_VALUE) refreshManifest();
+                        if (curr.duration > 0) {
+                            activeEvents[eventId] = curr;
+                        }
+                        if (curr.eventStream.schemeIdUri == MPD_RELOAD_SCHEME && curr.eventStream.value == MPD_RELOAD_VALUE) {
+                            refreshManifest();
+                        } else {
+                            eventBus.trigger(curr.eventStream.schemeIdUri, {event: curr});
+                        }
                         delete events[eventId];
                     }
                 }
             }
         }
-    }
-
-    /**
-     * Remove events from the list that are over
-     */
-    function removeEvents() {
-        if (activeEvents) {
-            var currentVideoTime = VideoModel(context).getInstance().getCurrentTime();
-            var eventIds = Object.keys(activeEvents);
-
-            for (var i = 0; i < eventIds.length; i++) {
-                var eventId = eventIds[i];
-                var curr = activeEvents[eventId];
-                if (curr !== null && (curr.duration + curr.presentationTime) / curr.eventStream.timescale < currentVideoTime) {
-                    log('Remove Event ' + eventId + ' at time ' + currentVideoTime);
-                    curr = null;
-                    delete activeEvents[eventId];
-                }
-            }
-        }
-
-    }
-
-    function refreshManifest() {
-        var manifest = manifestModel.getValue();
-        var url = manifest.url;
-
-        if (manifest.hasOwnProperty('Location')) {
-            url = manifest.Location;
-        }
-        log('Refresh manifest @ ' + url);
-        manifestUpdater.getManifestLoader().load(url);
     }
 
     function setConfig(config) {
@@ -190,6 +202,7 @@ function EventController() {
         inlineEvents = null;
         inbandEvents = null;
         activeEvents = null;
+        playbackController = null;
     }
 
     instance = {
@@ -205,4 +218,5 @@ function EventController() {
     return instance;
 }
 
+EventController.__dashjs_factory_name = 'EventController';
 export default FactoryMaker.getSingletonFactory(EventController);

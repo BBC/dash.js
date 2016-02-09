@@ -32,6 +32,8 @@ import Events from '../../core/events/Events.js';
 import EventBus from '../../core/EventBus.js';
 import FactoryMaker from '../../core/FactoryMaker.js';
 import Debug from '../../core/Debug.js';
+import TextSourceBuffer from '../TextSourceBuffer.js';
+import DOMStorage from '../utils/DOMStorage.js';
 
 const TRACK_SWITCH_MODE_NEVER_REPLACE = 'neverReplace';
 const TRACK_SWITCH_MODE_ALWAYS_REPLACE = 'alwaysReplace';
@@ -44,20 +46,20 @@ function MediaController() {
     let context = this.context;
     let log = Debug(context).getInstance().log;
     let eventBus = EventBus(context).getInstance();
+    let textSourceBuffer = TextSourceBuffer(context).getInstance();
+    let domStorage = DOMStorage(context).getInstance();
 
     let instance,
         tracks,
         initialSettings,
         selectionMode,
         switchMode,
-        errHandler,
-        DOMStorage;
+        errHandler;
 
     function initialize() {
         tracks = {};
         resetInitialSettings();
         resetSwitchMode();
-
     }
 
     /**
@@ -69,10 +71,10 @@ function MediaController() {
         ['audio', 'video', 'text', 'fragmentedText'].forEach(function (type) {
             var settings = getInitialSettings(type);
             var tracksForType = getTracksFor(type, streamInfo);
-            var isSet = false;
+            var tracks = [];
 
             if (!settings) {
-                settings = DOMStorage.getSavedMediaSettings(type);
+                settings = domStorage.getSavedMediaSettings(type);
                 setInitialSettings(type, settings);
             }
 
@@ -80,15 +82,20 @@ function MediaController() {
 
             if (settings) {
                 tracksForType.forEach(function (track) {
-                    if (!isSet && matchSettings(settings, track)) {
-                        setTrack(track);
-                        isSet = true;
+                    if (!matchSettings(settings, track)) {
+                        tracks.push(track);
                     }
                 });
             }
 
-            if (!isSet) {
+            if (tracks.length === 0) {
                 setTrack(selectInitialTrack(tracksForType));
+            } else {
+                if (tracks.length > 1) {
+                    setTrack(selectInitialTrack(tracks));
+                } else {
+                    setTrack(tracks[0]);
+                }
             }
         });
     }
@@ -299,22 +306,18 @@ function MediaController() {
         if (config.errHandler) {
             errHandler = config.errHandler;
         }
-        if (config.DOMStorage) {
-            DOMStorage = config.DOMStorage;
-        }
     }
 
     /**
      * @memberof MediaController#
      */
     function reset() {
-        resetInitialSettings();
-        resetSwitchMode();
-        tracks = {};
+        initialize();
+        textSourceBuffer.resetEmbedded();
     }
 
     function storeLastSettings(type, value) {
-        if (DOMStorage.isSupported(DOMStorage.STORAGE_TYPE_LOCAL) && (type === 'video' || type === 'audio')) {
+        if (domStorage.isSupported(DOMStorage.STORAGE_TYPE_LOCAL) && (type === 'video' || type === 'audio')) {
             localStorage.setItem(DOMStorage['LOCAL_STORAGE_' + type.toUpperCase() + '_SETTINGS_KEY'], JSON.stringify({settings: value, timestamp: new Date().getTime()}));
         }
     }
@@ -474,12 +477,11 @@ function MediaController() {
     return instance;
 }
 
+MediaController.__dashjs_factory_name = 'MediaController';
 let factory = FactoryMaker.getSingletonFactory(MediaController);
-
 factory.TRACK_SWITCH_MODE_NEVER_REPLACE = TRACK_SWITCH_MODE_NEVER_REPLACE;
 factory.TRACK_SWITCH_MODE_ALWAYS_REPLACE = TRACK_SWITCH_MODE_ALWAYS_REPLACE;
 factory.TRACK_SELECTION_MODE_HIGHEST_BITRATE = TRACK_SELECTION_MODE_HIGHEST_BITRATE;
 factory.TRACK_SELECTION_MODE_WIDEST_RANGE = TRACK_SELECTION_MODE_WIDEST_RANGE;
 factory.DEFAULT_INIT_TRACK_SELECTION_MODE = DEFAULT_INIT_TRACK_SELECTION_MODE;
-
 export default factory;

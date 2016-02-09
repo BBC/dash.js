@@ -48,7 +48,7 @@ function XlinkLoader(config) {
 
     let errHandler = config.errHandler;
     let metricsModel = config.metricsModel;
-    let requestModifierExt = config.requestModifierExt;
+    let requestModifier = config.requestModifier;
 
     function load(url, element, resolveObject) {
         if (url === RESOLVE_TO_ZERO) {
@@ -65,6 +65,9 @@ function XlinkLoader(config) {
         var needFailureReport = true;
         var firstProgressCall = true;
         var requestTime = new Date();
+        var traces = [];
+        var lastTraceTime = requestTime;
+        var lastTraceReceivedCount = 0;
 
         var report,
             onload,
@@ -88,7 +91,8 @@ function XlinkLoader(config) {
                 new Date(),
                 request.status,
                 null,
-                request.getAllResponseHeaders());
+                request.getAllResponseHeaders(),
+                traces);
 
             content = request.responseText;
             element.resolved = true;
@@ -124,7 +128,8 @@ function XlinkLoader(config) {
                 new Date(),
                 request.status,
                 null,
-                request.getAllResponseHeaders());
+                request.getAllResponseHeaders(),
+                null);
 
             if (remainingAttempts > 0) {
                 log('Failed loading xLink content: ' + url + ', retry in ' + RETRY_INTERVAL + 'ms' + ' attempts: ' + remainingAttempts);
@@ -147,12 +152,28 @@ function XlinkLoader(config) {
         };
 
         progress = function (event) {
+            var currentTime = new Date();
+
             if (firstProgressCall) {
                 firstProgressCall = false;
-                if (!event.lengthComputable || (event.lengthComputable && event.total != event.loaded)) {
-                    request.firstByteDate = new Date();
+                if (!event.lengthComputable || (event.lengthComputable && event.total !== event.loaded)) {
+                    request.firstByteDate = currentTime;
                 }
             }
+
+            if (event.lengthComputable) {
+                request.bytesLoaded = event.loaded;
+                request.bytesTotal = event.total;
+            }
+
+            traces.push({
+                s: lastTraceTime,
+                d: currentTime.getTime() - lastTraceTime.getTime(),
+                b: [event.loaded ? event.loaded - lastTraceReceivedCount : 0]
+            });
+
+            lastTraceTime = currentTime;
+            lastTraceReceivedCount = event.loaded;
         };
 
         try {
@@ -161,7 +182,7 @@ function XlinkLoader(config) {
             request.onloadend = report;
             request.onerror = report;
             request.onprogress = progress;
-            request.open('GET', requestModifierExt.modifyRequestURL(url), true);
+            request.open('GET', requestModifier.modifyRequestURL(url), true);
             request.send();
         } catch (e) {
             log('Xlink loading Error');
@@ -176,4 +197,5 @@ function XlinkLoader(config) {
     return instance;
 }
 
+XlinkLoader.__dashjs_factory_name = 'XlinkLoader';
 export default FactoryMaker.getClassFactory(XlinkLoader);

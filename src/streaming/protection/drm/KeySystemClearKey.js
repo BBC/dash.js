@@ -72,8 +72,8 @@ function KeySystemClearKey() {
         return clearkeySet;
     }
 
-    function getInitData() {
-        return CommonEncryption.parseInitDataFromContentProtection;
+    function getInitData(cp) {
+        return CommonEncryption.parseInitDataFromContentProtection(cp);
     }
 
     function getRequestHeadersFromMessage(/*message*/) {
@@ -102,4 +102,5 @@ function KeySystemClearKey() {
     return instance;
 }
 
+KeySystemClearKey.__dashjs_factory_name = 'KeySystemClearKey';
 export default FactoryMaker.getSingletonFactory(KeySystemClearKey);

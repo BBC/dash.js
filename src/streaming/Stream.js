@@ -28,7 +28,7 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-import LiveEdgeFinder from './LiveEdgeFinder.js';
+import LiveEdgeFinder from './utils/LiveEdgeFinder.js';
 import StreamProcessor from './StreamProcessor.js';
 import MediaController from './controllers/MediaController.js';
 import EventController from './controllers/EventController.js';
@@ -38,12 +38,13 @@ import VideoModel from './models/VideoModel.js';
 import MetricsModel from './models/MetricsModel.js';
 import PlaybackController from './controllers/PlaybackController.js';
 import DashHandler from '../dash/DashHandler.js';
-import BaseURLExtensions from '../dash/extensions/BaseURLExtensions.js';
-import DashMetricsExtensions from '../dash/extensions/DashMetricsExtensions.js';
+import SegmentBaseLoader from '../dash/SegmentBaseLoader.js';
+import DashMetrics from '../dash/DashMetrics.js';
 import EventBus from '../core/EventBus.js';
 import Events from '../core/events/Events.js';
 import Debug from '../core/Debug.js';
 import FactoryMaker from '../core/FactoryMaker.js';
+import TextSourceBuffer from './TextSourceBuffer.js';
 
 function Stream(config) {
 
@@ -74,7 +75,8 @@ function Stream(config) {
         mediaController,
         fragmentController,
         eventController,
-        abrController;
+        abrController,
+        textSourceBuffer;
 
 
     function setup() {
@@ -91,6 +93,7 @@ function Stream(config) {
         abrController = AbrController(context).getInstance();
         mediaController = MediaController(context).getInstance();
         fragmentController = FragmentController(context).create();
+        textSourceBuffer = TextSourceBuffer(context).getInstance();
 
         eventBus.on(Events.BUFFERING_COMPLETED, onBufferingCompleted, instance);
         eventBus.on(Events.DATA_UPDATE_COMPLETED, onDataUpdateCompleted, instance);
@@ -250,7 +253,7 @@ function Stream(config) {
             return false;
         }
 
-        if ((type === 'text') || (type === 'fragmentedText')) return true;
+        if ((type === 'text') || (type === 'fragmentedText') || (type === 'embeddedText')) return true;
 
         codec = mediaInfo.codec;
         log(type + ' codec: ' + codec);
@@ -291,13 +294,13 @@ function Stream(config) {
 
     function createIndexHandler() {
 
-        let baseUrlExt = BaseURLExtensions(context).getInstance();
-        baseUrlExt.initialize();
+        let segmentBaseLoader = SegmentBaseLoader(context).getInstance();
+        segmentBaseLoader.initialize();
 
         let handler = DashHandler(context).create({
-            baseURLExt: baseUrlExt,
+            segmentBaseLoader: segmentBaseLoader,
             timelineConverter: timelineConverter,
-            metricsExt: DashMetricsExtensions(context).getInstance(),
+            dashMetrics: DashMetrics(context).getInstance(),
             metricsModel: MetricsModel(context).getInstance()
         });
 
@@ -357,14 +360,20 @@ function Stream(config) {
         for (var i = 0, ln = allMediaForType.length; i < ln; i++) {
             mediaInfo = allMediaForType[i];
 
-            if (!isMediaSupported(mediaInfo, mediaSource, manifest)) continue;
+            if (type === 'embeddedText') {
+                textSourceBuffer.addEmbeddedTrack(mediaInfo);
+            } else {
+                if (!isMediaSupported(mediaInfo, mediaSource, manifest)) continue;
 
-            if (mediaController.isMultiTrackSupportedByType(mediaInfo.type)) {
-                mediaController.addTrack(mediaInfo, streamInfo);
+                if (mediaController.isMultiTrackSupportedByType(mediaInfo.type)) {
+                    mediaController.addTrack(mediaInfo, streamInfo);
+                }
             }
         }
 
-        if (mediaController.getTracksFor(type, streamInfo).length === 0) return;
+        if (type === 'embeddedText' || mediaController.getTracksFor(type, streamInfo).length === 0) {
+            return;
+        }
 
         mediaController.checkInitialMediaSettings(streamInfo);
         initialMediaInfo = mediaController.getCurrentTrackFor(type, streamInfo);
@@ -393,9 +402,12 @@ function Stream(config) {
         initializeMediaForType('audio', mediaSource);
         initializeMediaForType('text', mediaSource);
         initializeMediaForType('fragmentedText', mediaSource);
+        initializeMediaForType('embeddedText', mediaSource);
         initializeMediaForType('muxed', mediaSource);
 
         createBuffers();
+
+        //TODO. Consider initialization of TextSourceBuffer here if embeddedText, but no sideloadedText.
 
         isMediaInitialized = true;
         isUpdating = false;
@@ -422,13 +434,12 @@ function Stream(config) {
         }
 
         initialized = true;
+        isStreamActivated = true;
         eventBus.trigger(Events.STREAM_INITIALIZED, {streamInfo: streamInfo, error: error});
-
-        if (!isMediaInitialized || isStreamActivated) return;
+        if (!isMediaInitialized) return;
         if (protectionController) {
             protectionController.initialize(manifestModel.getValue(), getMediaInfo('audio'), getMediaInfo('video'));
         }
-        isStreamActivated = true;
     }
 
     function getMediaInfo(type) {
@@ -552,11 +563,13 @@ function Stream(config) {
         isActivated: isActivated,
         isInitialized: isInitialized,
         updateData: updateData,
-        reset: reset
+        reset: reset,
+        getProcessors: getProcessors
     };
 
     setup();
     return instance;
 }
 
+Stream.__dashjs_factory_name = 'Stream';
 export default FactoryMaker.getClassFactory(Stream);

@@ -31,6 +31,7 @@
 import EventBus from '../../core/EventBus.js';
 import Events from '../../core/events/Events.js';
 import FactoryMaker from '../../core/FactoryMaker.js';
+import X2JS from '../../../externals/xml2json.js';
 
 const RESOLVE_TYPE_ONLOAD = 'onLoad';
 const RESOLVE_TYPE_ONACTUATE = 'onActuate';
@@ -266,4 +267,5 @@ function XlinkController(config) {
     return instance;
 }
 
+XlinkController.__dashjs_factory_name = 'XlinkController';
 export default FactoryMaker.getClassFactory(XlinkController);
