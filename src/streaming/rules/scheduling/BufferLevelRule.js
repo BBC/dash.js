@@ -87,7 +87,7 @@ function BufferLevelRule(config) {
             }
         }
 
-        recentLatency = Math.floor( Math.max(metricsExt.getRecentLatency(metrics, 4), MINIMUM_LATENCY_BUFFER) / 1000);
+        recentLatency = Math.floor( Math.max(dashMetrics.getRecentLatency(metrics, 4), MINIMUM_LATENCY_BUFFER) / 1000);
 
         return bufferTarget + recentLatency;
     }
