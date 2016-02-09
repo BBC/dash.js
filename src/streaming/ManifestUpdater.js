@@ -46,7 +46,7 @@ function ManifestUpdater() {
         isUpdating,
         manifestLoader,
         manifestModel,
-        manifestExt;
+        dashManifestModel;
 
     function setConfig(config) {
         if (!config) return;
@@ -54,8 +54,8 @@ function ManifestUpdater() {
         if (config.manifestModel) {
             manifestModel = config.manifestModel;
         }
-        if (config.manifestExt) {
-            manifestExt = config.manifestExt;
+        if (config.dashManifestModel) {
+            dashManifestModel = config.dashManifestModel;
         }
     }
 
@@ -114,9 +114,9 @@ function ManifestUpdater() {
         var date = new Date();
 
         manifestModel.setValue(manifest);
-        log('Manifest has been refreshed at ' + date + '[' + date.getTime() + '] ');
+        log('Manifest has been refreshed at ' + date + '[' + date.getTime() / 1000 + '] ');
 
-        delay = manifestExt.getRefreshDelay(manifest);
+        delay = dashManifestModel.getRefreshDelay(manifest);
         timeSinceLastUpdate = (new Date().getTime() - manifest.loadedTime.getTime()) / 1000;
         refreshDelay = Math.max(delay - timeSinceLastUpdate, 0);
 
@@ -177,5 +177,5 @@ function ManifestUpdater() {
 
     return instance;
 }
-
+ManifestUpdater.__dashjs_factory_name = 'ManifestUpdater';
 export default FactoryMaker.getSingletonFactory(ManifestUpdater);

@@ -45,6 +45,8 @@ class MetricsList {
         this.DVRInfo = [];
         this.ManifestUpdate = [];
         this.RequestsQueue = null;
+        this.DVBErrors = [];
+        this.BolaState = [];
     }
 }
 

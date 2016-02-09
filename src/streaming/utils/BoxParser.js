@@ -31,6 +31,7 @@
 
 import IsoFile from './IsoFile.js';
 import FactoryMaker from '../../core/FactoryMaker.js';
+import ISOBoxer from 'codem-isoboxer';
 
 function BoxParser(/*config*/) {
 
@@ -63,5 +64,5 @@ function BoxParser(/*config*/) {
 
     return instance;
 }
-
+BoxParser.__dashjs_factory_name = 'BoxParser';
 export default FactoryMaker.getSingletonFactory(BoxParser);

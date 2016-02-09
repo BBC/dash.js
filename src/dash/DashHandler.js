@@ -45,9 +45,9 @@ function DashHandler(config) {
     let log = Debug(context).getInstance().log;
     let eventBus = EventBus(context).getInstance();
 
-    let baseURLExt = config.baseURLExt;
+    let segmentBaseLoader = config.segmentBaseLoader;
     let timelineConverter = config.timelineConverter;
-    let metricsExt = config.metricsExt;
+    let dashMetrics = config.dashMetrics;
     let metricsModel = config.metricsModel;
 
     let instance,
@@ -86,7 +86,7 @@ function DashHandler(config) {
         return currentTime;
     }
 
-    function getCurrentIndex () {
+    function getCurrentIndex() {
         return index;
     }
 
@@ -692,7 +692,7 @@ function DashHandler(config) {
             metrics = metricsModel.getMetricsFor('stream');
             // the last segment is supposed to be a live edge
             timelineConverter.setExpectedLiveEdge(liveEdge);
-            metricsModel.updateManifestUpdateInfo(metricsExt.getCurrentManifestUpdate(metrics), {presentationStartTime: liveEdge});
+            metricsModel.updateManifestUpdateInfo(dashMetrics.getCurrentManifestUpdate(metrics), {presentationStartTime: liveEdge});
         }
     }
 
@@ -734,11 +734,11 @@ function DashHandler(config) {
         }
 
         if (!hasInitialization) {
-            baseURLExt.loadInitialization(representation);
+            segmentBaseLoader.loadInitialization(representation);
         }
 
         if (!hasSegments) {
-            baseURLExt.loadSegments(representation, type, representation.indexRange);
+            segmentBaseLoader.loadSegments(representation, type, representation.indexRange);
         }
 
         if (hasInitialization && hasSegments) {
@@ -763,7 +763,6 @@ function DashHandler(config) {
                 ft = frag.presentationStartTime;
                 fd = frag.duration;
                 epsilon = (timeThreshold === undefined || timeThreshold === null) ? fd / 2 : timeThreshold;
-
                 if ((time + epsilon) >= ft &&
                     (time - epsilon) < (ft + fd)) {
                     idx = frag.availabilityIdx;
@@ -782,10 +781,17 @@ function DashHandler(config) {
         var seg,
             i;
 
+        if (index < ln) {
+            seg = representation.segments[index];
+            if (seg && seg.availabilityIdx === index) {
+                return seg;
+            }
+        }
+
         for (i = 0; i < ln; i++) {
             seg = representation.segments[i];
 
-            if (seg.availabilityIdx === index) {
+            if (seg && seg.availabilityIdx === index) {
                 return seg;
             }
         }
@@ -861,9 +867,11 @@ function DashHandler(config) {
             return null;
         }
 
-        requestedTime = time;
+        if (requestedTime !== time) { // When playing at live edge with 0 delay we may loop back with same time and index until it is available. Reduces verbosness of logs.
+            requestedTime = time;
+            log('Getting the request for ' + type + ' time : ' + time);
+        }
 
-        log('Getting the request for time: ' + time);
         index = getIndexForSegments(time, representation, timeThreshold);
         //Index may be -1 if getSegments needs to update.  So after getSegments is called and updated then try to get index again.
         getSegments(representation);
@@ -871,7 +879,9 @@ function DashHandler(config) {
             index = getIndexForSegments(time, representation, timeThreshold);
         }
 
-        log('Index for time ' + time + ' is ' + index);
+        if (index > 0) {
+            log('Index for ' + type + ' time ' + time + ' is ' + index );
+        }
 
         finished = !ignoreIsFinished ? isMediaFinished(representation) : false;
         if (finished) {
@@ -887,7 +897,7 @@ function DashHandler(config) {
             request = getRequestForSegment(segment);
         }
 
-        if (keepIdx && idx >= 0) {
+        if (keepIdx && idx >= 0 && representation.segmentInfoType !== 'SegmentTimeline') {
             index = idx;
         }
 
@@ -905,8 +915,7 @@ function DashHandler(config) {
     function getNextSegmentRequest(representation) {
         var request,
             segment,
-            finished,
-            idx;
+            finished;
 
         if (!representation || index === -1) {
             return null;
@@ -914,21 +923,30 @@ function DashHandler(config) {
 
         requestedTime = null;
         index++;
-        idx = index;
+
         log('Getting the next request at index: ' + index);
 
         finished = isMediaFinished(representation);
         if (finished) {
             request = new FragmentRequest();
             request.action = FragmentRequest.ACTION_COMPLETE;
-            request.index = idx;
+            request.index = index;
             request.mediaType = type;
             request.mediaInfo = streamProcessor.getMediaInfo();
             log('Signal complete.');
         } else {
             getSegments(representation);
-            segment = getSegmentByIndex(idx, representation);
+            segment = getSegmentByIndex(index, representation);
             request = getRequestForSegment(segment);
+            if (!segment && isDynamic) {
+                /*
+                 Sometimes when playing dynamic streams with 0 fragment delay at live edge we ask for
+                 an index before it is available so we decrement index back and send null request
+                 which triggers the validate loop to rerun and the next time the segment should be
+                 available.
+                 */
+                index--;
+            }
         }
 
         return request;
@@ -1001,6 +1019,7 @@ function DashHandler(config) {
     return instance;
 }
 
+DashHandler.__dashjs_factory_name = 'DashHandler';
 let factory = FactoryMaker.getClassFactory(DashHandler);
 factory.SEGMENTS_UNAVAILABLE_ERROR_CODE = SEGMENTS_UNAVAILABLE_ERROR_CODE;
 export default factory;

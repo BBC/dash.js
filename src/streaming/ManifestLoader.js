@@ -50,7 +50,7 @@ function ManifestLoader(config) {
     let parser = config.parser;
     let errHandler = config.errHandler;
     let metricsModel = config.metricsModel;
-    let requestModifierExt = config.requestModifierExt;
+    let requestModifier = config.requestModifier;
 
     let instance,
         xlinkController,
@@ -61,7 +61,7 @@ function ManifestLoader(config) {
         let xlinkLoader = XlinkLoader(context).create({
             errHandler: errHandler,
             metricsModel: metricsModel,
-            requestModifierExt: requestModifierExt
+            requestModifier: requestModifier
         });
         xlinkController = XlinkController(context).create({
             xlinkLoader: xlinkLoader
@@ -74,8 +74,10 @@ function ManifestLoader(config) {
 
         var request = new XMLHttpRequest();
         var requestTime = new Date();
-        var loadedTime = null;
         var needFailureReport = true;
+        var lastTraceTime = requestTime;
+        var lastTraceReceivedCount = 0;
+        var traces = [];
 
         var manifest,
             onload,
@@ -86,6 +88,7 @@ function ManifestLoader(config) {
         onload = function () {
             var actualUrl = null;
             var errorMsg;
+            var loadedTime = new Date();
 
             if (request.status < 200 || request.status > 299) {
                 return;
@@ -94,7 +97,6 @@ function ManifestLoader(config) {
 
             needFailureReport = false;
             remainingAttempts = RETRY_ATTEMPTS;
-            loadedTime = new Date();
 
             // Handle redirects for the MPD - as per RFC3986 Section 5.1.3
             if (request.responseURL && request.responseURL !== url) {
@@ -113,12 +115,19 @@ function ManifestLoader(config) {
                 loadedTime,
                 request.status,
                 null,
-                request.getAllResponseHeaders());
+                request.getAllResponseHeaders(),
+                traces);
 
             manifest = parser.parse(request.responseText, baseUrl, xlinkController);
 
             if (manifest) {
                 manifest.url = actualUrl || url;
+
+                // URL from which the MPD was originally retrieved (MPD updates will not change this value)
+                if (!manifest.originalUrl) {
+                    manifest.originalUrl = manifest.url;
+                }
+
                 manifest.loadedTime = loadedTime;
                 metricsModel.addManifestUpdate('stream', manifest.type, requestTime, loadedTime, manifest.availabilityStartTime);
                 xlinkController.resolveManifestOnLoad(manifest);
@@ -130,8 +139,7 @@ function ManifestLoader(config) {
         };
 
         report = function () {
-            if (!needFailureReport)
-            {
+            if (!needFailureReport) {
                 return;
             }
             needFailureReport = false;
@@ -147,7 +155,8 @@ function ManifestLoader(config) {
                 new Date(),
                 request.status,
                 null,
-                request.getAllResponseHeaders());
+                request.getAllResponseHeaders(),
+                null);
 
             if (remainingAttempts > 0) {
                 log('Failed loading manifest: ' + url + ', retry in ' + RETRY_INTERVAL + 'ms' + ' attempts: ' + remainingAttempts);
@@ -163,12 +172,28 @@ function ManifestLoader(config) {
         };
 
         progress = function (event) {
+            var currentTime = new Date();
+
             if (firstProgressCall) {
                 firstProgressCall = false;
-                if (!event.lengthComputable || (event.lengthComputable && event.total != event.loaded)) {
-                    request.firstByteDate = new Date();
+                if (!event.lengthComputable || (event.lengthComputable && event.total !== event.loaded)) {
+                    request.firstByteDate = currentTime;
                 }
             }
+
+            if (event.lengthComputable) {
+                request.bytesLoaded = event.loaded;
+                request.bytesTotal = event.total;
+            }
+
+            traces.push({
+                s: lastTraceTime,
+                d: currentTime.getTime() - lastTraceTime.getTime(),
+                b: [event.loaded ? event.loaded - lastTraceReceivedCount : 0]
+            });
+
+            lastTraceTime = currentTime;
+            lastTraceReceivedCount = event.loaded;
         };
 
         try {
@@ -177,7 +202,8 @@ function ManifestLoader(config) {
             request.onloadend = report;
             request.onerror = report;
             request.onprogress = progress;
-            request.open('GET', requestModifierExt.modifyRequestURL(url), true);
+            request.open('GET', requestModifier.modifyRequestURL(url), true);
+            request = requestModifier.modifyRequestHeader(request);
             request.send();
         } catch (e) {
             request.onerror();
@@ -186,7 +212,8 @@ function ManifestLoader(config) {
 
     function reset() {
         eventBus.off(Events.XLINK_READY, onXlinkReady, instance);
-        requestModifierExt = null;
+        requestModifier = null;
+        xlinkController.reset();
         xlinkController = null;
     }
 
@@ -217,4 +244,5 @@ function ManifestLoader(config) {
     return instance;
 }
 
+ManifestLoader.__dashjs_factory_name = 'ManifestLoader';
 export default FactoryMaker.getClassFactory(ManifestLoader);

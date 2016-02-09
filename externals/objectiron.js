@@ -47,7 +47,9 @@
 
 function ObjectIron(map) {
 
-    var lookup;
+    var lookup,
+        len,
+        i;
 
     // create a list of top level items to search for
     lookup = [];
@@ -210,3 +212,5 @@ function ObjectIron(map) {
         run: performMapping
     };
 }
+
+export default ObjectIron;

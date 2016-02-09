@@ -76,9 +76,9 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
     ////////////////////////////////////////
 
     video = document.querySelector(".dash-video-player video");
-    player = MediaPlayer({}).create();
+    player = dashjs.MediaPlayer().create();
     player.initialize(video, null, true);
-    player.on(MediaPlayer.events.ERROR, onError.bind(this));
+    player.on(dashjs.MediaPlayer.events.ERROR, onError.bind(this));
     player.attachVideoContainer(document.getElementById("videoContainer"));
     controlbar = new ControlBar(player, video);
     controlbar.initialize();
@@ -125,7 +125,8 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
         if ($scope.selectedItem.hasOwnProperty("protData")) {
             protectionData = $scope.selectedItem.protData;
         }
-        player.attachSource($scope.selectedItem.url, null, protectionData);
+        player.setProtectionData(protectionData);
+        player.attachSource($scope.selectedItem.url);
         player.setAutoSwitchQuality($scope.abrEnabled);
         controlbar.reset();
         controlbar.enable();
@@ -173,7 +174,7 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
         $scope.drmData.push(data);
         $scope.safeApply();
 
-        player.on(MediaPlayer.events.KEY_SYSTEM_SELECTED, function(e) {
+        player.on(dashjs.MediaPlayer.events.KEY_SYSTEM_SELECTED, function(e) {
             if (!e.error) {
                 data.ksconfig = e.data.ksConfiguration;
             } else {
@@ -183,7 +184,7 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
         }, $scope);
 
 
-        player.on(MediaPlayer.events.KEY_SESSION_CREATED, function(e) {
+        player.on(dashjs.MediaPlayer.events.KEY_SESSION_CREATED, function(e) {
             if (!e.error) {
                 var persistedSession = findSession(e.data.getSessionID());
                 if (persistedSession) {
@@ -204,7 +205,7 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
         }, $scope);
 
 
-        player.on(MediaPlayer.events.KEY_SESSION_REMOVED, function(e) {
+        player.on(dashjs.MediaPlayer.events.KEY_SESSION_REMOVED, function(e) {
             if (!e.error) {
                 var session = findSession(e.data);
                 if (session) {
@@ -218,7 +219,7 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
         }, $scope);
 
 
-        player.on(MediaPlayer.events.KEY_SESSION_CLOSED, function(e) {
+        player.on(dashjs.MediaPlayer.events.KEY_SESSION_CLOSED, function(e) {
             if (!e.error) {
                 for (var i = 0; i < data.sessions.length; i++) {
                     if (data.sessions[i].sessionID === e.data) {
@@ -232,7 +233,7 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
             $scope.safeApply();
         }, $scope);
 
-        player.on(MediaPlayer.events.KEY_STATUSES_CHANGED, function(e) {
+        player.on(dashjs.MediaPlayer.events.KEY_STATUSES_CHANGED, function(e) {
             var session = findSession(e.data.getSessionID());
             if (session) {
                 var toGUID = function(uakey) {
@@ -266,7 +267,7 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
             }
         }, $scope);
 
-        player.on(MediaPlayer.events.KEY_MESSAGE, function(e) {
+        player.on(dashjs.MediaPlayer.events.KEY_MESSAGE, function(e) {
             var session = findSession(e.data.sessionToken.getSessionID());
             if (session) {
                 session.lastMessage = "Last Message: " + e.data.message.byteLength + " bytes";
@@ -280,7 +281,7 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
             }
         }, $scope);
 
-        player.on(MediaPlayer.events.LICENSE_REQUEST_COMPLETE, function(e) {
+        player.on(dashjs.MediaPlayer.events.LICENSE_REQUEST_COMPLETE, function(e) {
             if (!e.error) {
                 var session = findSession(e.data.sessionToken.getSessionID());
                 if (session) {
@@ -299,7 +300,7 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
     // Listen for protection system creation/destruction by the player itself.  This will
     // only happen in the case where we do not not provide a ProtectionController
     // to the player via MediaPlayer.attachSource()
-    player.on(MediaPlayer.events.PROTECTION_CREATED, function (e) {
+    player.on(dashjs.MediaPlayer.events.PROTECTION_CREATED, function (e) {
         var data = addDRMData(e.manifest, e.controller);
         data.isPlaying = true;
         for (var i = 0; i < $scope.drmData.length; i++) {
@@ -309,7 +310,7 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
         }
         $scope.safeApply();
     }, $scope);
-    player.on(MediaPlayer.events.PROTECTION_DESTROYED, function (e) {
+    player.on(dashjs.MediaPlayer.events.PROTECTION_DESTROYED, function (e) {
         for (var i = 0; i < $scope.drmData.length; i++) {
             if ($scope.drmData[i].manifest.url === e.data) {
                 $scope.drmData.splice(i, 1);
@@ -350,7 +351,8 @@ app.controller('DashController', function($scope, Sources, Notes, Contributors, 
     };
 
     $scope.play = function(data) {
-        player.attachSource(data.manifest, data.protCtrl);
+        player.attachProtectionController(data.protCtrl)
+        player.attachSource(data.manifest);
         for (var i = 0; i < $scope.drmData.length; i++) {
             var drmData = $scope.drmData[i];
             drmData.isPlaying = !!(drmData === data);

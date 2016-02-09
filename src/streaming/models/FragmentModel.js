@@ -185,7 +185,7 @@ function FragmentModel(config) {
 
         if (!request) return;
 
-        //Adds the ability to delay single fragment loading time to control buffer. Needed for Advanced ABR rules.
+        //Adds the ability to delay single fragment loading time to control buffer.
         if (now < request.delayLoadingTime ) {
             delayLoadingTimeout = setTimeout(function () {
                 executeRequest(request);
@@ -201,8 +201,8 @@ function FragmentModel(config) {
                 eventBus.trigger(Events.STREAM_COMPLETED, {request: request, fragmentModel: this});
                 break;
             case FragmentRequest.ACTION_DOWNLOAD:
-                loadingRequests.push(request);
                 addSchedulingInfoMetrics(request, FRAGMENT_MODEL_LOADING);
+                loadingRequests.push(request);
                 loadCurrentFragment(request);
                 break;
             default:
@@ -346,11 +346,10 @@ function FragmentModel(config) {
     return instance;
 }
 
+FragmentModel.__dashjs_factory_name = 'FragmentModel';
 let factory = FactoryMaker.getClassFactory(FragmentModel);
-
 factory.FRAGMENT_MODEL_LOADING = FRAGMENT_MODEL_LOADING;
 factory.FRAGMENT_MODEL_EXECUTED = FRAGMENT_MODEL_EXECUTED;
 factory.FRAGMENT_MODEL_CANCELED = FRAGMENT_MODEL_CANCELED;
 factory.FRAGMENT_MODEL_FAILED = FRAGMENT_MODEL_FAILED;
-
 export default factory;

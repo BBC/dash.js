@@ -47,8 +47,8 @@ function KeySystemWidevine() {
 
     let instance;
 
-    function getInitData() {
-        return CommonEncryption.parseInitDataFromContentProtection;
+    function getInitData(cp) {
+        return CommonEncryption.parseInitDataFromContentProtection(cp);
     }
 
     function getRequestHeadersFromMessage(/*message*/) {
@@ -76,4 +76,5 @@ function KeySystemWidevine() {
     return instance;
 }
 
+KeySystemWidevine.__dashjs_factory_name = 'KeySystemWidevine';
 export default FactoryMaker.getSingletonFactory(KeySystemWidevine);

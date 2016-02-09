@@ -38,7 +38,7 @@
  * @class
  */
 
-import ProtectionExtensions from '../ProtectionExtensions.js';
+import ProtectionKeyController from '../controllers/ProtectionKeyController.js';
 import NeedKey from '../vo/NeedKey.js';
 import KeyError from '../vo/KeyError.js';
 import KeyMessage from '../vo/KeyMessage.js';
@@ -62,7 +62,7 @@ function ProtectionModel_3Feb2014(config) {
         keySystemAccess,
         sessions,
         eventHandler,
-        protectionExt;
+        protectionKeyController;
 
     function setup() {
         videoElement = null;
@@ -70,7 +70,7 @@ function ProtectionModel_3Feb2014(config) {
         mediaKeys = null;
         keySystemAccess = null;
         sessions = [];
-        protectionExt = ProtectionExtensions(context).getInstance();
+        protectionKeyController = ProtectionKeyController(context).getInstance();
         eventHandler = createEventHandler();
     }
 
@@ -86,6 +86,10 @@ function ProtectionModel_3Feb2014(config) {
         } catch (error) {
             eventBus.trigger(Events.TEARDOWN_COMPLETE, {error: 'Error tearing down key sessions and MediaKeys! -- ' + error.message});
         }
+    }
+
+    function getKeySystem() {
+        return keySystem;
     }
 
     function getAllInitData() {
@@ -144,7 +148,7 @@ function ProtectionModel_3Feb2014(config) {
                 // This configuration is supported
                 found = true;
                 var ksConfig = new KeySystemConfiguration(supportedAudio, supportedVideo);
-                var ks = protectionExt.getKeySystemBySystemString(systemString);
+                var ks = protectionKeyController.getKeySystemBySystemString(systemString);
                 eventBus.trigger(Events.KEY_SYSTEM_ACCESS_COMPLETE, {data: new KeySystemAccess(ks, ksConfig)});
                 break;
             }
@@ -196,7 +200,20 @@ function ProtectionModel_3Feb2014(config) {
 
         // Use the first video capability for the contentType.
         // TODO:  Not sure if there is a way to concatenate all capability data into a RFC6386-compatible format
-        var contentType = keySystemAccess.ksConfiguration.videoCapabilities[0].contentType;
+
+        // If player is trying to playback Audio only stream - don't error out.
+        var capabilities = null;
+
+        if (keySystemAccess.ksConfiguration.videoCapabilities !== null && keySystemAccess.ksConfiguration.videoCapabilities.length > 0)
+          capabilities = keySystemAccess.ksConfiguration.videoCapabilities[0];
+
+        if (capabilities === null && keySystemAccess.ksConfiguration.audioCapabilities !== null && keySystemAccess.ksConfiguration.audioCapabilities.length > 0)
+          capabilities = keySystemAccess.ksConfiguration.audioCapabilities[0];
+
+        if (capabilities === null)
+          throw new Error('Can not create sessions for unknown content types.');
+
+        var contentType = capabilities.contentType;
         var session = mediaKeys.createSession(contentType, new Uint8Array(initData));
         var sessionToken = createSessionToken(session, initData);
 
@@ -216,7 +233,7 @@ function ProtectionModel_3Feb2014(config) {
 
         var session = sessionToken.session;
 
-        if (!protectionExt.isClearKey(keySystem)) {
+        if (!protectionKeyController.isClearKey(keySystem)) {
             // Send our request to the key session
             session.update(new Uint8Array(message));
         } else {
@@ -344,6 +361,7 @@ function ProtectionModel_3Feb2014(config) {
     instance = {
         getAllInitData: getAllInitData,
         requestKeySystemAccess: requestKeySystemAccess,
+        getKeySystem: getKeySystem,
         selectKeySystem: selectKeySystem,
         setMediaElement: setMediaElement,
         createKeySession: createKeySession,
@@ -360,4 +378,5 @@ function ProtectionModel_3Feb2014(config) {
     return instance;
 }
 
+ProtectionModel_3Feb2014.__dashjs_factory_name = 'ProtectionModel_3Feb2014';
 export default FactoryMaker.getClassFactory(ProtectionModel_3Feb2014);
