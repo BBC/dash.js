@@ -308,12 +308,13 @@ function PlaybackController() {
         var actualTime;
 
         if (!DVRWindow) return NaN;
-
-        if ((currentTime >= DVRWindow.start) && (currentTime <= DVRWindow.end)) {
+        if (currentTime > DVRWindow.end) {
+            actualTime = Math.max(DVRWindow.end - streamInfo.manifestInfo.minBufferTime * 2, DVRWindow.start + 0.001);
+        } else if (currentTime < DVRWindow.start) {
+            actualTime = DVRWindow.start + 0.001;
+        } else {
             return currentTime;
         }
-
-        actualTime = Math.max(DVRWindow.end - streamInfo.manifestInfo.minBufferTime * 2, DVRWindow.start);
 
         return actualTime;
     }
