@@ -309,9 +309,9 @@ function PlaybackController() {
 
         if (!DVRWindow) return NaN;
         if (currentTime > DVRWindow.end) {
-            actualTime = Math.max(DVRWindow.end - streamInfo.manifestInfo.minBufferTime * 2, DVRWindow.start + 0.001);
+            actualTime = Math.max(DVRWindow.end - streamInfo.manifestInfo.minBufferTime * 2, DVRWindow.start);
         } else if (currentTime < DVRWindow.start) {
-            actualTime = DVRWindow.start + 0.001;
+            actualTime = DVRWindow.start;
         } else {
             return currentTime;
         }
