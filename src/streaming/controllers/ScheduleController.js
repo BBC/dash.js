@@ -207,10 +207,10 @@ function ScheduleController(config) {
 
         validateExecutedFragmentRequest();
 
-        let isReplacement, topQualityChanged, readyToLoad;
-        if ( (isReplacement = replaceRequestArray.length > 0) ||
-             (topQualityChanged = hasTopQualityChanged(currentRepresentationInfo.mediaInfo.type, streamProcessor.getStreamInfo().id)) ||
-             (readyToLoad = bufferLevelRule.execute(streamProcessor, type, streamController.isVideoTrackPresent()))
+        const isReplacement = replaceRequestArray.length > 0;
+        if ( isReplacement ||
+             hasTopQualityChanged(currentRepresentationInfo.mediaInfo.type, streamProcessor.getStreamInfo().id) ||
+             bufferLevelRule.execute(streamProcessor, type, streamController.isVideoTrackPresent())
            ) {
 
             const getNextFragment = function () {
