@@ -331,10 +331,11 @@ function DashMetrics(config) {
      * @param {number} responseStatus
      * @param {object} responseHeaders
      * @param {object} traces
+     * @param {number} quality
      * @memberof module:DashMetrics
      * @instance
      */
-    function addHttpRequest(request, responseURL, responseStatus, responseHeaders, traces) {
+    function addHttpRequest(request, responseURL, responseStatus, responseHeaders, traces, quality) {
         metricsModel.addHttpRequest(request.mediaType,
             null,
             request.type,
@@ -348,7 +349,9 @@ function DashMetrics(config) {
             responseStatus,
             request.duration,
             responseHeaders,
-            traces);
+            traces,
+            quality
+        );
     }
 
     /**
