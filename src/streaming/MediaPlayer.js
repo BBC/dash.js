@@ -2800,10 +2800,41 @@ function MediaPlayer() {
      *  Reload the manifest that the player is currently using.
      *
      *  @memberof module:MediaPlayer
+     *  @param {function} callback - A Callback function provided when retrieving manifests
      *  @instance
      */
-    function refreshManifest() {
+    function refreshManifest(callback) {
+
+        let refreshTimer;
+        let removeCallbacks;
+
+        let callbackWrapperSuccess = function (e) {
+            if (callback) callback(e);
+            if (removeCallbacks) removeCallbacks();
+        };
+
+        let callbackWrapperError = function (e) {
+            if (e.error.code === Errors.DOWNLOAD_ERROR_ID_MANIFEST_CODE) {
+                if (callback) callback(e);
+                if (removeCallbacks) removeCallbacks();
+            }
+        };
+
+        removeCallbacks = function () {
+            if (refreshTimer) {
+                clearTimeout(refreshTimer);
+            }
+            off(Events.MANIFEST_UPDATED, callbackWrapperSuccess);
+            off(Events.ERROR, callbackWrapperError);
+        };
+
+        on(Events.MANIFEST_UPDATED, callbackWrapperSuccess);
+        on(Events.ERROR, callbackWrapperError);
         streamController.refreshManifest();
+
+        refreshTimer = setTimeout(function () {
+            callbackWrapperError({error: {code: Errors.DOWNLOAD_ERROR_ID_MANIFEST_CODE}});
+        }, 2000);
     }
 
     /**
