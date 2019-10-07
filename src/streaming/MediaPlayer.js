@@ -2805,7 +2805,6 @@ function MediaPlayer() {
      */
     function refreshManifest(callback) {
 
-        let refreshTimer;
         let removeCallbacks;
 
         let callbackWrapperSuccess = function (e) {
@@ -2821,9 +2820,6 @@ function MediaPlayer() {
         };
 
         removeCallbacks = function () {
-            if (refreshTimer) {
-                clearTimeout(refreshTimer);
-            }
             off(Events.INTERNAL_MANIFEST_LOADED, callbackWrapperSuccess);
             off(Events.ERROR, callbackWrapperError);
         };
