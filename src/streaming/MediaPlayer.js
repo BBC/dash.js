@@ -2824,17 +2824,13 @@ function MediaPlayer() {
             if (refreshTimer) {
                 clearTimeout(refreshTimer);
             }
-            off(Events.MANIFEST_UPDATED, callbackWrapperSuccess);
+            off(Events.INTERNAL_MANIFEST_LOADED, callbackWrapperSuccess);
             off(Events.ERROR, callbackWrapperError);
         };
 
-        on(Events.MANIFEST_UPDATED, callbackWrapperSuccess);
+        on(Events.INTERNAL_MANIFEST_LOADED, callbackWrapperSuccess);
         on(Events.ERROR, callbackWrapperError);
         streamController.refreshManifest();
-
-        refreshTimer = setTimeout(function () {
-            callbackWrapperError({error: {code: Errors.DOWNLOAD_ERROR_ID_MANIFEST_CODE}});
-        }, 2000);
     }
 
     /**
