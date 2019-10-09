@@ -2805,27 +2805,18 @@ function MediaPlayer() {
      */
     function refreshManifest(callback) {
 
-        let removeCallbacks;
+        let self = this;
 
-        let callbackWrapperSuccess = function (e) {
-            if (callback) callback(e.manifest);
-            if (removeCallbacks) removeCallbacks();
-        };
-
-        let callbackWrapperError = function (e) {
-            if (e.error.code === Errors.DOWNLOAD_ERROR_ID_MANIFEST_CODE) {
-                if (callback) callback(e);
-                if (removeCallbacks) removeCallbacks();
+        const handler = function (e) {
+            if (!e.error) {
+                callback(e.manifest);
+            } else {
+                callback(null, e.error);
             }
+            eventBus.off(Events.INTERNAL_MANIFEST_LOADED, handler, self);
         };
 
-        removeCallbacks = function () {
-            off(Events.INTERNAL_MANIFEST_LOADED, callbackWrapperSuccess);
-            off(Events.ERROR, callbackWrapperError);
-        };
-
-        on(Events.INTERNAL_MANIFEST_LOADED, callbackWrapperSuccess);
-        on(Events.ERROR, callbackWrapperError);
+        eventBus.on(Events.INTERNAL_MANIFEST_LOADED, handler, self);
         streamController.refreshManifest();
     }
 
