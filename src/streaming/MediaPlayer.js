@@ -2808,7 +2808,7 @@ function MediaPlayer() {
         let removeCallbacks;
 
         let callbackWrapperSuccess = function (e) {
-            if (callback) callback(e);
+            if (callback) callback(e.manifest);
             if (removeCallbacks) removeCallbacks();
         };
 
