@@ -135,15 +135,16 @@ function HTTPLoader(cfg) {
             }
 
             if (httpRequest.response.status >= 200 && httpRequest.response.status <= 299) {
-                if (hasContentLengthMismatch(httpRequest.response)) {
+                const mismatchCheckType = httpRequest.request && httpRequest.request.mediaType !== 'fragmentedText';
+                const contentLengthMismatch = mismatchCheckType && hasContentLengthMismatch(httpRequest.response);
+                if (contentLengthMismatch && remainingAttempts > 0) {
                     handleLoaded(false);
-                    if (remainingAttempts > 0) {
-                        remainingAttempts--;
-                        scheduleRetry(config, remainingAttempts, request);
-                    } else {
+                    remainingAttempts--;
+                    scheduleRetry(config, remainingAttempts, request);
+                } else {
+                    if (contentLengthMismatch) {
                         errHandler.error(new DashJSError(Errors.DOWNLOAD_CONTENT_LENGTH_MISMATCH, request.url + ' has a content-length header that does not match its data length', {request: request, response: httpRequest.response}));
                     }
-                } else {
                     handleLoaded(true);
 
                     if (config.success) {
