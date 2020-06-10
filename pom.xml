@@ -32,7 +32,7 @@ http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
         <!-- git revision -->
         <revision>${git.commitsCount}</revision>
 
-        <version.number>2.9.3-4</version.number>
+        <version.number>2.9.3-5-SNAPSHOT</version.number>
         <version.suffix></version.suffix>
         <version.artifact>${version.number}${version.suffix}</version.artifact>
         <version.token>${version.number}-${revision}${version.suffix}</version.token>
