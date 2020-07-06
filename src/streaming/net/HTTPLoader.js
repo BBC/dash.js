@@ -134,7 +134,7 @@ function HTTPLoader(cfg) {
                 requests.splice(requests.indexOf(httpRequest), 1);
             }
 
-            if (httpRequest.response.status >= 200 && httpRequest.response.status <= 299) {
+            if (httpRequest && httpRequest.response && httpRequest.response.status >= 200 && httpRequest.response.status <= 299) {
                 const mismatchCheckType = httpRequest.request && httpRequest.request.mediaType !== 'fragmentedText';
                 if (mismatchCheckType && hasContentLengthMismatch(httpRequest.response)) {
                     handleLoaded(false);
