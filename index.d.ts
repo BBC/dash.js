@@ -270,6 +270,7 @@ declare namespace dashjs {
         setSelectionModeForInitialTrack(mode: TrackSelectionMode): void;
         getSelectionModeForInitialTrack(): TrackSelectionMode;
         retrieveManifest(url: string, callback: (manifest: object | null, error: any) => void): void;
+        refreshManifest(callback: (manifest: object | null, error: any) => void): void;
         addUTCTimingSource(schemeIdUri: string, value: string): void;
         removeUTCTimingSource(schemeIdUri: string, value: string): void;
         clearDefaultUTCTimingSources(): void;

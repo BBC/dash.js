@@ -1722,9 +1722,22 @@ function MediaPlayer() {
      *  Reload the manifest that the player is currently using.
      *
      *  @memberof module:MediaPlayer
+     *  @param {function} callback - A Callback function provided when retrieving manifests
      *  @instance
      */
-    function refreshManifest() {
+    function refreshManifest(callback) {
+        let self = this;
+
+        const handler = function (e) {
+            if (!e.error) {
+                callback(e.manifest);
+            } else {
+                callback(null, e.error);
+            }
+            eventBus.off(Events.INTERNAL_MANIFEST_LOADED, handler, self);
+        };
+
+        eventBus.on(Events.INTERNAL_MANIFEST_LOADED, handler, self);
         streamController.refreshManifest();
     }
 
