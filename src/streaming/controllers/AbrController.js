@@ -462,9 +462,9 @@ function AbrController() {
         }
         // else ABR_STRATEGY_DYNAMIC
 
-        const stableBufferTime = mediaPlayerModel.getStableBufferTime();
-        const switchOnThreshold = stableBufferTime;
-        const switchOffThreshold = 0.5 * stableBufferTime;
+        const hybridSwitchBufferTime = mediaPlayerModel.getHybridSwitchBufferTime();
+        const switchOnThreshold = hybridSwitchBufferTime;
+        const switchOffThreshold = 0.5 * hybridSwitchBufferTime;
 
         const useBufferABR = isUsingBufferOccupancyABRDict[mediaType];
         const newUseBufferABR = bufferLevel > (useBufferABR ? switchOffThreshold : switchOnThreshold); // use hysteresis to avoid oscillating rules

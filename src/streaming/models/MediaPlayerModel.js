@@ -42,6 +42,7 @@ const DEFAULT_LOW_LATENCY_LIVE_DELAY = 3.0;
 const LOW_LATENCY_REDUCTION_FACTOR = 10;
 const LOW_LATENCY_MULTIPLY_FACTOR = 5;
 const DEFAULT_XHR_WITH_CREDENTIALS = false;
+const DEFAULT_HYBRID_SWITCH_TIME = 12;
 
 function MediaPlayerModel() {
 
@@ -123,6 +124,10 @@ function MediaPlayerModel() {
 
         const stableBufferTime = settings.get().streaming.stableBufferTime;
         return stableBufferTime > -1 ? stableBufferTime : settings.get().streaming.fastSwitchEnabled ? DEFAULT_MIN_BUFFER_TIME_FAST_SWITCH : DEFAULT_MIN_BUFFER_TIME;
+    }
+
+    function getHybridSwitchBufferTime() {
+        return settings.get().streaming.hybridSwitchBufferTime || DEFAULT_HYBRID_SWITCH_TIME;
     }
 
     function getRetryAttemptsForType(type) {
@@ -221,6 +226,7 @@ function MediaPlayerModel() {
         getDefaultUtcTimingSource: getDefaultUtcTimingSource,
         setFragmentRequestTimeout: setFragmentRequestTimeout,
         getFragmentRequestTimeout: getFragmentRequestTimeout,
+        getHybridSwitchBufferTime: getHybridSwitchBufferTime,
         reset: reset
     };
 

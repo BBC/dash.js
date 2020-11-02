@@ -67,6 +67,7 @@ import {
  *          jumpGaps: true,
  *          smallGapLimit: 1.5,
  *          stableBufferTime: 12,
+ *          hybridSwitchBufferTime: 12,
  *          bufferTimeAtTopQuality: 30,
  *          bufferTimeAtTopQualityLongForm: 60,
  *          longFormContentDurationThreshold: 600,
@@ -244,6 +245,8 @@ import {
  * When the time is set higher than the default you will have to wait longer
  * to see automatic bitrate switches but will have a larger buffer which
  * will increase stability.
+ * @property {number} [hybridSwitchBufferTime=12]
+ * The buffer time that the hybrid rule will switch between throughput and BOLA at.
  * @property {number} [bufferTimeAtTopQuality=30]
  * The time that the internal buffer target will be set to once playing the top quality.
  * If there are multiple bitrates in your adaptation, and the media is playing at the highest
@@ -368,6 +371,7 @@ function Settings() {
             jumpGaps: true,
             smallGapLimit: 1.5,
             stableBufferTime: 12,
+            hybridSwitchBufferTime: 12,
             bufferTimeAtTopQuality: 30,
             bufferTimeAtTopQualityLongForm: 60,
             longFormContentDurationThreshold: 600,

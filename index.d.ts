@@ -93,6 +93,7 @@ declare namespace dashjs {
             jumpGaps: boolean;
             smallGapLimit: number;
             stableBufferTime: number;
+            hybridSwitchBufferTime: number;
             bufferTimeAtTopQuality: number;
             bufferTimeAtTopQualityLongForm: number;
             longFormContentDurationThreshold: number;
