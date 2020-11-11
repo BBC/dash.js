@@ -31,7 +31,6 @@
 import Constants from './constants/Constants';
 import LiveEdgeFinder from './utils/LiveEdgeFinder';
 import BufferController from './controllers/BufferController';
-import TextBufferController from './text/TextBufferController';
 import ScheduleController from './controllers/ScheduleController';
 import RepresentationController from '../dash/controllers/RepresentationController';
 import FactoryMaker from '../core/FactoryMaker';
@@ -334,23 +333,6 @@ function StreamProcessor(config) {
         if (type === Constants.VIDEO || type === Constants.AUDIO) {
             controller = BufferController(context).create({
                 type: type,
-                dashMetrics: dashMetrics,
-                mediaPlayerModel: mediaPlayerModel,
-                manifestModel: manifestModel,
-                errHandler: errHandler,
-                streamController: streamController,
-                mediaController: mediaController,
-                adapter: adapter,
-                textController: textController,
-                abrController: abrController,
-                playbackController: playbackController,
-                streamProcessor: instance,
-                settings: settings
-            });
-        } else {
-            controller = TextBufferController(context).create({
-                type: type,
-                mimeType: mimeType,
                 dashMetrics: dashMetrics,
                 mediaPlayerModel: mediaPlayerModel,
                 manifestModel: manifestModel,

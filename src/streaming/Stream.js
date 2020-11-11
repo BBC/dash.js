@@ -57,7 +57,6 @@ function Stream(config) {
     const abrController = config.abrController;
     const playbackController = config.playbackController;
     const mediaController = config.mediaController;
-    const textController = config.textController;
     const videoModel = config.videoModel;
     const settings = config.settings;
 
@@ -382,7 +381,6 @@ function Stream(config) {
             playbackController: playbackController,
             mediaController: mediaController,
             streamController: config.streamController,
-            textController: textController,
             errHandler: errHandler,
             settings: settings
         });
@@ -430,12 +428,8 @@ function Stream(config) {
         for (let i = 0, ln = allMediaForType.length; i < ln; i++) {
             mediaInfo = allMediaForType[i];
 
-            if (type === Constants.EMBEDDED_TEXT) {
-                textController.addEmbeddedTrack(mediaInfo);
-            } else {
-                if (!isMediaSupported(mediaInfo)) continue;
-                mediaController.addTrack(mediaInfo);
-            }
+            if (!isMediaSupported(mediaInfo)) continue;
+            mediaController.addTrack(mediaInfo);
         }
 
         if (type === Constants.EMBEDDED_TEXT || mediaController.getTracksFor(type, streamInfo).length === 0) {
@@ -452,13 +446,9 @@ function Stream(config) {
             return;
         }
 
-        if (type !== Constants.FRAGMENTED_TEXT || (type === Constants.FRAGMENTED_TEXT && textController.getTextDefaultEnabled())) {
+        if (type !== Constants.FRAGMENTED_TEXT) {
             mediaController.checkInitialMediaSettingsForType(type, streamInfo);
             initialMediaInfo = mediaController.getCurrentTrackFor(type, streamInfo);
-        }
-
-        if (type === Constants.FRAGMENTED_TEXT && !textController.getTextDefaultEnabled()) {
-            initialMediaInfo = mediaController.getTracksFor(type, streamInfo)[0];
         }
 
         // TODO : How to tell index handler live/duration?

@@ -30,7 +30,6 @@
  */
 
 import FactoryMaker from '../../core/FactoryMaker';
-import deepEqual from 'fast-deep-equal';
 
 /**
  * @module ObjectUtils
@@ -50,7 +49,9 @@ function ObjectUtils() {
      * @instance
      */
     function areEqual(obj1, obj2) {
-        return deepEqual(obj1, obj2);
+        // to avoid importing fast-deep-equal find out if this really is a
+        // bottleneck?
+        return JSON.stringify(obj1)==JSON.stringify(obj2);
     }
 
     instance = {

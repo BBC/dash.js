@@ -29,7 +29,6 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-import cea608parser from '../../externals/cea608-parser';
 import Constants from './constants/Constants';
 import MetricsConstants from './constants/MetricsConstants';
 import PlaybackController from './controllers/PlaybackController';
@@ -39,9 +38,7 @@ import BaseURLController from './controllers/BaseURLController';
 import ManifestLoader from './ManifestLoader';
 import ErrorHandler from './utils/ErrorHandler';
 import Capabilities from './utils/Capabilities';
-import TextTracks from './text/TextTracks';
 import RequestModifier from './utils/RequestModifier';
-import TextController from './text/TextController';
 import URIFragmentModel from './models/URIFragmentModel';
 import ManifestModel from './models/ManifestModel';
 import MediaPlayerModel from './models/MediaPlayerModel';
@@ -64,11 +61,8 @@ from './../core/Version';
 import DashAdapter from '../dash/DashAdapter';
 import DashMetrics from '../dash/DashMetrics';
 import TimelineConverter from '../dash/utils/TimelineConverter';
-import {
-    HTTPRequest
-} from './vo/metrics/HTTPRequest';
+import {HTTPRequest} from './vo/metrics/HTTPRequest';
 import BASE64 from '../../externals/base64';
-import ISOBoxer from 'codem-isoboxer';
 import DashJSError from './vo/DashJSError';
 import { checkParameterType } from './utils/SupervisorTools';
 
@@ -133,7 +127,6 @@ function MediaPlayer() {
         dashMetrics,
         manifestModel,
         videoModel,
-        textController,
         domStorage,
         uriFragmentModel,
         savedElementAttributes;
@@ -246,14 +239,12 @@ function MediaPlayer() {
         dashMetrics = DashMetrics(context).getInstance({
             settings: settings
         });
-        textController = TextController(context).getInstance();
         domStorage = DOMStorage(context).getInstance({
             settings: settings
         });
 
         adapter.setConfig({
             constants: Constants,
-            cea608parser: cea608parser,
             errHandler: errHandler,
             BASE64: BASE64
         });
@@ -570,7 +561,7 @@ function MediaPlayer() {
      * @instance
      */
     function getBufferLength(type) {
-        const types = [Constants.VIDEO, Constants.AUDIO, Constants.FRAGMENTED_TEXT];
+        const types = [Constants.VIDEO, Constants.AUDIO];
         if (!type) {
             const buffer = types.map(
                 t => getTracksFor(t).length > 0 ? getDashMetrics().getCurrentBufferLevel(t) : Number.MAX_VALUE
@@ -781,15 +772,6 @@ function MediaPlayer() {
         if (!streamingInitialized) {
             throw STREAMING_NOT_INITIALIZED_ERROR;
         }
-        if (type === Constants.IMAGE) {
-            const activeStream = getActiveStream();
-            if (!activeStream) {
-                return -1;
-            }
-            const thumbnailController = activeStream.getThumbnailController();
-
-            return !thumbnailController ? -1 : thumbnailController.getCurrentTrackIndex();
-        }
         return abrController.getQualityFor(type);
     }
 
@@ -808,16 +790,6 @@ function MediaPlayer() {
     function setQualityFor(type, value) {
         if (!streamingInitialized) {
             throw STREAMING_NOT_INITIALIZED_ERROR;
-        }
-        if (type === Constants.IMAGE) {
-            const activeStream = getActiveStream();
-            if (!activeStream) {
-                return;
-            }
-            const thumbnailController = activeStream.getThumbnailController();
-            if (thumbnailController) {
-                thumbnailController.setTrackByIndex(value);
-            }
         }
         abrController.setPlaybackQuality(type, streamController.getActiveStreamInfo(), value);
     }
@@ -1063,167 +1035,6 @@ function MediaPlayer() {
     /*
     ---------------------------------------------------------------------------
 
-        TEXT MANAGEMENT
-
-    ---------------------------------------------------------------------------
-    */
-    /**
-     * Set default language for text. If default language is not one of text tracks, dash will choose the first one.
-     *
-     * @param {string} lang - default language
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function setTextDefaultLanguage(lang) {
-        if (textController === undefined) {
-            textController = TextController(context).getInstance();
-        }
-
-        textController.setTextDefaultLanguage(lang);
-    }
-
-    /**
-     * Get default language for text.
-     *
-     * @return {string} the default language if it has been set using setTextDefaultLanguage
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function getTextDefaultLanguage() {
-        if (textController === undefined) {
-            textController = TextController(context).getInstance();
-        }
-
-        return textController.getTextDefaultLanguage();
-    }
-
-    /**
-     * Set enabled default state.
-     * This is used to enable/disable text when a file is loaded.
-     * During playback, use enableText to enable text for the file
-     *
-     * @param {boolean} enable - true to enable text, false otherwise
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function setTextDefaultEnabled(enable) {
-        if (textController === undefined) {
-            textController = TextController(context).getInstance();
-        }
-
-        textController.setTextDefaultEnabled(enable);
-    }
-
-    /**
-     * Get enabled default state.
-     *
-     * @return {boolean}  default enable state
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function getTextDefaultEnabled() {
-        if (textController === undefined) {
-            textController = TextController(context).getInstance();
-        }
-
-        return textController.getTextDefaultEnabled();
-    }
-
-    /**
-     * Enable/disable text
-     * When enabling text, dash will choose the previous selected text track
-     *
-     * @param {boolean} enable - true to enable text, false otherwise (same as setTextTrack(-1))
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function enableText(enable) {
-        if (textController === undefined) {
-            textController = TextController(context).getInstance();
-        }
-
-        textController.enableText(enable);
-    }
-
-    /**
-     * Enable/disable text
-     * When enabling dash will keep downloading and process fragmented text tracks even if all tracks are in mode "hidden"
-     *
-     * @param {boolean} enable - true to enable text streaming even if all text tracks are hidden.
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function enableForcedTextStreaming(enable) {
-        if (textController === undefined) {
-            textController = TextController(context).getInstance();
-        }
-
-        textController.enableForcedTextStreaming(enable);
-    }
-
-    /**
-     * Return if text is enabled
-     *
-     * @return {boolean} return true if text is enabled, false otherwise
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function isTextEnabled() {
-        if (textController === undefined) {
-            textController = TextController(context).getInstance();
-        }
-
-        return textController.isTextEnabled();
-    }
-
-    /**
-     * Use this method to change the current text track for both external time text files and fragmented text tracks. There is no need to
-     * set the track mode on the video object to switch a track when using this method.
-     * @param {number} idx - Index of track based on the order of the order the tracks are added Use -1 to disable all tracks. (turn captions off).  Use module:MediaPlayer#dashjs.MediaPlayer.events.TEXT_TRACK_ADDED.
-     * @see {@link MediaPlayerEvents#event:TEXT_TRACK_ADDED dashjs.MediaPlayer.events.TEXT_TRACK_ADDED}
-     * @throws {@link module:MediaPlayer~PLAYBACK_NOT_INITIALIZED_ERROR PLAYBACK_NOT_INITIALIZED_ERROR} if called before initializePlayback function
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function setTextTrack(idx) {
-        if (!playbackInitialized) {
-            throw PLAYBACK_NOT_INITIALIZED_ERROR;
-        }
-
-        if (textController === undefined) {
-            textController = TextController(context).getInstance();
-        }
-
-        textController.setTextTrack(idx);
-    }
-
-    function getCurrentTextTrackIndex() {
-        let idx = NaN;
-        if (textController) {
-            idx = textController.getCurrentTrackIdx();
-        }
-        return idx;
-    }
-
-    /**
-     * This method serves to control captions z-index value. If 'true' is passed, the captions will have the highest z-index and be
-     * displayed on top of other html elements. Default value is 'false' (z-index is not set).
-     * @param {boolean} value
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function displayCaptionsOnTop(value) {
-        let textTracks = TextTracks(context).getInstance();
-        textTracks.setConfig({
-            videoModel: videoModel
-        });
-        textTracks.initialize();
-        textTracks.setDisplayCConTop(value);
-    }
-
-    /*
-    ---------------------------------------------------------------------------
-
         VIDEO ELEMENT MANAGEMENT
 
     ---------------------------------------------------------------------------
@@ -1303,31 +1114,6 @@ function MediaPlayer() {
                 streamController.switchToVideoElement(savedElementAttributes.seekTime);
             }
         }
-    }
-
-    /**
-     * Returns instance of Div that was attached by calling attachTTMLRenderingDiv()
-     * @returns {Object}
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function getTTMLRenderingDiv() {
-        return videoModel ? videoModel.getTTMLRenderingDiv() : null;
-    }
-
-    /**
-     * Use this method to attach an HTML5 div for dash.js to render rich TTML subtitles.
-     *
-     * @param {HTMLDivElement} div - An unstyled div placed after the video element. It will be styled to match the video size and overlay z-order.
-     * @memberof module:MediaPlayer
-     * @throws {@link module:MediaPlayer~ELEMENT_NOT_ATTACHED_ERROR ELEMENT_NOT_ATTACHED_ERROR} if called before attachView function
-     * @instance
-     */
-    function attachTTMLRenderingDiv(div) {
-        if (!videoModel.getElement()) {
-            throw ELEMENT_NOT_ATTACHED_ERROR;
-        }
-        videoModel.setTTMLRenderingDiv(div);
     }
 
     /*
@@ -1600,42 +1386,6 @@ function MediaPlayer() {
     /*
     ---------------------------------------------------------------------------
 
-        THUMBNAILS MANAGEMENT
-
-    ---------------------------------------------------------------------------
-    */
-
-    /**
-     * Return the thumbnail at time position.
-     * @returns {Thumbnail|null} - Thumbnail for the given time position. It returns null in case there are is not a thumbnails representation or
-     * if it doesn't contain a thumbnail for the given time position.
-     * @param {number} time - A relative time, in seconds, based on the return value of the {@link module:MediaPlayer#duration duration()} method is expected
-     * @param {function} callback - A Callback function provided when retrieving thumbnail
-     * @memberof module:MediaPlayer
-     * @instance
-     */
-    function getThumbnail(time, callback) {
-        if (time < 0) {
-            return null;
-        }
-        const s = playbackController.getIsDynamic() ? getDVRSeekOffset(time) : time;
-        const stream = streamController.getStreamForTime(s);
-        if (stream === null) {
-            return null;
-        }
-
-        const thumbnailController = stream.getThumbnailController();
-        if (!thumbnailController) {
-            return null;
-        }
-
-        const timeInPeriod = streamController.getTimeRelativeToStreamId(s, stream.getId());
-        return thumbnailController.get(timeInPeriod, callback);
-    }
-
-    /*
-    ---------------------------------------------------------------------------
-
         TOOLS AND OTHERS FUNCTIONS
 
     ---------------------------------------------------------------------------
@@ -1878,7 +1628,6 @@ function MediaPlayer() {
         playbackController.reset();
         abrController.reset();
         mediaController.reset();
-        textController.reset();
         if (protectionController) {
             if (settings.get().streaming.keepProtectionMediaKeys) {
                 protectionController.stop();
@@ -1918,7 +1667,6 @@ function MediaPlayer() {
             playbackController: playbackController,
             abrController: abrController,
             mediaController: mediaController,
-            textController: textController,
             settings: settings
         });
 
@@ -1943,15 +1691,6 @@ function MediaPlayer() {
             settings: settings
         });
         abrController.createAbrRulesCollection();
-
-        textController.setConfig({
-            errHandler: errHandler,
-            manifestModel: manifestModel,
-            adapter: adapter,
-            mediaController: mediaController,
-            streamController: streamController,
-            videoModel: videoModel
-        });
 
         // initialises controller
         streamController.initialize(autoPlay, protectionData);
@@ -2043,8 +1782,7 @@ function MediaPlayer() {
                 constants: Constants,
                 debug: debug,
                 initSegmentType: HTTPRequest.INIT_SEGMENT_TYPE,
-                BASE64: BASE64,
-                ISOBoxer: ISOBoxer
+                BASE64: BASE64
             });
         }
     }
@@ -2134,7 +1872,6 @@ function MediaPlayer() {
         getVersion: getVersion,
         getDebug: getDebug,
         getBufferLength: getBufferLength,
-        getTTMLRenderingDiv: getTTMLRenderingDiv,
         getVideoElement: getVideoElement,
         getSource: getSource,
         getCurrentLiveLatency: getCurrentLiveLatency,
@@ -2145,14 +1882,6 @@ function MediaPlayer() {
         getQualityFor: getQualityFor,
         setQualityFor: setQualityFor,
         updatePortalSize: updatePortalSize,
-        setTextDefaultLanguage: setTextDefaultLanguage,
-        getTextDefaultLanguage: getTextDefaultLanguage,
-        setTextDefaultEnabled: setTextDefaultEnabled,
-        getTextDefaultEnabled: getTextDefaultEnabled,
-        enableText: enableText,
-        enableForcedTextStreaming: enableForcedTextStreaming,
-        isTextEnabled: isTextEnabled,
-        setTextTrack: setTextTrack,
         getBitrateInfoListFor: getBitrateInfoListFor,
         getStreamsFromManifest: getStreamsFromManifest,
         getTracksFor: getTracksFor,
@@ -2179,11 +1908,7 @@ function MediaPlayer() {
         getProtectionController: getProtectionController,
         attachProtectionController: attachProtectionController,
         setProtectionData: setProtectionData,
-        displayCaptionsOnTop: displayCaptionsOnTop,
-        attachTTMLRenderingDiv: attachTTMLRenderingDiv,
-        getCurrentTextTrackIndex: getCurrentTextTrackIndex,
         refreshManifest: refreshManifest,
-        getThumbnail: getThumbnail,
         setBlacklistExpiryTime: setBlacklistExpiryTime,
         getDashAdapter: getDashAdapter,
         getSettings: getSettings,

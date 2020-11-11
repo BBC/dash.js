@@ -34,7 +34,6 @@ import Events from '../../core/events/Events';
 import FactoryMaker from '../../core/FactoryMaker';
 import InitCache from '../utils/InitCache';
 import SourceBufferSink from '../SourceBufferSink';
-import TextController from '../../streaming/text/TextController';
 import DashJSError from '../../streaming/vo/DashJSError';
 import Errors from '../../core/errors/Errors';
 
@@ -44,7 +43,6 @@ function NotFragmentedTextBufferController(config) {
     config = config || {};
     let context = this.context;
     let eventBus = EventBus(context).getInstance();
-    const textController = TextController(context).getInstance();
 
     let errHandler = config.errHandler;
     let type = config.type;
@@ -92,15 +90,7 @@ function NotFragmentedTextBufferController(config) {
             }
             return buffer;
         } catch (e) {
-            if (mediaInfo && ((mediaInfo.isText) || (mediaInfo.codec.indexOf('codecs="stpp') !== -1) || (mediaInfo.codec.indexOf('codecs="wvtt') !== -1))) {
-                try {
-                    buffer = textController.getTextSourceBuffer();
-                } catch (e) {
-                    errHandler.error(new DashJSError(Errors.MEDIASOURCE_TYPE_UNSUPPORTED_CODE, Errors.MEDIASOURCE_TYPE_UNSUPPORTED_MESSAGE + type + ' : ' + e.message));
-                }
-            } else {
-                errHandler.error(new DashJSError(Errors.MEDIASOURCE_TYPE_UNSUPPORTED_CODE, Errors.MEDIASOURCE_TYPE_UNSUPPORTED_MESSAGE + type));
-            }
+            errHandler.error(new DashJSError(Errors.MEDIASOURCE_TYPE_UNSUPPORTED_CODE, Errors.MEDIASOURCE_TYPE_UNSUPPORTED_MESSAGE + type));
         }
     }
 

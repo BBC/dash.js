@@ -169,8 +169,7 @@ function ScheduleController(config) {
     function schedule() {
         const bufferController = streamProcessor.getBufferController();
         if (isStopped || isFragmentProcessingInProgress || !bufferController ||
-            (playbackController.isPaused() && !settings.get().streaming.scheduleWhilePaused) ||
-            ((type === Constants.FRAGMENTED_TEXT || type === Constants.TEXT) && !textController.isTextEnabled())) {
+            (playbackController.isPaused() && !settings.get().streaming.scheduleWhilePaused)) {
             logger.debug('Schedule stop!');
             return;
         }

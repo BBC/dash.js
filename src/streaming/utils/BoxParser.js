@@ -32,7 +32,8 @@
 import Debug from '../../core/Debug';
 import IsoFile from './IsoFile';
 import FactoryMaker from '../../core/FactoryMaker';
-import ISOBoxer from 'codem-isoboxer';
+//
+import ISOBoxer from '../../../externals/iso_boxer.js';
 
 import IsoBoxSearchInfo from '../vo/IsoBoxSearchInfo';
 

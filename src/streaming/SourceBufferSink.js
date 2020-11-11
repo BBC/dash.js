@@ -33,7 +33,6 @@ import DashJSError from './vo/DashJSError';
 import EventBus from '../core/EventBus';
 import Events from '../core/events/Events';
 import FactoryMaker from '../core/FactoryMaker';
-import TextController from './text/TextController';
 import Errors from '../core/errors/Errors';
 
 const MAX_ALLOWED_DISCONTINUITY = 0.1; // 100 milliseconds
@@ -93,13 +92,7 @@ function SourceBufferSink(mediaSource, mediaInfo, onAppendedCallback, oldBuffer)
                 intervalId = setInterval(checkIsUpdateEnded, CHECK_INTERVAL);
             }
         } catch (ex) {
-            // Note that in the following, the quotes are open to allow for extra text after stpp and wvtt
-            if ((mediaInfo.isText) || (codec.indexOf('codecs="stpp') !== -1) || (codec.indexOf('codecs="wvtt') !== -1)) {
-                const textController = TextController(context).getInstance();
-                buffer = textController.getTextSourceBuffer();
-            } else {
-                throw ex;
-            }
+            throw ex;
         }
     }
 
