@@ -9,7 +9,6 @@ function ManifestParsing (config) {
     const constants = config.constants;
 
     function getMetricsRangeStartTime(manifest, dynamic, range) {
-        let mpd = adapter.getMpd(manifest);
         let voPeriods,
             reportingStartTime;
         let presentationStartTime = 0;
@@ -19,12 +18,12 @@ function ManifestParsing (config) {
             // indicated in wall clock time by adding the value of this
             // attribute to the value of the MPD@availabilityStartTime
             // attribute.
-            presentationStartTime = adapter.getAvailabilityStartTime(mpd) / 1000;
+            presentationStartTime = adapter.getAvailabilityStartTime(manifest) / 1000;
         } else {
             // For services with MPD@type='static', the start time is indicated
             // in Media Presentation time and is relative to the PeriodStart
             // time of the first Period in this MPD.
-            voPeriods = adapter.getRegularPeriods(mpd);
+            voPeriods = adapter.getRegularPeriods(manifest);
 
             if (voPeriods.length) {
                 presentationStartTime = voPeriods[0].start;
@@ -89,10 +88,16 @@ function ManifestParsing (config) {
                             return;
                         }
 
-                        for (const prop in reporting) {
-                            if (reporting.hasOwnProperty(prop)) {
-                                reportingEntry[prop] = reporting[prop];
-                            }
+                        if (reporting.hasOwnProperty('value')) {
+                            reportingEntry.value = reporting.value;
+                        }
+
+                        if (reporting.hasOwnProperty(constants.DVB_REPORTING_URL)) {
+                            reportingEntry.dvb_reportingUrl = reporting[constants.DVB_REPORTING_URL];
+                        }
+
+                        if (reporting.hasOwnProperty(constants.DVB_PROBABILITY)) {
+                            reportingEntry.dvb_probability = reporting[constants.DVB_PROBABILITY];
                         }
 
                         metricEntry.Reporting.push(reportingEntry);

@@ -61,7 +61,8 @@ function XlinkController(config) {
             errHandler: config.errHandler,
             dashMetrics: config.dashMetrics,
             mediaPlayerModel: config.mediaPlayerModel,
-            requestModifier: config.requestModifier
+            requestModifier: config.requestModifier,
+            settings: config.settings
         });
     }
 
@@ -165,7 +166,7 @@ function XlinkController(config) {
 
         mergeElementsBack(resolveObject);
         if (resolveObject.resolveType === RESOLVE_TYPE_ONACTUATE) {
-            eventBus.trigger(Events.XLINK_READY, {manifest: manifest});
+            eventBus.trigger(Events.XLINK_READY, { manifest: manifest });
         }
         if (resolveObject.resolveType === RESOLVE_TYPE_ONLOAD) {
             switch (resolveObject.type) {
@@ -184,7 +185,7 @@ function XlinkController(config) {
                     break;
                 case DashConstants.ADAPTATION_SET:
                     // TODO: Resolve SegmentList here
-                    eventBus.trigger(Events.XLINK_READY, {manifest: manifest});
+                    eventBus.trigger(Events.XLINK_READY, { manifest: manifest });
                     break;
             }
         }

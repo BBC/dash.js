@@ -59,7 +59,6 @@ function MssFragmentMoofProcessor(config) {
     function processTfrf(request, tfrf, tfdt, streamProcessor) {
         const representationController = streamProcessor.getRepresentationController();
         const representation = representationController.getCurrentRepresentation();
-        const indexHandler = streamProcessor.getIndexHandler();
 
         const manifest = representation.adaptation.period.mpd.manifest;
         const adaptation = manifest.Period_asArray[representation.adaptation.period.index].AdaptationSet_asArray[representation.adaptation.index];
@@ -67,6 +66,7 @@ function MssFragmentMoofProcessor(config) {
 
         type = streamProcessor.getType();
 
+        // Process tfrf only for live streams or start-over static streams (timeShiftBufferDepth > 0)
         if (manifest.type !== 'dynamic' && !manifest.timeShiftBufferDepth) {
             return;
         }
@@ -103,16 +103,15 @@ function MssFragmentMoofProcessor(config) {
             }
         }
 
-        logger.debug('entry - t = ', (entry.fragment_absolute_time / timescale));
+        // logger.debug('entry - t = ', (entry.fragment_absolute_time / timescale));
 
         // Get last segment time
         segmentTime = segments[segments.length - 1].tManifest ? parseFloat(segments[segments.length - 1].tManifest) : segments[segments.length - 1].t;
-        logger.debug('Last segment - t = ', (segmentTime / timescale));
+        // logger.debug('Last segment - t = ', (segmentTime / timescale));
 
         // Check if we have to append new segment to timeline
         if (entry.fragment_absolute_time <= segmentTime) {
-            // Update DVR window range
-            // => set range end to end time of current segment
+            // Update DVR window range => set range end to end time of current segment
             range = {
                 start: segments[0].t / timescale,
                 end: (tfdt.baseMediaDecodeTime / timescale) + request.duration
@@ -122,7 +121,7 @@ function MssFragmentMoofProcessor(config) {
             return;
         }
 
-        logger.debug('Add new segment - t = ', (entry.fragment_absolute_time / timescale));
+        // logger.debug('Add new segment - t = ', (entry.fragment_absolute_time / timescale));
         segment = {};
         segment.t = entry.fragment_absolute_time;
         segment.d = entry.fragment_duration;
@@ -131,6 +130,14 @@ function MssFragmentMoofProcessor(config) {
             segment.t -= parseFloat(segments[0].tManifest) - segments[0].t;
             segment.tManifest = entry.fragment_absolute_time;
         }
+
+        // Patch previous segment duration
+        let lastSegment = segments[segments.length - 1];
+        if (lastSegment.t + lastSegment.d !== segment.t) {
+            logger.debug('Patch segment duration - t = ', lastSegment.t + ', d = ' + lastSegment.d + ' => ' + (segment.t - lastSegment.t));
+            lastSegment.d = segment.t - lastSegment.t;
+        }
+
         segments.push(segment);
 
         // In case of static start-over streams, update content duration
@@ -156,7 +163,7 @@ function MssFragmentMoofProcessor(config) {
             // Remove segments prior to availability start time
             segment = segments[0];
             while (Math.round(segment.t / timescale) < availabilityStartTime) {
-                logger.debug('Remove segment  - t = ' + (segment.t / timescale));
+                // logger.debug('Remove segment  - t = ' + (segment.t / timescale));
                 segments.splice(0, 1);
                 segment = segments[0];
             }
@@ -170,13 +177,13 @@ function MssFragmentMoofProcessor(config) {
             updateDVR(type, range, streamProcessor.getStreamInfo().manifestInfo);
         }
 
-        indexHandler.updateRepresentation(representation, true);
+        representationController.updateRepresentation(representation, true);
     }
 
     function updateDVR(type, range, manifestInfo) {
         const dvrInfos = dashMetrics.getCurrentDVRInfo(type);
         if (!dvrInfos || (range.end > dvrInfos.range.end)) {
-            logger.debug('Update DVR Infos [' + range.start + ' - ' + range.end + ']');
+            logger.debug('Update DVR range: [' + range.start + ' - ' + range.end + ']');
             dashMetrics.addDVRInfo(type, playbackController.getTime(), manifestInfo, range);
         }
     }
@@ -195,7 +202,7 @@ function MssFragmentMoofProcessor(config) {
         return offset;
     }
 
-    function convertFragment(e, sp) {
+    function convertFragment(e, streamProcessor) {
         let i;
 
         // e.request contains request description object
@@ -225,7 +232,7 @@ function MssFragmentMoofProcessor(config) {
             tfxd = null;
         }
         let tfrf = isoFile.fetch('tfrf');
-        processTfrf(e.request, tfrf, tfdt, sp);
+        processTfrf(e.request, tfrf, tfdt, streamProcessor);
         if (tfrf) {
             tfrf._parent.boxes.splice(tfrf._parent.boxes.indexOf(tfrf), 1);
             tfrf = null;
@@ -291,7 +298,7 @@ function MssFragmentMoofProcessor(config) {
         e.response = isoFile.write();
     }
 
-    function updateSegmentList(e, sp) {
+    function updateSegmentList(e, streamProcessor) {
         // e.request contains request description object
         // e.response contains fragment bytes
         if (!e.response) {
@@ -314,7 +321,7 @@ function MssFragmentMoofProcessor(config) {
         }
 
         let tfrf = isoFile.fetch('tfrf');
-        processTfrf(e.request, tfrf, tfdt, sp);
+        processTfrf(e.request, tfrf, tfdt, streamProcessor);
         if (tfrf) {
             tfrf._parent.boxes.splice(tfrf._parent.boxes.indexOf(tfrf), 1);
             tfrf = null;

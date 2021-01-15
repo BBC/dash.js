@@ -35,6 +35,7 @@ import EventBus from '../../core/EventBus';
 function BlackListController(config) {
 
     config = config || {};
+    let instance;
     let blacklist = [];
     let blacklistExpiryTime = 0;
     let blacklistExpiryTimers = [];
@@ -60,12 +61,7 @@ function BlackListController(config) {
         blacklist.push(entry);
         setupBlacklistExpiry(entry);
 
-        eventBus.trigger(
-            updateEventName,
-            {
-                entry: entry
-            }
-        );
+        eventBus.trigger(updateEventName, { entry: entry });
     }
 
     function remove(entry) {
@@ -103,7 +99,7 @@ function BlackListController(config) {
 
     function setup() {
         if (addBlacklistEventName) {
-            eventBus.on(addBlacklistEventName, onAddBlackList, this);
+            eventBus.on(addBlacklistEventName, onAddBlackList, instance);
         }
     }
 
@@ -116,14 +112,15 @@ function BlackListController(config) {
         blacklistExpiryTimers = [];
     }
 
-    setup();
-
-    return {
+    instance = {
         add: add,
         setBlacklistExpiryTime: setBlacklistExpiryTime,
         contains: contains,
         reset: reset
     };
+
+    setup();
+    return instance;
 }
 
 BlackListController.__dashjs_factory_name = 'BlackListController';

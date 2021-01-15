@@ -1,23 +1,14 @@
-import Events from '../core/events/Events';
-import EventBus from '../core/EventBus';
 import EBMLParser from '../streaming/utils/EBMLParser';
 import Constants from '../streaming/constants/Constants';
 import FactoryMaker from '../core/FactoryMaker';
-import Debug from '../core/Debug';
-import RequestModifier from '../streaming/utils/RequestModifier';
 import Segment from './vo/Segment';
-import {
-    HTTPRequest
-} from '../streaming/vo/metrics/HTTPRequest';
 import FragmentRequest from '../streaming/vo/FragmentRequest';
-import HTTPLoader from '../streaming/net/HTTPLoader';
+import URLLoader from '../streaming/net/URLLoader';
 import DashJSError from '../streaming/vo/DashJSError';
-import Errors from '../core/errors/Errors';
 
 function WebmSegmentBaseLoader() {
 
     const context = this.context;
-    const eventBus = EventBus(context).getInstance();
 
     let instance,
         logger,
@@ -26,11 +17,14 @@ function WebmSegmentBaseLoader() {
         requestModifier,
         dashMetrics,
         mediaPlayerModel,
-        httpLoader,
+        urlLoader,
+        settings,
+        eventBus,
+        events,
+        errors,
         baseURLController;
 
     function setup() {
-        logger = Debug(context).getInstance().getLogger(instance);
         WebM = {
             EBML: {
                 tag: 0x1A45DFA3,
@@ -97,12 +91,13 @@ function WebmSegmentBaseLoader() {
     }
 
     function initialize() {
-        requestModifier = RequestModifier(context).getInstance();
-        httpLoader = HTTPLoader(context).create({
+        urlLoader = URLLoader(context).create({
             errHandler: errHandler,
             dashMetrics: dashMetrics,
             mediaPlayerModel: mediaPlayerModel,
-            requestModifier: requestModifier
+            requestModifier: requestModifier,
+            useFetch: settings ? settings.get().streaming.lowLatencyEnabled : null,
+            errors: errors
         });
     }
 
@@ -114,6 +109,12 @@ function WebmSegmentBaseLoader() {
         dashMetrics = config.dashMetrics;
         mediaPlayerModel = config.mediaPlayerModel;
         errHandler = config.errHandler;
+        settings = config.settings;
+        events = config.events;
+        eventBus = config.eventBus;
+        errors = config.errors;
+        logger = config.debug.getLogger(instance);
+        requestModifier = config.requestModifier;
     }
 
     function parseCues(ab) {
@@ -288,7 +289,7 @@ function WebmSegmentBaseLoader() {
             callback(null);
         };
 
-        httpLoader.load({
+        urlLoader.load({
             request: request,
             success: onload,
             error: onloadend
@@ -303,11 +304,10 @@ function WebmSegmentBaseLoader() {
         }
     }
 
-    function loadInitialization(representation, loadingInfo) {
+    function loadInitialization(streamId, mediaType, representation, loadingInfo) {
         checkConfig();
         let request = null;
         let baseUrl = representation ? baseURLController.resolve(representation.path) : null;
-        let media = baseUrl ? baseUrl.url : undefined;
         let initRange = representation ? representation.range.split('-') : null;
         let info = loadingInfo || {
             range: {
@@ -315,8 +315,9 @@ function WebmSegmentBaseLoader() {
                 end: initRange ? parseFloat(initRange[1]) : null
             },
             request: request,
-            url: media,
-            init: true
+            url: baseUrl ? baseUrl.url : undefined,
+            init: true,
+            mediaType: mediaType
         };
 
         logger.info('Start loading initialization.');
@@ -326,18 +327,20 @@ function WebmSegmentBaseLoader() {
         const onload = function () {
             // note that we don't explicitly set rep.initialization as this
             // will be computed when all BaseURLs are resolved later
-            eventBus.trigger(Events.INITIALIZATION_LOADED, {
-                representation: representation
-            });
+            eventBus.trigger(events.INITIALIZATION_LOADED,
+                { representation: representation },
+                { streamId: streamId, mediaType: mediaType }
+            );
         };
 
         const onloadend = function () {
-            eventBus.trigger(Events.INITIALIZATION_LOADED, {
-                representation: representation
-            });
+            eventBus.trigger(events.INITIALIZATION_LOADED,
+                { representation: representation },
+                { streamId: streamId, mediaType: mediaType }
+            );
         };
 
-        httpLoader.load({
+        urlLoader.load({
             request: request,
             success: onload,
             error: onloadend
@@ -346,7 +349,7 @@ function WebmSegmentBaseLoader() {
         logger.debug('Perform init load: ' + info.url);
     }
 
-    function loadSegments(representation, type, theRange, callback) {
+    function loadSegments(streamId, mediaType, representation, theRange, callback) {
         checkConfig();
         let request = null;
         let baseUrl = representation ? baseURLController.resolve(representation.path) : null;
@@ -361,7 +364,8 @@ function WebmSegmentBaseLoader() {
             },
             request: request,
             url: media,
-            init: false
+            init: false,
+            mediaType: mediaType
         };
 
         callback = !callback ? onLoaded : callback;
@@ -374,45 +378,35 @@ function WebmSegmentBaseLoader() {
 
         const onload = function (response) {
             parseEbmlHeader(response, media, theRange, function (segments) {
-                callback(segments, representation, type);
+                callback(streamId, mediaType, segments, representation);
             });
         };
 
         const onloadend = function () {
-            callback(null, representation, type);
+            callback(streamId, mediaType, null, representation);
         };
 
-        httpLoader.load({
+        urlLoader.load({
             request: request,
             success: onload,
             error: onloadend
         });
     }
 
-    function onLoaded(segments, representation, type) {
-        if (segments) {
-            eventBus.trigger(Events.SEGMENTS_LOADED, {
+    function onLoaded(streamId, mediaType, segments, representation) {
+        eventBus.trigger(events.SEGMENTS_LOADED,
+            {
                 segments: segments,
                 representation: representation,
-                mediaType: type
-            });
-        } else {
-            eventBus.trigger(Events.SEGMENTS_LOADED, {
-                segments: null,
-                representation: representation,
-                mediaType: type,
-                error: new DashJSError(Errors.SEGMENT_BASE_LOADER_ERROR_CODE, Errors.SEGMENT_BASE_LOADER_ERROR_MESSAGE)
-            });
-        }
+                error: segments ? undefined : new DashJSError(errors.SEGMENT_BASE_LOADER_ERROR_CODE, errors.SEGMENT_BASE_LOADER_ERROR_MESSAGE)
+            },
+            { streamId: streamId, mediaType: mediaType }
+        );
     }
 
     function getFragmentRequest(info) {
-        let request = new FragmentRequest();
-
-        request.type = info.init ? HTTPRequest.INIT_SEGMENT_TYPE : HTTPRequest.MEDIA_SEGMENT_TYPE;
-        request.url = info.url;
-        request.range = info.range.start + '-' + info.range.end;
-
+        const request = new FragmentRequest();
+        request.setInfo(info);
         return request;
     }
 

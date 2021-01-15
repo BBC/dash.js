@@ -76,9 +76,7 @@ function XHRLoader(cfg) {
         xhr.onprogress = httpRequest.progress;
         xhr.onabort = httpRequest.onabort;
         xhr.ontimeout = httpRequest.ontimeout;
-        if (httpRequest.timeout) {
-            xhr.timeout = httpRequest.timeout;
-        }
+        xhr.timeout = httpRequest.timeout;
 
         xhr.send();
 

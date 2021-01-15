@@ -34,12 +34,17 @@
  * @ignore
  * @param {Object} config object
  */
+
+import BigInt from '../../../externals/BigInteger';
+
 function MssParser(config) {
     config = config || {};
     const BASE64 = config.BASE64;
     const debug = config.debug;
     const constants = config.constants;
     const manifestModel = config.manifestModel;
+    const mediaPlayerModel = config.mediaPlayerModel;
+    const settings = config.settings;
 
     const DEFAULT_TIME_SCALE = 10000000.0;
     const SUPPORTED_CODECS = ['AAC', 'AACL', 'AVC1', 'H264', 'TTML', 'DFXP'];
@@ -75,12 +80,11 @@ function MssParser(config) {
 
     let instance,
         logger,
-        mediaPlayerModel;
+        initialBufferSettings;
 
 
     function setup() {
         logger = debug.getLogger(instance);
-        mediaPlayerModel = config.mediaPlayerModel;
     }
 
     function mapPeriod(smoothStreamingMedia, timescale) {
@@ -114,10 +118,15 @@ function MssParser(config) {
             segments,
             i;
 
-        adaptationSet.id = streamIndex.getAttribute('Name') ? streamIndex.getAttribute('Name') : streamIndex.getAttribute('Type');
-        adaptationSet.contentType = streamIndex.getAttribute('Type');
-        adaptationSet.lang = streamIndex.getAttribute('Language') || 'und';
-        adaptationSet.mimeType = mimeTypeMap[adaptationSet.contentType];
+        const name = streamIndex.getAttribute('Name');
+        const type = streamIndex.getAttribute('Type');
+        const lang = streamIndex.getAttribute('Language');
+        const fallBackId = lang ? type + '_' + lang : type;
+
+        adaptationSet.id = name || fallBackId;
+        adaptationSet.contentType = type;
+        adaptationSet.lang = lang || 'und';
+        adaptationSet.mimeType = mimeTypeMap[type];
         adaptationSet.subType = streamIndex.getAttribute('Subtype');
         adaptationSet.maxWidth = streamIndex.getAttribute('MaxWidth');
         adaptationSet.maxHeight = streamIndex.getAttribute('MaxHeight');
@@ -202,9 +211,9 @@ function MssParser(config) {
         // If still not defined (optionnal for audio stream, see https://msdn.microsoft.com/en-us/library/ff728116%28v=vs.95%29.aspx),
         // then we consider the stream is an audio AAC stream
         if (fourCCValue === null || fourCCValue === '') {
-            if (type === 'audio') {
+            if (type === constants.AUDIO) {
                 fourCCValue = 'AAC';
-            } else if (type === 'video') {
+            } else if (type === constants.VIDEO) {
                 logger.debug('FourCC is not defined whereas it is required for a QualityLevel element for a StreamIndex of type "video"');
                 return null;
             }
@@ -351,7 +360,9 @@ function MssParser(config) {
 
             // => segment.tManifest = original timestamp value as a string (for constructing the fragment request url, see DashHandler)
             // => segment.t = number value of timestamp (maybe rounded value, but only for 0.1 microsecond)
-            segment.tManifest = parseFloat(tManifest);
+            if (tManifest && BigInt(tManifest).greater(BigInt(Number.MAX_SAFE_INTEGER))) {
+                segment.tManifest = tManifest;
+            }
             segment.t = parseFloat(tManifest);
 
             // Get duration 'd' attribute value
@@ -367,7 +378,7 @@ function MssParser(config) {
                 // Update previous segment duration if not defined
                 if (!prevSegment.d) {
                     if (prevSegment.tManifest) {
-                        prevSegment.d = parseFloat(tManifest) - parseFloat(prevSegment.tManifest);
+                        prevSegment.d = BigInt(tManifest).subtract(BigInt(prevSegment.tManifest)).toJSNumber();
                     } else {
                         prevSegment.d = segment.t - prevSegment.t;
                     }
@@ -376,7 +387,7 @@ function MssParser(config) {
                 // Set segment absolute timestamp if not set in manifest
                 if (!segment.t) {
                     if (prevSegment.tManifest) {
-                        segment.tManifest = parseFloat(prevSegment.tManifest) + prevSegment.d;
+                        segment.tManifest = BigInt(prevSegment.tManifest).add(BigInt(prevSegment.d)).toString();
                         segment.t = parseFloat(segment.tManifest);
                     } else {
                         segment.t = prevSegment.t + prevSegment.d;
@@ -401,7 +412,7 @@ function MssParser(config) {
                     segment.t = prevSegment.t + prevSegment.d;
                     segment.d = prevSegment.d;
                     if (prevSegment.tManifest) {
-                        segment.tManifest  = parseFloat(prevSegment.tManifest) + prevSegment.d;
+                        segment.tManifest  = BigInt(prevSegment.tManifest).add(BigInt(prevSegment.d)).toString();
                     }
                     duration += segment.d;
                     segments.push(segment);
@@ -581,6 +592,7 @@ function MssParser(config) {
             startTime,
             segments,
             timescale,
+            segmentDuration,
             i, j;
 
         // Set manifest node properties
@@ -590,9 +602,15 @@ function MssParser(config) {
         timescale =  smoothStreamingMedia.getAttribute('TimeScale');
         manifest.timescale = timescale ? parseFloat(timescale) : DEFAULT_TIME_SCALE;
         let dvrWindowLength = parseFloat(smoothStreamingMedia.getAttribute('DVRWindowLength'));
+        // If the DVRWindowLength field is omitted for a live presentation or set to 0, the DVR window is effectively infinite
+        if (manifest.type === 'dynamic' && (dvrWindowLength === 0 || isNaN(dvrWindowLength))) {
+            dvrWindowLength = Infinity;
+        }
+        // Star-over
         if (dvrWindowLength === 0 && smoothStreamingMedia.getAttribute('CanSeek') === 'TRUE') {
             dvrWindowLength = Infinity;
         }
+
         if (dvrWindowLength > 0) {
             manifest.timeShiftBufferDepth = dvrWindowLength / manifest.timescale;
         }
@@ -668,8 +686,10 @@ function MssParser(config) {
             }
 
             if (adaptations[i].contentType === 'video') {
-                // Set minBufferTime
-                manifest.minBufferTime = adaptations[i].SegmentTemplate.SegmentTimeline.S_asArray[0].d / adaptations[i].SegmentTemplate.timescale * 2;
+                // Get video segment duration
+                segmentDuration = adaptations[i].SegmentTemplate.SegmentTimeline.S_asArray[0].d / adaptations[i].SegmentTemplate.timescale;
+                // Set minBufferTime to one segment duration
+                manifest.minBufferTime = segmentDuration;
 
                 if (manifest.type === 'dynamic' ) {
                     // Set availabilityStartTime
@@ -687,8 +707,41 @@ function MssParser(config) {
             }
         }
 
-        if (manifest.timeShiftBufferDepth < manifest.minBufferTime) {
-            manifest.minBufferTime = manifest.timeShiftBufferDepth;
+        // Cap minBufferTime to timeShiftBufferDepth
+        manifest.minBufferTime = Math.min(manifest.minBufferTime, (manifest.timeShiftBufferDepth ? manifest.timeShiftBufferDepth : Infinity));
+
+        // In case of live streams:
+        // 1- configure player buffering properties according to target live delay
+        // 2- adapt live delay and then buffers length in case timeShiftBufferDepth is too small compared to target live delay (see PlaybackController.computeLiveDelay())
+        if (manifest.type === 'dynamic') {
+            let targetLiveDelay = mediaPlayerModel.getLiveDelay();
+            if (!targetLiveDelay) {
+                const liveDelayFragmentCount = settings.get().streaming.liveDelayFragmentCount !== null && !isNaN(settings.get().streaming.liveDelayFragmentCount) ? settings.get().streaming.liveDelayFragmentCount : 4;
+                targetLiveDelay = segmentDuration * liveDelayFragmentCount;
+            }
+            let targetDelayCapping = Math.max(manifest.timeShiftBufferDepth - 10/*END_OF_PLAYLIST_PADDING*/, manifest.timeShiftBufferDepth / 2);
+            let liveDelay = Math.min(targetDelayCapping, targetLiveDelay);
+            // Consider a margin of one segment in order to avoid Precondition Failed errors (412), for example if audio and video are not correctly synchronized
+            let bufferTime = liveDelay - segmentDuration;
+
+            // Store initial buffer settings
+            initialBufferSettings = {
+                'streaming': {
+                    'liveDelay': settings.get().streaming.liveDelay,
+                    'stableBufferTime': settings.get().streaming.stableBufferTime,
+                    'bufferTimeAtTopQuality': settings.get().streaming.bufferTimeAtTopQuality,
+                    'bufferTimeAtTopQualityLongForm': settings.get().streaming.bufferTimeAtTopQualityLongForm
+                }
+            };
+
+            settings.update({
+                'streaming': {
+                    'liveDelay': liveDelay,
+                    'stableBufferTime': bufferTime,
+                    'bufferTimeAtTopQuality': bufferTime,
+                    'bufferTimeAtTopQualityLongForm': bufferTime
+                }
+            });
         }
 
         // Delete Content Protection under root manifest node
@@ -706,9 +759,9 @@ function MssParser(config) {
                 timestampOffset = prevManifest.timestampOffset;
             } else {
                 for (i = 0; i < adaptations.length; i++) {
-                    if (adaptations[i].contentType === 'audio' || adaptations[i].contentType === 'video') {
+                    if (adaptations[i].contentType === constants.AUDIO || adaptations[i].contentType === constants.VIDEO) {
                         segments = adaptations[i].SegmentTemplate.SegmentTimeline.S_asArray;
-                        startTime = segments[0].t / adaptations[i].SegmentTemplate.timescale;
+                        startTime = segments[0].t;
                         if (timestampOffset === undefined) {
                             timestampOffset = startTime;
                         }
@@ -719,18 +772,18 @@ function MssParser(config) {
                     }
                 }
             }
-            // Patch segment templates timestamps and determine period start time (since audio/video should not be aligned to 0)
             if (timestampOffset > 0) {
+                // Patch segment templates timestamps and determine period start time (since audio/video should not be aligned to 0)
                 manifest.timestampOffset = timestampOffset;
                 for (i = 0; i < adaptations.length; i++) {
                     segments = adaptations[i].SegmentTemplate.SegmentTimeline.S_asArray;
                     for (j = 0; j < segments.length; j++) {
                         if (!segments[j].tManifest) {
-                            segments[j].tManifest = segments[j].t;
+                            segments[j].tManifest = segments[j].t.toString();
                         }
-                        segments[j].t -= (timestampOffset * adaptations[i].SegmentTemplate.timescale);
+                        segments[j].t -= timestampOffset;
                     }
-                    if (adaptations[i].contentType === 'audio' || adaptations[i].contentType === 'video') {
+                    if (adaptations[i].contentType === constants.AUDIO || adaptations[i].contentType === constants.VIDEO) {
                         period.start = Math.max(segments[0].t, period.start);
                         adaptations[i].SegmentTemplate.presentationTimeOffset = period.start;
                     }
@@ -795,10 +848,18 @@ function MssParser(config) {
         return manifest;
     }
 
+    function reset() {
+        // Restore initial buffer settings
+        if (initialBufferSettings) {
+            settings.update(initialBufferSettings);
+        }
+    }
+
     instance = {
         parse: internalParse,
         getMatchers: getMatchers,
-        getIron: getIron
+        getIron: getIron,
+        reset: reset
     };
 
     setup();

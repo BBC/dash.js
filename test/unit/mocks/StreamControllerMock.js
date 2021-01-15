@@ -1,14 +1,28 @@
 class StreamControllerMock {
 
-    initialize() {}
+    constructor() {
+    }
+
+    setup() {
+        this.streamId = 'streamId';
+    }
+
+    initialize(streams) {
+        this.streams = streams;
+    }
+
+    getStreams() {
+        return this.streams;
+    }
 
     getActiveStreamCommonEarliestTime() {
         return 0;
     }
 
-    getTimeRelativeToStreamId() {}
+    getTimeRelativeToStreamId() {
+    }
 
-    isTrackTypePresent (trackType) {
+    isTrackTypePresent(trackType) {
         let value;
 
         switch (trackType) {
@@ -30,9 +44,14 @@ class StreamControllerMock {
 
     getActiveStreamInfo() {
         return {
-            id: 'dummyId'
+            id: 'streamId'
         };
     }
+
+    setStreamId(id) {
+        this.streamId = id;
+    }
+
 
     isStreamActive() {
         return true;
@@ -40,22 +59,28 @@ class StreamControllerMock {
 
     getStreamById() {
         return {
-            id: 'dummyId',
+            id: this.streamId,
             getBitrateListFor: function () {
                 return [1, 2];
             }
         };
     }
 
-    load() {}
+    load() {
+    }
 
-    loadWithManifest() {}
+    loadWithManifest() {
+    }
 
-    setConfig() {}
+    setConfig() {
+    }
 
-    reset() {}
+    reset() {
+    }
 
-    getActiveStreamProcessors() { return [];}
+    getActiveStreamProcessors() {
+        return [];
+    }
 }
 
 export default StreamControllerMock;

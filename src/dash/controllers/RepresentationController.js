@@ -29,76 +29,50 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 import Constants from '../../streaming/constants/Constants';
-import Errors from '../../core/errors/Errors';
-import DashConstants from '../constants/DashConstants';
 import DashJSError from '../../streaming/vo/DashJSError';
-import EventBus from '../../core/EventBus';
-import Events from '../../core/events/Events';
 import FactoryMaker from '../../core/FactoryMaker';
-import Representation from '../vo/Representation';
 
-function RepresentationController() {
+function RepresentationController(config) {
 
-    let context = this.context;
-    let eventBus = EventBus(context).getInstance();
+    config = config || {};
+    const eventBus = config.eventBus;
+    const events = config.events;
+    const errors = config.errors;
+    const abrController = config.abrController;
+    const dashMetrics = config.dashMetrics;
+    const playbackController = config.playbackController;
+    const timelineConverter = config.timelineConverter;
+    const type = config.type;
+    const streamInfo = config.streamInfo;
+    const dashConstants = config.dashConstants;
 
     let instance,
         realAdaptation,
         updating,
         voAvailableRepresentations,
-        currentVoRepresentation,
-        abrController,
-        indexHandler,
-        playbackController,
-        timelineConverter,
-        dashMetrics,
-        streamProcessor,
-        manifestModel;
+        currentVoRepresentation;
 
     function setup() {
         resetInitialSettings();
 
-        eventBus.on(Events.QUALITY_CHANGE_REQUESTED, onQualityChanged, instance);
-        eventBus.on(Events.REPRESENTATION_UPDATED, onRepresentationUpdated, instance);
-        eventBus.on(Events.WALLCLOCK_TIME_UPDATED, onWallclockTimeUpdated, instance);
-        eventBus.on(Events.BUFFER_LEVEL_UPDATED, onBufferLevelUpdated, instance);
-        eventBus.on(Events.MANIFEST_VALIDITY_CHANGED, onManifestValidityChanged, instance);
+        eventBus.on(events.QUALITY_CHANGE_REQUESTED, onQualityChanged, instance);
+        eventBus.on(events.REPRESENTATION_UPDATE_COMPLETED, onRepresentationUpdated, instance);
+        eventBus.on(events.WALLCLOCK_TIME_UPDATED, onWallclockTimeUpdated, instance);
+        eventBus.on(events.MANIFEST_VALIDITY_CHANGED, onManifestValidityChanged, instance);
     }
 
-    function setConfig(config) {
-        if (config.abrController) {
-            abrController = config.abrController;
-        }
-        if (config.dashMetrics) {
-            dashMetrics = config.dashMetrics;
-        }
-        if (config.playbackController) {
-            playbackController = config.playbackController;
-        }
-        if (config.timelineConverter) {
-            timelineConverter = config.timelineConverter;
-        }
-        if (config.manifestModel) {
-            manifestModel = config.manifestModel;
-        }
-        if (config.streamProcessor) {
-            streamProcessor = config.streamProcessor;
-        }
+    function getStreamId() {
+        return streamInfo.id;
+    }
+
+    function getType() {
+        return type;
     }
 
     function checkConfig() {
-        if (!abrController || !dashMetrics || !playbackController ||
-            !timelineConverter || !manifestModel || !streamProcessor) {
+        if (!abrController || !dashMetrics || !playbackController || !timelineConverter) {
             throw new Error(Constants.MISSING_CONFIG_ERROR);
         }
-    }
-
-    function initialize() {
-        indexHandler = streamProcessor.getIndexHandler();
-    }
-
-    function getStreamProcessor() {
-        return streamProcessor;
     }
 
     function getData() {
@@ -117,65 +91,33 @@ function RepresentationController() {
         realAdaptation = null;
         updating = true;
         voAvailableRepresentations = [];
-        abrController = null;
-        playbackController = null;
-        timelineConverter = null;
-        dashMetrics = null;
     }
 
     function reset() {
-
-        eventBus.off(Events.QUALITY_CHANGE_REQUESTED, onQualityChanged, instance);
-        eventBus.off(Events.REPRESENTATION_UPDATED, onRepresentationUpdated, instance);
-        eventBus.off(Events.WALLCLOCK_TIME_UPDATED, onWallclockTimeUpdated, instance);
-        eventBus.off(Events.BUFFER_LEVEL_UPDATED, onBufferLevelUpdated, instance);
-        eventBus.off(Events.MANIFEST_VALIDITY_CHANGED, onManifestValidityChanged, instance);
+        eventBus.off(events.QUALITY_CHANGE_REQUESTED, onQualityChanged, instance);
+        eventBus.off(events.REPRESENTATION_UPDATE_COMPLETED, onRepresentationUpdated, instance);
+        eventBus.off(events.WALLCLOCK_TIME_UPDATED, onWallclockTimeUpdated, instance);
+        eventBus.off(events.MANIFEST_VALIDITY_CHANGED, onManifestValidityChanged, instance);
 
         resetInitialSettings();
     }
 
-    function updateData(newRealAdaptation, availableRepresentations, type) {
+    function updateData(newRealAdaptation, availableRepresentations, type, quality) {
         checkConfig();
-        const streamInfo = streamProcessor.getStreamInfo();
-        const maxQuality = abrController.getTopQualityIndexFor(type, streamInfo ? streamInfo.id : null);
-        const minIdx = abrController.getMinAllowedIndexFor(type);
 
-        let quality,
-            averageThroughput;
-        let bitrate = null;
-
-        updating = true;
-        eventBus.trigger(Events.DATA_UPDATE_STARTED, {sender: this});
+        startDataUpdate();
 
         voAvailableRepresentations = availableRepresentations;
-
-        if ((realAdaptation === null || (realAdaptation.id != newRealAdaptation.id)) && type !== Constants.FRAGMENTED_TEXT) {
-            averageThroughput = abrController.getThroughputHistory().getAverageThroughput(type);
-            bitrate = averageThroughput || abrController.getInitialBitrateFor(type, streamInfo);
-            quality = abrController.getQualityForBitrate(streamProcessor.getMediaInfo(), bitrate);
-        } else {
-            quality = abrController.getQualityFor(type);
-        }
-
-        if (minIdx !== undefined && quality < minIdx) {
-            quality = minIdx;
-        }
-        if (quality > maxQuality) {
-            quality = maxQuality;
-        }
 
         currentVoRepresentation = getRepresentationForQuality(quality);
         realAdaptation = newRealAdaptation;
 
         if (type !== Constants.VIDEO && type !== Constants.AUDIO && type !== Constants.FRAGMENTED_TEXT) {
-            updating = false;
-            eventBus.trigger(Events.DATA_UPDATE_COMPLETED, {sender: this, data: realAdaptation, currentRepresentation: currentVoRepresentation});
+            endDataUpdate();
             return;
         }
 
-        for (let i = 0; i < voAvailableRepresentations.length; i++) {
-            indexHandler.updateRepresentation(voAvailableRepresentations[i], true);
-        }
+        updateAvailabilityWindow(playbackController.getIsDynamic(), true);
     }
 
     function addRepresentationSwitch() {
@@ -186,15 +128,6 @@ function RepresentationController() {
         if (currentRepresentation) {
             dashMetrics.addRepresentationSwitch(currentRepresentation.adaptation.type, now, currentVideoTimeMs, currentRepresentation.id);
         }
-    }
-
-    function addDVRMetric() {
-        checkConfig();
-        const streamInfo = streamProcessor.getStreamInfo();
-        const manifestInfo = streamInfo ? streamInfo.manifestInfo : null;
-        const isDynamic = manifestInfo ? manifestInfo.isDynamic : null;
-        const range = timelineConverter.calcSegmentAvailabilityRange(currentVoRepresentation, isDynamic);
-        dashMetrics.addDVRInfo(streamProcessor.getType(), playbackController.getTime(), manifestInfo, range);
     }
 
     function getRepresentationForQuality(quality) {
@@ -208,8 +141,8 @@ function RepresentationController() {
     function isAllRepresentationsUpdated() {
         for (let i = 0, ln = voAvailableRepresentations.length; i < ln; i++) {
             let segmentInfoType = voAvailableRepresentations[i].segmentInfoType;
-            if (voAvailableRepresentations[i].segmentAvailabilityRange === null || !Representation.hasInitialization(voAvailableRepresentations[i]) ||
-                ((segmentInfoType === DashConstants.SEGMENT_BASE || segmentInfoType === DashConstants.BASE_URL) && !voAvailableRepresentations[i].segments)
+            if (voAvailableRepresentations[i].segmentAvailabilityRange === null || !voAvailableRepresentations[i].hasInitialization() ||
+                ((segmentInfoType === dashConstants.SEGMENT_BASE || segmentInfoType === dashConstants.BASE_URL) && !voAvailableRepresentations[i].segments)
             ) {
                 return false;
             }
@@ -218,14 +151,36 @@ function RepresentationController() {
         return true;
     }
 
-    function updateAvailabilityWindow(isDynamic) {
-        let voRepresentation;
+    function setExpectedLiveEdge(liveEdge) {
+        timelineConverter.setExpectedLiveEdge(liveEdge);
+        dashMetrics.updateManifestUpdateInfo({presentationStartTime: liveEdge});
+    }
 
+    function updateRepresentation(representation, isDynamic) {
+        representation.segmentAvailabilityRange = timelineConverter.calcSegmentAvailabilityRange(representation, isDynamic);
+
+        if (representation.segmentAvailabilityRange.end < representation.segmentAvailabilityRange.start) {
+            let error = new DashJSError(errors.SEGMENTS_UNAVAILABLE_ERROR_CODE, errors.SEGMENTS_UNAVAILABLE_ERROR_MESSAGE, {availabilityDelay: representation.segmentAvailabilityRange.start - representation.segmentAvailabilityRange.end});
+            endDataUpdate(error);
+            return;
+        }
+
+        if (isDynamic) {
+            setExpectedLiveEdge(representation.segmentAvailabilityRange.end);
+        }
+    }
+
+    function updateAvailabilityWindow(isDynamic, notifyUpdate) {
         checkConfig();
 
         for (let i = 0, ln = voAvailableRepresentations.length; i < ln; i++) {
-            voRepresentation = voAvailableRepresentations[i];
-            voRepresentation.segmentAvailabilityRange = timelineConverter.calcSegmentAvailabilityRange(voRepresentation, isDynamic);
+            updateRepresentation(voAvailableRepresentations[i], isDynamic);
+            if (notifyUpdate) {
+                eventBus.trigger(events.REPRESENTATION_UPDATE_STARTED,
+                    { representation: voAvailableRepresentations[i] },
+                    { streamId: streamInfo.id, mediaType: type }
+                );
+            }
         }
     }
 
@@ -235,33 +190,48 @@ function RepresentationController() {
         });
     }
 
+    function startDataUpdate() {
+        updating = true;
+        eventBus.trigger(events.DATA_UPDATE_STARTED,
+            {},
+            { streamId: streamInfo.id, mediaType: type }
+        );
+    }
+
+    function endDataUpdate(error) {
+        updating = false;
+        eventBus.trigger(events.DATA_UPDATE_COMPLETED,
+            {
+                data: realAdaptation,
+                currentRepresentation: currentVoRepresentation,
+                error: error
+            },
+            { streamId: streamInfo.id, mediaType: type }
+        );
+    }
+
     function postponeUpdate(postponeTimePeriod) {
         let delay = postponeTimePeriod;
         let update = function () {
             if (isUpdating()) return;
 
-            updating = true;
-            eventBus.trigger(Events.DATA_UPDATE_STARTED, { sender: instance });
+            startDataUpdate();
 
             // clear the segmentAvailabilityRange for all reps.
             // this ensures all are updated before the live edge search starts
             resetAvailabilityWindow();
 
-            for (let i = 0; i < voAvailableRepresentations.length; i++) {
-                indexHandler.updateRepresentation(voAvailableRepresentations[i], true);
-            }
+            updateAvailabilityWindow(playbackController.getIsDynamic(), true);
         };
-
-        updating = false;
-        eventBus.trigger(Events.AST_IN_FUTURE, { delay: delay });
+        eventBus.trigger(events.AST_IN_FUTURE, { delay: delay });
         setTimeout(update, delay);
     }
 
     function onRepresentationUpdated(e) {
-        if (e.sender.getStreamProcessor() !== streamProcessor || !isUpdating()) return;
+        if (!isUpdating()) return;
 
         if (e.error) {
-            eventBus.trigger(Events.DATA_UPDATE_COMPLETED, {sender: this, error: e.error});
+            endDataUpdate(e.error);
             return;
         }
 
@@ -273,40 +243,34 @@ function RepresentationController() {
             err,
             repSwitch;
 
-        if (r.adaptation.period.mpd.manifest.type === DashConstants.DYNAMIC && !r.adaptation.period.mpd.manifest.ignorePostponeTimePeriod)
-        {
-            let segmentAvailabilityTimePeriod = r.segmentAvailabilityRange.end - r.segmentAvailabilityRange.start;
+        if (r.adaptation.period.mpd.manifest.type === dashConstants.DYNAMIC && !r.adaptation.period.mpd.manifest.ignorePostponeTimePeriod && playbackController.getStreamController().getStreams().length <= 1) {
             // We must put things to sleep unless till e.g. the startTime calculation in ScheduleController.onLiveEdgeSearchCompleted fall after the segmentAvailabilityRange.start
-            let liveDelay = playbackController.computeLiveDelay(currentVoRepresentation.segmentDuration, streamProcessor.getStreamInfo().manifestInfo.DVRWindowSize);
-            postponeTimePeriod = (liveDelay - segmentAvailabilityTimePeriod) * 1000;
+            postponeTimePeriod = getRepresentationUpdatePostponeTimePeriod(r);
         }
 
         if (postponeTimePeriod > 0) {
-            addDVRMetric();
             postponeUpdate(postponeTimePeriod);
-            err = new DashJSError(Errors.SEGMENTS_UPDATE_FAILED_ERROR_CODE, Errors.SEGMENTS_UPDATE_FAILED_ERROR_MESSAGE);
-            eventBus.trigger(Events.DATA_UPDATE_COMPLETED, {sender: this, data: realAdaptation, currentRepresentation: currentVoRepresentation, error: err});
-
+            err = new DashJSError(errors.SEGMENTS_UPDATE_FAILED_ERROR_CODE, errors.SEGMENTS_UPDATE_FAILED_ERROR_MESSAGE);
+            endDataUpdate(err);
             return;
         }
 
         if (manifestUpdateInfo) {
             for (let i = 0; i < manifestUpdateInfo.representationInfo.length; i++) {
                 repInfo = manifestUpdateInfo.representationInfo[i];
-                if (repInfo.index === r.index && repInfo.mediaType === streamProcessor.getType()) {
+                if (repInfo.index === r.index && repInfo.mediaType === getType()) {
                     alreadyAdded = true;
                     break;
                 }
             }
 
             if (!alreadyAdded) {
-                dashMetrics.addManifestUpdateRepresentationInfo(r, streamProcessor.getType());
+                dashMetrics.addManifestUpdateRepresentationInfo(r, getType());
             }
         }
 
         if (isAllRepresentationsUpdated()) {
-            updating = false;
-            abrController.setPlaybackQuality(streamProcessor.getType(), streamProcessor.getStreamInfo(), getQualityForRepresentation(currentVoRepresentation));
+            abrController.setPlaybackQuality(getType(), streamInfo, getQualityForRepresentation(currentVoRepresentation));
             dashMetrics.updateManifestUpdateInfo({latency: currentVoRepresentation.segmentAvailabilityRange.end - playbackController.getTime()});
 
             repSwitch = dashMetrics.getCurrentRepresentationSwitch(getCurrentRepresentation().adaptation.type);
@@ -314,29 +278,37 @@ function RepresentationController() {
             if (!repSwitch) {
                 addRepresentationSwitch();
             }
+            endDataUpdate();
+        }
+    }
 
-            eventBus.trigger(Events.DATA_UPDATE_COMPLETED, {sender: this, data: realAdaptation, currentRepresentation: currentVoRepresentation});
+    function getRepresentationUpdatePostponeTimePeriod(representation) {
+        try {
+            const streamController = playbackController.getStreamController();
+            const activeStreamInfo = streamController.getActiveStreamInfo();
+            let startTimeAnchor = representation.segmentAvailabilityRange.start;
+
+            if (activeStreamInfo && activeStreamInfo.id && activeStreamInfo.id !== streamInfo.id) {
+                // We need to consider the currently playing period if a period switch is performed.
+                startTimeAnchor = Math.min(playbackController.getTime(), startTimeAnchor);
+            }
+
+            let segmentAvailabilityTimePeriod = representation.segmentAvailabilityRange.end - startTimeAnchor;
+            let liveDelay = playbackController.getLiveDelay();
+
+            return (liveDelay - segmentAvailabilityTimePeriod) * 1000;
+        } catch (e) {
+            return 0;
         }
     }
 
     function onWallclockTimeUpdated(e) {
         if (e.isDynamic) {
             updateAvailabilityWindow(e.isDynamic);
-            addDVRMetric();
-        }
-    }
-
-    function onBufferLevelUpdated(e) {
-        if (e.sender.getStreamProcessor() !== streamProcessor) return;
-        let manifest = manifestModel.getValue();
-        if (!manifest.doNotUpdateDVRWindowOnBufferUpdated) {
-            addDVRMetric();
         }
     }
 
     function onQualityChanged(e) {
-        if (e.mediaType !== streamProcessor.getType() || streamProcessor.getStreamInfo().id !== e.streamInfo.id) return;
-
         currentVoRepresentation = getRepresentationForQuality(e.newQuality);
         addRepresentationSwitch();
     }
@@ -352,12 +324,12 @@ function RepresentationController() {
     }
 
     instance = {
-        initialize: initialize,
-        setConfig: setConfig,
+        getStreamId: getStreamId,
+        getType: getType,
         getData: getData,
         isUpdating: isUpdating,
         updateData: updateData,
-        getStreamProcessor: getStreamProcessor,
+        updateRepresentation: updateRepresentation,
         getCurrentRepresentation: getCurrentRepresentation,
         getRepresentationForQuality: getRepresentationForQuality,
         reset: reset

@@ -3,34 +3,40 @@ SETUP:
 - for each stream:
     - check if stream is available
 **/
-define([
-    'intern!object',
-    'intern/chai!assert',
-    'test/functional/tests/scripts/utils'
-], function(registerSuite, assert, utils) {
+const intern = require('intern').default;
+const { suite, test } = intern.getPlugin('interface.tdd');
+const { assert } = intern.getPlugin('chai');
 
-    // Suite name
-    var NAME = 'SETUP';
+const utils = require('./scripts/utils.js');
 
-    var setup = function (stream) {
-        registerSuite({
-            name: NAME,
+// Suite name
+var NAME = 'SETUP';
 
-            setup: function () {
-                utils.info(NAME, 'Setup stream: ' + stream.name);
-                // Check stream availability
-                return this.remote.executeAsync(utils.checkIfFileExits, [stream.url])
-                .then(function (exists) {
-                    stream.available = exists;
-                    return assert.isTrue(exists);
+exports.register = function (stream) {
+
+    suite(utils.testName(NAME, stream), (suite) => {
+
+        test('setup', async ({ remote }) => {
+            utils.info(NAME, 'Setup stream: ' + stream.name);
+
+            // Check key systems support
+            var browserName = remote.session.capabilities.browserName;
+            var browsersConf = intern.config.environments.filter(conf => conf.browserName === browserName)[0];
+
+            if (stream.protData) {
+                stream.available = false;
+                Object.keys(stream.protData).forEach(keySystem => {
+                    stream.available |= browsersConf.keySystems[keySystem] === true;
                 });
+                if (!stream.available) {
+                    suite.skip();
+                }
             }
-        });
-    };    
 
-    return {
-        register: function (stream) {
-            setup(stream);
-        }
-    }
-});
+            // Check stream availability
+            const exists = await remote.executeAsync(utils.checkIfFileExits, [stream.url]);
+            stream.available = exists;
+            assert.isTrue(exists);
+        });
+    });
+};

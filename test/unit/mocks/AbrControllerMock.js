@@ -1,6 +1,5 @@
 import ThroughputHistoryMock from './ThroughputHistoryMock';
 
-const ABANDON_LOAD = 'abandonload';
 const QUALITY_DEFAULT = 0;
 
 function AbrControllerMock () {
@@ -10,11 +9,8 @@ function AbrControllerMock () {
     this.windowResizeEventCalled = false;
     this.throughputHistory = undefined;
     this.currentStreamId = undefined;
-
-    // Constants
-    this.ABANDON_LOAD = function () {
-        return ABANDON_LOAD;
-    };
+    this.topBitrateInfo = null;
+    let self = this;
 
     this.QUALITY_DEFAULT = function () {
         return QUALITY_DEFAULT;
@@ -31,7 +27,14 @@ function AbrControllerMock () {
 
     this.getTopQualityIndexFor = function () {};
 
-    this.getTopBitrateInfoFor = function () {};
+
+    this.getTopBitrateInfoFor = function () {
+        return self.topBitrateInfo;
+    };
+
+    this.setTopBitrateInfo = function (info) {
+        self.topBitrateInfo = info;
+    };
 
     this.getInitialBitrateFor = function (/*type*/) {
         return null;
@@ -54,7 +57,11 @@ function AbrControllerMock () {
     };
 
     this.getThroughputHistory = function () {
-        return this.throughputHistory;
+        return self.throughputHistory;
+    };
+
+    this.setThroughputHistory = function (history) {
+        self.throughputHistory = history;
     };
 
     this.updateTopQualityIndex = function () {};

@@ -65,17 +65,17 @@ function MetricsModel(config) {
     }
 
     function metricChanged(mediaType) {
-        eventBus.trigger(Events.METRIC_CHANGED, {mediaType: mediaType});
+        eventBus.trigger(Events.METRIC_CHANGED, { mediaType: mediaType });
         metricsChanged();
     }
 
     function metricUpdated(mediaType, metricType, vo) {
-        eventBus.trigger(Events.METRIC_UPDATED, {mediaType: mediaType, metric: metricType, value: vo});
+        eventBus.trigger(Events.METRIC_UPDATED, { mediaType: mediaType, metric: metricType, value: vo });
         metricChanged(mediaType);
     }
 
     function metricAdded(mediaType, metricType, vo) {
-        eventBus.trigger(Events.METRIC_ADDED, {mediaType: mediaType, metric: metricType, value: vo});
+        eventBus.trigger(Events.METRIC_ADDED, { mediaType: mediaType, metric: metricType, value: vo });
         metricChanged(mediaType);
     }
 
@@ -108,9 +108,11 @@ function MetricsModel(config) {
 
     function pushMetrics(type, list, value) {
         let metrics = getMetricsFor(type);
-        metrics[list].push(value);
-        if ( metrics[list].length > settings.get().streaming.metricsMaxListDepth ) {
-            metrics[list].shift();
+        if (metrics !== null) {
+            metrics[list].push(value);
+            if ( metrics[list].length > settings.get().streaming.metricsMaxListDepth ) {
+                metrics[list].shift();
+            }
         }
     }
 
@@ -132,7 +134,7 @@ function MetricsModel(config) {
         return vo;
     }
 
-    function addHttpRequest(mediaType, tcpid, type, url, actualurl, serviceLocation, range, trequest, tresponse, tfinish, responsecode, mediaduration, responseHeaders, traces, quality) {
+    function addHttpRequest(mediaType, tcpid, type, url, quality, actualurl, serviceLocation, range, trequest, tresponse, tfinish, responsecode, mediaduration, responseHeaders, traces) {
         let vo = new HTTPRequest();
 
         // ISO 23009-1 D.4.3 NOTE 2:
@@ -150,6 +152,7 @@ function MetricsModel(config) {
                 null,
                 type,
                 url,
+                quality,
                 null,
                 null,
                 range,
@@ -177,6 +180,7 @@ function MetricsModel(config) {
         vo._tfinish = tfinish;
         vo._stream = mediaType;
         vo._mediaduration = mediaduration;
+        vo._quality = quality;
         vo._responseHeaders = responseHeaders;
         vo._serviceLocation = serviceLocation;
 
@@ -242,6 +246,10 @@ function MetricsModel(config) {
     function addDroppedFrames(mediaType, quality) {
         let vo = new DroppedFrames();
         let list = getMetricsFor(mediaType).DroppedFrames;
+
+        if (!quality) {
+            return;
+        }
 
         vo.time = quality.creationTime;
         vo.droppedFrames = quality.droppedVideoFrames;
@@ -324,7 +332,7 @@ function MetricsModel(config) {
     }
 
     function addManifestUpdateRepresentationInfo(manifestUpdate, id, index, streamIndex, mediaType, presentationTimeOffset, startNumber, fragmentInfoType) {
-        if (manifestUpdate) {
+        if (manifestUpdate && manifestUpdate.representationInfo) {
 
             const vo = new ManifestUpdateRepresentationInfo();
             vo.id = id;

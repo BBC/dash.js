@@ -1,18 +1,24 @@
-function DashMetricsMock () {
+function DashMetricsMock() {
 
     this.bufferState = null;
     this.currentDVRInfo = null;
+    this.currentBufferLevel = 15;
+    let self = this;
 
     this.getCurrentDVRInfo = function () {
         return this.currentDVRInfo;
     };
 
-    this.getCurrentBufferLevel = function () {
-        return 15;
+    this.getCurrentBufferState = function () {
+        return this.bufferState;
     };
 
-    this.getLatestBufferInfoVO = function () {
-        return this.bufferState;
+    this.getCurrentBufferLevel = function () {
+        return self.currentBufferLevel;
+    };
+
+    this.setCurrentBufferLevel = function (level) {
+        self.currentBufferLevel = level;
     };
 
     this.addSchedulingInfo = function () {
@@ -52,6 +58,10 @@ function DashMetricsMock () {
             manifestInfo: manifestInfo,
             range: range
         };
+    };
+
+    this.resetCurrentDvrWindow = function () {
+        this.currentDVRInfo = null;
     };
 
     this.getCurrentManifestUpdate = function () {

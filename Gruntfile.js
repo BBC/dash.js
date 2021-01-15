@@ -27,9 +27,10 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 banner: '/*! v<%= pkg.version %>-<%= githash.dist.short %>, <%= grunt.template.today("isoUtcDateTime") %> */',
-                sourceMap: true,
-                sourceMapIncludeSources: true,
-                sourceMapRoot: './src/',
+                sourceMap: {
+                    includeSources: true,
+                    root: './src/'
+                },
                 preserveComments: 'some',
                 mangle: true,
                 compress: {
@@ -75,6 +76,15 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'build/temp/dash.mss.min.js': 'build/temp/dash.mss.debug.js'
+                }
+            },
+
+            build_offline: {
+                options: {
+                    sourceMapIn: 'build/temp/dash.offline.debug.js.map'
+                },
+                files: {
+                    'build/temp/dash.offline.min.js': 'build/temp/dash.offline.debug.js'
                 }
             },
 
@@ -132,7 +142,9 @@ module.exports = function (grunt) {
                     'dash.mediaplayer.debug.js', 'dash.mediaplayer.debug.js.map',
                     'dash.protection.debug.js', 'dash.protection.debug.js.map',
                     'dash.reporting.debug.js', 'dash.reporting.debug.js.map',
-                    'dash.mss.debug.js', 'dash.mss.debug.js.map'
+                    'dash.mss.debug.js', 'dash.mss.debug.js.map',
+                    'dash.offline.debug.js', 'dash.offline.debug.js.map',
+                    'dash.offline.min.js', 'dash.offline.min.js.map'
                 ],
                 dest: 'dist/',
                 filter: 'isFile'
@@ -191,6 +203,14 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'build/temp/dash.mss.debug.js.map': ['build/temp/dash.mss.debug.js']
+                }
+            },
+            offline: {
+                options: {
+                    base: './src'
+                },
+                files: {
+                    'build/temp/dash.offline.debug.js.map': ['build/temp/dash.offline.debug.js']
                 }
             }
         },
@@ -283,11 +303,26 @@ module.exports = function (grunt) {
                     transform: [['babelify', {compact: false}]]
                 }
             },
+            offline: {
+                files: {
+                    'build/temp/dash.offline.debug.js': ['src/offline/index.js']
+                },
+                options: {
+                    browserifyOptions: {
+                        debug: true
+                    },
+                    plugin: [
+                        'browserify-derequire', 'bundle-collapser/plugin'
+                    ],
+                    transform: [['babelify', {compact: false}]]
+                }
+            },
 
             watch: {
                 files: {
                     'build/temp/dash.all.debug.js': ['index.js'],
-                    'build/temp/dash.mss.debug.js': ['src/mss/index.js']
+                    'build/temp/dash.mss.debug.js': ['src/mss/index.js'],
+                    'build/temp/dash.offline.debug.js': ['src/offline/index.js']
                 },
                 options: {
                     watch: true,
@@ -304,7 +339,8 @@ module.exports = function (grunt) {
             watch_dev: {
                 files: {
                     'dist/dash.all.debug.js': ['index.js'],
-                    'dist/dash.mss.debug.js': ['src/mss/index.js']
+                    'dist/dash.mss.debug.js': ['src/mss/index.js'],
+                    'dist/dash.offline.debug.js': ['src/offline/index.js']
                 },
                 options: {
                     watch: true,
@@ -399,8 +435,8 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.registerTask('default', ['dist', 'test']);
-    grunt.registerTask('dist', ['clean', 'jshint', 'jscs', 'browserify:mediaplayer', 'browserify:protection', 'browserify:reporting', 'browserify:mss', 'browserify:all', 'babel:es5', 'minimize', 'copy:dist']);
     grunt.registerTask('smp-dist', ['clean', 'jshint', 'jscs', 'browserify:mediaplayer', 'browserify:protection', 'browserify:reporting', 'browserify:mss', 'browserify:all', 'babel:es5', 'minimize-nomap', 'copy:dist']);
+    grunt.registerTask('dist', ['clean', 'jshint', 'jscs', 'browserify:mediaplayer', 'browserify:protection', 'browserify:reporting', 'browserify:mss','browserify:offline', 'browserify:all', 'babel:es5', 'minimize', 'copy:dist']);
     grunt.registerTask('minimize', ['exorcise', 'githash', 'uglify']);
     grunt.registerTask('minimize-nomap', ['githash', 'uglify:build_all_no_map']);
     grunt.registerTask('test', ['mocha_istanbul:test']);

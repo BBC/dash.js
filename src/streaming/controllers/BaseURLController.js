@@ -139,4 +139,4 @@ function BaseURLController() {
 }
 
 BaseURLController.__dashjs_factory_name = 'BaseURLController';
-export default FactoryMaker.getSingletonFactory(BaseURLController);
+export default FactoryMaker.getClassFactory(BaseURLController);

@@ -191,7 +191,7 @@ function VideoModel() {
     function addStalledStream(type) {
         let event;
 
-        if (type === null || element.seeking || stalledStreams.indexOf(type) !== -1) {
+        if (type === null || !element || element.seeking || stalledStreams.indexOf(type) !== -1) {
             return;
         }
 
@@ -346,11 +346,13 @@ function VideoModel() {
     }
 
     function getVideoRelativeOffsetTop() {
-        return element && element.parentNode ? element.getBoundingClientRect().top - element.parentNode.getBoundingClientRect().top : NaN;
+        const parentElement = element.parentNode.host || element.parentNode;
+        return parentElement ? element.getBoundingClientRect().top - parentElement.getBoundingClientRect().top : NaN;
     }
 
     function getVideoRelativeOffsetLeft() {
-        return element && element.parentNode ? element.getBoundingClientRect().left - element.parentNode.getBoundingClientRect().left : NaN;
+        const parentElement = element.parentNode.host || element.parentNode;
+        return parentElement ? element.getBoundingClientRect().left - parentElement.getBoundingClientRect().left : NaN;
     }
 
     function getTextTracks() {
@@ -372,11 +374,19 @@ function VideoModel() {
         return null;
     }
 
-    function addTextTrack(kind, label, lang) {
-        if (element) {
-            return element.addTextTrack(kind, label, lang);
+    function addTextTrack(kind, label, lang, isTTML, isEmbedded) {
+        if (!element) {
+            return null;
         }
-        return null;
+        // check if track of same type has not been already created for previous stream
+        // then use it (no way to remove existing text track from video element)
+        let track = getTextTrack(kind, label, lang, isTTML, isEmbedded);
+        if (!track) {
+            track = element.addTextTrack(kind, label, lang);
+            track.isEmbedded = isEmbedded;
+            track.isTTML = isTTML;
+        }
+        return track;
     }
 
     function appendChild(childElement) {
@@ -402,6 +412,7 @@ function VideoModel() {
         play: play,
         isPaused: isPaused,
         pause: pause,
+        isStalled,
         isSeeking: isSeeking,
         getTime: getTime,
         getPlaybackRate: getPlaybackRate,

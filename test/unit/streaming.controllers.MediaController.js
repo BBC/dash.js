@@ -3,6 +3,7 @@ import ObjectUtils from '../../src/streaming/utils/ObjectUtils';
 import EventBus from '../../src/core/EventBus';
 import Constants from '../../src/streaming/constants/Constants';
 import Events from '../../src/core/events/Events';
+import Settings from '../../src/core/Settings';
 
 import DomStorageMock from './mocks/DomStorageMock';
 
@@ -14,19 +15,24 @@ const objectUtils = ObjectUtils(context).getInstance();
 describe('MediaController', function () {
     let mediaController;
     let domStorageMock;
+    const trackType = Constants.AUDIO;
+    const settings = Settings(context).getInstance();
 
     beforeEach(function () {
 
         domStorageMock = new DomStorageMock();
         mediaController = MediaController(context).getInstance();
         mediaController.setConfig({
-            domStorage: domStorageMock
+            domStorage: domStorageMock,
+            settings: settings
         });
 
     });
 
     afterEach(function () {
         mediaController.reset();
+        mediaController.setSwitchMode('video', Constants.TRACK_SWITCH_MODE_NEVER_REPLACE);
+        mediaController.setSwitchMode('audio', Constants.TRACK_SWITCH_MODE_ALWAYS_REPLACE);
         mediaController = null;
     });
 
@@ -64,45 +70,69 @@ describe('MediaController', function () {
 
     describe('Switch Mode', function () {
         it('should not set switch mode if mode is not supported', function () {
+            let switchmode = mediaController.getSwitchMode('video');
+            expect(switchmode).to.equal(Constants.TRACK_SWITCH_MODE_NEVER_REPLACE);
+
+            mediaController.setSwitchMode('video', 'unsupported');
+
+            switchmode = mediaController.getSwitchMode('video');
+            expect(switchmode).to.equal(Constants.TRACK_SWITCH_MODE_NEVER_REPLACE);
+        });
+
+        it('should not set switch mode if type is not supported', function () {
             let switchmode = mediaController.getSwitchMode('test');
             expect(switchmode).to.not.exist; // jshint ignore:line
 
-            mediaController.setSwitchMode('test', 'unsupported');
+            mediaController.setSwitchMode('test', Constants.TRACK_SWITCH_MODE_NEVER_REPLACE);
 
             switchmode = mediaController.getSwitchMode('test');
             expect(switchmode).to.not.exist; // jshint ignore:line
         });
 
-        it('should set and get switch mode', function () {
-            let switchmode = mediaController.getSwitchMode('test');
-            expect(switchmode).to.not.exist; // jshint ignore:line
+        it('should set and get switch mode for video', function () {
+            let switchmode = mediaController.getSwitchMode('video');
+            expect(switchmode).to.equal(Constants.TRACK_SWITCH_MODE_NEVER_REPLACE);
 
-            mediaController.setSwitchMode('test', MediaController.TRACK_SWITCH_MODE_ALWAYS_REPLACE);
+            mediaController.setSwitchMode('video', Constants.TRACK_SWITCH_MODE_ALWAYS_REPLACE);
 
-            switchmode = mediaController.getSwitchMode('test');
-            expect(switchmode).to.equal(MediaController.TRACK_SWITCH_MODE_ALWAYS_REPLACE);
+            switchmode = mediaController.getSwitchMode('video');
+
+            expect(switchmode).to.equal(Constants.TRACK_SWITCH_MODE_ALWAYS_REPLACE);
+
+        });
+
+        it('should set and get switch mode for audio', function () {
+            let switchmode = mediaController.getSwitchMode('audio');
+            expect(switchmode).to.equal(Constants.TRACK_SWITCH_MODE_ALWAYS_REPLACE);
+
+            mediaController.setSwitchMode('audio', Constants.TRACK_SWITCH_MODE_NEVER_REPLACE);
+
+            switchmode = mediaController.getSwitchMode('audio');
+
+            expect(switchmode).to.equal(Constants.TRACK_SWITCH_MODE_NEVER_REPLACE);
+
         });
     });
 
     describe('Selection Mode For Initial Track', function () {
         it('should not set selection mode if mode is not supported', function () {
             let mode = mediaController.getSelectionModeForInitialTrack();
-            expect(mode).to.equal(MediaController.DEFAULT_INIT_TRACK_SELECTION_MODE);
+            expect(mode).to.equal(Constants.TRACK_SELECTION_MODE_HIGHEST_BITRATE);
 
             mediaController.setSelectionModeForInitialTrack('unsupported');
 
-            mediaController.getSelectionModeForInitialTrack();
-            expect(mode).to.equal(MediaController.DEFAULT_INIT_TRACK_SELECTION_MODE);
+            mode = mediaController.getSelectionModeForInitialTrack();
+            expect(mode).to.equal(Constants.TRACK_SELECTION_MODE_HIGHEST_BITRATE);
         });
 
         it('should set and get selection mode', function () {
             let mode = mediaController.getSelectionModeForInitialTrack();
-            expect(mode).to.equal(MediaController.DEFAULT_INIT_TRACK_SELECTION_MODE);
+            expect(mode).to.equal(Constants.TRACK_SELECTION_MODE_HIGHEST_BITRATE);
 
-            mediaController.setSelectionModeForInitialTrack(MediaController.TRACK_SELECTION_MODE_HIGHEST_BITRATE);
+            mediaController.setSelectionModeForInitialTrack(Constants.TRACK_SELECTION_MODE_WIDEST_RANGE);
 
-            mediaController.getSelectionModeForInitialTrack();
-            expect(mode).to.equal(MediaController.TRACK_SELECTION_MODE_HIGHEST_BITRATE);
+            mode = mediaController.getSelectionModeForInitialTrack();
+            expect(mode).to.equal(Constants.TRACK_SELECTION_MODE_WIDEST_RANGE);
         });
     });
 
@@ -238,7 +268,7 @@ describe('MediaController', function () {
         });
 
         it('getTracksFor should return an empty array if parameters are defined, but internal tracks array is empty', function () {
-            const trackArray = mediaController.getTracksFor(Constants.VIDEO,{id: 'id'});
+            const trackArray = mediaController.getTracksFor(Constants.VIDEO, {id: 'id'});
 
             expect(trackArray).to.be.instanceOf(Array);    // jshint ignore:line
             expect(trackArray).to.be.empty;                // jshint ignore:line
@@ -251,8 +281,6 @@ describe('MediaController', function () {
         });
 
         it('should add and retrieve track', function () {
-
-            let trackType = 'audio';
             let streamInfo = {
                 id: 'id'
             };
@@ -272,7 +300,6 @@ describe('MediaController', function () {
 
         it('should not set uncorrect track', function () {
             let track = {};
-            let trackType = 'audio';
             let streamInfo = {
                 id: 'id'
             };
@@ -283,8 +310,6 @@ describe('MediaController', function () {
         });
 
         it('should add and set current track', function () {
-
-            let trackType = 'audio';
             let streamInfo = {
                 id: 'id'
             };
@@ -302,8 +327,6 @@ describe('MediaController', function () {
         });
 
         it('should check current track', function () {
-
-            let trackType = 'audio';
             let streamInfo = {
                 id: 'id'
             };
@@ -326,8 +349,6 @@ describe('MediaController', function () {
         });
 
         it('should check current track', function () {
-
-            let trackType = 'audio';
             let streamInfo = {
                 id: 'id'
             };
@@ -350,8 +371,6 @@ describe('MediaController', function () {
         });
 
         it('should emit Events.CURRENT_TRACK_CHANGED when track has changed', function (done) {
-
-            let trackType = 'audio';
             let streamInfo = {
                 id: 'id'
             };
@@ -395,7 +414,7 @@ describe('MediaController', function () {
 
                 expect(objectUtils.areEqual(old, track1)).to.be.true; // jshint ignore:line
                 expect(objectUtils.areEqual(current, track2)).to.be.true; // jshint ignore:line
-                expect(switchMode).to.equal(MediaController.TRACK_SWITCH_MODE_ALWAYS_REPLACE);
+                expect(switchMode).to.equal(Constants.TRACK_SWITCH_MODE_ALWAYS_REPLACE);
 
                 eventBus.off(Events.CURRENT_TRACK_CHANGED, onTrackChanged);
                 done();
@@ -411,8 +430,6 @@ describe('MediaController', function () {
     describe('Initial Track Management', function () {
 
         it('should check initial media settings to choose initial track', function () {
-
-            let trackType = 'audio';
             let streamInfo = {
                 id: 'id'
             };
@@ -447,6 +464,85 @@ describe('MediaController', function () {
 
         });
 
+        it('should check initial media settings to choose initial track with a string/regex lang', function () {
+            const streamInfo = {
+                id: 'id'
+            };
+            const track = {
+                type: trackType,
+                streamInfo: streamInfo,
+                lang: 'fr',
+                viewpoint: 'viewpoint',
+                roles: 1,
+                accessibility: 1,
+                audioChannelConfiguration: 1
+            };
+
+            mediaController.addTrack(track);
+
+            let trackList = mediaController.getTracksFor(trackType, streamInfo);
+            expect(trackList).to.have.lengthOf(1);
+            expect(objectUtils.areEqual(trackList[0], track)).to.be.true; // jshint ignore:line
+
+            let currentTrack = mediaController.getCurrentTrackFor(trackType, streamInfo);
+            expect(objectUtils.areEqual(currentTrack, track)).to.be.false; // jshint ignore:line
+
+            // call to checkInitialMediaSettingsForType
+            mediaController.setInitialSettings(trackType, {
+                lang: 'fr|en|qtz',
+                viewpoint: 'viewpoint'
+            });
+            mediaController.checkInitialMediaSettingsForType(trackType, streamInfo);
+
+            currentTrack = mediaController.getCurrentTrackFor(trackType, streamInfo);
+            expect(objectUtils.areEqual(currentTrack, track)).to.be.true; // jshint ignore:line
+        });
+
+        it('should check initial media settings to choose initial track with a regex lang', function () {
+            const streamInfo = {
+                id: 'id'
+            };
+            const frTrack = {
+                type: trackType,
+                streamInfo: streamInfo,
+                lang: 'fr',
+                viewpoint: 'viewpoint',
+                roles: 1,
+                accessibility: 1,
+                audioChannelConfiguration: 1
+            };
+            const qtzTrack = {
+                type: trackType,
+                streamInfo: streamInfo,
+                lang: 'qtz',
+                viewpoint: 'viewpoint',
+                roles: 1,
+                accessibility: 1,
+                audioChannelConfiguration: 1
+            };
+
+            mediaController.addTrack(frTrack);
+            mediaController.addTrack(qtzTrack);
+
+            let trackList = mediaController.getTracksFor(trackType, streamInfo);
+            expect(trackList).to.have.lengthOf(2);
+            expect(objectUtils.areEqual(trackList[0], frTrack)).to.be.true; // jshint ignore:line
+            expect(objectUtils.areEqual(trackList[1], qtzTrack)).to.be.true; // jshint ignore:line
+
+            let currentTrack = mediaController.getCurrentTrackFor(trackType, streamInfo);
+            expect(objectUtils.areEqual(currentTrack, frTrack)).to.be.false; // jshint ignore:line
+            expect(objectUtils.areEqual(currentTrack, qtzTrack)).to.be.false; // jshint ignore:line
+
+            // call to checkInitialMediaSettingsForType
+            mediaController.setInitialSettings(trackType, {
+                lang: /qtz|mis/,
+                viewpoint: 'viewpoint'
+            });
+            mediaController.checkInitialMediaSettingsForType(trackType, streamInfo);
+
+            currentTrack = mediaController.getCurrentTrackFor(trackType, streamInfo);
+            expect(objectUtils.areEqual(currentTrack, qtzTrack)).to.be.true; // jshint ignore:line
+        });
     });
 
 });

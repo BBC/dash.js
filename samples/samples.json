@@ -75,9 +75,24 @@
                 "href": "live-streaming/live-delay-comparison-using-setLiveDelay.html"
             },
             {
+                "title": "Synchronized live playback with the catchup mode",
+                "description": "Example showing a synchronized live playback of two videos using the live playback catchup mode.",
+                "href": "live-streaming/synchronized-live-playback.html"
+            },
+            {
                 "title": "Low latency",
                 "description": "Example showing how to use dash.js to play low latency streams.",
                 "href": "low-latency/index.html"
+            },
+            {
+                "title": "Low latency with L2ALL",
+                "description": "Example showing how to use dash.js to play low latency streams using the L2ALL ABR algorithm.",
+                "href": "low-latency/l2all_index.html"
+            },
+            {
+                "title": "Low latency with LoL+",
+                "description": "Example showing how to use dash.js to play low latency streams using the LoL+ ABR algorithm.",
+                "href": "low-latency/lolp_index.html"
             }
         ]
     },
@@ -155,19 +170,9 @@
                 "href": "captioning/multi-track-captions.html"
             },
             {
-                "title": "TTML EBU timeted text tracks",
+                "title": "TTML EBU timed text tracks",
                 "description": "Example showing content with TTML EBU timed text tracks.",
                 "href": "captioning/ttml-ebutt-sample.html"
-            }
-        ]
-    },
-    {
-        "section": "Ad Insertion",
-        "samples": [
-            {
-                "title": "Ad insertion",
-                "description": "Demonstration of different implementation approaches for advert insertion, specifically inband, inline and X-Link onLoad. Provided by Fraunhofer Fokus.",
-                "href": "ad-insertion/index.html"
             }
         ]
     },
@@ -213,6 +218,21 @@
                 "title": "Extending Dash.js",
                 "description": "This sample shows how to use dash.js extend mechanism to add custom HTTP headers and modify URL's of the requests done by the player.",
                 "href": "advanced/extend.html"
+            },
+            {
+                "title": "CMCD Reporting",
+                "description": "This sample shows how to use dash.js in order to enhance requests to the CDN with Common Media Client Data (CMCD - CTA 5005).",
+                "href": "advanced/cmcd.html"
+            }
+        ]
+    },
+    {
+        "section": "Offline ",
+        "samples": [
+            {
+                "title": "Offline mode",
+                "description": "Example showing how store and read back streams without network connection to Dash",
+                "href": "offline/index.html"
             }
         ]
     }

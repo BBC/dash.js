@@ -28,8 +28,6 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-import BufferController from '../../controllers/BufferController';
-import AbrController from '../../controllers/AbrController';
 import FactoryMaker from '../../../core/FactoryMaker';
 import Debug from '../../../core/Debug';
 import SwitchRequest from '../SwitchRequest';
@@ -50,7 +48,7 @@ function ThroughputRule(config) {
     }
 
     function checkConfig() {
-        if (!dashMetrics || !dashMetrics.hasOwnProperty('getLatestBufferInfoVO')) {
+        if (!dashMetrics || !dashMetrics.hasOwnProperty('getCurrentBufferState')) {
             throw new Error(Constants.MISSING_CONFIG_ERROR);
         }
     }
@@ -67,7 +65,7 @@ function ThroughputRule(config) {
 
         const mediaInfo = rulesContext.getMediaInfo();
         const mediaType = rulesContext.getMediaType();
-        const bufferStateVO = dashMetrics.getLatestBufferInfoVO(mediaType, true, MetricsConstants.BUFFER_STATE);
+        const currentBufferState = dashMetrics.getCurrentBufferState(mediaType);
         const scheduleController = rulesContext.getScheduleController();
         const abrController = rulesContext.getAbrController();
         const streamInfo = rulesContext.getStreamInfo();
@@ -78,15 +76,15 @@ function ThroughputRule(config) {
         const useBufferOccupancyABR = rulesContext.useBufferOccupancyABR();
 
 
-        if (isNaN(throughput) || !bufferStateVO || useBufferOccupancyABR) {
+        if (isNaN(throughput) || !currentBufferState || useBufferOccupancyABR) {
             return switchRequest;
         }
 
-        if (abrController.getAbandonmentStateFor(mediaType) !== AbrController.ABANDON_LOAD) {
-            if (bufferStateVO.state === BufferController.BUFFER_LOADED || isDynamic) {
+        if (abrController.getAbandonmentStateFor(mediaType) !== MetricsConstants.ABANDON_LOAD) {
+            if (currentBufferState.state === MetricsConstants.BUFFER_LOADED || isDynamic) {
                 switchRequest.quality = abrController.getQualityForBitrate(mediaInfo, throughput, latency);
                 scheduleController.setTimeToLoadDelay(0);
-                logger.debug('requesting switch to index: ', switchRequest.quality, 'type: ',mediaType, 'Average throughput', Math.round(throughput), 'kbps');
+                logger.debug('[' + mediaType + '] requesting switch to index: ', switchRequest.quality, 'Average throughput', Math.round(throughput), 'kbps');
                 switchRequest.reason = {throughput: throughput, latency: latency};
             }
         }

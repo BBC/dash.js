@@ -124,13 +124,14 @@ describe('InsufficientBufferRule', function () {
         };
         const representationInfo = { fragmentDuration: 4 };
         const dashMetricsMock = new DashMetricsMock();
+        dashMetricsMock.addBufferState('video', bufferState);
+
         const rulesContextMock = {
             getMediaInfo: function () {},
             getMediaType: function () { return 'video'; },
             getAbrController: function () {},
             getRepresentationInfo: function () { return representationInfo;}
         };
-        dashMetricsMock.addBufferState('video', bufferState);
 
         const rule = InsufficientBufferRule(context).create({
             dashMetrics: dashMetricsMock

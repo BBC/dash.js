@@ -41,7 +41,6 @@ import {
 
 /**
  * @module DashMetrics
- * @ignore
  * @param {object} config
  */
 
@@ -69,77 +68,77 @@ function DashMetrics(config) {
     }
 
     /**
-     * @param {string} mediaType
-     * @param {boolean} readOnly
+     * @param {MediaType} mediaType
      * @returns {*}
      * @memberof module:DashMetrics
      * @instance
      */
-    function getCurrentRepresentationSwitch(mediaType, readOnly) {
-        const metrics = metricsModel.getMetricsFor(mediaType, readOnly);
+    function getCurrentRepresentationSwitch(mediaType) {
+        const metrics = metricsModel.getMetricsFor(mediaType, true);
         return getCurrent(metrics, MetricsConstants.TRACK_SWITCH);
     }
 
     /**
-     * @param {string} mediaType
+     * @param {MediaType} mediaType
      * @param {Date} t time of the switch event
      * @param {Date} mt media presentation time
      * @param {string} to id of representation
      * @param {string} lto if present, subrepresentation reference
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addRepresentationSwitch(mediaType, t, mt, to, lto) {
         metricsModel.addRepresentationSwitch(mediaType, t, mt, to, lto);
     }
 
     /**
-     * @param {string} mediaType
-     * @param {boolean} readOnly
-     * @param {string} infoType
-     * @returns {*}
-     * @memberof module:DashMetrics
-     * @instance
-     */
-    function getLatestBufferInfoVO(mediaType, readOnly, infoType) {
-        const metrics = metricsModel.getMetricsFor(mediaType, readOnly);
-        return getCurrent(metrics, infoType);
-    }
-
-    /**
-     * @param {string} type
-     * @param {boolean} readOnly
+     * @param {MediaType} type
      * @returns {number}
      * @memberof module:DashMetrics
      * @instance
      */
-    function getCurrentBufferLevel(type, readOnly) {
-        const vo = getLatestBufferInfoVO(type, readOnly, MetricsConstants.BUFFER_LEVEL);
+    function getCurrentBufferState(type) {
+        const metrics = metricsModel.getMetricsFor(type, true);
+        return getCurrent(metrics, MetricsConstants.BUFFER_STATE);
+    }
 
-        if (vo) {
-            return Round10.round10(vo.level / 1000, -3);
+    /**
+     * @param {MediaType} type
+     * @returns {number}
+     * @memberof module:DashMetrics
+     * @instance
+     */
+    function getCurrentBufferLevel(type) {
+        const metrics = metricsModel.getMetricsFor(type, true);
+        const metric = getCurrent(metrics, MetricsConstants.BUFFER_LEVEL);
+
+        if (metric) {
+            return Round10.round10(metric.level / 1000, -3);
         }
 
         return 0;
     }
 
     /**
-     * @param {string} mediaType
+     * @param {MediaType} mediaType
      * @param {number} t
      * @param {number} level
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addBufferLevel(mediaType, t, level) {
         metricsModel.addBufferLevel(mediaType, t, level);
     }
 
     /**
-     * @param {string} mediaType
+     * @param {MediaType} mediaType
      * @param {string} state
      * @param {number} target
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addBufferState(mediaType, state, target) {
         metricsModel.addBufferState(mediaType, state, target);
@@ -148,20 +147,20 @@ function DashMetrics(config) {
     /**
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function clearAllCurrentMetrics () {
         metricsModel.clearAllCurrentMetrics();
     }
 
     /**
-     * @param {string} mediaType
-     * @param {boolean} readOnly
+     * @param {MediaType} mediaType
      * @returns {*}
      * @memberof module:DashMetrics
      * @instance
      */
-    function getCurrentHttpRequest(mediaType, readOnly) {
-        const metrics = metricsModel.getMetricsFor(mediaType, readOnly);
+    function getCurrentHttpRequest(mediaType) {
+        const metrics = metricsModel.getMetricsFor(mediaType, true);
 
         if (!metrics) {
             return null;
@@ -189,7 +188,7 @@ function DashMetrics(config) {
     }
 
     /**
-     * @param {string} mediaType
+     * @param {MediaType} mediaType
      * @returns {*}
      * @memberof module:DashMetrics
      * @instance
@@ -204,11 +203,12 @@ function DashMetrics(config) {
     }
 
     /**
-     * @param {string} mediaType
+     * @param {MediaType} mediaType
      * @param {Array} loadingRequests
      * @param {Array} executedRequests
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addRequestsQueue(mediaType, loadingRequests, executedRequests) {
         metricsModel.addRequestsQueue(mediaType, loadingRequests, executedRequests);
@@ -225,20 +225,15 @@ function DashMetrics(config) {
         if (!metrics) {
             return null;
         }
-
         const list = metrics[metricName];
-
-        if (!list || list.length <= 0) {
-            return null;
-        }
-
-        return list[list.length - 1];
+        return (!list || list.length === 0) ? null : list[list.length - 1];
     }
 
     /**
      * @returns {*}
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function getCurrentDroppedFrames() {
         const metrics = metricsModel.getMetricsFor(Constants.VIDEO, true);
@@ -249,13 +244,14 @@ function DashMetrics(config) {
      * @param {number} quality
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addDroppedFrames(quality) {
         metricsModel.addDroppedFrames(Constants.VIDEO, quality);
     }
 
     /**
-     * @param {string} mediaType
+     * @param {MediaType} mediaType
      * @returns {*}
      * @memberof module:DashMetrics
      * @instance
@@ -270,6 +266,7 @@ function DashMetrics(config) {
      * @param {string} state
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addSchedulingInfo(request, state) {
         metricsModel.addSchedulingInfo(
@@ -298,6 +295,7 @@ function DashMetrics(config) {
      * @param {object} updatedFields fields to be updated
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function updateManifestUpdateInfo(updatedFields) {
         const manifestUpdate = this.getCurrentManifestUpdate();
@@ -308,6 +306,7 @@ function DashMetrics(config) {
      * @param {object} streamInfo
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addManifestUpdateStreamInfo(streamInfo) {
         if (streamInfo) {
@@ -320,6 +319,7 @@ function DashMetrics(config) {
      * @param {object} request
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addManifestUpdate(request) {
         metricsModel.addManifestUpdate(Constants.STREAM, request.type, request.requestStartDate, request.requestEndDate);
@@ -334,12 +334,14 @@ function DashMetrics(config) {
      * @param {number} quality
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addHttpRequest(request, responseURL, responseStatus, responseHeaders, traces, quality) {
         metricsModel.addHttpRequest(request.mediaType,
             null,
             request.type,
             request.url,
+            request.quality,
             responseURL,
             request.serviceLocation || null,
             request.range || null,
@@ -356,9 +358,10 @@ function DashMetrics(config) {
 
     /**
      * @param {object} representation
-     * @param {string} mediaType
+     * @param {MediaType} mediaType
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addManifestUpdateRepresentationInfo(representation, mediaType) {
         if (representation) {
@@ -368,7 +371,7 @@ function DashMetrics(config) {
     }
 
     /**
-     * @param {string} mediaType
+     * @param {MediaType} mediaType
      * @returns {*}
      * @memberof module:DashMetrics
      * @instance
@@ -380,12 +383,13 @@ function DashMetrics(config) {
     }
 
     /**
-     * @param {string} mediaType
+     * @param {MediaType} mediaType
      * @param {Date} currentTime time of the switch event
      * @param {object} mpd mpd reference
      * @param {object} range range of the dvr info
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addDVRInfo(mediaType, currentTime, mpd, range) {
         metricsModel.addDVRInfo(mediaType, currentTime, mpd, range);
@@ -455,6 +459,7 @@ function DashMetrics(config) {
     /**
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addPlayList() {
         if (playListMetrics) {
@@ -479,7 +484,7 @@ function DashMetrics(config) {
             playListTraceMetrics.representationid = representationId;
             playListTraceMetrics.start = new Date();
             playListTraceMetrics.mstart = mediaStartTime;
-            playListTraceMetrics.playbackspeed = speed;
+            playListTraceMetrics.playbackspeed = speed !== null ? speed.toString() : null;
         }
     }
 
@@ -506,6 +511,7 @@ function DashMetrics(config) {
      * @param {object} errors
      * @memberof module:DashMetrics
      * @instance
+     * @ignore
      */
     function addDVBErrors(errors) {
         metricsModel.addDVBErrors(errors);
@@ -513,7 +519,7 @@ function DashMetrics(config) {
 
     instance = {
         getCurrentRepresentationSwitch: getCurrentRepresentationSwitch,
-        getLatestBufferInfoVO: getLatestBufferInfoVO,
+        getCurrentBufferState: getCurrentBufferState,
         getCurrentBufferLevel: getCurrentBufferLevel,
         getCurrentHttpRequest: getCurrentHttpRequest,
         getHttpRequests: getHttpRequests,

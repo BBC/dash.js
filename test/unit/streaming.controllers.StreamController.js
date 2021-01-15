@@ -3,9 +3,11 @@ import Events from '../../src/core/events/Events';
 import ProtectionEvents from '../../src/streaming/protection/ProtectionEvents';
 import EventBus from '../../src/core/EventBus';
 import Settings from '../../src/core/Settings';
+import Constants from '../../src/streaming/constants/Constants';
 
 import ObjectsHelper from './helpers/ObjectsHelper';
 import AdapterMock from './mocks/AdapterMock';
+import BaseURLControllerMock from './mocks/BaseURLControllerMock';
 import ManifestLoaderMock from './mocks/ManifestLoaderMock';
 import ManifestModelMock from './mocks/ManifestModelMock';
 import ErrorHandlerMock from './mocks/ErrorHandlerMock';
@@ -35,6 +37,7 @@ const dashMetricsMock = new DashMetricsMock();
 const protectionControllerMock = new ProtectionControllerMock();
 const videoModelMock = new VideoModelMock();
 const playbackControllerMock = new PlaybackControllerMock();
+const baseUrlControllerMock = new BaseURLControllerMock();
 
 Events.extend(ProtectionEvents);
 
@@ -67,16 +70,16 @@ describe('StreamController', function () {
         });
 
         it('should throw an exception when attempting to call initialize while setConfig has not been called', function () {
-            expect(streamController.initialize.bind(streamController)).to.throw('setConfig function has to be called previously');
+            expect(streamController.initialize.bind(streamController)).to.throw(Constants.MISSING_CONFIG_ERROR);
         });
 
         it('should throw an exception when attempting to call load while setConfig has not been called', function () {
-            expect(streamController.load.bind(streamController)).to.throw('setConfig function has to be called previously');
+            expect(streamController.load.bind(streamController)).to.throw(Constants.MISSING_CONFIG_ERROR);
         });
 
         it('should throw an exception when attempting to call load while setConfig has not been called properly - empty manifestLoader object', function () {
             streamController.setConfig({manifestLoader: {}});
-            expect(streamController.load.bind(streamController)).to.throw('setConfig function has to be called previously');
+            expect(streamController.load.bind(streamController)).to.throw(Constants.MISSING_CONFIG_ERROR);
         });
 
         it('should throw an exception when attempting to call loadWithManifest while initialize has not been called', function () {
@@ -84,38 +87,28 @@ describe('StreamController', function () {
         });
 
         it('should throw an exception when attempting to call reset while setConfig has not been called', function () {
-            expect(streamController.reset.bind(streamController)).to.throw('setConfig function has to be called previously');
+            expect(streamController.reset.bind(streamController)).to.throw(Constants.MISSING_CONFIG_ERROR);
         });
 
         it('should return an empty array when attempting to call getActiveStreamProcessors while no activeStream has been defined', function () {
             const activeStreamProcessorsArray = streamController.getActiveStreamProcessors();
 
-            expect(activeStreamProcessorsArray).to.be.instanceOf(Array);    // jshint ignore:line
-            expect(activeStreamProcessorsArray).to.be.empty;                // jshint ignore:line
+            expect(activeStreamProcessorsArray).to.be.instanceOf(Array); // jshint ignore:line
+            expect(activeStreamProcessorsArray).to.be.empty; // jshint ignore:line
         });
 
-        it('should return undefined when attempting to call isTrackTypePresent with no track type', function () {
-            const isAudioTrackPresent = streamController.isTrackTypePresent();
-
-            expect(isAudioTrackPresent).to.be.undefined;    // jshint ignore:line
+        it('should return false when attempting to call hasAudioTrack, while no activeStream has been defined', function () {
+            expect(streamController.hasAudioTrack()).to.be.false; // jshint ignore:line
         });
 
-        it('should return undefined when attempting to call isTrackTypePresent, for audio type, while no activeStream has been defined', function () {
-            const isAudioTrackPresent = streamController.isTrackTypePresent('audio');
-
-            expect(isAudioTrackPresent).to.be.undefined;    // jshint ignore:line
-        });
-
-        it('should return undefined when attempting to call isTrackTypePresent, for video type, while no activeStream has been defined', function () {
-            const isVideoTrackPresent = streamController.isTrackTypePresent('video');
-
-            expect(isVideoTrackPresent).to.be.undefined;    // jshint ignore:line
+        it('should return false when attempting to call hasVideoTrack, while no activeStream has been defined', function () {
+            expect(streamController.hasVideoTrack()).to.be.false; // jshint ignore:line
         });
 
         it('should return null when attempting to call getStreamForTime, and no stream has been composed', function () {
             const stream = streamController.getStreamForTime(10);
 
-            expect(stream).to.be.null;    // jshint ignore:line
+            expect(stream).to.be.null; // jshint ignore:line
         });
     });
 
@@ -131,6 +124,7 @@ describe('StreamController', function () {
                                         protectionController: protectionControllerMock,
                                         videoModel: videoModelMock,
                                         playbackController: playbackControllerMock,
+                                        baseURLController: baseUrlControllerMock,
                                         settings: settings});
 
             streamController.initialize(false);

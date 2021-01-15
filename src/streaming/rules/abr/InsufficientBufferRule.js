@@ -28,7 +28,6 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-import BufferController from '../../controllers/BufferController';
 import EventBus from '../../../core/EventBus';
 import Events from '../../../core/events/Events';
 import FactoryMaker from '../../../core/FactoryMaker';
@@ -41,6 +40,7 @@ function InsufficientBufferRule(config) {
 
     config = config || {};
     const INSUFFICIENT_BUFFER_SAFETY_FACTOR = 0.5;
+    const SEGMENT_IGNORE_COUNT = 2;
 
     const context = this.context;
 
@@ -59,10 +59,11 @@ function InsufficientBufferRule(config) {
     }
 
     function checkConfig() {
-        if (!dashMetrics || !dashMetrics.hasOwnProperty('getCurrentBufferLevel') || !dashMetrics.hasOwnProperty('getLatestBufferInfoVO')) {
+        if (!dashMetrics || !dashMetrics.hasOwnProperty('getCurrentBufferLevel') || !dashMetrics.hasOwnProperty('getCurrentBufferState')) {
             throw new Error(Constants.MISSING_CONFIG_ERROR);
         }
     }
+
     /*
      * InsufficientBufferRule does not kick in before the first BUFFER_LOADED event happens. This is reset at every seek.
      *
@@ -73,7 +74,7 @@ function InsufficientBufferRule(config) {
      * If the bufferLevel is low, then InsufficientBufferRule avoids rebuffering risk.
      * If the bufferLevel is high, then InsufficientBufferRule give a high MaxIndex allowing other rules to take over.
      */
-    function getMaxIndex (rulesContext) {
+    function getMaxIndex(rulesContext) {
         const switchRequest = SwitchRequest(context).create();
 
         if (!rulesContext || !rulesContext.hasOwnProperty('getMediaType')) {
@@ -83,17 +84,17 @@ function InsufficientBufferRule(config) {
         checkConfig();
 
         const mediaType = rulesContext.getMediaType();
-        const lastBufferStateVO = dashMetrics.getLatestBufferInfoVO(mediaType, true, MetricsConstants.BUFFER_STATE);
+        const currentBufferState = dashMetrics.getCurrentBufferState(mediaType);
         const representationInfo = rulesContext.getRepresentationInfo();
         const fragmentDuration = representationInfo.fragmentDuration;
 
         // Don't ask for a bitrate change if there is not info about buffer state or if fragmentDuration is not defined
-        if (!lastBufferStateVO || shouldIgnore(mediaType) || !fragmentDuration) {
+        if (shouldIgnore(mediaType) || !fragmentDuration) {
             return switchRequest;
         }
 
-        if (lastBufferStateVO.state === BufferController.BUFFER_EMPTY) {
-            logger.debug('Switch to index 0; buffer is empty.');
+        if (currentBufferState && currentBufferState.state === MetricsConstants.BUFFER_EMPTY) {
+            logger.debug('[' + mediaType + '] Switch to index 0; buffer is empty.');
             switchRequest.quality = 0;
             switchRequest.reason = 'InsufficientBufferRule: Buffer is empty';
         } else {
@@ -101,7 +102,7 @@ function InsufficientBufferRule(config) {
             const abrController = rulesContext.getAbrController();
             const throughputHistory = abrController.getThroughputHistory();
 
-            const bufferLevel = dashMetrics.getCurrentBufferLevel(mediaType, true);
+            const bufferLevel = dashMetrics.getCurrentBufferLevel(mediaType);
             const throughput = throughputHistory.getAverageThroughput(mediaType);
             const latency = throughputHistory.getAverageLatency(mediaType);
             const bitrate = throughput * (bufferLevel / fragmentDuration) * INSUFFICIENT_BUFFER_SAFETY_FACTOR;
@@ -119,8 +120,8 @@ function InsufficientBufferRule(config) {
 
     function resetInitialSettings() {
         bufferStateDict = {};
-        bufferStateDict[Constants.VIDEO] = {ignoreCount: 2};
-        bufferStateDict[Constants.AUDIO] = {ignoreCount: 2};
+        bufferStateDict[Constants.VIDEO] = {ignoreCount: SEGMENT_IGNORE_COUNT};
+        bufferStateDict[Constants.AUDIO] = {ignoreCount: SEGMENT_IGNORE_COUNT};
     }
 
     function onPlaybackSeeking() {
@@ -130,7 +131,7 @@ function InsufficientBufferRule(config) {
     function onEndFragment(e) {
         if (!isNaN(e.startTime) && (e.mediaType === Constants.AUDIO || e.mediaType === Constants.VIDEO)) {
             if (bufferStateDict[e.mediaType].ignoreCount > 0) {
-                bufferStateDict[e.mediaType].ignoreCount --;
+                bufferStateDict[e.mediaType].ignoreCount--;
             }
         }
     }

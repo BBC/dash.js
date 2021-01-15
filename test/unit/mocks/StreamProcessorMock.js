@@ -70,17 +70,6 @@ function StreamProcessorMock (testType, streamInfo) {
         };
     };
 
-    this.getIndexHandler = function () {
-        return {
-            updateRepresentation: () => {},
-            getInitRequest: () => { return null;},
-            getNextSegmentRequest: () => { return null;},
-            getCurrentTime: () => {},
-            setCurrentTime: () => {},
-            updateSegmentList: () => {}
-        };
-    };
-
     this.getScheduleController = function () {
         return {
             getBufferTarget() {
@@ -124,11 +113,7 @@ function StreamProcessorMock (testType, streamInfo) {
         return this.bufferController.getIsBufferingCompleted();
     };
 
-    this.getFragmentController = function () {
-        return null;
-    };
-
-    this.switchInitData = function () {};
+    this.appendInitSegment = function () {};
 
     this.reset = function () {};
 }

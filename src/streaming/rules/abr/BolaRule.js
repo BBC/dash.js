@@ -73,7 +73,6 @@ function BolaRule(config) {
 
         eventBus.on(Events.BUFFER_EMPTY, onBufferEmpty, instance);
         eventBus.on(Events.PLAYBACK_SEEKING, onPlaybackSeeking, instance);
-        eventBus.on(Events.PERIOD_SWITCH_STARTED, onPeriodSwitchStarted, instance);
         eventBus.on(Events.MEDIA_FRAGMENT_LOADED, onMediaFragmentLoaded, instance);
         eventBus.on(Events.METRIC_ADDED, onMetricAdded, instance);
         eventBus.on(Events.QUALITY_CHANGE_REQUESTED, onQualityChangeRequested, instance);
@@ -156,7 +155,7 @@ function BolaRule(config) {
                 // 1. do not change effective buffer level at effectiveBufferLevel === MINIMUM_BUFFER_S ( === Vp * gp )
                 // 2. scale placeholder buffer by Vp subject to offset indicated in 1.
 
-                const bufferLevel = dashMetrics.getCurrentBufferLevel(mediaType, true);
+                const bufferLevel = dashMetrics.getCurrentBufferLevel(mediaType);
                 let effectiveBufferLevel = bufferLevel + bolaState.placeholderBuffer;
 
                 effectiveBufferLevel -= MINIMUM_BUFFER_S;
@@ -280,10 +279,6 @@ function BolaRule(config) {
         }
     }
 
-    function onPeriodSwitchStarted() {
-        // TODO: does this have to be handled here?
-    }
-
     function onMediaFragmentLoaded(e) {
         if (e && e.chunk && e.chunk.mediaInfo) {
             const bolaState = bolaStateDict[e.chunk.mediaInfo.type];
@@ -334,7 +329,7 @@ function BolaRule(config) {
 
             // Find what maximum buffer corresponding to last segment was, and ensure placeholder is not relatively larger.
             if (!isNaN(bolaState.lastSegmentFinishTimeMs)) {
-                const bufferLevel = dashMetrics.getCurrentBufferLevel(mediaType, true);
+                const bufferLevel = dashMetrics.getCurrentBufferLevel(mediaType);
                 const bufferAtLastSegmentRequest = bufferLevel + 0.001 * (bolaState.lastSegmentFinishTimeMs - bolaState.lastSegmentRequestTimeMs); // estimate
                 const maxEffectiveBufferForLastSegment = maxBufferLevelForQuality(bolaState, bolaState.lastQuality);
                 const maxPlaceholderBuffer = Math.max(0, maxEffectiveBufferForLastSegment - bufferAtLastSegmentRequest);
@@ -368,7 +363,7 @@ function BolaRule(config) {
             const bolaState = bolaStateDict[e.mediaType];
             if (bolaState && bolaState.state !== BOLA_STATE_ONE_BITRATE) {
                 // deflate placeholderBuffer - note that we want to be conservative when abandoning
-                const bufferLevel = dashMetrics.getCurrentBufferLevel(e.mediaType, true);
+                const bufferLevel = dashMetrics.getCurrentBufferLevel(e.mediaType);
                 let wantEffectiveBufferLevel;
                 if (bolaState.abrQuality > 0) {
                     // deflate to point where BOLA just chooses newQuality over newQuality-1
@@ -414,7 +409,7 @@ function BolaRule(config) {
             return switchRequest;
         }
 
-        const bufferLevel = dashMetrics.getCurrentBufferLevel(mediaType, true);
+        const bufferLevel = dashMetrics.getCurrentBufferLevel(mediaType);
         const throughput = throughputHistory.getAverageThroughput(mediaType, isDynamic);
         const safeThroughput = throughputHistory.getSafeAverageThroughput(mediaType, isDynamic);
         const latency = throughputHistory.getAverageLatency(mediaType);
@@ -521,7 +516,6 @@ function BolaRule(config) {
 
         eventBus.off(Events.BUFFER_EMPTY, onBufferEmpty, instance);
         eventBus.off(Events.PLAYBACK_SEEKING, onPlaybackSeeking, instance);
-        eventBus.off(Events.PERIOD_SWITCH_STARTED, onPeriodSwitchStarted, instance);
         eventBus.off(Events.MEDIA_FRAGMENT_LOADED, onMediaFragmentLoaded, instance);
         eventBus.off(Events.METRIC_ADDED, onMetricAdded, instance);
         eventBus.off(Events.QUALITY_CHANGE_REQUESTED, onQualityChangeRequested, instance);

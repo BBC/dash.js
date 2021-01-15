@@ -29,8 +29,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 import Constants from './constants/Constants';
+import DashConstants from '../dash/constants/DashConstants';
 import XlinkController from './controllers/XlinkController';
-import HTTPLoader from './net/HTTPLoader';
+import URLLoader from './net/URLLoader';
 import URLUtils from './utils/URLUtils';
 import TextRequest from './vo/TextRequest';
 import DashJSError from './vo/DashJSError';
@@ -40,18 +41,18 @@ import Events from '../core/events/Events';
 import Errors from '../core/errors/Errors';
 import FactoryMaker from '../core/FactoryMaker';
 import DashParser from '../dash/parser/DashParser';
-import Debug from '../core/Debug';
 
 function ManifestLoader(config) {
 
     config = config || {};
     const context = this.context;
+    const debug = config.debug;
     const eventBus = EventBus(context).getInstance();
     const urlUtils = URLUtils(context).getInstance();
 
     let instance,
         logger,
-        httpLoader,
+        urlLoader,
         xlinkController,
         parser;
 
@@ -59,32 +60,34 @@ function ManifestLoader(config) {
     let errHandler = config.errHandler;
 
     function setup() {
-        logger = Debug(context).getInstance().getLogger(instance);
+        logger = debug.getLogger(instance);
         eventBus.on(Events.XLINK_READY, onXlinkReady, instance);
 
-        httpLoader = HTTPLoader(context).create({
-            errHandler: errHandler,
+        urlLoader = URLLoader(context).create({
+            errHandler: config.errHandler,
             dashMetrics: config.dashMetrics,
             mediaPlayerModel: config.mediaPlayerModel,
-            requestModifier: config.requestModifier
+            requestModifier: config.requestModifier,
+            useFetch: config.settings.get().streaming.lowLatencyEnabled,
+            urlUtils: urlUtils,
+            constants: Constants,
+            dashConstants: DashConstants,
+            errors: Errors
         });
 
         xlinkController = XlinkController(context).create({
             errHandler: errHandler,
             dashMetrics: config.dashMetrics,
             mediaPlayerModel: config.mediaPlayerModel,
-            requestModifier: config.requestModifier
+            requestModifier: config.requestModifier,
+            settings: config.settings
         });
 
         parser = null;
     }
 
     function onXlinkReady(event) {
-        eventBus.trigger(
-            Events.INTERNAL_MANIFEST_LOADED, {
-                manifest: event.manifest
-            }
-        );
+        eventBus.trigger(Events.INTERNAL_MANIFEST_LOADED, { manifest: event.manifest });
     }
 
     function createParser(data) {
@@ -98,16 +101,17 @@ function ManifestLoader(config) {
             }
             return parser;
         } else if (data.indexOf('MPD') > -1) {
-            return DashParser(context).create();
+            return DashParser(context).create({debug: debug});
         } else {
             return parser;
         }
     }
 
     function load(url) {
+
         const request = new TextRequest(url, HTTPRequest.MPD_TYPE);
 
-        httpLoader.load({
+        urlLoader.load({
             request: request,
             success: function (data, textStatus, responseURL) {
                 // Manage situations in which success is called after calling reset
@@ -139,15 +143,13 @@ function ManifestLoader(config) {
                 }
 
                 if (parser === null) {
-                    eventBus.trigger(
-                        Events.INTERNAL_MANIFEST_LOADED, {
-                            manifest: null,
-                            error: new DashJSError(
-                                Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_CODE,
-                                Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_MESSAGE + `${url}`
-                            )
-                        }
-                    );
+                    eventBus.trigger(Events.INTERNAL_MANIFEST_LOADED, {
+                        manifest: null,
+                        error: new DashJSError(
+                            Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_CODE,
+                            Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_MESSAGE + `${url}`
+                        )
+                    });
                     return;
                 }
 
@@ -158,15 +160,13 @@ function ManifestLoader(config) {
                 try {
                     manifest = parser.parse(data);
                 } catch (e) {
-                    eventBus.trigger(
-                        Events.INTERNAL_MANIFEST_LOADED, {
-                            manifest: null,
-                            error: new DashJSError(
-                                Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_CODE,
-                                Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_MESSAGE + `${url}`
-                           )
-                        }
-                    );
+                    eventBus.trigger(Events.INTERNAL_MANIFEST_LOADED, {
+                        manifest: null,
+                        error: new DashJSError(
+                            Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_CODE,
+                            Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_MESSAGE + `${url}`
+                        )
+                    });
                     return;
                 }
 
@@ -188,28 +188,26 @@ function ManifestLoader(config) {
                     manifest.baseUri = baseUri;
                     manifest.loadedTime = new Date();
                     xlinkController.resolveManifestOnLoad(manifest);
+
+                    eventBus.trigger(Events.ORIGINAL_MANIFEST_LOADED, { originalManifest: data });
                 } else {
-                    eventBus.trigger(
-                        Events.INTERNAL_MANIFEST_LOADED, {
-                            manifest: null,
-                            error: new DashJSError(
-                                Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_CODE,
-                                Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_MESSAGE + `${url}`
-                            )
-                        }
-                    );
+                    eventBus.trigger(Events.INTERNAL_MANIFEST_LOADED, {
+                        manifest: null,
+                        error: new DashJSError(
+                            Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_CODE,
+                            Errors.MANIFEST_LOADER_PARSING_FAILURE_ERROR_MESSAGE + `${url}`
+                        )
+                    });
                 }
             },
             error: function (request, statusText, errorText) {
-                eventBus.trigger(
-                    Events.INTERNAL_MANIFEST_LOADED, {
-                        manifest: null,
-                        error: new DashJSError(
-                            Errors.MANIFEST_LOADER_LOADING_FAILURE_ERROR_CODE,
-                            Errors.MANIFEST_LOADER_LOADING_FAILURE_ERROR_MESSAGE + `${url}, ${errorText}`
-                        )
-                    }
-                );
+                eventBus.trigger(Events.INTERNAL_MANIFEST_LOADED, {
+                    manifest: null,
+                    error: new DashJSError(
+                        Errors.MANIFEST_LOADER_LOADING_FAILURE_ERROR_CODE,
+                        Errors.MANIFEST_LOADER_LOADING_FAILURE_ERROR_MESSAGE + `${url}, ${errorText}`
+                    )
+                });
             }
         });
     }
@@ -222,9 +220,9 @@ function ManifestLoader(config) {
             xlinkController = null;
         }
 
-        if (httpLoader) {
-            httpLoader.abort();
-            httpLoader = null;
+        if (urlLoader) {
+            urlLoader.abort();
+            urlLoader = null;
         }
 
         if (mssHandler) {

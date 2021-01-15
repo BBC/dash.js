@@ -31,9 +31,11 @@
  */
 import cea608parser from '../../externals/cea608-parser';
 import Constants from './constants/Constants';
+import DashConstants from '../dash/constants/DashConstants';
 import MetricsConstants from './constants/MetricsConstants';
 import PlaybackController from './controllers/PlaybackController';
 import StreamController from './controllers/StreamController';
+import GapController from './controllers/GapController';
 import MediaController from './controllers/MediaController';
 import BaseURLController from './controllers/BaseURLController';
 import ManifestLoader from './ManifestLoader';
@@ -46,7 +48,9 @@ import URIFragmentModel from './models/URIFragmentModel';
 import ManifestModel from './models/ManifestModel';
 import MediaPlayerModel from './models/MediaPlayerModel';
 import AbrController from './controllers/AbrController';
+import SchemeLoaderFactory from './net/SchemeLoaderFactory';
 import VideoModel from './models/VideoModel';
+import CmcdModel from './models/CmcdModel';
 import DOMStorage from './utils/DOMStorage';
 import Debug from './../core/Debug';
 import Errors from './../core/errors/Errors';
@@ -61,6 +65,7 @@ import {
 from './../core/Version';
 
 //Dash
+import SegmentBaseController from '../dash/controllers/SegmentBaseController';
 import DashAdapter from '../dash/DashAdapter';
 import DashMetrics from '../dash/DashMetrics';
 import TimelineConverter from '../dash/utils/TimelineConverter';
@@ -71,6 +76,16 @@ import BASE64 from '../../externals/base64';
 import ISOBoxer from 'codem-isoboxer';
 import DashJSError from './vo/DashJSError';
 import { checkParameterType } from './utils/SupervisorTools';
+import ManifestUpdater from './ManifestUpdater';
+import URLUtils from '../streaming/utils/URLUtils';
+import BoxParser from './utils/BoxParser';
+
+/* jscs:disable */
+/**
+ * The media types
+ * @typedef {("video" | "audio" | "text" | "fragmentedText" | "embeddedText" | "image")} MediaType
+ */
+/* jscs:enable */
 
 /**
  * @module MediaPlayer
@@ -108,7 +123,7 @@ function MediaPlayer() {
     const context = this.context;
     const eventBus = EventBus(context).getInstance();
     let settings = Settings(context).getInstance();
-    const debug = Debug(context).getInstance();
+    const debug = Debug(context).getInstance({settings: settings});
 
     let instance,
         logger,
@@ -119,23 +134,29 @@ function MediaPlayer() {
         playbackInitialized,
         autoPlay,
         abrController,
+        schemeLoaderFactory,
         timelineConverter,
         mediaController,
         protectionController,
         metricsReportingController,
         mssHandler,
+        offlineController,
         adapter,
         mediaPlayerModel,
         errHandler,
+        baseURLController,
         capabilities,
         streamController,
+        gapController,
         playbackController,
         dashMetrics,
         manifestModel,
+        cmcdModel,
         videoModel,
         textController,
         domStorage,
         uriFragmentModel,
+        segmentBaseController,
         savedElementAttributes;
 
     /*
@@ -152,8 +173,10 @@ function MediaPlayer() {
         streamingInitialized = false;
         autoPlay = true;
         protectionController = null;
+        offlineController = null;
         protectionData = null;
         adapter = null;
+        segmentBaseController = null;
         Events.extend(MediaPlayerEvents);
         mediaPlayerModel = MediaPlayerModel(context).getInstance();
         videoModel = VideoModel(context).getInstance();
@@ -177,6 +200,9 @@ function MediaPlayer() {
         if (config.streamController) {
             streamController = config.streamController;
         }
+        if (config.gapController) {
+            gapController = config.gapController;
+        }
         if (config.playbackController) {
             playbackController = config.playbackController;
         }
@@ -185,6 +211,9 @@ function MediaPlayer() {
         }
         if (config.abrController) {
             abrController = config.abrController;
+        }
+        if (config.schemeLoaderFactory) {
+            schemeLoaderFactory = config.schemeLoaderFactory;
         }
         if (config.mediaController) {
             mediaController = config.mediaController;
@@ -229,6 +258,13 @@ function MediaPlayer() {
         timelineConverter = TimelineConverter(context).getInstance();
         if (!abrController) {
             abrController = AbrController(context).getInstance();
+            abrController.setConfig({
+                settings: settings
+            });
+        }
+
+        if (!schemeLoaderFactory) {
+            schemeLoaderFactory = SchemeLoaderFactory(context).getInstance();
         }
 
         if (!playbackController) {
@@ -239,9 +275,19 @@ function MediaPlayer() {
             mediaController = MediaController(context).getInstance();
         }
 
+        if (!streamController) {
+            streamController = StreamController(context).getInstance();
+        }
+
+        if (!gapController) {
+            gapController = GapController(context).getInstance();
+        }
+
         adapter = DashAdapter(context).getInstance();
 
         manifestModel = ManifestModel(context).getInstance();
+
+        cmcdModel = CmcdModel(context).getInstance();
 
         dashMetrics = DashMetrics(context).getInstance({
             settings: settings
@@ -258,9 +304,42 @@ function MediaPlayer() {
             BASE64: BASE64
         });
 
+        if (!baseURLController) {
+            baseURLController = BaseURLController(context).create();
+        }
+
+        baseURLController.setConfig({
+            adapter: adapter
+        });
+
+
+        segmentBaseController = SegmentBaseController(context).getInstance({
+            dashMetrics: dashMetrics,
+            mediaPlayerModel: mediaPlayerModel,
+            errHandler: errHandler,
+            baseURLController: baseURLController,
+            events: Events,
+            eventBus: eventBus,
+            debug: debug,
+            boxParser: BoxParser(context).getInstance(),
+            requestModifier: RequestModifier(context).getInstance(),
+            errors: Errors
+        });
+
+        segmentBaseController.initialize();
+
+        // configure controllers
+        mediaController.setConfig({
+            domStorage: domStorage,
+            settings: settings
+        });
+
         restoreDefaultUTCTimingSources();
         setAutoPlay(AutoPlay !== undefined ? AutoPlay : true);
         savedElementAttributes = {};
+
+        // Detect and initialize offline module to support offline contents playback
+        detectOffline();
 
         if (view) {
             attachView(view);
@@ -277,7 +356,8 @@ function MediaPlayer() {
      * Sets the MPD source and the video element to null. You can also reset the MediaPlayer by
      * calling attachSource with a new source file.
      *
-     * Calling this method is all that is necessary to destroy a MediaPlayer instance.
+     * This call does not destroy the MediaPlayer. To destroy the MediaPlayer and free all of its
+     * memory, call destroy().
      *
      * @memberof module:MediaPlayer
      * @instance
@@ -295,7 +375,25 @@ function MediaPlayer() {
             metricsReportingController = null;
         }
 
+        segmentBaseController.reset();
+
         settings.reset();
+
+        if (offlineController) {
+            offlineController.reset();
+            offlineController = null;
+        }
+    }
+
+    /**
+     * Completely destroys the media player and frees all memory.
+     *
+     * @memberof module:MediaPlayer
+     * @instance
+     */
+    function destroy() {
+        reset();
+        FactoryMaker.deleteSingletonInstances(context);
     }
 
     /**
@@ -317,11 +415,12 @@ function MediaPlayer() {
      * @param {string} type - {@link MediaPlayerEvents}
      * @param {Function} listener - callback method when the event fires.
      * @param {Object} scope - context of the listener so it can be removed properly.
+     * @param {Object} options - object to define various options such as priority and mode
      * @memberof module:MediaPlayer
      * @instance
      */
-    function on(type, listener, scope) {
-        eventBus.on(type, listener, scope);
+    function on(type, listener, scope, options) {
+        eventBus.on(type, listener, scope, options);
     }
 
     /**
@@ -538,7 +637,7 @@ function MediaPlayer() {
      * @instance
      */
     function setVolume(value) {
-        if ( typeof value !== 'number' || isNaN(value) || value < 0.0 || value > 1.0) {
+        if (typeof value !== 'number' || isNaN(value) || value < 0.0 || value > 1.0) {
             throw Constants.BAD_ARGUMENT_ERROR;
         }
         getVideoElement().volume = value;
@@ -563,7 +662,7 @@ function MediaPlayer() {
      * and the presentation does not include any adaption sets of valid media
      * type.
      *
-     * @param {string} type - the media type of the buffer
+     * @param {MediaType} type - 'video', 'audio' or 'fragmentedText'
      * @returns {number} The length of the buffer for the given media type, in
      *  seconds, or NaN
      * @memberof module:MediaPlayer
@@ -748,10 +847,9 @@ function MediaPlayer() {
     */
     /**
      * Gets the top quality BitrateInfo checking portal limit and max allowed.
-     *
      * It calls getTopQualityIndexFor internally
      *
-     * @param {string} type - 'video' or 'audio' are the type options.
+     * @param {MediaType} type - 'video' or 'audio'
      * @memberof module:MediaPlayer
      * @returns {BitrateInfo | null}
      * @throws {@link module:MediaPlayer~STREAMING_NOT_INITIALIZED_ERROR STREAMING_NOT_INITIALIZED_ERROR} if called before initializePlayback function
@@ -769,7 +867,7 @@ function MediaPlayer() {
      * rules update this value before every new download unless setAutoSwitchQualityFor(type, false) is called. For 'image'
      * type, thumbnails, there is no ABR algorithm and quality is set manually.
      *
-     * @param {string} type - 'video', 'audio' or 'image' (thumbnails)
+     * @param {MediaType} type - 'video', 'audio' or 'image' (thumbnails)
      * @returns {number} the quality index, 0 corresponding to the lowest bitrate
      * @memberof module:MediaPlayer
      * @see {@link module:MediaPlayer#setAutoSwitchQualityFor setAutoSwitchQualityFor()}
@@ -797,7 +895,7 @@ function MediaPlayer() {
      * Sets the current quality for media type instead of letting the ABR Heuristics automatically selecting it.
      * This value will be overwritten by the ABR rules unless setAutoSwitchQualityFor(type, false) is called.
      *
-     * @param {string} type - 'video', 'audio' or 'image'
+     * @param {MediaType} type - 'video', 'audio' or 'image'
      * @param {number} value - the quality index, 0 corresponding to the lowest bitrate
      * @memberof module:MediaPlayer
      * @see {@link module:MediaPlayer#setAutoSwitchQualityFor setAutoSwitchQualityFor()}
@@ -1003,7 +1101,7 @@ function MediaPlayer() {
     /**
      * Returns the average throughput computed in the ABR logic
      *
-     * @param {string} type
+     * @param {MediaType} type
      * @return {number} value
      * @memberof module:MediaPlayer
      * @instance
@@ -1043,6 +1141,23 @@ function MediaPlayer() {
     /*
     ---------------------------------------------------------------------------
 
+        OFFLINE
+
+    ---------------------------------------------------------------------------
+    */
+
+    /**
+     * Detects if Offline is included and returns an instance of OfflineController.js
+     * @memberof module:MediaPlayer
+     * @instance
+     */
+    function getOfflineController() {
+        return detectOffline();
+    }
+
+    /*
+    ---------------------------------------------------------------------------
+
         METRICS
 
     ---------------------------------------------------------------------------
@@ -1073,12 +1188,13 @@ function MediaPlayer() {
      * @param {string} lang - default language
      * @memberof module:MediaPlayer
      * @instance
+     * @deprecated will be removed in version 3.2.0. Please use setInitialMediaSettingsFor("fragmentedText", { lang: lang }) instead
      */
     function setTextDefaultLanguage(lang) {
+        logger.warn('setTextDefaultLanguage is deprecated and will be removed in version 3.2.0. Please use setInitialMediaSettingsFor("fragmentedText", { lang: lang }) instead');
         if (textController === undefined) {
             textController = TextController(context).getInstance();
         }
-
         textController.setTextDefaultLanguage(lang);
     }
 
@@ -1088,8 +1204,10 @@ function MediaPlayer() {
      * @return {string} the default language if it has been set using setTextDefaultLanguage
      * @memberof module:MediaPlayer
      * @instance
+     * @deprecated will be removed in version 3.2.0. Please use getInitialMediaSettingsFor("fragmentedText").lang instead
      */
     function getTextDefaultLanguage() {
+        logger.warn('getTextDefaultLanguage is deprecated and will be removed in version 3.2.0. Please use getInitialMediaSettingsFor("fragmentedText").lang instead');
         if (textController === undefined) {
             textController = TextController(context).getInstance();
         }
@@ -1338,7 +1456,7 @@ function MediaPlayer() {
     ---------------------------------------------------------------------------
     */
     /**
-     * @param {string} type
+     * @param {MediaType} type
      * @returns {Array}
      * @memberof module:MediaPlayer
      * @throws {@link module:MediaPlayer~STREAMING_NOT_INITIALIZED_ERROR STREAMING_NOT_INITIALIZED_ERROR} if called before initializePlayback function
@@ -1369,7 +1487,7 @@ function MediaPlayer() {
 
     /**
      * This method returns the list of all available tracks for a given media type
-     * @param {string} type
+     * @param {MediaType} type
      * @returns {Array} list of {@link MediaInfo}
      * @memberof module:MediaPlayer
      * @throws {@link module:MediaPlayer~STREAMING_NOT_INITIALIZED_ERROR STREAMING_NOT_INITIALIZED_ERROR} if called before initializePlayback function
@@ -1385,7 +1503,7 @@ function MediaPlayer() {
 
     /**
      * This method returns the list of all available tracks for a given media type and streamInfo from a given manifest
-     * @param {string} type
+     * @param {MediaType} type
      * @param {Object} manifest
      * @param {Object} streamInfo
      * @returns {Array}  list of {@link MediaInfo}
@@ -1404,7 +1522,7 @@ function MediaPlayer() {
     }
 
     /**
-     * @param {string} type
+     * @param {MediaType} type
      * @returns {Object|null} {@link MediaInfo}
      *
      * @memberof module:MediaPlayer
@@ -1421,25 +1539,27 @@ function MediaPlayer() {
 
     /**
      * This method allows to set media settings that will be used to pick the initial track. Format of the settings
-     * is following:
-     * {lang: langValue,
+     * is following: <br />
+     * {lang: langValue (can be either a string or a regex to match),
      *  viewpoint: viewpointValue,
      *  audioChannelConfiguration: audioChannelConfigurationValue,
      *  accessibility: accessibilityValue,
      *  role: roleValue}
      *
-     *
-     * @param {string} type
+     * @param {MediaType} type
      * @param {Object} value
      * @memberof module:MediaPlayer
      * @throws {@link module:MediaPlayer~MEDIA_PLAYER_NOT_INITIALIZED_ERROR MEDIA_PLAYER_NOT_INITIALIZED_ERROR} if called before initialize function
      * @instance
      */
-    function setQualityForSettingsFor(type, value) {
+    function setInitialMediaSettingsFor(type, value) {
         if (!mediaPlayerInitialized) {
             throw MEDIA_PLAYER_NOT_INITIALIZED_ERROR;
         }
         mediaController.setInitialSettings(type, value);
+        if (type === Constants.FRAGMENTED_TEXT) {
+            textController.setInitialSettings(value);
+        }
     }
 
     /**
@@ -1450,7 +1570,7 @@ function MediaPlayer() {
      *  audioChannelConfiguration: audioChannelConfigurationValue,
      *  accessibility: accessibilityValue,
      *  role: roleValue}
-     * @param {string} type
+     * @param {MediaType} type
      * @returns {Object}
      * @memberof module:MediaPlayer
      * @throws {@link module:MediaPlayer~MEDIA_PLAYER_NOT_INITIALIZED_ERROR MEDIA_PLAYER_NOT_INITIALIZED_ERROR} if called before initialize function
@@ -1479,7 +1599,7 @@ function MediaPlayer() {
     /**
      * This method returns the current track switch mode.
      *
-     * @param {string} type
+     * @param {MediaType} type
      * @returns {string} mode
      * @memberof module:MediaPlayer
      * @throws {@link module:MediaPlayer~MEDIA_PLAYER_NOT_INITIALIZED_ERROR MEDIA_PLAYER_NOT_INITIALIZED_ERROR} if called before initialize function
@@ -1495,14 +1615,14 @@ function MediaPlayer() {
     /**
      * This method sets the current track switch mode. Available options are:
      *
-     * MediaController.TRACK_SWITCH_MODE_NEVER_REPLACE
+     * Constants.TRACK_SWITCH_MODE_NEVER_REPLACE
      * (used to forbid clearing the buffered data (prior to current playback position) after track switch.
      * Defers to fastSwitchEnabled for placement of new data. Default for video)
      *
-     * MediaController.TRACK_SWITCH_MODE_ALWAYS_REPLACE
+     * Constants.TRACK_SWITCH_MODE_ALWAYS_REPLACE
      * (used to clear the buffered data (prior to current playback position) after track switch. Default for audio)
      *
-     * @param {string} type
+     * @param {MediaType} type
      * @param {string} mode
      * @memberof module:MediaPlayer
      * @throws {@link module:MediaPlayer~MEDIA_PLAYER_NOT_INITIALIZED_ERROR MEDIA_PLAYER_NOT_INITIALIZED_ERROR} if called before initialize function
@@ -1519,10 +1639,10 @@ function MediaPlayer() {
      * This method sets the selection mode for the initial track. This mode defines how the initial track will be selected
      * if no initial media settings are set. If initial media settings are set this parameter will be ignored. Available options are:
      *
-     * MediaController.TRACK_SELECTION_MODE_HIGHEST_BITRATE
+     * Constants.TRACK_SELECTION_MODE_HIGHEST_BITRATE
      * this mode makes the player select the track with a highest bitrate. This mode is a default mode.
      *
-     * MediaController.TRACK_SELECTION_MODE_WIDEST_RANGE
+     * Constants.TRACK_SELECTION_MODE_WIDEST_RANGE
      * this mode makes the player select the track with a widest range of bitrates
      *
      * @param {string} mode
@@ -1558,6 +1678,8 @@ function MediaPlayer() {
         PROTECTION MANAGEMENT
 
     ---------------------------------------------------------------------------
+    */
+
     /**
      * Detects if Protection is included and returns an instance of ProtectionController.js
      * @memberof module:MediaPlayer
@@ -1582,7 +1704,7 @@ function MediaPlayer() {
      * be set before initializing MediaPlayer or, once initialized, before PROTECTION_CREATED event is fired.
      * @see {@link module:MediaPlayer#initialize initialize()}
      * @see {@link ProtectionEvents#event:PROTECTION_CREATED dashjs.Protection.events.PROTECTION_CREATED}
-     * @param {ProtectionData} value - object containing
+     * @param {ProtectionDataSet} value - object containing
      * property names corresponding to key system name strings and associated
      * values being instances of.
      * @memberof module:MediaPlayer
@@ -1606,31 +1728,36 @@ function MediaPlayer() {
     */
 
     /**
-     * Return the thumbnail at time position.
-     * @returns {Thumbnail|null} - Thumbnail for the given time position. It returns null in case there are is not a thumbnails representation or
-     * if it doesn't contain a thumbnail for the given time position.
+     * Provide the thumbnail at time position. This can be asynchronous, so you must provide a callback ro retrieve thumbnails informations
      * @param {number} time - A relative time, in seconds, based on the return value of the {@link module:MediaPlayer#duration duration()} method is expected
-     * @param {function} callback - A Callback function provided when retrieving thumbnail
+     * @param {function} callback - A Callback function provided when retrieving thumbnail the given time position. Thumbnail object is null in case there are is not a thumbnails representation or
+     * if it doesn't contain a thumbnail for the given time position.
      * @memberof module:MediaPlayer
      * @instance
      */
-    function getThumbnail(time, callback) {
+    function provideThumbnail(time, callback) {
+        if (typeof callback !== 'function') {
+            return;
+        }
         if (time < 0) {
-            return null;
+            callback(null);
+            return;
         }
         const s = playbackController.getIsDynamic() ? getDVRSeekOffset(time) : time;
         const stream = streamController.getStreamForTime(s);
         if (stream === null) {
-            return null;
+            callback(null);
+            return;
         }
 
         const thumbnailController = stream.getThumbnailController();
         if (!thumbnailController) {
-            return null;
+            callback(null);
+            return;
         }
 
         const timeInPeriod = streamController.getTimeRelativeToStreamId(s, stream.getId());
-        return thumbnailController.get(timeInPeriod, callback);
+        return thumbnailController.provide(timeInPeriod, callback);
     }
 
     /*
@@ -1875,6 +2002,7 @@ function MediaPlayer() {
         streamingInitialized = false;
         adapter.reset();
         streamController.reset();
+        gapController.reset();
         playbackController.reset();
         abrController.reset();
         mediaController.reset();
@@ -1889,6 +2017,7 @@ function MediaPlayer() {
             }
         }
         videoModel.reset();
+        cmcdModel.reset();
     }
 
     function createPlaybackControllers() {
@@ -1898,11 +2027,6 @@ function MediaPlayer() {
         if (!streamController) {
             streamController = StreamController(context).getInstance();
         }
-
-        // configure controllers
-        mediaController.setConfig({
-            domStorage: domStorage
-        });
 
         streamController.setConfig({
             capabilities: capabilities,
@@ -1919,7 +2043,17 @@ function MediaPlayer() {
             abrController: abrController,
             mediaController: mediaController,
             textController: textController,
-            settings: settings
+            settings: settings,
+            baseURLController: baseURLController
+        });
+
+        gapController.setConfig({
+            settings,
+            playbackController,
+            streamController,
+            videoModel,
+            timelineConverter,
+            adapter
         });
 
         playbackController.setConfig({
@@ -1942,7 +2076,6 @@ function MediaPlayer() {
             videoModel: videoModel,
             settings: settings
         });
-        abrController.createAbrRulesCollection();
 
         textController.setConfig({
             errHandler: errHandler,
@@ -1953,12 +2086,21 @@ function MediaPlayer() {
             videoModel: videoModel
         });
 
+        cmcdModel.setConfig({
+            abrController,
+            dashMetrics,
+            playbackController
+        });
+
         // initialises controller
         streamController.initialize(autoPlay, protectionData);
+        gapController.initialize();
+        cmcdModel.initialize();
     }
 
     function createManifestLoader() {
         return ManifestLoader(context).create({
+            debug: debug,
             errHandler: errHandler,
             dashMetrics: dashMetrics,
             mediaPlayerModel: mediaPlayerModel,
@@ -2036,17 +2178,76 @@ function MediaPlayer() {
                 dashMetrics: dashMetrics,
                 manifestModel: manifestModel,
                 playbackController: playbackController,
+                streamController: streamController,
                 protectionController: protectionController,
-                baseURLController: BaseURLController(context).getInstance(),
+                baseURLController: baseURLController,
                 errHandler: errHandler,
                 events: Events,
                 constants: Constants,
                 debug: debug,
                 initSegmentType: HTTPRequest.INIT_SEGMENT_TYPE,
                 BASE64: BASE64,
-                ISOBoxer: ISOBoxer
+                ISOBoxer: ISOBoxer,
+                settings: settings
             });
         }
+    }
+
+    function detectOffline() {
+        if (!mediaPlayerInitialized) {
+            throw MEDIA_PLAYER_NOT_INITIALIZED_ERROR;
+        }
+
+        if (offlineController) {
+            return offlineController;
+        }
+
+        // do not require Offline as dependencies as this is optional and intended to be loaded separately
+        let OfflineController = dashjs.OfflineController; /* jshint ignore:line */
+
+        if (typeof OfflineController === 'function') { //TODO need a better way to register/detect plugin components
+            Events.extend(OfflineController.events);
+            MediaPlayerEvents.extend(OfflineController.events, {
+                publicOnly: true
+            });
+            Errors.extend(OfflineController.errors);
+
+            const manifestLoader = createManifestLoader();
+            const manifestUpdater = ManifestUpdater(context).create();
+
+            manifestUpdater.setConfig({
+                manifestModel: manifestModel,
+                adapter: adapter,
+                manifestLoader: manifestLoader,
+                errHandler: errHandler
+            });
+
+            offlineController = OfflineController(context).create({
+                debug: debug,
+                manifestUpdater: manifestUpdater,
+                baseURLController: baseURLController,
+                manifestLoader: manifestLoader,
+                manifestModel: manifestModel,
+                mediaPlayerModel: mediaPlayerModel,
+                abrController: abrController,
+                playbackController: playbackController,
+                adapter: adapter,
+                errHandler: errHandler,
+                dashMetrics: dashMetrics,
+                timelineConverter: timelineConverter,
+                schemeLoaderFactory: schemeLoaderFactory,
+                eventBus: eventBus,
+                events: Events,
+                errors: Errors,
+                constants: Constants,
+                settings: settings,
+                dashConstants: DashConstants,
+                urlUtils: URLUtils(context).getInstance()
+            });
+            return offlineController;
+        }
+
+        return null;
     }
 
     function getAsUTC(valToConvert) {
@@ -2063,6 +2264,11 @@ function MediaPlayer() {
     }
 
     function initializePlayback() {
+
+        if (offlineController) {
+            offlineController.resetRecords();
+        }
+
         if (!streamingInitialized && source) {
             streamingInitialized = true;
             logger.info('Streaming Initialized');
@@ -2158,7 +2364,7 @@ function MediaPlayer() {
         getTracksFor: getTracksFor,
         getTracksForTypeFromManifest: getTracksForTypeFromManifest,
         getCurrentTrackFor: getCurrentTrackFor,
-        setInitialMediaSettingsFor: setQualityForSettingsFor,
+        setInitialMediaSettingsFor: setInitialMediaSettingsFor,
         getInitialMediaSettingsFor: getInitialMediaSettingsFor,
         setCurrentTrack: setCurrentTrack,
         getTrackSwitchModeFor: getTrackSwitchModeFor,
@@ -2183,13 +2389,15 @@ function MediaPlayer() {
         attachTTMLRenderingDiv: attachTTMLRenderingDiv,
         getCurrentTextTrackIndex: getCurrentTextTrackIndex,
         refreshManifest: refreshManifest,
-        getThumbnail: getThumbnail,
         setBlacklistExpiryTime: setBlacklistExpiryTime,
+        provideThumbnail: provideThumbnail,
         getDashAdapter: getDashAdapter,
+        getOfflineController: getOfflineController,
         getSettings: getSettings,
         updateSettings: updateSettings,
         resetSettings: resetSettings,
-        reset: reset
+        reset: reset,
+        destroy: destroy
     };
 
     setup();
