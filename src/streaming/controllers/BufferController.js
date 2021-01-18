@@ -589,9 +589,7 @@ function BufferController(config) {
                 return;
             }
         } else {
-            if (isBufferingCompleted || bufferLevel >= streamInfo.manifestInfo.minBufferTime) {
-                notifyBufferStateChanged(MetricsConstants.BUFFER_LOADED);
-            }
+            notifyBufferStateChanged(MetricsConstants.BUFFER_LOADED);
         }
     }
 
