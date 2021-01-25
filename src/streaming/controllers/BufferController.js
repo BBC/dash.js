@@ -79,6 +79,7 @@ function BufferController(config) {
         lastIndex,
         buffer,
         dischargeBuffer,
+        dischargeFragments,
         bufferState,
         appendedBytesInfo,
         wallclockTicked,
@@ -181,6 +182,8 @@ function BufferController(config) {
                 logger.debug('PreBuffer discharge requested, but there were no media segments in the PreBuffer.');
             }
 
+            //A list of fragments to supress bytesAppended events for. This makes transferring from a prebuffer to a sourcebuffer silent.
+            dischargeFragments = [];
             let chunks = dischargeBuffer.discharge();
             let lastInit = null;
             for (let j = 0; j < chunks.length; j++) {
@@ -188,10 +191,12 @@ function BufferController(config) {
                 const initChunk = initCache.extract(chunk.streamId, chunk.representationId);
                 if (initChunk) {
                     if (lastInit !== initChunk) {
+                        dischargeFragments.push(initChunk);
                         buffer.append(initChunk);
                         lastInit = initChunk;
                     }
-                    buffer.append(chunk); //TODO Think about supressing buffer events the second time round after a discharge?
+                    dischargeFragments.push(chunk);
+                    buffer.append(chunk);
                 }
             }
 
@@ -309,7 +314,7 @@ function BufferController(config) {
             triggerEvent(Events.SEEK_TARGET, {time: currentTime});
         }
 
-        if (appendedBytesInfo) {
+        if (appendedBytesInfo && (!dischargeFragments || dischargeFragments.indexOf(appendedBytesInfo) < 0)) {
             triggerEvent(appendedBytesInfo.endFragment ? Events.BYTES_APPENDED_END_FRAGMENT : Events.BYTES_APPENDED, {
                 quality: appendedBytesInfo.quality,
                 startTime: appendedBytesInfo.start,
@@ -317,6 +322,8 @@ function BufferController(config) {
                 bufferedRanges: ranges,
                 mediaType: type
             });
+        } else {
+            dischargeFragments = null;
         }
     }
 
