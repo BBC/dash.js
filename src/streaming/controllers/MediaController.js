@@ -54,7 +54,8 @@ function MediaController() {
     const validTrackSelectionModes = [
         Constants.TRACK_SELECTION_MODE_HIGHEST_BITRATE,
         Constants.TRACK_SELECTION_MODE_HIGHEST_EFFICIENCY,
-        Constants.TRACK_SELECTION_MODE_WIDEST_RANGE
+        Constants.TRACK_SELECTION_MODE_WIDEST_RANGE,
+        Constants.TRACK_SELECTION_MODE_LOWEST_BITRATE
     ];
 
     function setup() {
@@ -406,23 +407,31 @@ function MediaController() {
         };
     }
 
-    function getTracksWithHighestBitrate (trackArr) {
-        let max = 0;
+    function getTracksWithBitrate(trackArr, highest) {
         let result = [];
-        let tmp;
+        let last;
 
         trackArr.forEach(function (track) {
-            tmp = Math.max.apply(Math, track.bitrateList.map(function (obj) { return obj.bandwidth; }));
+            const bitrates = track.bitrateList.map(function (obj) { return obj.bandwidth; });
+            const compare = highest ? Math.max.apply(Math, bitrates) : Math.min.apply(Math, bitrates);
 
-            if (tmp > max) {
-                max = tmp;
+            if (last === undefined || (highest ? compare > last : compare < last)) {
+                last = compare;
                 result = [track];
-            } else if (tmp === max) {
+            } else if (compare === last) {
                 result.push(track);
             }
         });
 
         return result;
+    }
+
+    function getTracksWithHighestBitrate (trackArr) {
+        return getTracksWithBitrate(trackArr, true);
+    }
+
+    function getTracksWithLowestBitrate (trackArr) {
+        return getTracksWithBitrate(trackArr, false);
     }
 
     function getTracksWithHighestEfficiency (trackArr) {
@@ -477,6 +486,13 @@ function MediaController() {
         switch (mode) {
             case Constants.TRACK_SELECTION_MODE_HIGHEST_BITRATE:
                 tmpArr = getTracksWithHighestBitrate(tracks);
+
+                if (tmpArr.length > 1) {
+                    tmpArr = getTracksWithWidestRange(tmpArr);
+                }
+                break;
+            case Constants.TRACK_SELECTION_MODE_LOWEST_BITRATE:
+                tmpArr = getTracksWithLowestBitrate(tracks);
 
                 if (tmpArr.length > 1) {
                     tmpArr = getTracksWithWidestRange(tmpArr);
@@ -547,6 +563,7 @@ function MediaController() {
         getSwitchMode: getSwitchMode,
         selectInitialTrack: selectInitialTrack,
         getTracksWithHighestBitrate: getTracksWithHighestBitrate,
+        getTracksWithLowestBitrate: getTracksWithLowestBitrate,
         getTracksWithHighestEfficiency: getTracksWithHighestEfficiency,
         getTracksWithWidestRange: getTracksWithWidestRange,
         setSelectionModeForInitialTrack: setSelectionModeForInitialTrack,

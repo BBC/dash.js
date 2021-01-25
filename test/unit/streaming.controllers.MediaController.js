@@ -639,6 +639,28 @@ describe('MediaController', function () {
                 );
             });
         });
+
+        describe('"lowestBitrate" mode', function () {
+            beforeEach(function () {
+                mediaController.setSelectionModeForInitialTrack(Constants.TRACK_SELECTION_MODE_LOWEST_BITRATE);
+            });
+
+            it('should select track with lowest bitrate', function () {
+                testSelectInitialTrack(
+                    'video',
+                    [ { bandwidth: 1000 } ],
+                    [ { bandwidth: 2000 } ]
+                );
+            });
+
+            it('should tie break using "widestRange"', function () {
+                testSelectInitialTrack(
+                    'video',
+                    [ { bandwidth: 2000 }, { bandwidth: 1000 } ],
+                    [ { bandwidth: 1000 } ]
+                );
+            });
+        });
     });
 
 });
