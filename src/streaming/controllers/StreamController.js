@@ -1159,6 +1159,7 @@ function StreamController() {
         refreshManifest: refreshManifest,
         setBlacklistExpiryTime: setBlacklistExpiryTime,
         detachVideoElement: detachVideoElement,
+        setMediaDuration: setMediaDuration,
         reset
     };
 
