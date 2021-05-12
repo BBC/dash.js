@@ -115,6 +115,7 @@ function PlaybackController() {
             if (isDynamic) {
                 // For dynamic stream, start by default at (live edge - live delay)
                 startTime = e.liveStartTime;
+
                 // If start time in URI, take min value between live edge time and time from URI (capped by DVR window range)
                 const dvrInfo = dashMetrics.getCurrentDVRInfo();
                 const dvrWindow = dvrInfo ? dvrInfo.range : null;
@@ -124,6 +125,13 @@ function PlaybackController() {
                     if (!isNaN(startTimeFromUri)) {
                         logger.info('Start time from URI parameters: ' + startTimeFromUri);
                         startTime = Math.max(Math.min(startTime, startTimeFromUri), dvrWindow.start);
+                    }
+
+                    // If the duration attribute has been added, and the live edge has gone past it, it's an ended livestream,
+                    // if ended and dynamic, the DVRWindow is still active, so start at the beginning of that.
+                    const duration = adapter.getDuration();
+                    if (duration && duration < startTime) {
+                        startTime = dvrWindow.start;
                     }
                 }
             } else {
@@ -138,7 +146,7 @@ function PlaybackController() {
             }
         }
 
-        if (!isNaN(startTime) && startTime !== videoModel.getTime()) {
+        if (!isNaN(startTime) && (isDynamic || startTime !== videoModel.getTime())) {
             // Trigger PLAYBACK_SEEKING event for controllers
             eventBus.trigger(Events.PLAYBACK_SEEKING, { seekTime: startTime });
             // Seek video model

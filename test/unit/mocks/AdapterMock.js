@@ -114,6 +114,12 @@ function AdapterMock () {
     this.convertDataToRepresentationInfo = function () {
         return null;
     };
+
+    this._mockDuration = NaN;
+
+    this.getDuration = function () {
+        return this._mockDuration;
+    };
 }
 
 export default AdapterMock;

@@ -521,5 +521,16 @@ describe('PlaybackController', function () {
             streamMock.initialize(dynamicStreamInfo);
             eventBus.trigger(Events.STREAM_INITIALIZED, {liveStartTime: liveStartTime});
         });
+
+        it('should start a dynamic stream with a duration at DVR start if the live point exceeds duration', function (done) {
+            doneFn = done;
+
+            adapterMock._mockDuration = 100;
+            expectedSeekTime = dvrWindowRange.start;
+
+            playbackController.initialize(dynamicStreamInfo);
+            streamMock.initialize(dynamicStreamInfo);
+            eventBus.trigger(Events.STREAM_INITIALIZED, {liveStartTime: 120});
+        });
     });
 });
