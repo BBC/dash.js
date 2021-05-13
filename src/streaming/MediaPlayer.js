@@ -1858,16 +1858,18 @@ function MediaPlayer() {
     function refreshManifest(callback) {
         let self = this;
 
-        const handler = function (e) {
-            if (!e.error) {
-                callback(e.manifest);
-            } else {
-                callback(null, e.error);
-            }
-            eventBus.off(Events.INTERNAL_MANIFEST_LOADED, handler, self);
-        };
+        if (typeof callback === 'function') {
+            const handler = function (e) {
+                if (!e.error) {
+                    callback(e.manifest);
+                } else {
+                    callback(null, e.error);
+                }
+                eventBus.off(Events.INTERNAL_MANIFEST_LOADED, handler, self);
+            };
 
-        eventBus.on(Events.INTERNAL_MANIFEST_LOADED, handler, self);
+            eventBus.on(Events.INTERNAL_MANIFEST_LOADED, handler, self);
+        }
         streamController.refreshManifest();
     }
 
