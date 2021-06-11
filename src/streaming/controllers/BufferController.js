@@ -432,17 +432,26 @@ function BufferController(config) {
                 end: endOfBuffer
             });
         } else {
+            const currentRange = getRangeAt(currentTimeRequest.startTime, 0);
             // Build buffer behind range. To avoid pruning time around current time position,
             // we include fragment right behind the one in current time position
+            let behindEnd;
+            if (currentRange) {
+                behindEnd = Math.max(currentRange.start,  currentTimeRequest.startTime - settings.get().streaming.bufferToKeep);
+            } else {
+                behindEnd = currentTimeRequest.startTime;
+            }
             const behindRange = {
                 start: 0,
-                end: currentTimeRequest.startTime - settings.get().streaming.stallThreshold
+                end: behindEnd - settings.get().streaming.stallThreshold
             };
+
             const prevReq = fragmentModel.getRequests({
                 state: FragmentModel.FRAGMENT_MODEL_EXECUTED,
-                time: currentTimeRequest.startTime - (currentTimeRequest.duration / 2),
+                time: behindEnd - (currentTimeRequest.duration / 2),
                 threshold: BUFFER_RANGE_CALCULATION_THRESHOLD
             })[0];
+
             if (prevReq && prevReq.startTime != currentTimeRequest.startTime) {
                 behindRange.end = prevReq.startTime;
             }
@@ -461,9 +470,11 @@ function BufferController(config) {
                 time: currentTimeRequest.startTime + currentTimeRequest.duration + settings.get().streaming.stallThreshold,
                 threshold: BUFFER_RANGE_CALCULATION_THRESHOLD
             })[0];
+
             if (nextReq && nextReq.startTime !== currentTimeRequest.startTime) {
-                aheadRange.start = nextReq.startTime + nextReq.duration + settings.get().streaming.stallThreshold;
+                aheadRange.start = Math.max((currentRange && currentRange.end) || 0, nextReq.startTime + nextReq.duration + settings.get().streaming.stallThreshold);
             }
+
             if (aheadRange.start < aheadRange.end && aheadRange.start < endOfBuffer) {
                 clearRanges.push(aheadRange);
             }
