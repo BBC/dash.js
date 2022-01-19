@@ -424,6 +424,8 @@ function BufferController(config) {
             threshold: BUFFER_RANGE_CALCULATION_THRESHOLD
         })[0];
 
+        logger.debug('currentTimeRequest - ', currentTimeRequest);
+
         // There is no request in current time position yet. Let's remove everything
         if (!currentTimeRequest) {
             logger.debug('getAllRangesWithSafetyFactor - No request found in current time position, removing full buffer 0 -', endOfBuffer);
