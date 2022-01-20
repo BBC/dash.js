@@ -229,6 +229,7 @@ function BufferController(config) {
         return true;
     }
 
+    // DOM: Check here
     function onMediaFragmentLoaded(e) {
         const chunk = e.chunk;
 
@@ -397,6 +398,8 @@ function BufferController(config) {
     }
 
     // Prune full buffer but what is around current time position
+    // DOM: This gets called first
+    // It gets the ranges from getAllRangesWithSafetyFactor and clearBuffers them
     function pruneAllSafely() {
         buffer.waitForUpdateEnd(() => {
             const ranges = getAllRangesWithSafetyFactor();
@@ -408,6 +411,7 @@ function BufferController(config) {
     }
 
     // Get all buffer ranges but a range around current time position
+    // DOM: This is called second
     function getAllRangesWithSafetyFactor() {
         const clearRanges = [];
         const ranges = buffer.getAllBufferRanges();
@@ -418,17 +422,20 @@ function BufferController(config) {
         const currentTime = playbackController.getTime();
         const endOfBuffer = ranges.end(ranges.length - 1) + BUFFER_END_THRESHOLD;
 
+        // DOM: This returns as null when the time you're seeking to
+        // hasn't been requested before
         const currentTimeRequest = fragmentModel.getRequests({
             state: FragmentModel.FRAGMENT_MODEL_EXECUTED,
             time: currentTime,
             threshold: BUFFER_RANGE_CALCULATION_THRESHOLD
         })[0];
 
-        logger.debug('currentTimeRequest - ', currentTimeRequest);
+        logger.debug('currentTimeRequest - ', JSON.stringify(currentTimeRequest));
 
         // There is no request in current time position yet. Let's remove everything
         if (!currentTimeRequest) {
             logger.debug('getAllRangesWithSafetyFactor - No request found in current time position, removing full buffer 0 -', endOfBuffer);
+            // DOM: This says that the range to clear is the whole buffer (0 - endOfBuffer)
             clearRanges.push({
                 start: 0,
                 end: endOfBuffer
@@ -685,6 +692,8 @@ function BufferController(config) {
         return clearRanges;
     }
 
+    // DOM: THis is called third by pruneAllSafely
+    // If getAllRangesWithSafetyFactor
     function clearBuffers(ranges) {
         if (!ranges || !buffer || ranges.length === 0) return;
 
@@ -692,7 +701,7 @@ function BufferController(config) {
         if (isPruningInProgress) {
             return;
         }
-
+        logger.debug('clearBuffers - clearing next range');
         clearNextRange();
     }
 
@@ -728,12 +737,13 @@ function BufferController(config) {
         buffer.remove(range.start, range.end, range.force);
     }
 
+    // DOM: Once buffer has been removed, we're here
     function onRemoved(e) {
         if (buffer !== e.buffer) return;
 
         logger.debug('onRemoved buffer from:', e.from, 'to', e.to);
 
-        const ranges = buffer.getAllBufferRanges();
+        const ranges = buffer.getAllBufferRanges(); // DOM: This represents what is actually buffered
         showBufferRanges(ranges);
 
         if (pendingPruningRanges.length === 0) {
@@ -741,11 +751,12 @@ function BufferController(config) {
         }
 
         if (e.unintended) {
-            logger.warn('Detected unintended removal from:', e.from, 'to', e.to, 'setting index handler time to', e.from);
+            logger.warn('Detected unintended removal from:', e.from, 'toß', e.to, 'setting index handler time to', e.from);
             triggerEvent(Events.SEEK_TARGET, {time: e.from, mediaType: type, streamId: streamInfo.id});
         }
 
         if (isPruningInProgress) {
+            logger.debug('isPruningInProgress - clearing next range');
             clearNextRange();
         } else {
             if (!replacingBuffer) {
