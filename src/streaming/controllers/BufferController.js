@@ -751,7 +751,7 @@ function BufferController(config) {
         }
 
         if (e.unintended) {
-            logger.warn('Detected unintended removal from:', e.from, 'toß', e.to, 'setting index handler time to', e.from);
+            logger.warn('Detected unintended removal from:', e.from, 'to', e.to, 'setting index handler time to', e.from);
             triggerEvent(Events.SEEK_TARGET, {time: e.from, mediaType: type, streamId: streamInfo.id});
         }
 
