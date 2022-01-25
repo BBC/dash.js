@@ -169,6 +169,7 @@ function FragmentModel(config) {
     }
 
     function removeExecutedRequestsBeforeTime(time) {
+        logger.debug('executedRequests removed before: ' + time);
         executedRequests = executedRequests.filter(req => {
             const threshold = getRequestThreshold(req);
             return isNaN(req.startTime) || (time !== undefined ? req.startTime >= time - threshold : false);
@@ -176,6 +177,8 @@ function FragmentModel(config) {
     }
 
     function removeExecutedRequestsAfterTime(time) {
+
+        logger.debug('executedRequests removed after: ' + time);
         executedRequests = executedRequests.filter(req => {
             return isNaN(req.startTime) || (time !== undefined ? req.startTime < time : false);
         });
@@ -185,6 +188,8 @@ function FragmentModel(config) {
         if (end <= start + 0.5) {
             return;
         }
+
+        logger.debug('executedRequests removed between start: ' + start + ' end: ' + end);
 
         executedRequests = executedRequests.filter(req => {
             const threshold = getRequestThreshold(req);
@@ -196,6 +201,7 @@ function FragmentModel(config) {
     // Remove requests that are not "represented" by any of buffered ranges
     function syncExecutedRequestsWithBufferedRange(bufferedRanges, streamDuration) {
         if (!bufferedRanges || bufferedRanges.length === 0) {
+            logger.debug('syncExecutedRequestsWithBufferedRange - removeExecutedRequestsBeforeTime');
             removeExecutedRequestsBeforeTime();
             return;
         }
@@ -342,6 +348,7 @@ function FragmentModel(config) {
     }
 
     function resetInitialSettings() {
+        logger.debug('executedRequests reset via resetInitialSettings');
         executedRequests = [];
         loadingRequests = [];
         mediaManifestOffset = 0;

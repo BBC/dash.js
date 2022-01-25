@@ -126,8 +126,19 @@ function ScheduleController(config) {
     }
 
     function start() {
-        if (isStarted()) return;
-        if (!currentRepresentationInfo || bufferController.getIsBufferingCompleted()) return;
+        if (isStarted()) {
+            logger.debug('Schedule Controller already started, not starting.');
+            return;
+        }
+        if (!currentRepresentationInfo || bufferController.getIsBufferingCompleted()) {
+
+            if (bufferController) {
+                logger.debug('bufferingCompleted is: ' + bufferController && bufferController.getIsBufferingCompleted() + ' currentRepresentationInfo: ' + currentRepresentationInfo);
+            }
+
+            logger.debug('Schedule Controller not starting due to the above.');
+            return;
+        }
 
         logger.debug('Schedule Controller starts');
         isStopped = false;
