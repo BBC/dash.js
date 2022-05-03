@@ -475,7 +475,7 @@ function BufferController(config) {
                 aheadRange.start = Math.max((currentRange && currentRange.end) || 0, nextReq.startTime + nextReq.duration + settings.get().streaming.stallThreshold);
             }
 
-            if (aheadRange.start < aheadRange.end && aheadRange.start < endOfBuffer) {
+            if (aheadRange.start < aheadRange.end && aheadRange.end < endOfBuffer) {
                 clearRanges.push(aheadRange);
             }
         }
