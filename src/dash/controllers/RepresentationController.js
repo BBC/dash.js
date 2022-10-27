@@ -319,6 +319,8 @@ function RepresentationController(config) {
             if (representation && representation.adaptation.period) {
                 const period = representation.adaptation.period;
                 period.duration = e.newDuration;
+
+                updateAvailabilityWindow(playbackController.getIsDynamic(), true);
             }
         }
     }
