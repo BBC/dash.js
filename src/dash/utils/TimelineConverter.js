@@ -170,7 +170,7 @@ function TimelineConverter() {
         const endOffset = voRepresentation.availabilityTimeOffset !== undefined &&
         voRepresentation.availabilityTimeOffset < d ? d - voRepresentation.availabilityTimeOffset : d;
 
-        range.end = now >= periodEnd && now - endOffset < periodEnd ? periodEnd : now - endOffset;
+        range.end = now - endOffset < periodEnd ? now - endOffset : periodEnd;
 
         return range;
     }
