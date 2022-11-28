@@ -399,7 +399,7 @@ function PlaybackController() {
             pto_posix -= pto;
         }
         const posix = findTag(fragData, 'posix:') - availabilityStartTime / 1000;
-        const tagTime = pto_posix || posix || NaN;
+        const tagTime = pto_posix || posix;
         const startTime = (isDynamic && !isNaN(tagTime)) ? tagTime : parseInt(fragData.t) + refStreamStartTime;
         return startTime;
     }
