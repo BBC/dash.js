@@ -391,9 +391,63 @@ function PlaybackController() {
         fragData.t = fragData.t.split(',')[0];
         // "t=<time>" : time is relative to 1st period start
         // "t=posix:<time>" : time is absolute start time as number of seconds since 01-01-1970
-        const posix = fragData.t.indexOf('posix:') !== -1 ? fragData.t.substring(6) === 'now' ? Date.now() / 1000 : parseInt(fragData.t.substring(6)) : NaN;
-        let startTime = (isDynamic && !isNaN(posix)) ? posix - availabilityStartTime / 1000 : parseInt(fragData.t) + refStreamStartTime;
+        // "t=pto_posix:<time>" : time is start time as number of seconds since 01-01-1970 but not on the availability timeline, adjusted by pto
+        let pto_posix = findTag(fragData, 'pto_posix:');
+        if (Number.isFinite(pto_posix)) {
+            const refStreamInfo = refStream.getStreamInfo();
+            const pto = getPresentationTimeOffset(refStreamInfo);
+            pto_posix -= pto;
+        }
+        const posix = findTag(fragData, 'posix:') - availabilityStartTime / 1000;
+        const tagTime = pto_posix || posix || NaN;
+        const startTime = (isDynamic && !isNaN(tagTime)) ? tagTime : parseInt(fragData.t) + refStreamStartTime;
         return startTime;
+    }
+
+    function findTag(fragData, tag) {
+        return fragData.t.indexOf(tag) !== -1 ? fragData.t.substring(tag.length) === 'now' ? Date.now() / 1000 : parseInt(fragData.t.substring(tag.length)) : NaN;
+    }
+
+    function getPresentationTimeOffset(refStreamInfo) {
+        if (refStreamInfo) {
+            const sets = [];
+
+            ['audio', 'video'].forEach((type) => {
+                const set = adapter.getAdaptationForType(0, type, refStreamInfo);
+                if (set) {
+                    sets.push(set);
+                }
+            });
+
+            for (let j = 0; j < sets.length; j++) {
+                const stPto = lookForPto(sets[j]);
+                if (Number.isFinite(stPto)) {
+                    return stPto;
+                }
+
+                const reps = sets[j].Representation_asArray;
+                if (reps) {
+                    for (let k = 0; k < reps.length; k++) {
+                        const repPto = lookForPto(reps[k]);
+                        if (Number.isFinite(repPto)) {
+                            return repPto;
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    function lookForPto(node) {
+        if (node && node.SegmentTemplate) {
+            const st = node.SegmentTemplate;
+            if (st && st.presentationTimeOffset > 0) {
+                const timescale = st.timescale || 1;
+                return st.presentationTimeOffset / timescale;
+            }
+        }
+        return;
     }
 
     function getActualPresentationTime(currentTime) {
