@@ -157,7 +157,8 @@ function MediaPlayer() {
         domStorage,
         uriFragmentModel,
         segmentBaseController,
-        savedElementAttributes;
+        savedElementAttributes,
+        manifestLoader;
 
     /*
     ---------------------------------------------------------------------------
@@ -382,6 +383,10 @@ function MediaPlayer() {
         if (offlineController) {
             offlineController.reset();
             offlineController = null;
+        }
+
+        if (manifestLoader) {
+            manifestLoader.reset();
         }
     }
 
@@ -1781,7 +1786,7 @@ function MediaPlayer() {
      * @instance
      */
     function retrieveManifest(url, callback) {
-        let manifestLoader = createManifestLoader();
+        manifestLoader = createManifestLoader();
         let self = this;
 
         const handler = function (e) {
