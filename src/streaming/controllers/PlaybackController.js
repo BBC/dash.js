@@ -393,7 +393,7 @@ function PlaybackController() {
         // "t=posix:<time>" : time is absolute start time as number of seconds since 01-01-1970
         // "t=pto_posix:<time>" : time is start time as number of seconds since 01-01-1970 but not on the availability timeline, adjusted by pto
         let pto_posix = findTag(fragData, 'pto_posix:');
-        if (Number.isFinite(pto_posix)) {
+        if (!isNaN(pto_posix)) {
             const refStreamInfo = refStream.getStreamInfo();
             const pto = getPresentationTimeOffset(refStreamInfo);
             pto_posix -= pto;
@@ -421,7 +421,7 @@ function PlaybackController() {
 
             for (let j = 0; j < sets.length; j++) {
                 const stPto = lookForPto(sets[j]);
-                if (Number.isFinite(stPto)) {
+                if (!isNaN(stPto)) {
                     return stPto;
                 }
 
@@ -429,7 +429,7 @@ function PlaybackController() {
                 if (reps) {
                     for (let k = 0; k < reps.length; k++) {
                         const repPto = lookForPto(reps[k]);
-                        if (Number.isFinite(repPto)) {
+                        if (!isNaN(repPto)) {
                             return repPto;
                         }
                     }
