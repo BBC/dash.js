@@ -196,11 +196,11 @@ function CmsdModel() {
         // Ge in reverse order in order to consider only last CMSD-Dynamic header
         for (let i = headers.length - 1; i >= 0; i--) {
             const header = headers[i];
-            let m = header.match(/^(?<key>[^:]*):\s*(?<value>.*)$/);
-            if (m && m.groups) {
+            let m = header.match(/^([^:]*):\s*(.*)$/);
+            if (m && m[1] && m[2]) {
                 // Note: in modern browsers, the header names are returned in all lower case
-                let key = m.groups.key.toLowerCase(),
-                    value = m.groups.value;
+                let key = m[1].toLowerCase(),
+                    value = m[2];
                 switch (key) {
                     case CMSD_STATIC_RESPONSE_FIELD_NAME:
                         staticParams = _parseCMSDStatic(value);
