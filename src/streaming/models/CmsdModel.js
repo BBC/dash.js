@@ -215,6 +215,7 @@ function CmsdModel() {
                         break;
                 }
             }
+        }
 
         // Get object type
         let ot = OBJECT_TYPES.STREAM;
