@@ -197,7 +197,7 @@ function CmsdModel() {
         for (let i = headers.length - 1; i >= 0; i--) {
             const header = headers[i];
             let m = header.match(/^([^:]*):\s*(.*)$/);
-            if (m && m[1] && m[2]) {
+            if (m) {
                 // Note: in modern browsers, the header names are returned in all lower case
                 let key = m[1].toLowerCase(),
                     value = m[2];
@@ -215,7 +215,6 @@ function CmsdModel() {
                         break;
                 }
             }
-        }
 
         // Get object type
         let ot = OBJECT_TYPES.STREAM;
