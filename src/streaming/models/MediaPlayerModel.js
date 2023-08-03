@@ -100,6 +100,7 @@ function MediaPlayerModel() {
         }
     }
 
+<<<<<<< HEAD
     function removeABRCustomRule(rulename) {
         if (rulename) {
             let index = findABRCustomRuleIndex(rulename);
@@ -111,6 +112,98 @@ function MediaPlayerModel() {
         } else {
             //if no rulename is defined, remove all ABR custome rules
             customABRRule = [];
+=======
+    /**
+     * Checks the supplied min playback rate is a valid vlaue and within supported limits
+     * @param {number} rate - Supplied min playback rate
+     * @param {boolean} log - wether to shown warning or not
+     * @returns {number} corrected min playback rate
+     */
+    function _checkMinPlaybackRate (rate, log) {
+        if (isNaN(rate)) return 0;
+        if (rate > 0) {
+            if (log) {
+                logger.warn(`Supplied minimum playback rate is a positive value when it should be negative or 0. The supplied rate will not be applied and set to 0: 100% playback speed.`)
+            }
+            return 0;
+        }
+        if (rate < CATCHUP_PLAYBACK_RATE_MIN_LIMIT) {
+            if (log) {
+                logger.warn(`Supplied minimum playback rate is out of range and will be limited to ${CATCHUP_PLAYBACK_RATE_MIN_LIMIT}: ${CATCHUP_PLAYBACK_RATE_MIN_LIMIT * 100}% playback speed.`);
+            }
+            return CATCHUP_PLAYBACK_RATE_MIN_LIMIT;
+        }
+        return rate;
+    };
+
+    /**
+     * Checks the supplied max playback rate is a valid vlaue and within supported limits
+     * @param {number} rate - Supplied max playback rate
+     * @param {boolean} log - wether to shown warning or not
+     * @returns {number} corrected max playback rate
+     */
+    function _checkMaxPlaybackRate (rate, log) {
+        if (isNaN(rate)) return 0;
+        if (rate < 0) {
+            if (log) {
+                logger.warn(`Supplied maximum playback rate is a negative value when it should be negative or 0. The supplied rate will not be applied and set to 0: 100% playback speed.`)
+            }
+            return 0;
+        }
+        if (rate > CATCHUP_PLAYBACK_RATE_MAX_LIMIT) {
+            if (log) {
+                logger.warn(`Supplied maximum playback rate is out of range and will be limited to ${CATCHUP_PLAYBACK_RATE_MAX_LIMIT}: ${(1 + CATCHUP_PLAYBACK_RATE_MAX_LIMIT) * 100}% playback speed.`);
+            }
+            return CATCHUP_PLAYBACK_RATE_MAX_LIMIT;
+        }
+        return rate;
+    };
+
+    /**
+     * Returns the maximum drift allowed before applying a seek back to the live edge when the catchup mode is enabled
+     * @return {number}
+     */
+    function getCatchupMaxDrift() {
+        if (!isNaN(settings.get().streaming.liveCatchup.maxDrift) && settings.get().streaming.liveCatchup.maxDrift > 0) {
+            return settings.get().streaming.liveCatchup.maxDrift;
+        }
+
+        const serviceDescriptionSettings = serviceDescriptionController.getServiceDescriptionSettings();
+        if (serviceDescriptionSettings && serviceDescriptionSettings.liveCatchup && !isNaN(serviceDescriptionSettings.liveCatchup.maxDrift) && serviceDescriptionSettings.liveCatchup.maxDrift > 0) {
+            return serviceDescriptionSettings.liveCatchup.maxDrift;
+        }
+
+        return DEFAULT_CATCHUP_MAX_DRIFT;
+    }
+
+    /**
+     * Returns the minimum and maximum playback rates to be used when applying the catchup mechanism
+     * If only one of the min/max values has been set then the other will default to 0 (no playback rate change).
+     * @return {number}
+     */
+    function getCatchupPlaybackRates(log) {
+        const settingsPlaybackRate = settings.get().streaming.liveCatchup.playbackRate;
+
+        if(!isNaN(settingsPlaybackRate.min) || !isNaN(settingsPlaybackRate.max)) {
+            return {
+                min: _checkMinPlaybackRate(settingsPlaybackRate.min, log),
+                max: _checkMaxPlaybackRate(settingsPlaybackRate.max, log),
+            }
+        }
+
+        const serviceDescriptionSettings = serviceDescriptionController.getServiceDescriptionSettings();
+        if (serviceDescriptionSettings && serviceDescriptionSettings.liveCatchup && (!isNaN(serviceDescriptionSettings.liveCatchup.playbackRate.min) || !isNaN(serviceDescriptionSettings.liveCatchup.playbackRate.max))) {
+            const sdPlaybackRate = serviceDescriptionSettings.liveCatchup.playbackRate;
+            return {
+                min: _checkMinPlaybackRate(sdPlaybackRate.min, log),
+                max: _checkMaxPlaybackRate(sdPlaybackRate.max, log),
+            }
+        }
+
+        return {
+            min: DEFAULT_CATCHUP_PLAYBACK_RATE_MIN,
+            max: DEFAULT_CATCHUP_PLAYBACK_RATE_MAX
+>>>>>>> 990c1f535 (Split stableBufferTime into hybridSwitchBufferTime and stableBufferTime)
         }
     }
 
@@ -133,6 +226,22 @@ function MediaPlayerModel() {
         return stableBufferTime > -1 ? stableBufferTime : settings.get().streaming.buffer.fastSwitchEnabled ? DEFAULT_MIN_BUFFER_TIME_FAST_SWITCH : DEFAULT_MIN_BUFFER_TIME;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Returns the buffer time that the hybrid rule will switch between throughput and BOLA at.
+     * @returns {number}
+     */
+    function getHybridSwitchBufferTime() {
+        return settings.get().streaming.hybridSwitchBufferTime || DEFAULT_HYBRID_SWITCH_TIME;
+    }
+
+    /**
+     * Returns the number of retry attempts for a specific media type
+     * @param type
+     * @return {number}
+     */
+>>>>>>> 990c1f535 (Split stableBufferTime into hybridSwitchBufferTime and stableBufferTime)
     function getRetryAttemptsForType(type) {
         const lowLatencyMultiplyFactor = !isNaN(settings.get().streaming.retryAttempts.lowLatencyMultiplyFactor) ? settings.get().streaming.retryAttempts.lowLatencyMultiplyFactor : LOW_LATENCY_MULTIPLY_FACTOR;
 
@@ -237,6 +346,7 @@ function MediaPlayerModel() {
         addABRCustomRule,
         removeABRCustomRule,
         getStableBufferTime,
+        getHybridSwitchBufferTime,
         getInitialBufferLevel,
         getRetryAttemptsForType,
         getRetryIntervalsForType,
