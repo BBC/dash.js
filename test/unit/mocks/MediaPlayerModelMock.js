@@ -190,6 +190,10 @@ class MediaPlayerModelMock {
         return this.stableBufferTime > -1 ? this.stableBufferTime : this.fastSwitchEnabled ? DEFAULT_MIN_BUFFER_TIME_FAST_SWITCH : DEFAULT_MIN_BUFFER_TIME;
     }
 
+    getHybridSwitchBufferTime() {
+        return this.hybridSwitchBufferTime > -1 ? this.hybridSwitchBufferTime : this.getStableBufferTime()
+    }
+
     setRetryAttemptsForType(type, value) {
         this.retryAttempts[type] = value;
     }

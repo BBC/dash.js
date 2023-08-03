@@ -138,6 +138,22 @@ describe('MediaPlayerModel', function () {
         expect(StableBufferTime).to.equal(50);
     });
 
+    it('should configure HybridSwitchBufferTime', function() {
+        const s = { streaming: { buffer: { hybridSwitchBufferTime: 12.34 } } };
+        settings.update(s);
+
+        const hybridSwitchBufferTime = mediaPlayerModel.getHybridSwitchBufferTime();
+        expect(hybridSwitchBufferTime).to.equal(12.34);
+    });
+
+    it('should default to StableBufferTime for HybridSwitchBufferTime', function () {
+        const s = { streaming: { buffer: { stableBufferTime: 17 } } };
+        settings.update(s);
+
+        const hybridSwitchBufferTime = mediaPlayerModel.getHybridSwitchBufferTime();
+        expect(hybridSwitchBufferTime).to.equal(17);
+    });
+
     it('should configure liveCatchupLatencyThreshold', function () {
         settings.update({ streaming: { liveCatchup: { latencyThreshold: NaN } } });
         let liveCatchupLatencyThreshold = mediaPlayerModel.getLiveCatchupLatencyThreshold();
