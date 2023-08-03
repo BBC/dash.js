@@ -755,7 +755,7 @@ function Settings() {
                 bufferTimeAtTopQualityLongForm: 60,
                 initialBufferLevel: NaN,
                 stableBufferTime: 12,
-                hybridSwitchBufferTime: 12,
+                hybridSwitchBufferTime: NaN,
                 longFormContentDurationThreshold: 600,
                 stallThreshold: 0.3,
                 useAppendWindow: true,
