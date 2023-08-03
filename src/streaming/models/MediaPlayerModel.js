@@ -41,7 +41,6 @@ const DEFAULT_CATCHUP_PLAYBACK_RATE_MIN = -0.5;
 const DEFAULT_CATCHUP_PLAYBACK_RATE_MAX = 0.5;
 const CATCHUP_PLAYBACK_RATE_MIN_LIMIT = -0.5;
 const CATCHUP_PLAYBACK_RATE_MAX_LIMIT = 1;
-const DEFAULT_HYBRID_SWITCH_TIME = 12;
 
 /**
  * We use this model as a wrapper/proxy between Settings.js and classes that are using parameters from Settings.js.
@@ -231,7 +230,7 @@ function MediaPlayerModel() {
      * @returns {number}
      */
     function getHybridSwitchBufferTime() {
-        return settings.get().streaming.hybridSwitchBufferTime || DEFAULT_HYBRID_SWITCH_TIME;
+        return settings.get().streaming.buffer.hybridSwitchBufferTime || getStableBufferTime();
     }
 
     /**
