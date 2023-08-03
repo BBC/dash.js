@@ -372,7 +372,7 @@ function AbrController() {
             idx = _checkMaxBitrate(type, streamId);
             idx = _checkMaxRepresentationRatio(idx, type, streamId);
             idx = _checkPortalSize(idx, type, streamId);
-            // Apply maximum suggested bitrate from CMSD headers if enabled 
+            // Apply maximum suggested bitrate from CMSD headers if enabled
             if (settings.get().streaming.cmsd.enabled && settings.get().streaming.cmsd.abr.applyMb) {
                 idx = _checkCmsdMaxBitrate(idx, type, streamId);
             }
@@ -853,9 +853,9 @@ function AbrController() {
 
     function _updateDynamicAbrStrategy(mediaType, bufferLevel) {
         try {
-            const stableBufferTime = mediaPlayerModel.getStableBufferTime();
-            const switchOnThreshold = stableBufferTime;
-            const switchOffThreshold = 0.5 * stableBufferTime;
+            const hybridSwitchBufferTime = mediaPlayerModel.getHybridSwitchBufferTime();
+            const switchOnThreshold = hybridSwitchBufferTime;
+            const switchOffThreshold = 0.5 * hybridSwitchBufferTime;
 
             const useBufferABR = isUsingBufferOccupancyAbrDict[mediaType];
             const newUseBufferABR = bufferLevel > (useBufferABR ? switchOffThreshold : switchOnThreshold); // use hysteresis to avoid oscillating rules
