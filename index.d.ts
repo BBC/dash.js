@@ -983,6 +983,7 @@ declare namespace dashjs {
                 bufferTimeAtTopQualityLongForm?: number,
                 initialBufferLevel?: number,
                 stableBufferTime?: number,
+                hybridSwitchBufferTime?: number,
                 longFormContentDurationThreshold?: number,
                 stallThreshold?: number,
                 useAppendWindow?: boolean,
@@ -2582,6 +2583,8 @@ declare namespace dashjs {
         getInitialBufferLevel(): number;
 
         getStableBufferTime(): number;
+
+        getHybridSwitchBufferTime(): number;
         
         getRetryAttemptsForType(type: string): number;
 
