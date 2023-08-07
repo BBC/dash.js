@@ -147,11 +147,11 @@ describe('MediaPlayerModel', function () {
     });
 
     it('should default to StableBufferTime for HybridSwitchBufferTime', function () {
-        const s = { streaming: { buffer: { stableBufferTime: 17 } } };
+        const s = { streaming: { buffer: { stableBufferTime: 14.32 } } };
         settings.update(s);
 
         const hybridSwitchBufferTime = mediaPlayerModel.getHybridSwitchBufferTime();
-        expect(hybridSwitchBufferTime).to.equal(17);
+        expect(hybridSwitchBufferTime).to.equal(14.32);
     });
 
     it('should configure liveCatchupLatencyThreshold', function () {
