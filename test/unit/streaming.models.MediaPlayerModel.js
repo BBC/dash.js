@@ -303,7 +303,7 @@ describe('MediaPlayerModel', function () {
     });
 
     it('should configure HybridSwitchBufferTime', function() {
-        const s = { streaming: { buffer: { hybridSwitchBufferTime: 12.34 } } };
+        const s = { streaming: { buffer: { hybridSwitchBufferTime: 12.34, stableBufferTime: 14.32 } } };
         settings.update(s);
 
         const hybridSwitchBufferTime = mediaPlayerModel.getHybridSwitchBufferTime();
