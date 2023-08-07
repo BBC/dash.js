@@ -102,6 +102,7 @@ import Events from './events/Events';
  *                bufferTimeAtTopQualityLongForm: 60,
  *                initialBufferLevel: NaN,
  *                stableBufferTime: 12,
+ *                hybridSwitchBufferTime: NaN,
  *                longFormContentDurationThreshold: 600,
  *                stallThreshold: 0.3,
  *                useAppendWindow: true,
@@ -313,6 +314,8 @@ import Events from './events/Events';
  * Initial buffer level before playback starts
  * @property {number} [stableBufferTime=12]
  * The time that the internal buffer target will be set to post startup/seeks (NOT top quality).
+ * @property {number} [hybridSwitchBufferTime=NaN]
+ * The buffer time that the hybrid rule will switch between throughput and BOLA at. Defaults to the value of `stableBufferTime`.
  *
  * When the time is set higher than the default you will have to wait longer to see automatic bitrate switches but will have a larger buffer which will increase stability.
  * @property {number} [stallThreshold=0.3]
@@ -863,6 +866,7 @@ function Settings() {
                 bufferTimeAtTopQualityLongForm: 60,
                 initialBufferLevel: NaN,
                 stableBufferTime: 12,
+                hybridSwitchBufferTime: NaN,
                 longFormContentDurationThreshold: 600,
                 stallThreshold: 0.3,
                 useAppendWindow: true,
