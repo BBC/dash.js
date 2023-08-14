@@ -181,6 +181,8 @@ import {HTTPRequest} from '../streaming/vo/metrics/HTTPRequest';
  *                useDeadTimeLatency: true,
  *                limitBitrateByPortal: false,
  *                usePixelRatioInLimitBitrateByPortal: false,
+ *                portalScale: 1,
+ *                portalMinimum: 0,
  *                maxBitrate: { audio: -1, video: -1 },
  *                minBitrate: { audio: -1, video: -1 },
  *                maxRepresentationRatio: { audio: 1, video: 1 },
@@ -548,6 +550,10 @@ import {HTTPRequest} from '../streaming/vo/metrics/HTTPRequest';
  * If true, the size of the video portal will limit the max chosen video resolution.
  * @property {boolean} [usePixelRatioInLimitBitrateByPortal=false]
  * Sets whether to take into account the device's pixel ratio when defining the portal dimensions.
+ * @property {number} [portalScale=1]
+ * Scales the size of the video portal used to limit the max video resolution. Square root scale.
+ * @property {number} [portalMinimum=0]
+ * Limits the min bandwidth that video playback can go down to depending on the portal size.
  *
  * Useful on, for example, retina displays.
  * @property {module:Settings~AudioVideoSettings} [maxBitrate={audio: -1, video: -1}]
@@ -855,7 +861,7 @@ function Settings() {
                 limitBitrateByPortal: false,
                 usePixelRatioInLimitBitrateByPortal: false,
                 portalScale: 1,
-                portalMinimum: null,
+                portalMinimum: 0,
                 maxBitrate: {
                     audio: -1,
                     video: -1
