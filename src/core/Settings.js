@@ -974,6 +974,7 @@ function Settings() {
                 useDeadTimeLatency: true,
                 limitBitrateByPortal: false,
                 usePixelRatioInLimitBitrateByPortal: false,
+                portalScale: 1,
                 maxBitrate: {
                     audio: -1,
                     video: -1
