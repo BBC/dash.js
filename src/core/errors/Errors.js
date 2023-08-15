@@ -153,6 +153,11 @@ class Errors extends ErrorsBase {
          */
         this.MEDIASOURCE_TYPE_UNSUPPORTED_CODE = 35;
 
+        /**
+         * Error code returned when the Content Length Header does not match the actual content's length
+         */
+        this.DOWNLOAD_CONTENT_LENGTH_MISMATCH = 36;
+
         this.MANIFEST_LOADER_PARSING_FAILURE_ERROR_MESSAGE = 'parsing failed for ';
         this.MANIFEST_LOADER_LOADING_FAILURE_ERROR_MESSAGE = 'Failed loading manifest: ';
         this.XLINK_LOADER_LOADING_FAILURE_ERROR_MESSAGE = 'Failed loading Xlink element: ';
