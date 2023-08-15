@@ -2,7 +2,9 @@ import HTTPLoader from '../../src/streaming/net/HTTPLoader';
 import RequestModifier from '../../src/streaming/utils/RequestModifier';
 import Errors from '../../src/core/errors/Errors';
 import ErrorHandler from '../../src/streaming/utils/ErrorHandler';
+import EventBus from '../../src/core/EventBus';
 import DashMetrics from '../../src/dash/DashMetrics';
+import MediaPlayerEvents from '../../src/streaming/MediaPlayerEvents';
 import MediaPlayerModelMock from './mocks/MediaPlayerModelMock';
 import {HTTPRequest} from '../../src/streaming/vo/metrics/HTTPRequest';
 import Settings from '../../src/core/Settings';
@@ -155,6 +157,41 @@ describe('HTTPLoader', function () {
         });
         expect(self.requests.length).to.equal(1);
         self.requests[0].respond(200);
+    });
+
+    it('Emits a FRAGMENT_CONTENT_LENGTH_MISMATCH event when Content-Length does not match actual length of response', () => {
+        let self = this.ctx;
+        const callbackSucceeded = sinon.spy();
+        const callbackCompleted = sinon.spy();
+        const callbackError = sinon.spy();
+
+        const eventBus = EventBus(context).getInstance();
+        const spy = sinon.spy();
+
+        eventBus.on(MediaPlayerEvents.FRAGMENT_CONTENT_LENGTH_MISMATCH, spy, null);
+
+        httpLoader = HTTPLoader(context).create({
+            errHandler: errHandler,
+            dashMetrics: dashMetrics,
+            requestModifier: requestModifier,
+            mediaPlayerModel: mediaPlayerModelMock,
+            errors: Errors
+        });
+
+        httpLoader.load({
+            request: {
+                responseType: 'arraybuffer'
+            },
+            success: callbackSucceeded,
+            complete: callbackCompleted,
+            error: callbackError
+        });
+
+        self.requests[0].respond(207, {
+            'content-length': 15
+        },'A');
+
+        expect(spy.calledOnce).to.be.true;
     });
 });
 
