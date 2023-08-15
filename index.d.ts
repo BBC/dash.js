@@ -1189,6 +1189,8 @@ declare namespace dashjs {
 
         on(type: LogEvent['type'], listener: (e: LogEvent) => void, scope?: object): void;
 
+        on(type: FragmentContentLengthMismatch['type'], listener: (e: FragmentContentLengthMismatch) => void, scope?: object): void;
+
         on(type: ManifestLoadedEvent['type'], listener: (e: ManifestLoadedEvent) => void, scope?: object): void;
 
         on(type: MetricEvent['type'], listener: (e: MetricEvent) => void, scope?: object): void;
@@ -1515,6 +1517,7 @@ declare namespace dashjs {
         KEY_SESSION_UPDATED: 'public_keySessionUpdated';
         LICENSE_REQUEST_COMPLETE: 'public_licenseRequestComplete';
         LICENSE_REQUEST_SENDING: 'public_licenseRequestSending';
+        FRAGMENT_CONTENT_LENGTH_MISMATCH: 'loadContentLengthMismatch';
         LOG: 'log';
         MANIFEST_LOADED: 'manifestLoaded';
         MANIFEST_LOADING_STARTED : 'manifestLoadingStarted';
@@ -1789,6 +1792,14 @@ declare namespace dashjs {
     export interface LogEvent extends Event {
         type: MediaPlayerEvents['LOG'];
         message: string;
+    }
+
+    export interface FragmentContentLengthMismatch extends Event {
+        type: MediaPlayerEvents['FRAGMENT_CONTENT_LENGTH_MISMATCH'];
+        responseUrl: string;
+        mediaType: string;
+        headerLength: number;
+        bodyLength: number;
     }
 
     export interface ManifestLoadedEvent extends Event {
@@ -4238,6 +4249,7 @@ declare namespace dashjs {
         KEY_SESSION_UPDATED: 'public_keySessionUpdated';
         LICENSE_REQUEST_COMPLETE: 'public_licenseRequestComplete';
         LICENSE_REQUEST_SENDING: 'public_licenseRequestSending';
+        FRAGMENT_CONTENT_LENGTH_MISMATCH: 'loadContentLengthMismatch';
         LOG: 'log';
         MANIFEST_LOADED: 'manifestLoaded';
         MANIFEST_VALIDITY_CHANGED: 'manifestValidityChanged';
