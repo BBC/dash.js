@@ -43,6 +43,7 @@ import Settings from '../../core/Settings';
 import Constants from '../constants/Constants';
 import LowLatencyThroughputModel from '../models/LowLatencyThroughputModel';
 import CustomParametersModel from '../models/CustomParametersModel';
+import MediaPlayerEvents from '../MediaPlayerEvents';
 
 /**
  * @module HTTPLoader
@@ -251,10 +252,12 @@ function HTTPLoader(cfg) {
         const onload = function () {
             if (httpRequest.response.status >= 200 && httpRequest.response.status <= 299) {
                 if (hasContentLengthMismatch(httpRequest.response)) {
+                    const responseUrl = httpRequest.response.responseURL;
+                    const mediaType = httpRequest.request.mediaType
                     const headerLength = httpRequest.response.getResponseHeader('content-length');
-                    const dataLength = httpRequest.response.response.byteLength;
+                    const bodyLength = httpRequest.response.response.byteLength;
 
-                    logger.warn(`Content length doesn't match header's declared content-length at ${httpRequest.response.responseURL}; header: ${headerLength}; data: ${dataLength}`);
+                    eventBus.trigger(MediaPlayerEvents.FRAGMENT_CONTENT_LENGTH_MISMATCH, { responseUrl, mediaType, headerLength, bodyLength });
                 }
 
                 handleLoaded(true);
