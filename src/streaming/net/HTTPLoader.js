@@ -150,31 +150,7 @@ function HTTPLoader(cfg) {
                 requests.splice(requests.indexOf(httpRequest), 1);
             }
 
-            if (httpRequest.response.status >= 200 && httpRequest.response.status <= 299) {
-                if (hasContentLengthMismatch(httpRequest.response)) {
-                    handleLoaded(false);
-                    if (remainingAttempts > 0) {
-                        remainingAttempts--;
-                        retryRequests.push(
-                            setTimeout(function () {
-                                internalLoad(config, remainingAttempts);
-                            }, mediaPlayerModel.getRetryIntervalForType(request.type))
-                        );
-                    } else {
-                        errHandler.error(new DashJSError(errors.DOWNLOAD_CONTENT_LENGTH_MISMATCH, request.url + ' has a content-length header that does not match its data length', {request: request, response: httpRequest.response}));
-                    }
-                } else {
-                    handleLoaded(true);
-
-                    if (config.success) {
-                        config.success(httpRequest.response.response, httpRequest.response.statusText, httpRequest.response.responseURL);
-                    }
-
-                    if (config.complete) {
-                        config.complete(request, httpRequest.response.statusText);
-                    }
-                }
-            } else if (needFailureReport) {
+            if (needFailureReport) {
                 handleLoaded(false);
 
                 if (remainingAttempts > 0) {
@@ -257,7 +233,25 @@ function HTTPLoader(cfg) {
             }
         };
 
-        const onload = function () { };
+        const onload = function () {
+            if (httpRequest.response.status >= 200 && httpRequest.response.status <= 299) {
+                if (hasContentLengthMismatch(httpRequest.response)) {
+                    const headerLength = httpRequest.response.getResponseHeader('content-length');
+                    const dataLength = httpRequest.response.response.byteLength;
+
+                    logger.warn(`Content length doesn't match header's declared content-length at ${httpRequest.response.responseURL}; header: ${headerLength}; data: ${dataLength}`);
+                }
+
+                handleLoaded(true);
+                if (config.success) {
+                    config.success(httpRequest.response.response, httpRequest.response.statusText, httpRequest.response.responseURL);
+                }
+
+                if (config.complete) {
+                    config.complete(request, httpRequest.response.statusText);
+                }
+            }
+        };
 
         const onabort = function () {
             if (config.abort) {
@@ -372,7 +366,6 @@ function HTTPLoader(cfg) {
             const dataLength = response.response.byteLength;
 
             if (headerLength && dataLength && Math.abs(dataLength - headerLength) > headerLength * 0.25) {
-                logger.warn('Content length doesn\'t match header\'s declared content-length at ' + response.responseURL + ' header: ' + headerLength + '; data: ' + dataLength);
                 return true;
             }
         }
