@@ -1347,6 +1347,8 @@ declare namespace dashjs {
 
         getInitialMediaSettingsFor(type: MediaType): MediaSettings;
 
+        setMediaDuration(duration: number): void;
+
         setCurrentTrack(track: MediaInfo): void;
 
         addABRCustomRule(type: string, rulename: string, rule: object): void;
@@ -2293,6 +2295,8 @@ declare namespace dashjs {
         reset(): void;
 
         getStreams(): any[];
+
+        setMediaDuration(duration: number): void;
     }
 
     export interface TimeSyncController {

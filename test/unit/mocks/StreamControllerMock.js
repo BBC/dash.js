@@ -93,6 +93,8 @@ class StreamControllerMock {
         return true;
     }
 
+    setMediaDuration() {}
+
 }
 
 export default StreamControllerMock;

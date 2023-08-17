@@ -465,7 +465,7 @@ function StreamController() {
             mediaSource.removeEventListener('sourceopen', _onMediaSourceOpen);
             mediaSource.removeEventListener('webkitsourceopen', _onMediaSourceOpen);
 
-            _setMediaDuration();
+            setMediaDuration();
             const dvrInfo = dashMetrics.getCurrentDVRInfo();
             mediaSourceController.setSeekable(dvrInfo.range.start, dvrInfo.range.end);
             if (streamActivated) {
@@ -1037,7 +1037,7 @@ function StreamController() {
      * @param {number} duration
      * @private
      */
-    function _setMediaDuration(duration) {
+    function setMediaDuration(duration) {
         const manifestDuration = duration ? duration : getActiveStreamInfo().manifestInfo.duration;
         mediaSourceController.setDuration(manifestDuration);
     }
@@ -1440,7 +1440,7 @@ function StreamController() {
 
     function _onManifestValidityChanged(e) {
         if (!isNaN(e.newDuration)) {
-            _setMediaDuration(e.newDuration);
+            setMediaDuration(e.newDuration);
         }
     }
 
@@ -1623,6 +1623,7 @@ function StreamController() {
         getActiveStream,
         getInitialPlayback,
         getAutoPlay,
+        setMediaDuration,
         reset
     };
 
