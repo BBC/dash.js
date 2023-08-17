@@ -62,8 +62,13 @@ class CoreEvents extends EventsBase {
         this.MEDIA_FRAGMENT_LOADED = 'mediaFragmentLoaded';
         this.MEDIA_FRAGMENT_NEEDED = 'mediaFragmentNeeded';
         this.QUOTA_EXCEEDED = 'quotaExceeded';
-        this.SERVICE_LOCATION_BLACKLIST_ADD = 'serviceLocationBlacklistAdd';
-        this.SERVICE_LOCATION_BLACKLIST_CHANGED = 'serviceLocationBlacklistChanged';
+        this.SEGMENT_LOCATION_BLACKLIST_ADD = 'segmentLocationBlacklistAdd';
+        this.SEGMENT_LOCATION_BLACKLIST_CHANGED = 'segmentLocationBlacklistChanged';
+        this.SERVICE_LOCATION_BASE_URL_BLACKLIST_ADD = 'serviceLocationBlacklistAdd';
+        this.SERVICE_LOCATION_BASE_URL_BLACKLIST_CHANGED = 'serviceLocationBlacklistChanged';
+        this.SERVICE_LOCATION_BASE_URL_UNBLACKLISTED = 'serviceLocationUnblacklisted';
+        this.SERVICE_LOCATION_LOCATION_BLACKLIST_ADD = 'serviceLocationLocationBlacklistAdd';
+        this.SERVICE_LOCATION_LOCATION_BLACKLIST_CHANGED = 'serviceLocationLocationBlacklistChanged';
         this.SET_FRAGMENTED_TEXT_AFTER_DISABLED = 'setFragmentedTextAfterDisabled';
         this.SET_NON_FRAGMENTED_TEXT = 'setNonFragmentedText';
         this.STREAMS_COMPOSED = 'streamsComposed';
