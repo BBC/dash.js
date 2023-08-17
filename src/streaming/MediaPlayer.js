@@ -2449,7 +2449,6 @@ function MediaPlayer() {
     }
 
     instance = {
-        setMediaDuration,
         initialize,
         setConfig,
         on,
@@ -2511,6 +2510,7 @@ function MediaPlayer() {
         getCurrentTrackFor,
         setInitialMediaSettingsFor,
         getInitialMediaSettingsFor,
+        setMediaDuration,
         setCurrentTrack,
         addABRCustomRule,
         removeABRCustomRule,
