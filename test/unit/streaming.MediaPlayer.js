@@ -382,14 +382,13 @@ describe('MediaPlayer', function () {
             });
 
             it('Method setMediaDuration should call through to streamController', function () {
-                const oldSetMediaDuration = streamControllerMock.setMediaDuration
+                sinon.spy(streamControllerMock, 'setMediaDuration');
 
-                streamControllerMock.setMediaDuration = sinon.spy()
-                player.setMediaDuration(15)
+                player.setMediaDuration(15);
 
-                sinon.assert.calledWith(streamControllerMock.setMediaDuration, 15)
+                expect(streamControllerMock.setMediaDuration.calledWith(15)).to.be.true;
 
-                streamControllerMock.setMediaDuration = oldSetMediaDuration
+                streamControllerMock.setMediaDuration.restore();
             })
         });
     });
