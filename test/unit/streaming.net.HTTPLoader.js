@@ -187,9 +187,7 @@ describe('HTTPLoader', function () {
             error: callbackError
         });
 
-        self.requests[0].respond(207, {
-            'content-length': 15
-        },'A');
+        self.requests[0].respond(200, { 'content-length': 15 },'0'.repeat(16));
 
         expect(spy.calledOnce).to.be.true;
     });
