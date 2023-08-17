@@ -1,5 +1,6 @@
 import BlacklistController from '../../src/streaming/controllers/BlacklistController';
 import EventBus from '../../src/core/EventBus';
+import Settings from '../../src/core/Settings';
 
 const chai = require('chai');
 const spies = require('chai-spies');
@@ -10,11 +11,16 @@ chai.use(spies);
 describe('BlacklistController', function () {
     const context = {};
     const eventBus = EventBus(context).getInstance();
+    const settings = Settings(context).getInstance();
 
     const SERVICE_LOCATION = 'testServiceLocation';
     const EVENT_NAME = 'blacklistControllerTestEvent';
 
     const defaultConfig = { updateEventName: '' };
+
+    beforeEach(function () {
+        settings.reset()
+    })
 
     it('should return false when calling contains after initialisation', () => {
         const blacklistController = BlacklistController(context).create(defaultConfig);
@@ -94,6 +100,63 @@ describe('BlacklistController', function () {
 
         eventBus.off(EVENT_NAME, spy);
     });
+
+    it('should trigger a remove event when blacklist expiry time has passed', function (done) {
+        const spy = chai.spy();
+        settings.update({streaming: { blacklistExpiryTime: 200 }});
+
+        const config = { unBlacklistEventName: EVENT_NAME, settings: settings };
+        const blacklistController = BlacklistController(context).create(config);
+
+        eventBus.on(EVENT_NAME, spy);
+
+        blacklistController.add(SERVICE_LOCATION);
+        
+        setTimeout(function () {
+            expect(spy).to.have.been.called.once; // jshint ignore:line
+            
+            eventBus.off(EVENT_NAME, spy);
+            done();
+        }, 250)
+    })
+
+    it('should not trigger a remove event when blacklist expiry time has not been set', function (done) {
+        const spy = chai.spy();
+        const config = { unBlacklistEventName: EVENT_NAME, settings: settings };
+        const blacklistController = BlacklistController(context).create(config);
+
+        eventBus.on(EVENT_NAME, spy);
+
+        blacklistController.add(SERVICE_LOCATION);
+        
+        setTimeout(function () {
+            expect(spy).not.to.have.been.called.once; // jshint ignore:line
+            
+            eventBus.off(EVENT_NAME, spy);
+            done();
+        }, 250)
+    })
+
+    it('should not call blacklist expiry timers on reset', function (done) {
+        const spy = chai.spy();
+        settings.update({streaming: { blacklistExpiryTime: 200 }});
+
+        const config = { unBlacklistEventName: EVENT_NAME, settings: settings };
+        const blacklistController = BlacklistController(context).create(config);
+
+        eventBus.on(EVENT_NAME, spy);
+
+        blacklistController.add(SERVICE_LOCATION);
+
+        blacklistController.reset();
+        
+        setTimeout(function () {
+            expect(spy).not.to.have.been.called.once; // jshint ignore:line
+            
+            eventBus.off(EVENT_NAME, spy);
+            done();
+        }, 250)
+    })
 
     it('should not contain an entry after reset', () => {
         const config = { updateEventName: '' };
