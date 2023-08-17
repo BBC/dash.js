@@ -2440,7 +2440,16 @@ function MediaPlayer() {
         }
     }
 
+    function setMediaDuration (duration) {
+        if (!playbackInitialized) {
+            throw PLAYBACK_NOT_INITIALIZED_ERROR;
+        }
+
+        streamController.setMediaDuration(duration)
+    }
+
     instance = {
+        setMediaDuration,
         initialize,
         setConfig,
         on,
