@@ -1095,6 +1095,8 @@ declare namespace dashjs {
                 useDeadTimeLatency?: boolean;
                 limitBitrateByPortal?: boolean;
                 usePixelRatioInLimitBitrateByPortal?: boolean;
+                portalScale?: number;
+                portalMinimum?: number;
                 maxBitrate?: {
                     audio?: number;
                     video?: number;
