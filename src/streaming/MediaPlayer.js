@@ -816,6 +816,22 @@ function MediaPlayer() {
         return _getAsUTC(duration());
     }
 
+    /**
+     * Use this method to override the duration of the current MediaSource object.
+     * 
+     * @throws {@link module:MediaPlayer~PLAYBACK_NOT_INITIALIZED_ERROR PLAYBACK_NOT_INITIALIZED_ERROR} if called before initializePlayback function
+     * @param {number} duration
+     * @memberof module:MediaPlayer
+     * @instance
+     */
+    function setMediaDuration (duration) {
+        if (!playbackInitialized) {
+            throw PLAYBACK_NOT_INITIALIZED_ERROR;
+        }
+
+        streamController.setMediaDuration(duration)
+    }
+
     /*
     ---------------------------------------------------------------------------
 
@@ -2203,14 +2219,6 @@ function MediaPlayer() {
             playbackInitialized = true;
             logger.info('Playback Initialized');
         }
-    }
-
-    function setMediaDuration (duration) {
-        if (!playbackInitialized) {
-            throw PLAYBACK_NOT_INITIALIZED_ERROR;
-        }
-
-        streamController.setMediaDuration(duration)
     }
 
     instance = {
