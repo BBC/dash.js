@@ -1517,7 +1517,7 @@ declare namespace dashjs {
         KEY_SESSION_UPDATED: 'public_keySessionUpdated';
         LICENSE_REQUEST_COMPLETE: 'public_licenseRequestComplete';
         LICENSE_REQUEST_SENDING: 'public_licenseRequestSending';
-        FRAGMENT_CONTENT_LENGTH_MISMATCH: 'loadContentLengthMismatch';
+        FRAGMENT_CONTENT_LENGTH_MISMATCH: 'fragmentContentLengthMismatch';
         LOG: 'log';
         MANIFEST_LOADED: 'manifestLoaded';
         MANIFEST_LOADING_STARTED : 'manifestLoadingStarted';
@@ -4251,7 +4251,7 @@ declare namespace dashjs {
         KEY_SESSION_UPDATED: 'public_keySessionUpdated';
         LICENSE_REQUEST_COMPLETE: 'public_licenseRequestComplete';
         LICENSE_REQUEST_SENDING: 'public_licenseRequestSending';
-        FRAGMENT_CONTENT_LENGTH_MISMATCH: 'loadContentLengthMismatch';
+        FRAGMENT_CONTENT_LENGTH_MISMATCH: 'fragmentContentLengthMismatch';
         LOG: 'log';
         MANIFEST_LOADED: 'manifestLoaded';
         MANIFEST_VALIDITY_CHANGED: 'manifestValidityChanged';
