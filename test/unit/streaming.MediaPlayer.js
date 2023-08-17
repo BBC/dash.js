@@ -180,6 +180,9 @@ describe('MediaPlayer', function () {
                 expect(player.durationAsUTC).to.throw(PLAYBACK_NOT_INITIALIZED_ERROR);
             });
 
+            it('Method setDuration should throw an exception', function () {
+                expect(player.setDuration()).to.throw(PLAYBACK_NOT_INITIALIZED_ERROR);
+            });
         });
 
         describe('When it is initialized', function () {
@@ -372,6 +375,11 @@ describe('MediaPlayer', function () {
                 duration = player.duration();
                 expect(duration).to.equal(4);
             });
+
+            it('Method duration should set duration of playback', function () {
+                player.setDuration(15)
+                expect(player.duration()).to.equal(15)
+            })
         });
     });
 
