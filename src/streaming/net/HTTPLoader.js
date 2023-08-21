@@ -43,6 +43,7 @@ import Settings from '../../core/Settings';
 import Constants from '../constants/Constants';
 import LowLatencyThroughputModel from '../models/LowLatencyThroughputModel';
 import CustomParametersModel from '../models/CustomParametersModel';
+import MediaPlayerEvents from '../MediaPlayerEvents';
 
 /**
  * @module HTTPLoader
@@ -123,12 +124,12 @@ function HTTPLoader(cfg) {
             const responseStatus = httpRequest.response ? httpRequest.response.status : null;
             const responseHeaders = httpRequest.response && httpRequest.response.getAllResponseHeaders ? httpRequest.response.getAllResponseHeaders() :
                 httpRequest.response ? httpRequest.response.responseHeaders : null;
-    
+
             const cmsd = responseHeaders && settings.get().streaming.cmsd && settings.get().streaming.cmsd.enabled ? cmsdModel.parseResponseHeaders(responseHeaders, request.mediaType) : null;
-    
+
             dashMetrics.addHttpRequest(request, responseUrl, responseStatus, responseHeaders, success ? traces : null, cmsd);
         }
-    
+
         const handleLoaded = function (success) {
             needFailureReport = false;
 
@@ -250,8 +251,16 @@ function HTTPLoader(cfg) {
 
         const onload = function () {
             if (httpRequest.response.status >= 200 && httpRequest.response.status <= 299) {
-                handleLoaded(true);
+                if (hasContentLengthMismatch(httpRequest.response)) {
+                    const responseUrl = httpRequest.response.responseURL;
+                    const mediaType = httpRequest.request.mediaType
+                    const headerLength = httpRequest.response.getResponseHeader('content-length');
+                    const bodyLength = httpRequest.response.response.byteLength;
 
+                    eventBus.trigger(MediaPlayerEvents.FRAGMENT_CONTENT_LENGTH_MISMATCH, { responseUrl, mediaType, headerLength, bodyLength });
+                }
+
+                handleLoaded(true);
                 if (config.success) {
                     config.success(httpRequest.response.response, httpRequest.response.statusText, httpRequest.response.responseURL);
                 }
@@ -388,6 +397,19 @@ function HTTPLoader(cfg) {
         } catch (e) {
             return [];
         }
+    }
+
+    function hasContentLengthMismatch(response) {
+        if (response && response.responseType === 'arraybuffer' && response.getResponseHeader) {
+            const headerLength = response.getResponseHeader('content-length');
+            const dataLength = response.response.byteLength;
+
+            if (headerLength && dataLength && Math.abs(dataLength - headerLength) > headerLength * 0.25) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

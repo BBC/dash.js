@@ -122,6 +122,12 @@ class MediaPlayerEvents extends EventsBase {
         this.LOG = 'log';
 
         /**
+         * Triggered when the 'Content-Length' header for a fragment does not match the byte length.
+         * @event MediaPlayerEvents#FRAGMENT_CONTENT_LENGTH_MISMATCH
+         */
+        this.FRAGMENT_CONTENT_LENGTH_MISMATCH = 'fragmentContentLengthMismatch';
+
+        /**
          * Triggered when the manifest load is started
          * @event MediaPlayerEvents#MANIFEST_LOADING_STARTED
          */
