@@ -50,6 +50,12 @@ class MediaPlayerEvents extends EventsBase {
         this.AST_IN_FUTURE = 'astInFuture';
 
         /**
+         * Triggered when a new baseUrl has been selected.
+         * @event MediaPlayerEvents#BASEURL_SELECTED
+         */
+        this.BASEURL_SELECTED = 'baseUrlSelected';
+
+        /**
          * Triggered when the BaseURLs have been updated.
          * @event MediaPlayerEvents#BASE_URLS_UPDATED
          */

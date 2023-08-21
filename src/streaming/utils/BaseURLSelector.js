@@ -125,6 +125,11 @@ function BaseURLSelector() {
                 reset();
             }
             return;
+        } else {
+            eventBus.trigger(
+                Events.BASEURL_SELECTED,
+                { baseUrl: selectedBaseUrl }
+            );
         }
 
         data.selectedIdx = data.baseUrls.indexOf(selectedBaseUrl);
