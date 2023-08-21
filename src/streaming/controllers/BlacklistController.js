@@ -55,10 +55,6 @@ function BlackListController(config) {
                     entry: entry
                 }
             );
-
-            return true;
-        } else {
-            return false;
         }
     }
 
