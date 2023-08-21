@@ -78,6 +78,7 @@
         "index.d.ts",
         "index.js",
         "index_mediaplayerOnly.js",
+        "externals",
         "src",
         "docs/jsdoc",
         "contrib/akamai"
