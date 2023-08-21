@@ -73,8 +73,8 @@ function MediaPlayerModel() {
 
     /**
      * Checks the supplied min playback rate is a valid vlaue and within supported limits
-     * @param {number} rate - Supplied min playback rate 
-     * @param {boolean} log - wether to shown warning or not 
+     * @param {number} rate - Supplied min playback rate
+     * @param {boolean} log - wether to shown warning or not
      * @returns {number} corrected min playback rate
      */
     function _checkMinPlaybackRate (rate, log) {
@@ -84,7 +84,7 @@ function MediaPlayerModel() {
                 logger.warn(`Supplied minimum playback rate is a positive value when it should be negative or 0. The supplied rate will not be applied and set to 0: 100% playback speed.`)
             }
             return 0;
-        } 
+        }
         if (rate < CATCHUP_PLAYBACK_RATE_MIN_LIMIT) {
             if (log) {
                 logger.warn(`Supplied minimum playback rate is out of range and will be limited to ${CATCHUP_PLAYBACK_RATE_MIN_LIMIT}: ${CATCHUP_PLAYBACK_RATE_MIN_LIMIT * 100}% playback speed.`);
@@ -96,8 +96,8 @@ function MediaPlayerModel() {
 
     /**
      * Checks the supplied max playback rate is a valid vlaue and within supported limits
-     * @param {number} rate - Supplied max playback rate 
-     * @param {boolean} log - wether to shown warning or not 
+     * @param {number} rate - Supplied max playback rate
+     * @param {boolean} log - wether to shown warning or not
      * @returns {number} corrected max playback rate
      */
     function _checkMaxPlaybackRate (rate, log) {
@@ -107,7 +107,7 @@ function MediaPlayerModel() {
                 logger.warn(`Supplied maximum playback rate is a negative value when it should be negative or 0. The supplied rate will not be applied and set to 0: 100% playback speed.`)
             }
             return 0;
-        } 
+        }
         if (rate > CATCHUP_PLAYBACK_RATE_MAX_LIMIT) {
             if (log) {
                 logger.warn(`Supplied maximum playback rate is out of range and will be limited to ${CATCHUP_PLAYBACK_RATE_MAX_LIMIT}: ${(1 + CATCHUP_PLAYBACK_RATE_MAX_LIMIT) * 100}% playback speed.`);
@@ -141,7 +141,7 @@ function MediaPlayerModel() {
      */
     function getCatchupPlaybackRates(log) {
         const settingsPlaybackRate = settings.get().streaming.liveCatchup.playbackRate;
-        
+
         if(!isNaN(settingsPlaybackRate.min) || !isNaN(settingsPlaybackRate.max)) {
             return {
                 min: _checkMinPlaybackRate(settingsPlaybackRate.min, log),
@@ -226,6 +226,14 @@ function MediaPlayerModel() {
     }
 
     /**
+     * Returns the buffer time that the hybrid rule will switch between throughput and BOLA at.
+     * @returns {number}
+     */
+    function getHybridSwitchBufferTime() {
+        return settings.get().streaming.buffer.hybridSwitchBufferTime || getStableBufferTime();
+    }
+
+    /**
      * Returns the number of retry attempts for a specific media type
      * @param type
      * @return {number}
@@ -254,6 +262,7 @@ function MediaPlayerModel() {
         getCatchupMaxDrift,
         getCatchupModeEnabled,
         getStableBufferTime,
+        getHybridSwitchBufferTime,
         getInitialBufferLevel,
         getRetryAttemptsForType,
         getRetryIntervalsForType,

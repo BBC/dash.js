@@ -76,7 +76,10 @@
     "files": [
         "githook.js",
         "index.d.ts",
-        "dist",
+        "index.js",
+        "index_mediaplayerOnly.js",
+        "externals",
+        "src",
         "docs/jsdoc",
         "contrib/akamai"
     ]

@@ -372,7 +372,7 @@ function AbrController() {
             idx = _checkMaxBitrate(type, streamId);
             idx = _checkMaxRepresentationRatio(idx, type, streamId);
             idx = _checkPortalSize(idx, type, streamId);
-            // Apply maximum suggested bitrate from CMSD headers if enabled 
+            // Apply maximum suggested bitrate from CMSD headers if enabled
             if (settings.get().streaming.cmsd.enabled && settings.get().streaming.cmsd.abr.applyMb) {
                 idx = _checkCmsdMaxBitrate(idx, type, streamId);
             }
@@ -527,16 +527,22 @@ function AbrController() {
         if (!windowResizeEventCalled) {
             setElementSize();
         }
+
+        const portalScale = settings.get().streaming.abr.portalScale || 1;
+        const portalLimitMinimum = settings.get().streaming.abr.portalMinimum || 0;
         const streamInfo = streamProcessorDict[streamId][type].getStreamInfo();
         const representation = adapter.getAdaptationForType(streamInfo.index, type, streamInfo).Representation_asArray;
         let newIdx = idx;
+        const scaledWidth = elementWidth * Math.sqrt(portalScale);
+        const scaledHeight = elementHeight * Math.sqrt(portalScale);
 
-        if (elementWidth > 0 && elementHeight > 0) {
+        if (scaledWidth > 0 && scaledHeight > 0) {
             while (
                 newIdx > 0 &&
                 representation[newIdx] &&
-                elementWidth < representation[newIdx].width &&
-                elementWidth - representation[newIdx - 1].width < representation[newIdx].width - elementWidth) {
+                scaledWidth < representation[newIdx].width &&
+                scaledWidth - representation[newIdx - 1].width < representation[newIdx].width - scaledWidth &&
+                representation[newIdx - 1].bandwidth >= portalLimitMinimum * 1000) {
                 newIdx = newIdx - 1;
             }
 
@@ -853,9 +859,9 @@ function AbrController() {
 
     function _updateDynamicAbrStrategy(mediaType, bufferLevel) {
         try {
-            const stableBufferTime = mediaPlayerModel.getStableBufferTime();
-            const switchOnThreshold = stableBufferTime;
-            const switchOffThreshold = 0.5 * stableBufferTime;
+            const hybridSwitchBufferTime = mediaPlayerModel.getHybridSwitchBufferTime();
+            const switchOnThreshold = hybridSwitchBufferTime;
+            const switchOffThreshold = 0.5 * hybridSwitchBufferTime;
 
             const useBufferABR = isUsingBufferOccupancyAbrDict[mediaType];
             const newUseBufferABR = bufferLevel > (useBufferABR ? switchOffThreshold : switchOnThreshold); // use hysteresis to avoid oscillating rules

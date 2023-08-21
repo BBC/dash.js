@@ -14,6 +14,7 @@ import Settings from '../../src/core/Settings';
 import ABRRulesCollection from '../../src/streaming/rules/abr/ABRRulesCollection';
 import CustomParametersModel from '../../src/streaming/models/CustomParametersModel';
 
+const sinon = require('sinon');
 const expect = require('chai').expect;
 const ELEMENT_NOT_ATTACHED_ERROR = 'You must first call attachView() to set the video element before calling this method';
 const PLAYBACK_NOT_INITIALIZED_ERROR = 'You must first call initialize() and set a valid source and view before calling this method';
@@ -184,6 +185,9 @@ describe('MediaPlayer', function () {
                 expect(player.durationAsUTC).to.throw(PLAYBACK_NOT_INITIALIZED_ERROR);
             });
 
+            it('Method setMediaDuration should throw an exception', function () {
+                expect(player.setMediaDuration).to.throw(PLAYBACK_NOT_INITIALIZED_ERROR);
+            });
         });
 
         describe('When it is initialized', function () {
@@ -376,6 +380,16 @@ describe('MediaPlayer', function () {
                 duration = player.duration();
                 expect(duration).to.equal(4);
             });
+
+            it('Method setMediaDuration should call through to streamController', function () {
+                sinon.spy(streamControllerMock, 'setMediaDuration');
+
+                player.setMediaDuration(15);
+
+                expect(streamControllerMock.setMediaDuration.calledWith(15)).to.be.true;
+
+                streamControllerMock.setMediaDuration.restore();
+            })
         });
     });
 
