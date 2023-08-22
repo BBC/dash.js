@@ -725,7 +725,7 @@ function Settings() {
             dispatchEvent: false
         },
         streaming: {
-            blacklistExpiryTime: -1,
+            blacklistExpiryTime: 0,
             abandonLoadTimeout: 10000,
             wallclockTimeUpdateInterval: 100,
             lowLatencyEnabled: false,
