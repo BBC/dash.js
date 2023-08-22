@@ -59,7 +59,7 @@ function BlackListController(config) {
     }
 
     function setupBlacklistExpiry(entry) {
-        let blacklistExpiryTime = settings && settings.get().streaming.blacklistExpiryTime || 0;
+        let blacklistExpiryTime = settings && settings.get().streaming.blacklistExpiryTime;
         if (blacklistExpiryTime > 0) {
             blacklistExpiryTimers.push(setTimeout(function () {
                 remove(entry);
