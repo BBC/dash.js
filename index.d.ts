@@ -1490,6 +1490,7 @@ declare namespace dashjs {
 
     interface MediaPlayerEvents {
         AST_IN_FUTURE: 'astInFuture';
+        BASEURL_SELECTED: 'baseUrlSelected';
         BASE_URLS_UPDATED : 'baseUrlsUpdated';
         BUFFER_EMPTY: 'bufferStalled';
         BUFFER_LOADED: 'bufferLoaded';
