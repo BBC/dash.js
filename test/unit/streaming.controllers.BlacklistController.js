@@ -105,7 +105,7 @@ describe('BlacklistController', function () {
         const spy = chai.spy();
         settings.update({streaming: { blacklistExpiryTime: 200 }});
 
-        const config = { unBlacklistEventName: EVENT_NAME, settings: settings };
+        const config = { removeBlacklistEventName: EVENT_NAME, settings: settings };
         const blacklistController = BlacklistController(context).create(config);
 
         eventBus.on(EVENT_NAME, spy);
@@ -122,7 +122,7 @@ describe('BlacklistController', function () {
 
     it('should not trigger a remove event when blacklist expiry time has not been set', function (done) {
         const spy = chai.spy();
-        const config = { unBlacklistEventName: EVENT_NAME, settings: settings };
+        const config = { removeBlacklistEventName: EVENT_NAME, settings: settings };
         const blacklistController = BlacklistController(context).create(config);
 
         eventBus.on(EVENT_NAME, spy);
@@ -141,7 +141,7 @@ describe('BlacklistController', function () {
         const spy = chai.spy();
         settings.update({streaming: { blacklistExpiryTime: 200 }});
 
-        const config = { unBlacklistEventName: EVENT_NAME, settings: settings };
+        const config = { removeBlacklistEventName: EVENT_NAME, settings: settings };
         const blacklistController = BlacklistController(context).create(config);
 
         eventBus.on(EVENT_NAME, spy);

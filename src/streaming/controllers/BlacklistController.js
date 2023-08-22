@@ -43,7 +43,7 @@ function BlackListController(config) {
     const settings = config.settings;
     const updateEventName = config.updateEventName;
     const addBlacklistEventName = config.addBlacklistEventName;
-    const unBlacklistEventName = config.unBlacklistEventName;
+    const removeBlacklistEventName = config.removeBlacklistEventName;
 
     function remove(entry) {
         const index = blacklist.indexOf(entry);
@@ -51,7 +51,7 @@ function BlackListController(config) {
             blacklist.splice(index, 1);
 
             eventBus.trigger(
-                unBlacklistEventName, {
+                removeBlacklistEventName, {
                     entry: entry
                 }
             );
