@@ -829,6 +829,7 @@ function Settings() {
             dispatchEvent: false
         },
         streaming: {
+            blacklistExpiryTime: 0,
             abandonLoadTimeout: 10000,
             wallclockTimeUpdateInterval: 100,
             manifestUpdateRetryInterval: 100,

@@ -37,10 +37,35 @@ function BlackListController(config) {
     config = config || {};
     let instance;
     let blacklist = [];
+    let blacklistExpiryTimers = [];
 
     const eventBus = EventBus(this.context).getInstance();
+    const settings = config.settings;
     const updateEventName = config.updateEventName;
     const addBlacklistEventName = config.addBlacklistEventName;
+    const removeBlacklistEventName = config.removeBlacklistEventName;
+
+    function remove(entry) {
+        const index = blacklist.indexOf(entry);
+        if (index >= 0) {
+            blacklist.splice(index, 1);
+
+            eventBus.trigger(
+                removeBlacklistEventName, {
+                    entry: entry
+                }
+            );
+        }
+    }
+
+    function setupBlacklistExpiry(entry) {
+        let blacklistExpiryTime = settings && settings.get().streaming.blacklistExpiryTime;
+        if (blacklistExpiryTime > 0) {
+            blacklistExpiryTimers.push(setTimeout(function () {
+                remove(entry);
+            }, blacklistExpiryTime));
+        }
+    }
 
     function contains(query) {
         if (!blacklist.length || !query || !query.length) {
@@ -54,6 +79,8 @@ function BlackListController(config) {
         if (blacklist.indexOf(entry) !== -1) {
             return;
         }
+
+        setupBlacklistExpiry(entry)
 
         blacklist.push(entry);
 
@@ -72,6 +99,10 @@ function BlackListController(config) {
 
     function reset() {
         blacklist = [];
+        for (var i = 0; i < blacklistExpiryTimers.length; i++) {
+            clearTimeout(blacklistExpiryTimers[i]);
+        }
+        blacklistExpiryTimers = [];
     }
 
     instance = {

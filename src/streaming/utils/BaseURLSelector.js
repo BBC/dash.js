@@ -57,7 +57,9 @@ function BaseURLSelector() {
     function setup() {
         serviceLocationBlacklistController = BlacklistController(context).create({
             updateEventName: Events.SERVICE_LOCATION_BASE_URL_BLACKLIST_CHANGED,
-            addBlacklistEventName: Events.SERVICE_LOCATION_BASE_URL_BLACKLIST_ADD
+            addBlacklistEventName: Events.SERVICE_LOCATION_BASE_URL_BLACKLIST_ADD,
+            removeBlacklistEventName: Events.SERVICE_LOCATION_BASE_URL_BLACKLIST_REMOVED,
+            settings: settings
         });
 
         basicSelector = BasicSelector(context).create({
@@ -123,6 +125,11 @@ function BaseURLSelector() {
                 reset();
             }
             return;
+        } else {
+            eventBus.trigger(
+                Events.BASEURL_SELECTED,
+                { baseUrl: selectedBaseUrl }
+            );
         }
 
         data.selectedIdx = data.baseUrls.indexOf(selectedBaseUrl);
