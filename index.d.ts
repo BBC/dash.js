@@ -1249,6 +1249,8 @@ declare namespace dashjs {
 
         attachSource(urlOrManifest: string | object, startTime?: number | string): void;
 
+        refreshManifest(callback: (manifest: object | null, error: unknown) => void): void;
+
         isReady(): boolean;
 
         preload(): void;
@@ -2626,8 +2628,6 @@ declare namespace dashjs {
         getXHRWithCredentialsForType(type: string): object;
 
         getDefaultUtcTimingSource(): UTCTiming;
-
-        refreshManifest(callback: (manifest: object | null, error: any) => void): void;
 
         reset(): void;
     }
