@@ -1945,7 +1945,8 @@ function MediaPlayer() {
                 eventBus.off(Events.INTERNAL_MANIFEST_LOADED, handler, self);
 
                 if (e.error) {
-                    return callback(null, e.error);
+                    callback(null, e.error);
+                    return;
                 }
 
                 callback(e.manifest);
