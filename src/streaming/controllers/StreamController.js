@@ -1172,16 +1172,79 @@ function StreamController() {
         return _getStartTimeFromString(isDynamic, providedStartTime, referenceTime);
     }
 
+    function findTag(targetString, tag) {
+        return targetString.indexOf(tag) !== -1
+            ? targetString.substring(tag.length) === 'now'
+                ? Date.now() / 1000
+                : parseFloat(targetString.substring(tag.length))
+            : NaN;
+    }
+
+    function _getPresentationTimeOffset(refStreamInfo) {
+        if (refStreamInfo) {
+            const sets = [];
+
+            ['audio', 'video'].forEach((type) => {
+                const set = adapter.getAdaptationForType(0, type, refStreamInfo);
+                if (set) {
+                    sets.push(set);
+                }
+            });
+
+            for (let j = 0; j < sets.length; j++) {
+                const stPto = _lookForPto(sets[j]);
+                if (Number.isFinite(stPto)) {
+                    return stPto;
+                }
+
+                const reps = sets[j].Representation_asArray;
+                if (reps) {
+                    for (let k = 0; k < reps.length; k++) {
+                        const repPto = _lookForPto(reps[k]);
+                        if (Number.isFinite(repPto)) {
+                            return repPto;
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    function _lookForPto(node) {
+        if (node && node.SegmentTemplate) {
+            const st = node.SegmentTemplate;
+            if (st && st.presentationTimeOffset > 0) {
+                const timescale = st.timescale || 1;
+                return st.presentationTimeOffset / timescale;
+            }
+        }
+        return;
+    }
 
     function _getStartTimeFromString(isDynamic, targetValue, referenceTime) {
         // Consider only start time of MediaRange
         // TODO: consider end time of MediaRange to stop playback at provided end time
         // "t=<time>" : time is relative to 1st period start
         // "t=posix:<time>" : time is absolute start time as number of seconds since 01-01-1970
+        // "t=pto_posix:<time>" : time is start time as number of seconds since 01-01-1970 but not on the availability timeline, adjusted by pto
+
+        const refStream = getStreams()[0];
+
         const period = adapter.getRegularPeriods()[0];
         const targetString = targetValue.toString();
-        const posix = targetString.indexOf('posix:') !== -1 ? targetString.substring(6) === 'now' ? Date.now() / 1000 : parseFloat(targetString.substring(6)) : NaN;
-        let startTime = (isDynamic && !isNaN(posix)) ? timelineConverter.calcPresentationTimeFromWallTime(new Date(posix * 1000), period) : parseFloat(targetString) + referenceTime;
+
+        let ptoPosixTime = findTag(targetString, 'pto_posix:');
+        if (Number.isFinite(ptoPosixTime)) {
+            const refStreamInfo = refStream.getStreamInfo();
+            const pto = _getPresentationTimeOffset(refStreamInfo);
+            ptoPosixTime -= pto;
+        }
+
+        const posix = findTag(targetString, 'posix:');
+        const posixTime = timelineConverter.calcPresentationTimeFromWallTime(new Date(posix * 1000), period)
+        const tagTime = ptoPosixTime || posixTime || NaN;
+        const startTime = (isDynamic && !isNaN(tagTime)) ? tagTime : parseFloat(targetString) + referenceTime;
 
         return startTime;
     }
