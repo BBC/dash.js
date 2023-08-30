@@ -1242,11 +1242,12 @@ function StreamController() {
         }
 
         const posix = findTag(targetString, 'posix:');
-        const posixTime = timelineConverter.calcPresentationTimeFromWallTime(new Date(posix * 1000), period)
+        // TODO: Causing 5 Test Failures, due to mangled logic
+        // See https://github.com/bbc/dash.js/blob/88f92cbe280cef47f24dd917198af2145c84860a/src/streaming/controllers/StreamController.js#L1183
+        const posixTime = (isDynamic && !isNaN(posix)) ? timelineConverter.calcPresentationTimeFromWallTime(new Date(posix * 1000), period) : parseFloat(targetString) + referenceTime;
         const tagTime = ptoPosixTime || posixTime || NaN;
-        const startTime = (isDynamic && !isNaN(tagTime)) ? tagTime : parseFloat(targetString) + referenceTime;
 
-        return startTime;
+        return tagTime;
     }
 
     /**
