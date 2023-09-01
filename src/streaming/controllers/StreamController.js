@@ -1172,56 +1172,6 @@ function StreamController() {
         return _getStartTimeFromString(isDynamic, providedStartTime, referenceTime);
     }
 
-    function findTag(targetString, tag) {
-        return targetString.indexOf(tag) !== -1
-            ? targetString.substring(tag.length) === 'now'
-                ? Date.now() / 1000
-                : parseFloat(targetString.substring(tag.length))
-            : NaN;
-    }
-
-    function _getPresentationTimeOffset(refStreamInfo) {
-        if (refStreamInfo) {
-            const sets = [];
-
-            ['audio', 'video'].forEach((type) => {
-                const set = adapter.getAdaptationForType(0, type, refStreamInfo);
-                if (set) {
-                    sets.push(set);
-                }
-            });
-
-            for (let j = 0; j < sets.length; j++) {
-                const stPto = _lookForPto(sets[j]);
-                if (Number.isFinite(stPto)) {
-                    return stPto;
-                }
-
-                const reps = sets[j].Representation_asArray;
-                if (reps) {
-                    for (let k = 0; k < reps.length; k++) {
-                        const repPto = _lookForPto(reps[k]);
-                        if (Number.isFinite(repPto)) {
-                            return repPto;
-                        }
-                    }
-                }
-            }
-        }
-        return 0;
-    }
-
-    function _lookForPto(node) {
-        if (node && node.SegmentTemplate) {
-            const st = node.SegmentTemplate;
-            if (st && st.presentationTimeOffset > 0) {
-                const timescale = st.timescale || 1;
-                return st.presentationTimeOffset / timescale;
-            }
-        }
-        return;
-    }
-
     function _getStartTimeFromString(isDynamic, targetValue, referenceTime) {
         // Consider only start time of MediaRange
         // TODO: consider end time of MediaRange to stop playback at provided end time
@@ -1229,25 +1179,50 @@ function StreamController() {
         // "t=posix:<time>" : time is absolute start time as number of seconds since 01-01-1970
         // "t=pto_posix:<time>" : time is start time as number of seconds since 01-01-1970 but not on the availability timeline, adjusted by pto
 
-        const refStream = getStreams()[0];
-
-        const period = adapter.getRegularPeriods()[0];
         const targetString = targetValue.toString();
 
-        let ptoPosixTime = findTag(targetString, 'pto_posix:');
-        if (Number.isFinite(ptoPosixTime)) {
-            const refStreamInfo = refStream.getStreamInfo();
-            const pto = _getPresentationTimeOffset(refStreamInfo);
-            ptoPosixTime -= pto;
+        const findTag = (tag) => {
+            if (tag.slice(-1) !== ':') tag = `${tag}:`
+            if (targetString.indexOf(tag) === -1) return NaN;
+
+            return targetString.substring(tag.length) === 'now'
+                ? Date.now() / 1000
+                : parseFloat(targetString.substring(tag.length));
         }
 
-        const posix = findTag(targetString, 'posix:');
-        // TODO: Causing 5 Test Failures, due to mangled logic
-        // See https://github.com/bbc/dash.js/blob/88f92cbe280cef47f24dd917198af2145c84860a/src/streaming/controllers/StreamController.js#L1183
-        const posixTime = (isDynamic && !isNaN(posix)) ? timelineConverter.calcPresentationTimeFromWallTime(new Date(posix * 1000), period) : parseFloat(targetString) + referenceTime;
-        const tagTime = ptoPosixTime || posixTime || NaN;
+        const posixCalculation = ({ tag, presentationTimeFunc, presentationTimeParam }) => {
+            return () => {
+                const posix = findTag(tag);
+                const posixDate = new Date(posix * 1000);
 
-        return tagTime;
+                return (isDynamic && !isNaN(posix))
+                    ? presentationTimeFunc(posixDate, presentationTimeParam)
+                    : NaN
+            }
+        }
+
+        const startTime = {
+            ptoPosix: posixCalculation({
+                tag: 'pto_posix',
+                presentationTimeFunc: timelineConverter.calcPresentationTimeFromMediaTime,
+                // TODO: Check this is actually right, unsure how to get representation?
+                presentationTimeParam: adapter.getAdaptationForType(0, 'video', getStreams()[0].getStreamInfo()).Representation_asArray[0]
+            }),
+
+            posix:  posixCalculation({
+                tag: 'posix',
+                presentationTimeFunc: timelineConverter.calcPresentationTimeFromWallTime,
+                presentationTimeParam: adapter.getRegularPeriods()[0]
+            }),
+
+            nonTagged: () => parseFloat(targetString) + referenceTime
+        }
+
+        return [
+            startTime.ptoPosix(),
+            startTime.posix(),
+            startTime.nonTagged()
+        ].find((startTime) => !isNaN(startTime ?? NaN));
     }
 
     /**
