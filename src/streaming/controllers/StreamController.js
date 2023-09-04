@@ -1209,7 +1209,6 @@ function StreamController() {
             ptoPosix: posixCalculation({
                 tag: 'pto_posix',
                 presentationTimeFunc: timelineConverter.calcPresentationTimeFromMediaTime,
-                // TODO: Check this is actually right, unsure how to get representation?
                 presentationTimeParam: adapter.getAdaptationForType(0, 'video', getStreams()[0].getStreamInfo()).Representation_asArray[0]
             }),
 
