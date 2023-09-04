@@ -1087,8 +1087,12 @@ function StreamController() {
             // If start time in URI, take min value between live edge time and time from URI (capped by DVR window range)
             const dvrWindow = dvrInfo ? dvrInfo.range : null;
             if (dvrWindow) {
+                const startTimeProvided = !isNaN(providedStartTime)
+                    || providedStartTime.toString().indexOf('posix:') !== -1
+                    || providedStartTime.toString().indexOf('pto_posix:') !== -1;
+
                 // If start time was provided by the application as part of the call to initialize() or attachSource() use this value
-                if (!isNaN(providedStartTime) || providedStartTime.toString().indexOf('posix:') !== -1) {
+                if (startTimeProvided) {
                     logger.info(`Start time provided by the app: ${providedStartTime}`);
                     const providedStartTimeAsPresentationTime = _getStartTimeFromProvidedData(true, providedStartTime)
                     if (!isNaN(providedStartTimeAsPresentationTime)) {
