@@ -59,7 +59,7 @@
     },
     "dependencies": {
         "bcp-47-match": "^2.0.3",
-        "bcp-47-normalize": "^2.3.0",
+        "bcp-47-normalize": "^2.2.0",
         "codem-isoboxer": "0.3.9",
         "es6-promise": "^4.2.8",
         "fast-deep-equal": "2.0.1",
