@@ -34,6 +34,7 @@ import EventBus from '../../core/EventBus';
 import Events from '../../core/events/Events';
 import Debug from '../../core/Debug';
 import Constants from '../constants/Constants';
+import Settings from '../../core/Settings';
 
 
 const READY_STATES_TO_EVENT_NAMES = new Map([
@@ -56,6 +57,7 @@ function VideoModel() {
     const context = this.context;
     const eventBus = EventBus(context).getInstance();
     const stalledStreams = [];
+    const settings = Settings(context).getInstance();
 
     function setup() {
         logger = Debug(context).getInstance().getLogger(instance);
@@ -208,6 +210,14 @@ function VideoModel() {
         }
 
         stalledStreams.push(type);
+        if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && stalledStreams.length === 1) {
+            // Halt playback until nothing is stalled.
+            const event = document.createEvent('Event');
+            event.initEvent('waiting', true, false);
+            previousPlaybackRate = element.playbackRate;
+            setPlaybackRate(0);
+            element.dispatchEvent(event);
+        }
     }
 
     function removeStalledStream(type) {
@@ -220,6 +230,15 @@ function VideoModel() {
             stalledStreams.splice(index, 1);
         }
 
+        // If nothing is stalled resume playback.
+        if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && isStalled() === false && element.playbackRate === 0) {
+            setPlaybackRate(previousPlaybackRate || 1);
+            if (!element.paused) {
+                const event = document.createEvent('Event');
+                event.initEvent('playing', true, false);
+                element.dispatchEvent(event);
+            }
+        }
     }
 
     function stallStream(type, isStalled) {

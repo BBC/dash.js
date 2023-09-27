@@ -95,7 +95,10 @@ import {HTTPRequest} from '../streaming/vo/metrics/HTTPRequest';
  *                longFormContentDurationThreshold: 600,
  *                stallThreshold: 0.5,
  *                useAppendWindow: true,
- *                setStallState: false
+ *                setStallState: true,
+ *                emitSyntheticStallEvents: true,
+ *                avoidCurrentTimeRangePruning: false,
+ *                useChangeTypeForTrackSwitch: true
  *            },
  *            gaps: {
  *                jumpGaps: true,
@@ -286,8 +289,17 @@ import {HTTPRequest} from '../streaming/vo/metrics/HTTPRequest';
  * Stall threshold used in BufferController.js to determine whether a track should still be changed and which buffer range to prune.
  * @property {boolean} [useAppendWindow=true]
  * Specifies if the appendWindow attributes of the MSE SourceBuffers should be set according to content duration from manifest.
- * @property {boolean} [setStallState=false]
- * Specifies if we fire manual waiting events once the stall threshold is reached
+ * @property {boolean} [setStallState=true]
+ * Specifies if we record stalled streams once the stall threshold is reached
+ * @property {boolean} [emitSyntheticStallEvents=true]
+ * Specified if we fire manual stall events once the stall threshold is reached
+ * @property {boolean} [avoidCurrentTimeRangePruning=false]
+ * Avoids pruning of the buffered range that contains the current playback time.
+ *
+ * That buffered range is likely to have been enqueued for playback. Pruning it causes a flush and reenqueue in WPE and WebKitGTK based browsers. This stresses the video decoder and can cause stuttering on embedded platforms.
+ * @property {boolean} [useChangeTypeForTrackSwitch=true]
+ * If this flag is set to true then dash.js will use the MSE v.2 API call "changeType()" before switching to a different track.
+ * Note that some platforms might not implement the changeType functio. dash.js is checking for the availability before trying to call it.
  */
 
 /**
@@ -766,7 +778,10 @@ function Settings() {
                 longFormContentDurationThreshold: 600,
                 stallThreshold: 0.3,
                 useAppendWindow: true,
-                setStallState: true
+                setStallState: true,
+                emitSyntheticStallEvents: true,
+                avoidCurrentTimeRangePruning: false,
+                useChangeTypeForTrackSwitch: true
             },
             gaps: {
                 jumpGaps: true,
