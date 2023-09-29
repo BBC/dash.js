@@ -36,11 +36,16 @@ import Debug from '../../core/Debug';
 import Constants from '../constants/Constants';
 import Settings from '../../core/Settings';
 
-const READY_STATES_TO_EVENT_NAMES = {};
-READY_STATES_TO_EVENT_NAMES[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA] = 'loadedmetadata';
-READY_STATES_TO_EVENT_NAMES[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_CURRENT_DATA] = 'loadeddata';
-READY_STATES_TO_EVENT_NAMES[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA] = 'canplay';
-READY_STATES_TO_EVENT_NAMES[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_ENOUGH_DATA] = 'canplaythrough';
+const READY_STATES_TO_EVENT_NAMES = function () {
+    const ret = {};
+
+    ret[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA] = 'loadedmetadata';
+    ret[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_CURRENT_DATA] = 'loadeddata';
+    ret[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA] = 'canplay';
+    ret[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_ENOUGH_DATA] = 'canplaythrough';
+
+    return ret;
+}();
 
 function VideoModel() {
 
