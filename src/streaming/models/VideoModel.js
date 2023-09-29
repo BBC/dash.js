@@ -36,13 +36,11 @@ import Debug from '../../core/Debug';
 import Constants from '../constants/Constants';
 import Settings from '../../core/Settings';
 
-
-const READY_STATES_TO_EVENT_NAMES = new Map([
-    [Constants.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA, 'loadedmetadata'],
-    [Constants.VIDEO_ELEMENT_READY_STATES.HAVE_CURRENT_DATA, 'loadeddata'],
-    [Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA, 'canplay'],
-    [Constants.VIDEO_ELEMENT_READY_STATES.HAVE_ENOUGH_DATA, 'canplaythrough']
-]);
+const READY_STATES_TO_EVENT_NAMES = {};
+READY_STATES_TO_EVENT_NAMES[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA] = 'loadedmetadata';
+READY_STATES_TO_EVENT_NAMES[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_CURRENT_DATA] = 'loadeddata';
+READY_STATES_TO_EVENT_NAMES[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA] = 'canplay';
+READY_STATES_TO_EVENT_NAMES[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_ENOUGH_DATA] = 'canplaythrough';
 
 function VideoModel() {
 
@@ -447,7 +445,7 @@ function VideoModel() {
             callback();
         } else {
             // wait for the appropriate callback before checking again
-            const event = READY_STATES_TO_EVENT_NAMES.get(targetReadyState);
+            const event = READY_STATES_TO_EVENT_NAMES[targetReadyState];
             _listenOnce(event, callback);
         }
     }
