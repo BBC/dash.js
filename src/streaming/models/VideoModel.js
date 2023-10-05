@@ -36,13 +36,16 @@ import Debug from '../../core/Debug';
 import Constants from '../constants/Constants';
 import Settings from '../../core/Settings';
 
+const READY_STATES_TO_EVENT_NAMES = function () {
+    const ret = {};
 
-const READY_STATES_TO_EVENT_NAMES = new Map([
-    [Constants.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA, 'loadedmetadata'],
-    [Constants.VIDEO_ELEMENT_READY_STATES.HAVE_CURRENT_DATA, 'loadeddata'],
-    [Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA, 'canplay'],
-    [Constants.VIDEO_ELEMENT_READY_STATES.HAVE_ENOUGH_DATA, 'canplaythrough']
-]);
+    ret[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA] = 'loadedmetadata';
+    ret[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_CURRENT_DATA] = 'loadeddata';
+    ret[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA] = 'canplay';
+    ret[Constants.VIDEO_ELEMENT_READY_STATES.HAVE_ENOUGH_DATA] = 'canplaythrough';
+
+    return ret;
+}();
 
 function VideoModel() {
 
@@ -447,7 +450,7 @@ function VideoModel() {
             callback();
         } else {
             // wait for the appropriate callback before checking again
-            const event = READY_STATES_TO_EVENT_NAMES.get(targetReadyState);
+            const event = READY_STATES_TO_EVENT_NAMES[targetReadyState];
             _listenOnce(event, callback);
         }
     }
