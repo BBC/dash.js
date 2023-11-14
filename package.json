@@ -16,8 +16,7 @@
         "test": "karma start karma.unit.conf.js",
         "test-browserunit": "karma start build/karma.conf.js",
         "test-functional": "node test/functional/runTests.js --selenium=remote --app=remote",
-        "prepare": "node githook.js",
-        "prepack": "npm run build"
+        "prepare": "node githook.js"
     },
     "devDependencies": {
         "@babel/core": "^7.13.8",
