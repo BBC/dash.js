@@ -109,7 +109,9 @@ import Events from './events/Events';
  *                setStallState: true,
  *                emitSyntheticStallEvents: true,
  *                avoidCurrentTimeRangePruning: false,
- *                useChangeTypeForTrackSwitch: true
+ *                useChangeTypeForTrackSwitch: true,
+ *                mediaSourceDurationInfinity: true,
+ *                resetSourceBuffersForTrackSwitch: false
  *            },
  *            gaps: {
  *                jumpGaps: true,
@@ -156,6 +158,7 @@ import Events from './events/Events';
  *            },
  *            lastBitrateCachingInfo: { enabled: true, ttl: 360000 },
  *            lastMediaSettingsCachingInfo: { enabled: true, ttl: 360000 },
+ *            saveLastMediaSettingsForCurrentStreamingSession: true,
  *            cacheLoadThresholds: { video: 50, audio: 5 },
  *            trackSwitchMode: {
  *                audio: Constants.TRACK_SWITCH_MODE_ALWAYS_REPLACE,
@@ -198,6 +201,13 @@ import Events from './events/Events';
  *                   droppedFramesRule: true,
  *                   abandonRequestsRule: true
  *                },
+ *                abrRulesParameters: {
+ *                     abandonRequestsRule: {
+ *                         graceTimeThreshold: 500,
+ *                         abandonMultiplier: 1.8,
+ *                         minLengthToAverage: 5
+ *                     }
+ *                 },
  *                bandwidthSafetyFactor: 0.9,
  *                useDefaultABRRules: true,
  *                useDeadTimeLatency: true,
@@ -336,6 +346,12 @@ import Events from './events/Events';
  * @property {boolean} [useChangeTypeForTrackSwitch=true]
  * If this flag is set to true then dash.js will use the MSE v.2 API call "changeType()" before switching to a different track.
  * Note that some platforms might not implement the changeType functio. dash.js is checking for the availability before trying to call it.
+ * @property {boolean} [mediaSourceDurationInfinity=true]
+ * If this flag is set to true then dash.js will allow `Infinity` to be set as the MediaSource duration otherwise the duration will be set to `Math.pow(2,32)` instead of `Infinity` to allow appending segments indefinitely.
+ * Some platforms such as WebOS 4.x have issues with seeking when duration is set to `Infinity`, setting this flag to false resolve this.
+ * @property {boolean} [resetSourceBuffersForTrackSwitch=false]
+ * When switching to a track that is not compatible with the currently active MSE SourceBuffers, MSE will be reset. This happens when we switch codecs on a system
+ * that does not properly implement "changeType()", such as webOS 4.0 and before.
  */
 
 /**
@@ -568,6 +584,22 @@ import Events from './events/Events';
  */
 
 /**
+ * @typedef {Object} AbrRulesParameters
+ * @property {module:Settings~AbandonRequestRuleParameters} abandonRequestRule
+ * Configuration parameters for the AbandonRequestRule
+ */
+
+/**
+ * @typedef {Object} AbandonRequestRuleParameters
+ * @property {number} [graceTimeThreshold=500]
+ * Minimum elapsed time in milliseconds that the segment download has to run before the rule considers abandoning the download.
+ * @property {number} [abandonMultiplier]
+ * This value is multiplied with the segment duration and compared to the estimated time of the download to decide the request should be abandoned.
+ * @property {number} [minLengthToAverage]
+ * Minimum number of throughput samples required to consider abandoning the download of the segment.
+ */
+
+/**
  * @typedef {Object} AbrSettings
  * @property {string} [movingAverageMethod="slidingWindow"]
  * Sets the moving average method used for smoothing throughput estimates.
@@ -594,6 +626,7 @@ import Events from './events/Events';
  * @property {object} [trackSwitchMode={video: "neverReplace", audio: "alwaysReplace"}]
  * @property {object} [additionalAbrRules={insufficientBufferRule: true,switchHistoryRule: true,droppedFramesRule: true,abandonRequestsRule: true}]
  * Enable/Disable additional ABR rules in case ABRStrategy is set to "abrDynamic", "abrBola" or "abrThroughput".
+ * @property {module:Settings~AbrRulesParameters} abrRulesParameters Configuration options for the different ABR rules
  * @property {number} [bandwidthSafetyFactor=0.9]
  * Standard ABR throughput rules multiply the throughput by this value.
  *
@@ -744,6 +777,12 @@ import Events from './events/Events';
  * The default expiration is one hour, defined in milliseconds.
  *
  * If expired, the default initial bit rate (closest to 1000 kbps) will be used for that session and a new bit rate will be stored during that session.
+ * @property {module:Settings~CachingInfoSettings} [lastMediaSettingsCachingInfo={enabled: true, ttl: 360000}]
+ * Set to false if you would like to disable the last media settings from being stored to localStorage during playback and used to set the initial track for subsequent playback within the expiration window.
+ *
+ * The default expiration is one hour, defined in milliseconds.
+ * @property {boolean} [saveLastMediaSettingsForCurrentStreamingSession=true]
+ * Set to true if dash.js should save media settings from last selected track for incoming track selection during current streaming session.
  * @property {module:Settings~AudioVideoSettings} [cacheLoadThresholds={video: 50, audio: 5}]
  * For a given media type, the threshold which defines if the response to a fragment request is coming from browser cache or not.
  * @property {module:Settings~AudioVideoSettings} [trackSwitchMode={video: "neverReplace", audio: "alwaysReplace"}]
@@ -883,7 +922,9 @@ function Settings() {
                 setStallState: true,
                 emitSyntheticStallEvents: true,
                 avoidCurrentTimeRangePruning: false,
-                useChangeTypeForTrackSwitch: true
+                useChangeTypeForTrackSwitch: true,
+                mediaSourceDurationInfinity: true,
+                resetSourceBuffersForTrackSwitch: false
             },
             gaps: {
                 jumpGaps: true,
@@ -939,6 +980,7 @@ function Settings() {
                 enabled: true,
                 ttl: 360000
             },
+            saveLastMediaSettingsForCurrentStreamingSession: true,
             cacheLoadThresholds: {
                 video: 50,
                 audio: 5
@@ -983,6 +1025,13 @@ function Settings() {
                     switchHistoryRule: true,
                     droppedFramesRule: true,
                     abandonRequestsRule: true
+                },
+                abrRulesParameters: {
+                    abandonRequestsRule: {
+                        graceTimeThreshold: 500,
+                        abandonMultiplier: 1.8,
+                        minLengthToAverage: 5
+                    }
                 },
                 bandwidthSafetyFactor: 0.9,
                 useDefaultABRRules: true,

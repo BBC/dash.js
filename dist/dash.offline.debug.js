@@ -7,21 +7,18 @@
 		exports["dashjs"] = factory();
 	else
 		root["dashjs"] = factory();
-})(self, () => {
-return /******/ (() => { // webpackBootstrap
+})(self, function() {
+return /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./externals/xml2json.js":
 /*!*******************************!*\
   !*** ./externals/xml2json.js ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /*
  Copyright 2011-2013 Abdulla Abdurakhmanov
  Original sources are available at https://code.google.com/p/x2js/
@@ -571,7 +568,7 @@ function X2JS(config) {
   };
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (X2JS);
+/* harmony default export */ __webpack_exports__["default"] = (X2JS);
 
 /***/ }),
 
@@ -579,13 +576,10 @@ function X2JS(config) {
 /*!***************************!*\
   !*** ./src/core/Debug.js ***!
   \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _EventBus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EventBus */ "./src/core/EventBus.js");
 /* harmony import */ var _events_Events__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./events/Events */ "./src/core/events/Events.js");
 /* harmony import */ var _FactoryMaker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FactoryMaker */ "./src/core/FactoryMaker.js");
@@ -808,7 +802,7 @@ factory.LOG_LEVEL_WARNING = LOG_LEVEL_WARNING;
 factory.LOG_LEVEL_INFO = LOG_LEVEL_INFO;
 factory.LOG_LEVEL_DEBUG = LOG_LEVEL_DEBUG;
 _FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].updateSingletonFactory(Debug.__dashjs_factory_name, factory);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -816,13 +810,10 @@ _FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].updateSingletonFactory(Deb
 /*!******************************!*\
   !*** ./src/core/EventBus.js ***!
   \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _streaming_MediaPlayerEvents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../streaming/MediaPlayerEvents */ "./src/streaming/MediaPlayerEvents.js");
 /**
@@ -984,7 +975,7 @@ var factory = _FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleton
 factory.EVENT_PRIORITY_LOW = EVENT_PRIORITY_LOW;
 factory.EVENT_PRIORITY_HIGH = EVENT_PRIORITY_HIGH;
 _FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].updateSingletonFactory(EventBus.__dashjs_factory_name, factory);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -992,13 +983,10 @@ _FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].updateSingletonFactory(Eve
 /*!**********************************!*\
   !*** ./src/core/FactoryMaker.js ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /**
  * The copyright in this software is being made available under the BSD License,
  * included below. This software may be subject to other third party and contributor
@@ -1278,7 +1266,7 @@ var FactoryMaker = function () {
   return instance;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FactoryMaker);
+/* harmony default export */ __webpack_exports__["default"] = (FactoryMaker);
 
 /***/ }),
 
@@ -1286,13 +1274,10 @@ var FactoryMaker = function () {
 /*!******************************!*\
   !*** ./src/core/Settings.js ***!
   \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _Utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Utils.js */ "./src/core/Utils.js");
 /* harmony import */ var _core_Debug__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/Debug */ "./src/core/Debug.js");
@@ -1406,12 +1391,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *                bufferTimeAtTopQualityLongForm: 60,
  *                initialBufferLevel: NaN,
  *                stableBufferTime: 12,
+ *                hybridSwitchBufferTime: NaN,
  *                longFormContentDurationThreshold: 600,
  *                stallThreshold: 0.3,
  *                useAppendWindow: true,
  *                setStallState: true,
+ *                emitSyntheticStallEvents: true,
  *                avoidCurrentTimeRangePruning: false,
- *                useChangeTypeForTrackSwitch: true
+ *                useChangeTypeForTrackSwitch: true,
+ *                mediaSourceDurationInfinity: true,
+ *                resetSourceBuffersForTrackSwitch: false
  *            },
  *            gaps: {
  *                jumpGaps: true,
@@ -1458,6 +1447,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *            },
  *            lastBitrateCachingInfo: { enabled: true, ttl: 360000 },
  *            lastMediaSettingsCachingInfo: { enabled: true, ttl: 360000 },
+ *            saveLastMediaSettingsForCurrentStreamingSession: true,
  *            cacheLoadThresholds: { video: 50, audio: 5 },
  *            trackSwitchMode: {
  *                audio: Constants.TRACK_SWITCH_MODE_ALWAYS_REPLACE,
@@ -1500,11 +1490,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *                   droppedFramesRule: true,
  *                   abandonRequestsRule: true
  *                },
+ *                abrRulesParameters: {
+ *                     abandonRequestsRule: {
+ *                         graceTimeThreshold: 500,
+ *                         abandonMultiplier: 1.8,
+ *                         minLengthToAverage: 5
+ *                     }
+ *                 },
  *                bandwidthSafetyFactor: 0.9,
  *                useDefaultABRRules: true,
  *                useDeadTimeLatency: true,
  *                limitBitrateByPortal: false,
  *                usePixelRatioInLimitBitrateByPortal: false,
+ *                portalScale: 1,
+ *                portalMinimum: 0,
  *                maxBitrate: { audio: -1, video: -1 },
  *                minBitrate: { audio: -1, video: -1 },
  *                maxRepresentationRatio: { audio: 1, video: 1 },
@@ -1617,6 +1616,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Initial buffer level before playback starts
  * @property {number} [stableBufferTime=12]
  * The time that the internal buffer target will be set to post startup/seeks (NOT top quality).
+ * @property {number} [hybridSwitchBufferTime=NaN]
+ * The buffer time that the hybrid rule will switch between throughput and BOLA at. Defaults to the value of `stableBufferTime`.
  *
  * When the time is set higher than the default you will have to wait longer to see automatic bitrate switches but will have a larger buffer which will increase stability.
  * @property {number} [stallThreshold=0.3]
@@ -1624,7 +1625,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * @property {boolean} [useAppendWindow=true]
  * Specifies if the appendWindow attributes of the MSE SourceBuffers should be set according to content duration from manifest.
  * @property {boolean} [setStallState=true]
- * Specifies if we fire manual waiting events once the stall threshold is reached
+ * Specifies if we record stalled streams once the stall threshold is reached
+ * @property {boolean} [emitSyntheticStallEvents=true]
+ * Specified if we fire manual stall events once the stall threshold is reached
  * @property {boolean} [avoidCurrentTimeRangePruning=false]
  * Avoids pruning of the buffered range that contains the current playback time.
  *
@@ -1632,6 +1635,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * @property {boolean} [useChangeTypeForTrackSwitch=true]
  * If this flag is set to true then dash.js will use the MSE v.2 API call "changeType()" before switching to a different track.
  * Note that some platforms might not implement the changeType functio. dash.js is checking for the availability before trying to call it.
+ * @property {boolean} [mediaSourceDurationInfinity=true]
+ * If this flag is set to true then dash.js will allow `Infinity` to be set as the MediaSource duration otherwise the duration will be set to `Math.pow(2,32)` instead of `Infinity` to allow appending segments indefinitely.
+ * Some platforms such as WebOS 4.x have issues with seeking when duration is set to `Infinity`, setting this flag to false resolve this.
+ * @property {boolean} [resetSourceBuffersForTrackSwitch=false]
+ * When switching to a track that is not compatible with the currently active MSE SourceBuffers, MSE will be reset. This happens when we switch codecs on a system
+ * that does not properly implement "changeType()", such as webOS 4.0 and before.
  */
 
 /**
@@ -1864,6 +1873,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  */
 
 /**
+ * @typedef {Object} AbrRulesParameters
+ * @property {module:Settings~AbandonRequestRuleParameters} abandonRequestRule
+ * Configuration parameters for the AbandonRequestRule
+ */
+
+/**
+ * @typedef {Object} AbandonRequestRuleParameters
+ * @property {number} [graceTimeThreshold=500]
+ * Minimum elapsed time in milliseconds that the segment download has to run before the rule considers abandoning the download.
+ * @property {number} [abandonMultiplier]
+ * This value is multiplied with the segment duration and compared to the estimated time of the download to decide the request should be abandoned.
+ * @property {number} [minLengthToAverage]
+ * Minimum number of throughput samples required to consider abandoning the download of the segment.
+ */
+
+/**
  * @typedef {Object} AbrSettings
  * @property {string} [movingAverageMethod="slidingWindow"]
  * Sets the moving average method used for smoothing throughput estimates.
@@ -1890,6 +1915,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * @property {object} [trackSwitchMode={video: "neverReplace", audio: "alwaysReplace"}]
  * @property {object} [additionalAbrRules={insufficientBufferRule: true,switchHistoryRule: true,droppedFramesRule: true,abandonRequestsRule: true}]
  * Enable/Disable additional ABR rules in case ABRStrategy is set to "abrDynamic", "abrBola" or "abrThroughput".
+ * @property {module:Settings~AbrRulesParameters} abrRulesParameters Configuration options for the different ABR rules
  * @property {number} [bandwidthSafetyFactor=0.9]
  * Standard ABR throughput rules multiply the throughput by this value.
  *
@@ -1904,6 +1930,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * If true, the size of the video portal will limit the max chosen video resolution.
  * @property {boolean} [usePixelRatioInLimitBitrateByPortal=false]
  * Sets whether to take into account the device's pixel ratio when defining the portal dimensions.
+ * @property {number} [portalScale=1]
+ * Scales the size of the video portal used to limit the max video resolution. Square root scale.
+ * @property {number} [portalMinimum=0]
+ * Limits the min bandwidth that video playback can go down to depending on the portal size.
  *
  * Useful on, for example, retina displays.
  * @property {module:Settings~AudioVideoSettings} [maxBitrate={audio: -1, video: -1}]
@@ -2036,6 +2066,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * The default expiration is one hour, defined in milliseconds.
  *
  * If expired, the default initial bit rate (closest to 1000 kbps) will be used for that session and a new bit rate will be stored during that session.
+ * @property {module:Settings~CachingInfoSettings} [lastMediaSettingsCachingInfo={enabled: true, ttl: 360000}]
+ * Set to false if you would like to disable the last media settings from being stored to localStorage during playback and used to set the initial track for subsequent playback within the expiration window.
+ *
+ * The default expiration is one hour, defined in milliseconds.
+ * @property {boolean} [saveLastMediaSettingsForCurrentStreamingSession=true]
+ * Set to true if dash.js should save media settings from last selected track for incoming track selection during current streaming session.
  * @property {module:Settings~AudioVideoSettings} [cacheLoadThresholds={video: 50, audio: 5}]
  * For a given media type, the threshold which defines if the response to a fragment request is coming from browser cache or not.
  * @property {module:Settings~AudioVideoSettings} [trackSwitchMode={video: "neverReplace", audio: "alwaysReplace"}]
@@ -2125,6 +2161,7 @@ function Settings() {
       dispatchEvent: false
     },
     streaming: {
+      blacklistExpiryTime: 0,
       abandonLoadTimeout: 10000,
       wallclockTimeUpdateInterval: 100,
       manifestUpdateRetryInterval: 100,
@@ -2168,12 +2205,16 @@ function Settings() {
         bufferTimeAtTopQualityLongForm: 60,
         initialBufferLevel: NaN,
         stableBufferTime: 12,
+        hybridSwitchBufferTime: NaN,
         longFormContentDurationThreshold: 600,
         stallThreshold: 0.3,
         useAppendWindow: true,
         setStallState: true,
+        emitSyntheticStallEvents: true,
         avoidCurrentTimeRangePruning: false,
-        useChangeTypeForTrackSwitch: true
+        useChangeTypeForTrackSwitch: true,
+        mediaSourceDurationInfinity: true,
+        resetSourceBuffersForTrackSwitch: false
       },
       gaps: {
         jumpGaps: true,
@@ -2229,6 +2270,7 @@ function Settings() {
         enabled: true,
         ttl: 360000
       },
+      saveLastMediaSettingsForCurrentStreamingSession: true,
       cacheLoadThresholds: {
         video: 50,
         audio: 5
@@ -2252,11 +2294,20 @@ function Settings() {
           droppedFramesRule: true,
           abandonRequestsRule: true
         },
+        abrRulesParameters: {
+          abandonRequestsRule: {
+            graceTimeThreshold: 500,
+            abandonMultiplier: 1.8,
+            minLengthToAverage: 5
+          }
+        },
         bandwidthSafetyFactor: 0.9,
         useDefaultABRRules: true,
         useDeadTimeLatency: true,
         limitBitrateByPortal: false,
         usePixelRatioInLimitBitrateByPortal: false,
+        portalScale: 1,
+        portalMinimum: 0,
         maxBitrate: {
           audio: -1,
           video: -1
@@ -2378,7 +2429,7 @@ function Settings() {
 
 Settings.__dashjs_factory_name = 'Settings';
 var factory = _FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(Settings);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -2386,13 +2437,10 @@ var factory = _FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingleton
 /*!***************************!*\
   !*** ./src/core/Utils.js ***!
   \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var path_browserify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! path-browserify */ "./node_modules/path-browserify/index.js");
 /* harmony import */ var path_browserify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(path_browserify__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var ua_parser_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ua-parser-js */ "./node_modules/ua-parser-js/src/ua-parser.js");
@@ -2630,7 +2678,7 @@ var Utils = /*#__PURE__*/function () {
   return Utils;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Utils);
+/* harmony default export */ __webpack_exports__["default"] = (Utils);
 
 /***/ }),
 
@@ -2638,13 +2686,10 @@ var Utils = /*#__PURE__*/function () {
 /*!***********************************!*\
   !*** ./src/core/errors/Errors.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _ErrorsBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ErrorsBase */ "./src/core/errors/ErrorsBase.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -2849,7 +2894,7 @@ var Errors = /*#__PURE__*/function (_ErrorsBase) {
 }(_ErrorsBase__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 var errors = new Errors();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (errors);
+/* harmony default export */ __webpack_exports__["default"] = (errors);
 
 /***/ }),
 
@@ -2857,13 +2902,10 @@ var errors = new Errors();
 /*!***************************************!*\
   !*** ./src/core/errors/ErrorsBase.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2928,7 +2970,7 @@ var ErrorsBase = /*#__PURE__*/function () {
   return ErrorsBase;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ErrorsBase);
+/* harmony default export */ __webpack_exports__["default"] = (ErrorsBase);
 
 /***/ }),
 
@@ -2936,13 +2978,10 @@ var ErrorsBase = /*#__PURE__*/function () {
 /*!***************************************!*\
   !*** ./src/core/events/CoreEvents.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _EventsBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EventsBase */ "./src/core/events/EventsBase.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -3039,6 +3078,7 @@ var CoreEvents = /*#__PURE__*/function (_EventsBase) {
     _this.SEGMENT_LOCATION_BLACKLIST_CHANGED = 'segmentLocationBlacklistChanged';
     _this.SERVICE_LOCATION_BASE_URL_BLACKLIST_ADD = 'serviceLocationBlacklistAdd';
     _this.SERVICE_LOCATION_BASE_URL_BLACKLIST_CHANGED = 'serviceLocationBlacklistChanged';
+    _this.SERVICE_LOCATION_BASE_URL_BLACKLIST_REMOVED = 'serviceLocationBlacklistRemoved';
     _this.SERVICE_LOCATION_LOCATION_BLACKLIST_ADD = 'serviceLocationLocationBlacklistAdd';
     _this.SERVICE_LOCATION_LOCATION_BLACKLIST_CHANGED = 'serviceLocationLocationBlacklistChanged';
     _this.SET_FRAGMENTED_TEXT_AFTER_DISABLED = 'setFragmentedTextAfterDisabled';
@@ -3067,7 +3107,7 @@ var CoreEvents = /*#__PURE__*/function (_EventsBase) {
   return CoreEvents;
 }(_EventsBase__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CoreEvents);
+/* harmony default export */ __webpack_exports__["default"] = (CoreEvents);
 
 /***/ }),
 
@@ -3075,13 +3115,10 @@ var CoreEvents = /*#__PURE__*/function (_EventsBase) {
 /*!***********************************!*\
   !*** ./src/core/events/Events.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _CoreEvents__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CoreEvents */ "./src/core/events/CoreEvents.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -3153,7 +3190,7 @@ var Events = /*#__PURE__*/function (_CoreEvents) {
 }(_CoreEvents__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 var events = new Events();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (events);
+/* harmony default export */ __webpack_exports__["default"] = (events);
 
 /***/ }),
 
@@ -3161,13 +3198,10 @@ var events = new Events();
 /*!***************************************!*\
   !*** ./src/core/events/EventsBase.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -3232,7 +3266,7 @@ var EventsBase = /*#__PURE__*/function () {
   return EventsBase;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventsBase);
+/* harmony default export */ __webpack_exports__["default"] = (EventsBase);
 
 /***/ }),
 
@@ -3240,13 +3274,10 @@ var EventsBase = /*#__PURE__*/function () {
 /*!*********************************!*\
   !*** ./src/dash/DashHandler.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _streaming_vo_FragmentRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../streaming/vo/FragmentRequest */ "./src/streaming/vo/FragmentRequest.js");
 /* harmony import */ var _streaming_vo_metrics_HTTPRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../streaming/vo/metrics/HTTPRequest */ "./src/streaming/vo/metrics/HTTPRequest.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/FactoryMaker */ "./src/core/FactoryMaker.js");
@@ -3509,13 +3540,25 @@ function DashHandler(config) {
 
 
   function getNextSegmentRequest(mediaInfo, representation) {
-    var request = null;
-
     if (!representation || !representation.segmentInfoType) {
       return null;
     }
 
     var indexToRequest = lastSegment ? lastSegment.index + 1 : 0;
+    return _getRequest(mediaInfo, representation, indexToRequest);
+  }
+
+  function repeatSegmentRequest(mediaInfo, representation) {
+    if (!representation || !representation.segmentInfoType) {
+      return null;
+    }
+
+    var indexToRequest = lastSegment ? lastSegment.index : 0;
+    return _getRequest(mediaInfo, representation, indexToRequest);
+  }
+
+  function _getRequest(mediaInfo, representation, indexToRequest) {
+    var request = null;
     var segment = segmentsController.getSegmentByIndex(representation, indexToRequest, lastSegment ? lastSegment.mediaStartTime : -1); // No segment found
 
     if (!segment) {
@@ -3619,25 +3662,26 @@ function DashHandler(config) {
   }
 
   instance = {
-    initialize: initialize,
-    getStreamId: getStreamId,
-    getType: getType,
-    getStreamInfo: getStreamInfo,
-    getInitRequest: getInitRequest,
-    getSegmentRequestForTime: getSegmentRequestForTime,
     getCurrentIndex: getCurrentIndex,
+    getInitRequest: getInitRequest,
     getNextSegmentRequest: getNextSegmentRequest,
-    isLastSegmentRequested: isLastSegmentRequested,
-    reset: reset,
     getNextSegmentRequestIdempotent: getNextSegmentRequestIdempotent,
-    getValidTimeAheadOfTargetTime: getValidTimeAheadOfTargetTime
+    getSegmentRequestForTime: getSegmentRequestForTime,
+    getStreamId: getStreamId,
+    getStreamInfo: getStreamInfo,
+    getType: getType,
+    getValidTimeAheadOfTargetTime: getValidTimeAheadOfTargetTime,
+    initialize: initialize,
+    isLastSegmentRequested: isLastSegmentRequested,
+    repeatSegmentRequest: repeatSegmentRequest,
+    reset: reset
   };
   setup();
   return instance;
 }
 
 DashHandler.__dashjs_factory_name = 'DashHandler';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getClassFactory(DashHandler));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getClassFactory(DashHandler));
 
 /***/ }),
 
@@ -3645,13 +3689,10 @@ DashHandler.__dashjs_factory_name = 'DashHandler';
 /*!*********************************************!*\
   !*** ./src/dash/constants/DashConstants.js ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -3850,7 +3891,7 @@ var DashConstants = /*#__PURE__*/function () {
 }();
 
 var constants = new DashConstants();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (constants);
+/* harmony default export */ __webpack_exports__["default"] = (constants);
 
 /***/ }),
 
@@ -3858,13 +3899,10 @@ var constants = new DashConstants();
 /*!**********************************************************!*\
   !*** ./src/dash/controllers/RepresentationController.js ***!
   \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _streaming_constants_Constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../streaming/constants/Constants */ "./src/streaming/constants/Constants.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _streaming_MediaPlayerEvents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../streaming/MediaPlayerEvents */ "./src/streaming/MediaPlayerEvents.js");
@@ -4203,7 +4241,7 @@ function RepresentationController(config) {
 }
 
 RepresentationController.__dashjs_factory_name = 'RepresentationController';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getClassFactory(RepresentationController));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getClassFactory(RepresentationController));
 
 /***/ }),
 
@@ -4211,13 +4249,10 @@ RepresentationController.__dashjs_factory_name = 'RepresentationController';
 /*!****************************************************!*\
   !*** ./src/dash/controllers/SegmentsController.js ***!
   \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _utils_TimelineSegmentsGetter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/TimelineSegmentsGetter */ "./src/dash/utils/TimelineSegmentsGetter.js");
 /* harmony import */ var _utils_TemplateSegmentsGetter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/TemplateSegmentsGetter */ "./src/dash/utils/TemplateSegmentsGetter.js");
@@ -4337,7 +4372,7 @@ function SegmentsController(config) {
 
 SegmentsController.__dashjs_factory_name = 'SegmentsController';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(SegmentsController);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -4345,13 +4380,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClas
 /*!**********************************************!*\
   !*** ./src/dash/models/DashManifestModel.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _streaming_constants_Constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../streaming/constants/Constants */ "./src/streaming/constants/Constants.js");
 /* harmony import */ var _constants_DashConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/DashConstants */ "./src/dash/constants/DashConstants.js");
 /* harmony import */ var _vo_Representation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../vo/Representation */ "./src/dash/vo/Representation.js");
@@ -5833,7 +5865,7 @@ function DashManifestModel() {
 }
 
 DashManifestModel.__dashjs_factory_name = 'DashManifestModel';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_15__["default"].getSingletonFactory(DashManifestModel));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_15__["default"].getSingletonFactory(DashManifestModel));
 
 /***/ }),
 
@@ -5841,13 +5873,10 @@ DashManifestModel.__dashjs_factory_name = 'DashManifestModel';
 /*!***************************************!*\
   !*** ./src/dash/parser/DashParser.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _objectiron__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./objectiron */ "./src/dash/parser/objectiron.js");
 /* harmony import */ var _externals_xml2json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../externals/xml2json */ "./externals/xml2json.js");
@@ -5982,7 +6011,7 @@ function DashParser(config) {
 }
 
 DashParser.__dashjs_factory_name = 'DashParser';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(DashParser));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(DashParser));
 
 /***/ }),
 
@@ -5990,13 +6019,10 @@ DashParser.__dashjs_factory_name = 'DashParser';
 /*!************************************************!*\
   !*** ./src/dash/parser/maps/CommonProperty.js ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -6065,7 +6091,7 @@ var CommonProperty = /*#__PURE__*/function () {
   return CommonProperty;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CommonProperty);
+/* harmony default export */ __webpack_exports__["default"] = (CommonProperty);
 
 /***/ }),
 
@@ -6073,13 +6099,10 @@ var CommonProperty = /*#__PURE__*/function () {
 /*!*****************************************!*\
   !*** ./src/dash/parser/maps/MapNode.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _CommonProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CommonProperty */ "./src/dash/parser/maps/CommonProperty.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6160,7 +6183,7 @@ var MapNode = /*#__PURE__*/function () {
   return MapNode;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MapNode);
+/* harmony default export */ __webpack_exports__["default"] = (MapNode);
 
 /***/ }),
 
@@ -6168,13 +6191,10 @@ var MapNode = /*#__PURE__*/function () {
 /*!*************************************************************!*\
   !*** ./src/dash/parser/maps/RepresentationBaseValuesMap.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _MapNode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MapNode */ "./src/dash/parser/maps/MapNode.js");
 /* harmony import */ var _constants_DashConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../constants/DashConstants */ "./src/dash/constants/DashConstants.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -6247,7 +6267,7 @@ var RepresentationBaseValuesMap = /*#__PURE__*/function (_MapNode) {
   return RepresentationBaseValuesMap;
 }(_MapNode__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RepresentationBaseValuesMap);
+/* harmony default export */ __webpack_exports__["default"] = (RepresentationBaseValuesMap);
 
 /***/ }),
 
@@ -6255,13 +6275,10 @@ var RepresentationBaseValuesMap = /*#__PURE__*/function (_MapNode) {
 /*!**************************************************!*\
   !*** ./src/dash/parser/maps/SegmentValuesMap.js ***!
   \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _MapNode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MapNode */ "./src/dash/parser/maps/MapNode.js");
 /* harmony import */ var _constants_DashConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../constants/DashConstants */ "./src/dash/constants/DashConstants.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -6334,7 +6351,7 @@ var SegmentValuesMap = /*#__PURE__*/function (_MapNode) {
   return SegmentValuesMap;
 }(_MapNode__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SegmentValuesMap);
+/* harmony default export */ __webpack_exports__["default"] = (SegmentValuesMap);
 
 /***/ }),
 
@@ -6342,13 +6359,10 @@ var SegmentValuesMap = /*#__PURE__*/function (_MapNode) {
 /*!*************************************************!*\
   !*** ./src/dash/parser/matchers/BaseMatcher.js ***!
   \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -6414,7 +6428,7 @@ var BaseMatcher = /*#__PURE__*/function () {
   return BaseMatcher;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BaseMatcher);
+/* harmony default export */ __webpack_exports__["default"] = (BaseMatcher);
 
 /***/ }),
 
@@ -6422,13 +6436,10 @@ var BaseMatcher = /*#__PURE__*/function () {
 /*!*****************************************************!*\
   !*** ./src/dash/parser/matchers/DateTimeMatcher.js ***!
   \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _BaseMatcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseMatcher */ "./src/dash/parser/matchers/BaseMatcher.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -6519,7 +6530,7 @@ var DateTimeMatcher = /*#__PURE__*/function (_BaseMatcher) {
   return DateTimeMatcher;
 }(_BaseMatcher__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DateTimeMatcher);
+/* harmony default export */ __webpack_exports__["default"] = (DateTimeMatcher);
 
 /***/ }),
 
@@ -6527,13 +6538,10 @@ var DateTimeMatcher = /*#__PURE__*/function (_BaseMatcher) {
 /*!*****************************************************!*\
   !*** ./src/dash/parser/matchers/DurationMatcher.js ***!
   \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _BaseMatcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseMatcher */ "./src/dash/parser/matchers/BaseMatcher.js");
 /* harmony import */ var _streaming_constants_Constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../streaming/constants/Constants */ "./src/streaming/constants/Constants.js");
 /* harmony import */ var _constants_DashConstants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../constants/DashConstants */ "./src/dash/constants/DashConstants.js");
@@ -6634,7 +6642,7 @@ var DurationMatcher = /*#__PURE__*/function (_BaseMatcher) {
   return DurationMatcher;
 }(_BaseMatcher__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DurationMatcher);
+/* harmony default export */ __webpack_exports__["default"] = (DurationMatcher);
 
 /***/ }),
 
@@ -6642,17 +6650,13 @@ var DurationMatcher = /*#__PURE__*/function (_BaseMatcher) {
 /*!*************************************************!*\
   !*** ./src/dash/parser/matchers/LangMatcher.js ***!
   \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _BaseMatcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseMatcher */ "./src/dash/parser/matchers/BaseMatcher.js");
 /* harmony import */ var _constants_DashConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../constants/DashConstants */ "./src/dash/constants/DashConstants.js");
-/* harmony import */ var bcp_47_normalize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bcp-47-normalize */ "./node_modules/bcp-47-normalize/index.js");
-/* harmony import */ var bcp_47_normalize__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(bcp_47_normalize__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var bcp_47_normalize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bcp-47-normalize */ "./node_modules/bcp-47-normalize/lib/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -6736,9 +6740,9 @@ var LangMatcher = /*#__PURE__*/function (_BaseMatcher) {
 
       return false;
     }, function (str) {
-      var lang = bcp_47_normalize__WEBPACK_IMPORTED_MODULE_2___default()(str);
+      var lang = (0,bcp_47_normalize__WEBPACK_IMPORTED_MODULE_2__.bcp47Normalize)(str);
 
-      if (lang !== undefined) {
+      if (lang) {
         return lang;
       }
 
@@ -6749,7 +6753,7 @@ var LangMatcher = /*#__PURE__*/function (_BaseMatcher) {
   return LangMatcher;
 }(_BaseMatcher__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LangMatcher);
+/* harmony default export */ __webpack_exports__["default"] = (LangMatcher);
 
 /***/ }),
 
@@ -6757,13 +6761,10 @@ var LangMatcher = /*#__PURE__*/function (_BaseMatcher) {
 /*!****************************************************!*\
   !*** ./src/dash/parser/matchers/NumericMatcher.js ***!
   \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _BaseMatcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseMatcher */ "./src/dash/parser/matchers/BaseMatcher.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -6838,7 +6839,7 @@ var NumericMatcher = /*#__PURE__*/function (_BaseMatcher) {
   return NumericMatcher;
 }(_BaseMatcher__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NumericMatcher);
+/* harmony default export */ __webpack_exports__["default"] = (NumericMatcher);
 
 /***/ }),
 
@@ -6846,13 +6847,10 @@ var NumericMatcher = /*#__PURE__*/function (_BaseMatcher) {
 /*!***************************************************!*\
   !*** ./src/dash/parser/matchers/StringMatcher.js ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _BaseMatcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseMatcher */ "./src/dash/parser/matchers/BaseMatcher.js");
 /* harmony import */ var _constants_DashConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../constants/DashConstants */ "./src/dash/constants/DashConstants.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -6944,7 +6942,7 @@ var StringMatcher = /*#__PURE__*/function (_BaseMatcher) {
   return StringMatcher;
 }(_BaseMatcher__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StringMatcher);
+/* harmony default export */ __webpack_exports__["default"] = (StringMatcher);
 
 /***/ }),
 
@@ -6952,13 +6950,10 @@ var StringMatcher = /*#__PURE__*/function (_BaseMatcher) {
 /*!***************************************!*\
   !*** ./src/dash/parser/objectiron.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -7081,7 +7076,7 @@ function ObjectIron(mappers) {
 
 ObjectIron.__dashjs_factory_name = 'ObjectIron';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(ObjectIron);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -7089,13 +7084,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClas
 /*!**********************************************!*\
   !*** ./src/dash/utils/ListSegmentsGetter.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _streaming_constants_Constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../streaming/constants/Constants */ "./src/streaming/constants/Constants.js");
 /* harmony import */ var _SegmentsUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SegmentsUtils */ "./src/dash/utils/SegmentsUtils.js");
@@ -7218,7 +7210,7 @@ function ListSegmentsGetter(config, isDynamic) {
 
 ListSegmentsGetter.__dashjs_factory_name = 'ListSegmentsGetter';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(ListSegmentsGetter);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -7226,13 +7218,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClas
 /*!*********************************************!*\
   !*** ./src/dash/utils/SegmentBaseGetter.js ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _streaming_constants_Constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../streaming/constants/Constants */ "./src/streaming/constants/Constants.js");
 /**
@@ -7365,7 +7354,7 @@ function SegmentBaseGetter(config) {
 
 SegmentBaseGetter.__dashjs_factory_name = 'SegmentBaseGetter';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(SegmentBaseGetter);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -7373,16 +7362,16 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClas
 /*!*****************************************!*\
   !*** ./src/dash/utils/SegmentsUtils.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getIndexBasedSegment": () => (/* binding */ getIndexBasedSegment),
-/* harmony export */   "getTimeBasedSegment": () => (/* binding */ getTimeBasedSegment),
-/* harmony export */   "replaceIDForTemplate": () => (/* binding */ replaceIDForTemplate),
-/* harmony export */   "replaceTokenForTemplate": () => (/* binding */ replaceTokenForTemplate),
-/* harmony export */   "unescapeDollarsInTemplate": () => (/* binding */ unescapeDollarsInTemplate)
+/* harmony export */   "getIndexBasedSegment": function() { return /* binding */ getIndexBasedSegment; },
+/* harmony export */   "getTimeBasedSegment": function() { return /* binding */ getTimeBasedSegment; },
+/* harmony export */   "replaceIDForTemplate": function() { return /* binding */ replaceIDForTemplate; },
+/* harmony export */   "replaceTokenForTemplate": function() { return /* binding */ replaceTokenForTemplate; },
+/* harmony export */   "unescapeDollarsInTemplate": function() { return /* binding */ unescapeDollarsInTemplate; }
 /* harmony export */ });
 /* harmony import */ var _vo_Segment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../vo/Segment */ "./src/dash/vo/Segment.js");
 /**
@@ -7599,13 +7588,10 @@ function getTimeBasedSegment(timelineConverter, isDynamic, representation, time,
 /*!**************************************************!*\
   !*** ./src/dash/utils/TemplateSegmentsGetter.js ***!
   \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _streaming_constants_Constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../streaming/constants/Constants */ "./src/streaming/constants/Constants.js");
 /* harmony import */ var _SegmentsUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SegmentsUtils */ "./src/dash/utils/SegmentsUtils.js");
@@ -7727,7 +7713,7 @@ function TemplateSegmentsGetter(config, isDynamic) {
 
 TemplateSegmentsGetter.__dashjs_factory_name = 'TemplateSegmentsGetter';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(TemplateSegmentsGetter);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -7735,13 +7721,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClas
 /*!**************************************************!*\
   !*** ./src/dash/utils/TimelineSegmentsGetter.js ***!
   \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _streaming_constants_Constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../streaming/constants/Constants */ "./src/streaming/constants/Constants.js");
 /* harmony import */ var _SegmentsUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SegmentsUtils */ "./src/dash/utils/SegmentsUtils.js");
@@ -7996,7 +7979,7 @@ function TimelineSegmentsGetter(config, isDynamic) {
 
 TimelineSegmentsGetter.__dashjs_factory_name = 'TimelineSegmentsGetter';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(TimelineSegmentsGetter);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -8004,13 +7987,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClas
 /*!**************************************!*\
   !*** ./src/dash/vo/AdaptationSet.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8056,7 +8036,7 @@ var AdaptationSet = function AdaptationSet() {
   this.type = null;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AdaptationSet);
+/* harmony default export */ __webpack_exports__["default"] = (AdaptationSet);
 
 /***/ }),
 
@@ -8064,13 +8044,10 @@ var AdaptationSet = function AdaptationSet() {
 /*!********************************!*\
   !*** ./src/dash/vo/BaseURL.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8130,7 +8107,7 @@ var BaseURL = function BaseURL(url, serviceLocation, priority, weight) {
 
 BaseURL.DEFAULT_DVB_PRIORITY = DEFAULT_DVB_PRIORITY;
 BaseURL.DEFAULT_DVB_WEIGHT = DEFAULT_DVB_WEIGHT;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BaseURL);
+/* harmony default export */ __webpack_exports__["default"] = (BaseURL);
 
 /***/ }),
 
@@ -8138,13 +8115,10 @@ BaseURL.DEFAULT_DVB_WEIGHT = DEFAULT_DVB_WEIGHT;
 /*!****************************************!*\
   !*** ./src/dash/vo/ContentSteering.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8192,7 +8166,7 @@ var ContentSteering = function ContentSteering() {
   this.clientRequirement = true;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ContentSteering);
+/* harmony default export */ __webpack_exports__["default"] = (ContentSteering);
 
 /***/ }),
 
@@ -8200,13 +8174,10 @@ var ContentSteering = function ContentSteering() {
 /*!***************************************!*\
   !*** ./src/dash/vo/DescriptorType.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -8273,7 +8244,7 @@ var DescriptorType = /*#__PURE__*/function () {
   return DescriptorType;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DescriptorType);
+/* harmony default export */ __webpack_exports__["default"] = (DescriptorType);
 
 /***/ }),
 
@@ -8281,13 +8252,10 @@ var DescriptorType = /*#__PURE__*/function () {
 /*!******************************!*\
   !*** ./src/dash/vo/Event.js ***!
   \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8337,7 +8305,7 @@ var Event = function Event() {
   this.presentationTimeDelta = NaN; // Specific EMSG Box parameter
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Event);
+/* harmony default export */ __webpack_exports__["default"] = (Event);
 
 /***/ }),
 
@@ -8345,13 +8313,10 @@ var Event = function Event() {
 /*!************************************!*\
   !*** ./src/dash/vo/EventStream.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8401,7 +8366,7 @@ var EventStream = function EventStream() {
   this.presentationTimeOffset = 0;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventStream);
+/* harmony default export */ __webpack_exports__["default"] = (EventStream);
 
 /***/ }),
 
@@ -8409,13 +8374,10 @@ var EventStream = function EventStream() {
 /*!****************************!*\
   !*** ./src/dash/vo/Mpd.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8467,7 +8429,7 @@ var Mpd = function Mpd() {
   this.mediaPresentationDuration = NaN;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Mpd);
+/* harmony default export */ __webpack_exports__["default"] = (Mpd);
 
 /***/ }),
 
@@ -8475,13 +8437,10 @@ var Mpd = function Mpd() {
 /*!************************************!*\
   !*** ./src/dash/vo/MpdLocation.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8527,7 +8486,7 @@ var MpdLocation = function MpdLocation(url, serviceLocation) {
   this.queryParams = {}; // This is an attribute that might be set when synthesizing Locations with content steering
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MpdLocation);
+/* harmony default export */ __webpack_exports__["default"] = (MpdLocation);
 
 /***/ }),
 
@@ -8535,13 +8494,10 @@ var MpdLocation = function MpdLocation(url, serviceLocation) {
 /*!**************************************!*\
   !*** ./src/dash/vo/PatchLocation.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8588,7 +8544,7 @@ var PatchLocation = function PatchLocation(url, serviceLocation, ttl) {
   this.queryParams = {}; // This is an attribute that might be set when synthesizing Locations with content steering
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PatchLocation);
+/* harmony default export */ __webpack_exports__["default"] = (PatchLocation);
 
 /***/ }),
 
@@ -8596,13 +8552,10 @@ var PatchLocation = function PatchLocation(url, serviceLocation, ttl) {
 /*!*******************************!*\
   !*** ./src/dash/vo/Period.js ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8652,7 +8605,7 @@ var Period = function Period() {
 };
 
 Period.DEFAULT_ID = 'defaultId';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Period);
+/* harmony default export */ __webpack_exports__["default"] = (Period);
 
 /***/ }),
 
@@ -8660,13 +8613,10 @@ Period.DEFAULT_ID = 'defaultId';
 /*!**********************************************!*\
   !*** ./src/dash/vo/ProducerReferenceTime.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8716,7 +8666,7 @@ var ProducerReferenceTime = function ProducerReferenceTime() {
   this.UTCTiming = null;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProducerReferenceTime);
+/* harmony default export */ __webpack_exports__["default"] = (ProducerReferenceTime);
 
 /***/ }),
 
@@ -8724,13 +8674,10 @@ var ProducerReferenceTime = function ProducerReferenceTime() {
 /*!***************************************!*\
   !*** ./src/dash/vo/Representation.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _constants_DashConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/DashConstants */ "./src/dash/constants/DashConstants.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -8825,7 +8772,7 @@ var Representation = /*#__PURE__*/function () {
   return Representation;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Representation);
+/* harmony default export */ __webpack_exports__["default"] = (Representation);
 
 /***/ }),
 
@@ -8833,13 +8780,10 @@ var Representation = /*#__PURE__*/function () {
 /*!********************************!*\
   !*** ./src/dash/vo/Segment.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8905,7 +8849,7 @@ var Segment = function Segment() {
   this.representation = null;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Segment);
+/* harmony default export */ __webpack_exports__["default"] = (Segment);
 
 /***/ }),
 
@@ -8913,13 +8857,10 @@ var Segment = function Segment() {
 /*!**********************************!*\
   !*** ./src/dash/vo/UTCTiming.js ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -8965,7 +8906,7 @@ var UTCTiming = function UTCTiming() {
   this.value = '';
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UTCTiming);
+/* harmony default export */ __webpack_exports__["default"] = (UTCTiming);
 
 /***/ }),
 
@@ -8973,13 +8914,10 @@ var UTCTiming = function UTCTiming() {
 /*!****************************************!*\
   !*** ./src/offline/OfflineDownload.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _constants_OfflineConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants/OfflineConstants */ "./src/offline/constants/OfflineConstants.js");
 /* harmony import */ var _OfflineStream__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OfflineStream */ "./src/offline/OfflineStream.js");
 /* harmony import */ var _utils_OfflineIndexDBManifestParser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/OfflineIndexDBManifestParser */ "./src/offline/utils/OfflineIndexDBManifestParser.js");
@@ -9628,7 +9566,7 @@ function OfflineDownload(config) {
 }
 
 OfflineDownload.__dashjs_factory_name = 'OfflineDownload';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dashjs.FactoryMaker.getClassFactory(OfflineDownload));
+/* harmony default export */ __webpack_exports__["default"] = (dashjs.FactoryMaker.getClassFactory(OfflineDownload));
 /* jshint ignore:line */
 
 /***/ }),
@@ -9637,13 +9575,10 @@ OfflineDownload.__dashjs_factory_name = 'OfflineDownload';
 /*!**************************************!*\
   !*** ./src/offline/OfflineStream.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _OfflineStreamProcessor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OfflineStreamProcessor */ "./src/offline/OfflineStreamProcessor.js");
 /**
  * The copyright in this software is being made available under the BSD License,
@@ -9993,7 +9928,7 @@ function OfflineStream(config) {
 }
 
 OfflineStream.__dashjs_factory_name = 'OfflineStream';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dashjs.FactoryMaker.getClassFactory(OfflineStream));
+/* harmony default export */ __webpack_exports__["default"] = (dashjs.FactoryMaker.getClassFactory(OfflineStream));
 /* jshint ignore:line */
 
 /***/ }),
@@ -10002,13 +9937,10 @@ OfflineStream.__dashjs_factory_name = 'OfflineStream';
 /*!***********************************************!*\
   !*** ./src/offline/OfflineStreamProcessor.js ***!
   \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _dash_DashHandler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dash/DashHandler */ "./src/dash/DashHandler.js");
 /* harmony import */ var _dash_controllers_RepresentationController__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dash/controllers/RepresentationController */ "./src/dash/controllers/RepresentationController.js");
 /* harmony import */ var _streaming_models_FragmentModel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../streaming/models/FragmentModel */ "./src/streaming/models/FragmentModel.js");
@@ -10123,6 +10055,7 @@ function OfflineStreamProcessor(config) {
       events: events,
       eventBus: eventBus,
       errors: errors,
+      adapter: adapter,
       segmentsController: segmentsController
     });
     fragmentModel = (0,_streaming_models_FragmentModel__WEBPACK_IMPORTED_MODULE_2__["default"])(context).create({
@@ -10386,7 +10319,7 @@ OfflineStreamProcessor.__dashjs_factory_name = 'OfflineStreamProcessor';
 var factory = dashjs.FactoryMaker.getClassFactory(OfflineStreamProcessor);
 /* jshint ignore:line */
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -10394,13 +10327,10 @@ var factory = dashjs.FactoryMaker.getClassFactory(OfflineStreamProcessor);
 /*!***************************************************!*\
   !*** ./src/offline/constants/OfflineConstants.js ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -10467,7 +10397,7 @@ var OfflineConstants = /*#__PURE__*/function () {
 }();
 
 var constants = new OfflineConstants();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (constants);
+/* harmony default export */ __webpack_exports__["default"] = (constants);
 
 /***/ }),
 
@@ -10475,13 +10405,10 @@ var constants = new OfflineConstants();
 /*!******************************************************!*\
   !*** ./src/offline/controllers/OfflineController.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _constants_OfflineConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/OfflineConstants */ "./src/offline/constants/OfflineConstants.js");
 /* harmony import */ var _OfflineStoreController__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OfflineStoreController */ "./src/offline/controllers/OfflineStoreController.js");
 /* harmony import */ var _OfflineDownload__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../OfflineDownload */ "./src/offline/OfflineDownload.js");
@@ -10886,7 +10813,7 @@ factory.errors = _errors_OfflineErrors__WEBPACK_IMPORTED_MODULE_6__["default"];
 dashjs.FactoryMaker.updateClassFactory(OfflineController.__dashjs_factory_name, factory);
 /* jshint ignore:line */
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -10894,13 +10821,10 @@ dashjs.FactoryMaker.updateClassFactory(OfflineController.__dashjs_factory_name, 
 /*!***********************************************************!*\
   !*** ./src/offline/controllers/OfflineStoreController.js ***!
   \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _storage_IndexDBStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../storage/IndexDBStore */ "./src/offline/storage/IndexDBStore.js");
 /* harmony import */ var _errors_OfflineErrors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../errors/OfflineErrors */ "./src/offline/errors/OfflineErrors.js");
 /**
@@ -11077,7 +11001,7 @@ function OfflineStoreController(config) {
 }
 
 OfflineStoreController.__dashjs_factory_name = 'OfflineStoreController';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dashjs.FactoryMaker.getClassFactory(OfflineStoreController));
+/* harmony default export */ __webpack_exports__["default"] = (dashjs.FactoryMaker.getClassFactory(OfflineStoreController));
 /* jshint ignore:line */
 
 /***/ }),
@@ -11086,13 +11010,10 @@ OfflineStoreController.__dashjs_factory_name = 'OfflineStoreController';
 /*!*********************************************!*\
   !*** ./src/offline/errors/OfflineErrors.js ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_errors_ErrorsBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/errors/ErrorsBase */ "./src/core/errors/ErrorsBase.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -11185,7 +11106,7 @@ var OfflineErrors = /*#__PURE__*/function (_ErrorsBase) {
 }(_core_errors_ErrorsBase__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 var offlineErrors = new OfflineErrors();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (offlineErrors);
+/* harmony default export */ __webpack_exports__["default"] = (offlineErrors);
 
 /***/ }),
 
@@ -11193,13 +11114,10 @@ var offlineErrors = new OfflineErrors();
 /*!*********************************************!*\
   !*** ./src/offline/events/OfflineEvents.js ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_events_EventsBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../core/events/EventsBase */ "./src/core/events/EventsBase.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -11267,7 +11185,7 @@ var OfflineEvents = /*#__PURE__*/function (_EventsBase) {
 }(_core_events_EventsBase__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 var offlineEvents = new OfflineEvents();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (offlineEvents);
+/* harmony default export */ __webpack_exports__["default"] = (offlineEvents);
 
 /***/ }),
 
@@ -11275,13 +11193,10 @@ var offlineEvents = new OfflineEvents();
 /*!*************************************************!*\
   !*** ./src/offline/net/IndexDBOfflineLoader.js ***!
   \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _storage_IndexDBStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../storage/IndexDBStore */ "./src/offline/storage/IndexDBStore.js");
 /**
  * The copyright in this software is being made available under the BSD License,
@@ -11380,7 +11295,7 @@ IndexDBOfflineLoader.__dashjs_factory_name = 'IndexDBOfflineLoader';
 var factory = dashjs.FactoryMaker.getClassFactory(IndexDBOfflineLoader);
 /* jshint ignore:line */
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -11388,13 +11303,10 @@ var factory = dashjs.FactoryMaker.getClassFactory(IndexDBOfflineLoader);
 /*!*********************************************!*\
   !*** ./src/offline/storage/IndexDBStore.js ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /**
  * The copyright in this software is being made available under the BSD License,
  * included below. This software may be subject to other third party and contributor
@@ -11851,7 +11763,7 @@ function IndexDBStore() {
 }
 
 IndexDBStore.__dashjs_factory_name = 'IndexDBStore';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dashjs.FactoryMaker.getSingletonFactory(IndexDBStore));
+/* harmony default export */ __webpack_exports__["default"] = (dashjs.FactoryMaker.getSingletonFactory(IndexDBStore));
 /* jshint ignore:line */
 
 /***/ }),
@@ -11860,13 +11772,10 @@ IndexDBStore.__dashjs_factory_name = 'IndexDBStore';
 /*!***********************************************************!*\
   !*** ./src/offline/utils/OfflineIndexDBManifestParser.js ***!
   \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /**
  * The copyright in this software is being made available under the BSD License,
  * included below. This software may be subject to other third party and contributor
@@ -12380,7 +12289,7 @@ function OfflineIndexDBManifestParser(config) {
 }
 
 OfflineIndexDBManifestParser.__dashjs_factory_name = 'OfflineIndexDBManifestParser';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dashjs.FactoryMaker.getClassFactory(OfflineIndexDBManifestParser));
+/* harmony default export */ __webpack_exports__["default"] = (dashjs.FactoryMaker.getClassFactory(OfflineIndexDBManifestParser));
 /* jshint ignore:line */
 
 /***/ }),
@@ -12389,13 +12298,10 @@ OfflineIndexDBManifestParser.__dashjs_factory_name = 'OfflineIndexDBManifestPars
 /*!**********************************************!*\
   !*** ./src/offline/utils/OfflineUrlUtils.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _constants_OfflineConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/OfflineConstants */ "./src/offline/constants/OfflineConstants.js");
 /**
  * The copyright in this software is being made available under the BSD License,
@@ -12469,7 +12375,7 @@ function OfflineUrlUtils() {
 }
 
 OfflineUrlUtils.__dashjs_factory_name = 'OfflineUrlUtils';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dashjs.FactoryMaker.getSingletonFactory(OfflineUrlUtils));
+/* harmony default export */ __webpack_exports__["default"] = (dashjs.FactoryMaker.getSingletonFactory(OfflineUrlUtils));
 /* jshint ignore:line */
 
 /***/ }),
@@ -12478,13 +12384,10 @@ OfflineUrlUtils.__dashjs_factory_name = 'OfflineUrlUtils';
 /*!*********************************************!*\
   !*** ./src/offline/vo/OfflineDownloadVo.js ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -12532,7 +12435,7 @@ var OfflineDownload = function OfflineDownload() {
   this.progress = null;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OfflineDownload);
+/* harmony default export */ __webpack_exports__["default"] = (OfflineDownload);
 
 /***/ }),
 
@@ -12540,13 +12443,10 @@ var OfflineDownload = function OfflineDownload() {
 /*!*****************************************!*\
   !*** ./src/streaming/FragmentLoader.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _constants_Constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants/Constants */ "./src/streaming/constants/Constants.js");
 /* harmony import */ var _net_URLLoader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./net/URLLoader */ "./src/streaming/net/URLLoader.js");
 /* harmony import */ var _vo_HeadRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vo/HeadRequest */ "./src/streaming/vo/HeadRequest.js");
@@ -12711,7 +12611,7 @@ function FragmentLoader(config) {
 }
 
 FragmentLoader.__dashjs_factory_name = 'FragmentLoader';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_4__["default"].getClassFactory(FragmentLoader));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_4__["default"].getClassFactory(FragmentLoader));
 
 /***/ }),
 
@@ -12719,13 +12619,10 @@ FragmentLoader.__dashjs_factory_name = 'FragmentLoader';
 /*!********************************************!*\
   !*** ./src/streaming/MediaPlayerEvents.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_events_EventsBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/events/EventsBase */ "./src/core/events/EventsBase.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -12804,6 +12701,12 @@ var MediaPlayerEvents = /*#__PURE__*/function (_EventsBase) {
 
     _this.AST_IN_FUTURE = 'astInFuture';
     /**
+     * Triggered when a new baseUrl has been selected.
+     * @event MediaPlayerEvents#BASEURL_SELECTED
+     */
+
+    _this.BASEURL_SELECTED = 'baseUrlSelected';
+    /**
      * Triggered when the BaseURLs have been updated.
      * @event MediaPlayerEvents#BASE_URLS_UPDATED
      */
@@ -12877,6 +12780,12 @@ var MediaPlayerEvents = /*#__PURE__*/function (_EventsBase) {
      */
 
     _this.LOG = 'log';
+    /**
+     * Triggered when the 'Content-Length' header for a fragment does not match the byte length.
+     * @event MediaPlayerEvents#FRAGMENT_CONTENT_LENGTH_MISMATCH
+     */
+
+    _this.FRAGMENT_CONTENT_LENGTH_MISMATCH = 'fragmentContentLengthMismatch';
     /**
      * Triggered when the manifest load is started
      * @event MediaPlayerEvents#MANIFEST_LOADING_STARTED
@@ -13195,6 +13104,18 @@ var MediaPlayerEvents = /*#__PURE__*/function (_EventsBase) {
      */
 
     _this.INBAND_PRFT = 'inbandPrft';
+    /**
+     * The streaming attribute of the Managed Media Source is true
+     * @type {string}
+     */
+
+    _this.MANAGED_MEDIA_SOURCE_START_STREAMING = 'managedMediaSourceStartStreaming';
+    /**
+     * The streaming attribute of the Managed Media Source is false
+     * @type {string}
+     */
+
+    _this.MANAGED_MEDIA_SOURCE_END_STREAMING = 'managedMediaSourceEndStreaming';
     return _this;
   }
 
@@ -13202,7 +13123,7 @@ var MediaPlayerEvents = /*#__PURE__*/function (_EventsBase) {
 }(_core_events_EventsBase__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 var mediaPlayerEvents = new MediaPlayerEvents();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mediaPlayerEvents);
+/* harmony default export */ __webpack_exports__["default"] = (mediaPlayerEvents);
 
 /***/ }),
 
@@ -13210,13 +13131,10 @@ var mediaPlayerEvents = new MediaPlayerEvents();
 /*!**********************************************!*\
   !*** ./src/streaming/constants/Constants.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -13539,7 +13457,7 @@ var Constants = /*#__PURE__*/function () {
 }();
 
 var constants = new Constants();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (constants);
+/* harmony default export */ __webpack_exports__["default"] = (constants);
 
 /***/ }),
 
@@ -13547,13 +13465,10 @@ var constants = new Constants();
 /*!*****************************************************!*\
   !*** ./src/streaming/constants/MetricsConstants.js ***!
   \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -13632,7 +13547,7 @@ var MetricsConstants = /*#__PURE__*/function () {
 }();
 
 var constants = new MetricsConstants();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (constants);
+/* harmony default export */ __webpack_exports__["default"] = (constants);
 
 /***/ }),
 
@@ -13640,13 +13555,10 @@ var constants = new MetricsConstants();
 /*!*********************************************************!*\
   !*** ./src/streaming/metrics/MetricsReportingEvents.js ***!
   \*********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_events_EventsBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/events/EventsBase */ "./src/core/events/EventsBase.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -13728,7 +13640,7 @@ var MetricsReportingEvents = /*#__PURE__*/function (_EventsBase) {
 }(_core_events_EventsBase__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 var metricsReportingEvents = new MetricsReportingEvents();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (metricsReportingEvents);
+/* harmony default export */ __webpack_exports__["default"] = (metricsReportingEvents);
 
 /***/ }),
 
@@ -13736,13 +13648,10 @@ var metricsReportingEvents = new MetricsReportingEvents();
 /*!*******************************************!*\
   !*** ./src/streaming/models/CmcdModel.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_EventBus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/EventBus */ "./src/core/EventBus.js");
 /* harmony import */ var _MediaPlayerEvents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../MediaPlayerEvents */ "./src/streaming/MediaPlayerEvents.js");
 /* harmony import */ var _metrics_MetricsReportingEvents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../metrics/MetricsReportingEvents */ "./src/streaming/metrics/MetricsReportingEvents.js");
@@ -14400,7 +14309,7 @@ function CmcdModel() {
 }
 
 CmcdModel.__dashjs_factory_name = 'CmcdModel';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_3__["default"].getSingletonFactory(CmcdModel));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_3__["default"].getSingletonFactory(CmcdModel));
 
 /***/ }),
 
@@ -14408,13 +14317,10 @@ CmcdModel.__dashjs_factory_name = 'CmcdModel';
 /*!*******************************************!*\
   !*** ./src/streaming/models/CmsdModel.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _core_EventBus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/EventBus */ "./src/core/EventBus.js");
 /* harmony import */ var _core_events_Events__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/events/Events */ "./src/core/events/Events.js");
@@ -14723,7 +14629,7 @@ function CmsdModel() {
 }
 
 CmsdModel.__dashjs_factory_name = 'CmsdModel';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(CmsdModel));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(CmsdModel));
 
 /***/ }),
 
@@ -14731,13 +14637,10 @@ CmsdModel.__dashjs_factory_name = 'CmsdModel';
 /*!*******************************************************!*\
   !*** ./src/streaming/models/CustomParametersModel.js ***!
   \*******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _dash_vo_UTCTiming__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../dash/vo/UTCTiming */ "./src/dash/vo/UTCTiming.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _core_Settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/Settings */ "./src/core/Settings.js");
@@ -15133,7 +15036,7 @@ function CustomParametersModel() {
 }
 
 CustomParametersModel.__dashjs_factory_name = 'CustomParametersModel';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getSingletonFactory(CustomParametersModel));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getSingletonFactory(CustomParametersModel));
 
 /***/ }),
 
@@ -15141,13 +15044,10 @@ CustomParametersModel.__dashjs_factory_name = 'CustomParametersModel';
 /*!***********************************************!*\
   !*** ./src/streaming/models/FragmentModel.js ***!
   \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _vo_FragmentRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../vo/FragmentRequest */ "./src/streaming/vo/FragmentRequest.js");
 /**
@@ -15513,7 +15413,7 @@ factory.FRAGMENT_MODEL_EXECUTED = FRAGMENT_MODEL_EXECUTED;
 factory.FRAGMENT_MODEL_CANCELED = FRAGMENT_MODEL_CANCELED;
 factory.FRAGMENT_MODEL_FAILED = FRAGMENT_MODEL_FAILED;
 _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].updateClassFactory(FragmentModel.__dashjs_factory_name, factory);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -15521,13 +15421,10 @@ _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].updateClassFactory(Fr
 /*!***********************************************************!*\
   !*** ./src/streaming/models/LowLatencyThroughputModel.js ***!
   \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_Debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/Debug */ "./src/core/Debug.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /**
@@ -15803,7 +15700,7 @@ function LowLatencyThroughputModel() {
 }
 
 LowLatencyThroughputModel.__dashjs_factory_name = 'LowLatencyThroughputModel';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getSingletonFactory(LowLatencyThroughputModel));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getSingletonFactory(LowLatencyThroughputModel));
 
 /***/ }),
 
@@ -15811,13 +15708,10 @@ LowLatencyThroughputModel.__dashjs_factory_name = 'LowLatencyThroughputModel';
 /*!******************************************!*\
   !*** ./src/streaming/net/FetchLoader.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _core_Settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/Settings */ "./src/core/Settings.js");
 /* harmony import */ var _constants_Constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/Constants */ "./src/streaming/constants/Constants.js");
@@ -16348,7 +16242,7 @@ function FetchLoader(cfg) {
 
 FetchLoader.__dashjs_factory_name = 'FetchLoader';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(FetchLoader);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -16356,13 +16250,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClas
 /*!*****************************************!*\
   !*** ./src/streaming/net/HTTPLoader.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _XHRLoader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./XHRLoader */ "./src/streaming/net/XHRLoader.js");
 /* harmony import */ var _FetchLoader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FetchLoader */ "./src/streaming/net/FetchLoader.js");
 /* harmony import */ var _vo_metrics_HTTPRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../vo/metrics/HTTPRequest */ "./src/streaming/vo/metrics/HTTPRequest.js");
@@ -16378,6 +16269,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants_Constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../constants/Constants */ "./src/streaming/constants/Constants.js");
 /* harmony import */ var _models_LowLatencyThroughputModel__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../models/LowLatencyThroughputModel */ "./src/streaming/models/LowLatencyThroughputModel.js");
 /* harmony import */ var _models_CustomParametersModel__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../models/CustomParametersModel */ "./src/streaming/models/CustomParametersModel.js");
+/* harmony import */ var _MediaPlayerEvents__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../MediaPlayerEvents */ "./src/streaming/MediaPlayerEvents.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
@@ -16410,6 +16302,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
+
 
 
 
@@ -16611,6 +16504,19 @@ function HTTPLoader(cfg) {
 
     var onload = function onload() {
       if (httpRequest.response.status >= 200 && httpRequest.response.status <= 299) {
+        if (hasContentLengthMismatch(httpRequest.response)) {
+          var responseUrl = httpRequest.response.responseURL;
+          var mediaType = httpRequest.request.mediaType;
+          var headerLength = httpRequest.response.getResponseHeader('content-length');
+          var bodyLength = httpRequest.response.response.byteLength;
+          eventBus.trigger(_MediaPlayerEvents__WEBPACK_IMPORTED_MODULE_15__["default"].FRAGMENT_CONTENT_LENGTH_MISMATCH, {
+            responseUrl: responseUrl,
+            mediaType: mediaType,
+            headerLength: headerLength,
+            bodyLength: bodyLength
+          });
+        }
+
         handleLoaded(true);
 
         if (config.success) {
@@ -16757,6 +16663,19 @@ function HTTPLoader(cfg) {
       return [];
     }
   }
+
+  function hasContentLengthMismatch(response) {
+    if (response && response.responseType === 'arraybuffer' && response.getResponseHeader) {
+      var headerLength = response.getResponseHeader('content-length');
+      var dataLength = response.response.byteLength;
+
+      if (headerLength && dataLength && Math.abs(dataLength - headerLength) > headerLength * 0.25) {
+        return true;
+      }
+    }
+
+    return false;
+  }
   /**
    * Initiates a download of the resource described by config.request
    * @param {Object} config - contains request (FragmentRequest or derived type), and callbacks
@@ -16819,7 +16738,7 @@ function HTTPLoader(cfg) {
 
 HTTPLoader.__dashjs_factory_name = 'HTTPLoader';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_3__["default"].getClassFactory(HTTPLoader);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -16827,13 +16746,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_3__["default"].getClas
 /*!**************************************************!*\
   !*** ./src/streaming/net/SchemeLoaderFactory.js ***!
   \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _streaming_net_HTTPLoader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../streaming/net/HTTPLoader */ "./src/streaming/net/HTTPLoader.js");
 /**
@@ -16924,7 +16840,7 @@ function SchemeLoaderFactory() {
 
 SchemeLoaderFactory.__dashjs_factory_name = 'SchemeLoaderFactory';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(SchemeLoaderFactory);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -16932,13 +16848,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSing
 /*!****************************************!*\
   !*** ./src/streaming/net/URLLoader.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _streaming_net_SchemeLoaderFactory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../streaming/net/SchemeLoaderFactory */ "./src/streaming/net/SchemeLoaderFactory.js");
 /**
@@ -17021,7 +16934,7 @@ function URLLoader(cfg) {
 
 URLLoader.__dashjs_factory_name = 'URLLoader';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(URLLoader);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -17029,13 +16942,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClas
 /*!****************************************!*\
   !*** ./src/streaming/net/XHRLoader.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _utils_RequestModifier__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/RequestModifier */ "./src/streaming/utils/RequestModifier.js");
 /**
@@ -17155,7 +17065,7 @@ function XHRLoader(cfg) {
 
 XHRLoader.__dashjs_factory_name = 'XHRLoader';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(XHRLoader);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -17163,13 +17073,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClas
 /*!**********************************************!*\
   !*** ./src/streaming/rules/SwitchRequest.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /**
  * The copyright in this software is being made available under the BSD License,
@@ -17240,7 +17147,7 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClas
 factory.NO_CHANGE = NO_CHANGE;
 factory.PRIORITY = PRIORITY;
 _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].updateClassFactory(SwitchRequest.__dashjs_factory_name, factory);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -17248,13 +17155,10 @@ _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].updateClassFactory(Sw
 /*!*******************************************************!*\
   !*** ./src/streaming/rules/abr/ABRRulesCollection.js ***!
   \*******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _ThroughputRule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ThroughputRule */ "./src/streaming/rules/abr/ThroughputRule.js");
 /* harmony import */ var _InsufficientBufferRule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InsufficientBufferRule */ "./src/streaming/rules/abr/InsufficientBufferRule.js");
 /* harmony import */ var _AbandonRequestsRule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AbandonRequestsRule */ "./src/streaming/rules/abr/AbandonRequestsRule.js");
@@ -17470,6 +17374,11 @@ function ABRRulesCollection(config) {
     var activeRules = _getRulesWithChange(abandonRequestArray);
 
     var shouldAbandon = getMinSwitchRequest(activeRules);
+
+    if (shouldAbandon) {
+      shouldAbandon.reason.forceAbandon = true;
+    }
+
     return shouldAbandon || (0,_SwitchRequest__WEBPACK_IMPORTED_MODULE_9__["default"])(context).create();
   }
 
@@ -17505,7 +17414,7 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_8__["default"].getClas
 factory.QUALITY_SWITCH_RULES = QUALITY_SWITCH_RULES;
 factory.ABANDON_FRAGMENT_RULES = ABANDON_FRAGMENT_RULES;
 _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_8__["default"].updateSingletonFactory(ABRRulesCollection.__dashjs_factory_name, factory);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -17513,13 +17422,10 @@ _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_8__["default"].updateSingletonFactor
 /*!********************************************************!*\
   !*** ./src/streaming/rules/abr/AbandonRequestsRule.js ***!
   \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _SwitchRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../SwitchRequest */ "./src/streaming/rules/SwitchRequest.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _core_Debug__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../core/Debug */ "./src/core/Debug.js");
@@ -17559,9 +17465,6 @@ __webpack_require__.r(__webpack_exports__);
 
 function AbandonRequestsRule(config) {
   config = config || {};
-  var ABANDON_MULTIPLIER = 1.8;
-  var GRACE_TIME_THRESHOLD = 500;
-  var MIN_LENGTH_TO_AVERAGE = 5;
   var context = this.context;
   var mediaPlayerModel = config.mediaPlayerModel;
   var dashMetrics = config.dashMetrics;
@@ -17629,14 +17532,14 @@ function AbandonRequestsRule(config) {
         storeLastRequestThroughputByType(mediaType, Math.round(fragmentInfo.bytesLoaded * 8 / fragmentInfo.elapsedTime));
       }
 
-      if (throughputArray[mediaType].length >= MIN_LENGTH_TO_AVERAGE && fragmentInfo.elapsedTime > GRACE_TIME_THRESHOLD && fragmentInfo.bytesLoaded < fragmentInfo.bytesTotal) {
+      if (throughputArray[mediaType].length >= settings.get().streaming.abr.abrRulesParameters.abandonRequestsRule.minLengthToAverage && fragmentInfo.elapsedTime > settings.get().streaming.abr.abrRulesParameters.abandonRequestsRule.graceTimeThreshold && fragmentInfo.bytesLoaded < fragmentInfo.bytesTotal) {
         var totalSampledValue = throughputArray[mediaType].reduce(function (a, b) {
           return a + b;
         }, 0);
         fragmentInfo.measuredBandwidthInKbps = Math.round(totalSampledValue / throughputArray[mediaType].length);
         fragmentInfo.estimatedTimeOfDownload = +(fragmentInfo.bytesTotal * 8 / fragmentInfo.measuredBandwidthInKbps / 1000).toFixed(2);
 
-        if (fragmentInfo.estimatedTimeOfDownload < fragmentInfo.segmentDuration * ABANDON_MULTIPLIER || rulesContext.getRepresentationInfo().quality === 0) {
+        if (fragmentInfo.estimatedTimeOfDownload < fragmentInfo.segmentDuration * settings.get().streaming.abr.abrRulesParameters.abandonRequestsRule.abandonMultiplier || rulesContext.getRepresentationInfo().quality === 0) {
           return switchRequest;
         } else if (!abandonDict.hasOwnProperty(fragmentInfo.id)) {
           var abrController = rulesContext.getAbrController();
@@ -17680,7 +17583,7 @@ function AbandonRequestsRule(config) {
 }
 
 AbandonRequestsRule.__dashjs_factory_name = 'AbandonRequestsRule';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getClassFactory(AbandonRequestsRule));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getClassFactory(AbandonRequestsRule));
 
 /***/ }),
 
@@ -17688,13 +17591,10 @@ AbandonRequestsRule.__dashjs_factory_name = 'AbandonRequestsRule';
 /*!*********************************************!*\
   !*** ./src/streaming/rules/abr/BolaRule.js ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _constants_MetricsConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/MetricsConstants */ "./src/streaming/constants/MetricsConstants.js");
 /* harmony import */ var _SwitchRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../SwitchRequest */ "./src/streaming/rules/SwitchRequest.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
@@ -18242,7 +18142,7 @@ function BolaRule(config) {
 }
 
 BolaRule.__dashjs_factory_name = 'BolaRule';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getClassFactory(BolaRule));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getClassFactory(BolaRule));
 
 /***/ }),
 
@@ -18250,13 +18150,10 @@ BolaRule.__dashjs_factory_name = 'BolaRule';
 /*!******************************************************!*\
   !*** ./src/streaming/rules/abr/DroppedFramesRule.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _SwitchRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../SwitchRequest */ "./src/streaming/rules/SwitchRequest.js");
 /* harmony import */ var _core_Debug__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../core/Debug */ "./src/core/Debug.js");
@@ -18324,7 +18221,7 @@ function DroppedFramesRule() {
 }
 
 DroppedFramesRule.__dashjs_factory_name = 'DroppedFramesRule';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(DroppedFramesRule));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(DroppedFramesRule));
 
 /***/ }),
 
@@ -18332,13 +18229,10 @@ DroppedFramesRule.__dashjs_factory_name = 'DroppedFramesRule';
 /*!***********************************************************!*\
   !*** ./src/streaming/rules/abr/InsufficientBufferRule.js ***!
   \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_EventBus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../core/EventBus */ "./src/core/EventBus.js");
 /* harmony import */ var _core_events_Events__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../core/events/Events */ "./src/core/events/Events.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
@@ -18502,7 +18396,7 @@ function InsufficientBufferRule(config) {
 }
 
 InsufficientBufferRule.__dashjs_factory_name = 'InsufficientBufferRule';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getClassFactory(InsufficientBufferRule));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getClassFactory(InsufficientBufferRule));
 
 /***/ }),
 
@@ -18510,13 +18404,10 @@ InsufficientBufferRule.__dashjs_factory_name = 'InsufficientBufferRule';
 /*!********************************************!*\
   !*** ./src/streaming/rules/abr/L2ARule.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _constants_MetricsConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/MetricsConstants */ "./src/streaming/constants/MetricsConstants.js");
 /* harmony import */ var _SwitchRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../SwitchRequest */ "./src/streaming/rules/SwitchRequest.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
@@ -19012,7 +18903,7 @@ function L2ARule(config) {
             l2AParameter.Q = react * Math.max(vl, l2AParameter.Q);
           }
 
-          l2AState.lastSegment.url = currentHttpRequest.url;
+          l2AState.lastSegmentUrl = currentHttpRequest.url;
         }
 
         switchRequest.quality = quality;
@@ -19070,7 +18961,7 @@ function L2ARule(config) {
 }
 
 L2ARule.__dashjs_factory_name = 'L2ARule';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getClassFactory(L2ARule));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getClassFactory(L2ARule));
 
 /***/ }),
 
@@ -19078,13 +18969,10 @@ L2ARule.__dashjs_factory_name = 'L2ARule';
 /*!******************************************************!*\
   !*** ./src/streaming/rules/abr/SwitchHistoryRule.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _core_Debug__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../core/Debug */ "./src/core/Debug.js");
 /* harmony import */ var _SwitchRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../SwitchRequest */ "./src/streaming/rules/SwitchRequest.js");
@@ -19144,7 +19032,7 @@ function SwitchHistoryRule() {
 }
 
 SwitchHistoryRule.__dashjs_factory_name = 'SwitchHistoryRule';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(SwitchHistoryRule));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(SwitchHistoryRule));
 
 /***/ }),
 
@@ -19152,13 +19040,10 @@ SwitchHistoryRule.__dashjs_factory_name = 'SwitchHistoryRule';
 /*!***************************************************!*\
   !*** ./src/streaming/rules/abr/ThroughputRule.js ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _SwitchRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../SwitchRequest */ "./src/streaming/rules/SwitchRequest.js");
 /* harmony import */ var _constants_Constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../constants/Constants */ "./src/streaming/constants/Constants.js");
@@ -19263,7 +19148,7 @@ function ThroughputRule(config) {
 }
 
 ThroughputRule.__dashjs_factory_name = 'ThroughputRule';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(ThroughputRule));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(ThroughputRule));
 
 /***/ }),
 
@@ -19271,13 +19156,10 @@ ThroughputRule.__dashjs_factory_name = 'ThroughputRule';
 /*!***************************************************************!*\
   !*** ./src/streaming/rules/abr/lolp/LearningAbrController.js ***!
   \***************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _core_Debug__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../core/Debug */ "./src/core/Debug.js");
 /**
@@ -19839,7 +19721,7 @@ function LearningAbrController() {
 }
 
 LearningAbrController.__dashjs_factory_name = 'LearningAbrController';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(LearningAbrController));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(LearningAbrController));
 
 /***/ }),
 
@@ -19847,13 +19729,10 @@ LearningAbrController.__dashjs_factory_name = 'LearningAbrController';
 /*!**********************************************************!*\
   !*** ./src/streaming/rules/abr/lolp/LoLpQoEEvaluator.js ***!
   \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _QoeInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./QoeInfo */ "./src/streaming/rules/abr/lolp/QoeInfo.js");
 /**
@@ -20040,7 +19919,7 @@ function LoLpQoeEvaluator() {
 }
 
 LoLpQoeEvaluator.__dashjs_factory_name = 'LoLpQoeEvaluator';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(LoLpQoeEvaluator));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(LoLpQoeEvaluator));
 
 /***/ }),
 
@@ -20048,13 +19927,10 @@ LoLpQoeEvaluator.__dashjs_factory_name = 'LoLpQoeEvaluator';
 /*!**************************************************!*\
   !*** ./src/streaming/rules/abr/lolp/LoLpRule.js ***!
   \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_Debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../core/Debug */ "./src/core/Debug.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _LearningAbrController__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./LearningAbrController */ "./src/streaming/rules/abr/lolp/LearningAbrController.js");
@@ -20244,7 +20120,7 @@ function LoLPRule(config) {
 }
 
 LoLPRule.__dashjs_factory_name = 'LoLPRule';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getClassFactory(LoLPRule));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getClassFactory(LoLPRule));
 
 /***/ }),
 
@@ -20252,13 +20128,10 @@ LoLPRule.__dashjs_factory_name = 'LoLPRule';
 /*!************************************************************!*\
   !*** ./src/streaming/rules/abr/lolp/LoLpWeightSelector.js ***!
   \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /**
  * The copyright in this software is being made available under the BSD License,
@@ -20519,7 +20392,7 @@ function LoLpWeightSelector(config) {
 }
 
 LoLpWeightSelector.__dashjs_factory_name = 'LoLpWeightSelector';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(LoLpWeightSelector));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getClassFactory(LoLpWeightSelector));
 
 /***/ }),
 
@@ -20527,13 +20400,10 @@ LoLpWeightSelector.__dashjs_factory_name = 'LoLpWeightSelector';
 /*!*************************************************!*\
   !*** ./src/streaming/rules/abr/lolp/QoeInfo.js ***!
   \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -20600,7 +20470,7 @@ var QoeInfo = function QoeInfo() {
   this.totalQoe = 0;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QoeInfo);
+/* harmony default export */ __webpack_exports__["default"] = (QoeInfo);
 
 /***/ }),
 
@@ -20608,13 +20478,12 @@ var QoeInfo = function QoeInfo() {
 /*!****************************************************!*\
   !*** ./src/streaming/thumbnail/ThumbnailTracks.js ***!
   \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "THUMBNAILS_SCHEME_ID_URIS": () => (/* binding */ THUMBNAILS_SCHEME_ID_URIS),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "THUMBNAILS_SCHEME_ID_URIS": function() { return /* binding */ THUMBNAILS_SCHEME_ID_URIS; }
 /* harmony export */ });
 /* harmony import */ var _constants_Constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/Constants */ "./src/streaming/constants/Constants.js");
 /* harmony import */ var _dash_constants_DashConstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../dash/constants/DashConstants */ "./src/dash/constants/DashConstants.js");
@@ -20929,7 +20798,7 @@ function ThumbnailTracks(config) {
 }
 
 ThumbnailTracks.__dashjs_factory_name = 'ThumbnailTracks';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getClassFactory(ThumbnailTracks));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getClassFactory(ThumbnailTracks));
 
 /***/ }),
 
@@ -20937,13 +20806,10 @@ ThumbnailTracks.__dashjs_factory_name = 'ThumbnailTracks';
 /*!******************************************!*\
   !*** ./src/streaming/utils/BoxParser.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_Debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/Debug */ "./src/core/Debug.js");
 /* harmony import */ var _IsoFile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IsoFile */ "./src/streaming/utils/IsoFile.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
@@ -21256,7 +21122,7 @@ function BoxParser() {
 }
 
 BoxParser.__dashjs_factory_name = 'BoxParser';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getSingletonFactory(BoxParser));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_2__["default"].getSingletonFactory(BoxParser));
 
 /***/ }),
 
@@ -21264,13 +21130,10 @@ BoxParser.__dashjs_factory_name = 'BoxParser';
 /*!************************************************!*\
   !*** ./src/streaming/utils/DefaultURLUtils.js ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /**
  * The copyright in this software is being made available under the BSD License,
@@ -21558,7 +21421,7 @@ function DefaultURLUtils() {
 }
 
 DefaultURLUtils.__dashjs_factory_name = 'DefaultURLUtils';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(DefaultURLUtils));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(DefaultURLUtils));
 
 /***/ }),
 
@@ -21566,13 +21429,10 @@ DefaultURLUtils.__dashjs_factory_name = 'DefaultURLUtils';
 /*!****************************************!*\
   !*** ./src/streaming/utils/IsoFile.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _vo_IsoBox__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../vo/IsoBox */ "./src/streaming/vo/IsoBox.js");
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /**
@@ -21690,7 +21550,7 @@ function IsoFile() {
 }
 
 IsoFile.__dashjs_factory_name = 'IsoFile';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getClassFactory(IsoFile));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_1__["default"].getClassFactory(IsoFile));
 
 /***/ }),
 
@@ -21698,13 +21558,10 @@ IsoFile.__dashjs_factory_name = 'IsoFile';
 /*!********************************************!*\
   !*** ./src/streaming/utils/ObjectUtils.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var fast_deep_equal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js");
 /* harmony import */ var fast_deep_equal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fast_deep_equal__WEBPACK_IMPORTED_MODULE_1__);
@@ -21768,7 +21625,7 @@ function ObjectUtils() {
 }
 
 ObjectUtils.__dashjs_factory_name = 'ObjectUtils';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(ObjectUtils));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(ObjectUtils));
 
 /***/ }),
 
@@ -21776,13 +21633,12 @@ ObjectUtils.__dashjs_factory_name = 'ObjectUtils';
 /*!************************************************!*\
   !*** ./src/streaming/utils/RequestModifier.js ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "modifyRequest": () => (/* binding */ modifyRequest)
+/* harmony export */   "modifyRequest": function() { return /* binding */ modifyRequest; }
 /* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /**
@@ -21852,7 +21708,7 @@ function RequestModifier() {
 }
 
 RequestModifier.__dashjs_factory_name = 'RequestModifier';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(RequestModifier));
+/* harmony default export */ __webpack_exports__["default"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(RequestModifier));
 
 /***/ }),
 
@@ -21860,15 +21716,15 @@ RequestModifier.__dashjs_factory_name = 'RequestModifier';
 /*!************************************************!*\
   !*** ./src/streaming/utils/SupervisorTools.js ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "checkInteger": () => (/* binding */ checkInteger),
-/* harmony export */   "checkIsVideoOrAudioType": () => (/* binding */ checkIsVideoOrAudioType),
-/* harmony export */   "checkParameterType": () => (/* binding */ checkParameterType),
-/* harmony export */   "checkRange": () => (/* binding */ checkRange)
+/* harmony export */   "checkInteger": function() { return /* binding */ checkInteger; },
+/* harmony export */   "checkIsVideoOrAudioType": function() { return /* binding */ checkIsVideoOrAudioType; },
+/* harmony export */   "checkParameterType": function() { return /* binding */ checkParameterType; },
+/* harmony export */   "checkRange": function() { return /* binding */ checkRange; }
 /* harmony export */ });
 /* harmony import */ var _constants_Constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/Constants */ "./src/streaming/constants/Constants.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -21933,13 +21789,10 @@ function checkIsVideoOrAudioType(type) {
 /*!*****************************************!*\
   !*** ./src/streaming/utils/URLUtils.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/FactoryMaker */ "./src/core/FactoryMaker.js");
 /* harmony import */ var _DefaultURLUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DefaultURLUtils */ "./src/streaming/utils/DefaultURLUtils.js");
 /**
@@ -22170,7 +22023,7 @@ function URLUtils() {
 
 URLUtils.__dashjs_factory_name = 'URLUtils';
 var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSingletonFactory(URLUtils);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (factory);
+/* harmony default export */ __webpack_exports__["default"] = (factory);
 
 /***/ }),
 
@@ -22178,13 +22031,10 @@ var factory = _core_FactoryMaker__WEBPACK_IMPORTED_MODULE_0__["default"].getSing
 /*!*****************************************!*\
   !*** ./src/streaming/vo/DashJSError.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -22230,7 +22080,7 @@ var DashJSError = function DashJSError(code, message, data) {
   this.data = data || null;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DashJSError);
+/* harmony default export */ __webpack_exports__["default"] = (DashJSError);
 
 /***/ }),
 
@@ -22238,13 +22088,10 @@ var DashJSError = function DashJSError(code, message, data) {
 /*!*********************************************!*\
   !*** ./src/streaming/vo/FragmentRequest.js ***!
   \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _vo_metrics_HTTPRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../vo/metrics/HTTPRequest */ "./src/streaming/vo/metrics/HTTPRequest.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -22338,7 +22185,7 @@ var FragmentRequest = /*#__PURE__*/function () {
 
 FragmentRequest.ACTION_DOWNLOAD = 'download';
 FragmentRequest.ACTION_COMPLETE = 'complete';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FragmentRequest);
+/* harmony default export */ __webpack_exports__["default"] = (FragmentRequest);
 
 /***/ }),
 
@@ -22346,13 +22193,10 @@ FragmentRequest.ACTION_COMPLETE = 'complete';
 /*!*****************************************!*\
   !*** ./src/streaming/vo/HeadRequest.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /* harmony import */ var _FragmentRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FragmentRequest */ "./src/streaming/vo/FragmentRequest.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -22427,7 +22271,7 @@ var HeadRequest = /*#__PURE__*/function (_FragmentRequest) {
   return HeadRequest;
 }(_FragmentRequest__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HeadRequest);
+/* harmony default export */ __webpack_exports__["default"] = (HeadRequest);
 
 /***/ }),
 
@@ -22435,13 +22279,10 @@ var HeadRequest = /*#__PURE__*/function (_FragmentRequest) {
 /*!************************************!*\
   !*** ./src/streaming/vo/IsoBox.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -22621,7 +22462,7 @@ var IsoBox = /*#__PURE__*/function () {
   return IsoBox;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (IsoBox);
+/* harmony default export */ __webpack_exports__["default"] = (IsoBox);
 
 /***/ }),
 
@@ -22629,13 +22470,10 @@ var IsoBox = /*#__PURE__*/function () {
 /*!**********************************************!*\
   !*** ./src/streaming/vo/IsoBoxSearchInfo.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -22681,7 +22519,7 @@ var IsoBoxSearchInfo = function IsoBoxSearchInfo(lastCompletedOffset, found, siz
   this.size = size;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (IsoBoxSearchInfo);
+/* harmony default export */ __webpack_exports__["default"] = (IsoBoxSearchInfo);
 
 /***/ }),
 
@@ -22689,13 +22527,10 @@ var IsoBoxSearchInfo = function IsoBoxSearchInfo(lastCompletedOffset, found, siz
 /*!************************************************!*\
   !*** ./src/streaming/vo/ThumbnailTrackInfo.js ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
@@ -22750,7 +22585,7 @@ var ThumbnailTrackInfo = function ThumbnailTrackInfo() {
   this.id = '';
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ThumbnailTrackInfo);
+/* harmony default export */ __webpack_exports__["default"] = (ThumbnailTrackInfo);
 
 /***/ }),
 
@@ -22758,13 +22593,13 @@ var ThumbnailTrackInfo = function ThumbnailTrackInfo() {
 /*!*************************************************!*\
   !*** ./src/streaming/vo/metrics/HTTPRequest.js ***!
   \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "HTTPRequest": () => (/* binding */ HTTPRequest),
-/* harmony export */   "HTTPRequestTrace": () => (/* binding */ HTTPRequestTrace)
+/* harmony export */   "HTTPRequest": function() { return /* binding */ HTTPRequest; },
+/* harmony export */   "HTTPRequestTrace": function() { return /* binding */ HTTPRequestTrace; }
 /* harmony export */ });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -22976,730 +22811,11 @@ HTTPRequest.OTHER_TYPE = 'other';
 
 /***/ }),
 
-/***/ "./node_modules/bcp-47-match/index.js":
-/*!********************************************!*\
-  !*** ./node_modules/bcp-47-match/index.js ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-// See https://tools.ietf.org/html/rfc4647#section-3.1
-// for more information on the algorithms.
-
-exports.basicFilter = factory(basic, true)
-exports.extendedFilter = factory(extended, true)
-exports.lookup = factory(lookup)
-
-// Basic Filtering (Section 3.3.1) matches a language priority list consisting
-// of basic language ranges (Section 2.1) to sets of language tags.
-function basic(tag, range) {
-  return range === '*' || tag === range || tag.indexOf(range + '-') > -1
-}
-
-// Extended Filtering (Section 3.3.2) matches a language priority list
-// consisting of extended language ranges (Section 2.2) to sets of language
-// tags.
-function extended(tag, range) {
-  // 3.3.2.1
-  var left = tag.split('-')
-  var right = range.split('-')
-  var leftIndex = 0
-  var rightIndex = 0
-
-  // 3.3.2.2
-  if (right[rightIndex] !== '*' && left[leftIndex] !== right[rightIndex]) {
-    return false
-  }
-
-  leftIndex++
-  rightIndex++
-
-  // 3.3.2.3
-  while (rightIndex < right.length) {
-    // 3.3.2.3.A
-    if (right[rightIndex] === '*') {
-      rightIndex++
-      continue
-    }
-
-    // 3.3.2.3.B
-    if (!left[leftIndex]) return false
-
-    // 3.3.2.3.C
-    if (left[leftIndex] === right[rightIndex]) {
-      leftIndex++
-      rightIndex++
-      continue
-    }
-
-    // 3.3.2.3.D
-    if (left[leftIndex].length === 1) return false
-
-    // 3.3.2.3.E
-    leftIndex++
-  }
-
-  // 3.3.2.4
-  return true
-}
-
-// Lookup (Section 3.4) matches a language priority list consisting of basic
-// language ranges to sets of language tags to find the one exact language tag
-// that best matches the range.
-function lookup(tag, range) {
-  var right = range
-  var index
-
-  /* eslint-disable-next-line no-constant-condition */
-  while (true) {
-    if (right === '*' || tag === right) return true
-
-    index = right.lastIndexOf('-')
-
-    if (index < 0) return false
-
-    if (right.charAt(index - 2) === '-') index -= 2
-
-    right = right.slice(0, index)
-  }
-}
-
-// Factory to perform a filter or a lookup.
-// This factory creates a function that accepts a list of tags and a list of
-// ranges, and contains logic to exit early for lookups.
-// `check` just has to deal with one tag and one range.
-// This match function iterates over ranges, and for each range,
-// iterates over tags.  That way, earlier ranges matching any tag have
-// precedence over later ranges.
-function factory(check, filter) {
-  return match
-
-  function match(tags, ranges) {
-    var left = cast(tags, 'tag')
-    var right = cast(ranges == null ? '*' : ranges, 'range')
-    var matches = []
-    var rightIndex = -1
-    var range
-    var leftIndex
-    var next
-
-    while (++rightIndex < right.length) {
-      range = right[rightIndex].toLowerCase()
-
-      // Ignore wildcards in lookup mode.
-      if (!filter && range === '*') continue
-
-      leftIndex = -1
-      next = []
-
-      while (++leftIndex < left.length) {
-        if (check(left[leftIndex].toLowerCase(), range)) {
-          // Exit if this is a lookup and we have a match.
-          if (!filter) return left[leftIndex]
-          matches.push(left[leftIndex])
-        } else {
-          next.push(left[leftIndex])
-        }
-      }
-
-      left = next
-    }
-
-    // If this is a filter, return the list.  If it’s a lookup, we didn’t find
-    // a match, so return `undefined`.
-    return filter ? matches : undefined
-  }
-}
-
-// Validate tags or ranges, and cast them to arrays.
-function cast(values, name) {
-  var value = values && typeof values === 'string' ? [values] : values
-
-  if (!value || typeof value !== 'object' || !('length' in value)) {
-    throw new Error(
-      'Invalid ' + name + ' `' + value + '`, expected non-empty string'
-    )
-  }
-
-  return value
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/bcp-47-normalize/index.js":
-/*!************************************************!*\
-  !*** ./node_modules/bcp-47-normalize/index.js ***!
-  \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-module.exports = __webpack_require__(/*! ./lib */ "./node_modules/bcp-47-normalize/lib/index.js")
-
-
-/***/ }),
-
-/***/ "./node_modules/bcp-47-normalize/lib/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/bcp-47-normalize/lib/index.js ***!
-  \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var bcp47 = __webpack_require__(/*! bcp-47 */ "./node_modules/bcp-47/index.js")
-var match = __webpack_require__(/*! bcp-47-match */ "./node_modules/bcp-47-match/index.js")
-var matches = __webpack_require__(/*! ./matches.json */ "./node_modules/bcp-47-normalize/lib/matches.json")
-var fields = __webpack_require__(/*! ./fields.json */ "./node_modules/bcp-47-normalize/lib/fields.json")
-var defaults = __webpack_require__(/*! ./defaults.json */ "./node_modules/bcp-47-normalize/lib/defaults.json")
-var many = __webpack_require__(/*! ./many.json */ "./node_modules/bcp-47-normalize/lib/many.json")
-
-module.exports = normalize
-
-var own = {}.hasOwnProperty
-
-var collator = new Intl.Collator()
-
-var emptyExtraFields = {
-  variants: [],
-  extensions: [],
-  privateuse: [],
-  irregular: null,
-  regular: null
-}
-
-function normalize(value, options) {
-  var settings = options || {}
-  // 1. normalize and lowercase the tag (`sgn-be-fr` -> `sfb`).
-  var schema = bcp47.parse(String(value || '').toLowerCase(), settings)
-  var tag = bcp47.stringify(schema)
-  var index = -1
-  var key
-
-  if (!tag) {
-    return tag
-  }
-
-  // 2. Do fancy, expensive replaces (`ha-latn-gh` -> `ha-gh`).
-  while (++index < matches.length) {
-    if (match.extendedFilter(tag, matches[index].from).length) {
-      replace(schema, matches[index].from, matches[index].to)
-      tag = bcp47.stringify(schema)
-    }
-  }
-
-  // 3. Do basic field replaces (`en-840` -> `en-us`).
-  index = -1
-
-  while (++index < fields.length) {
-    if (remove(schema, fields[index].from.field, fields[index].from.value)) {
-      add(schema, fields[index].to.field, fields[index].to.value)
-    }
-  }
-
-  // 4. Remove defaults (`nl-nl` -> `nl`).
-  tag = bcp47.stringify(Object.assign({}, schema, emptyExtraFields))
-  index = -1
-
-  while (++index < defaults.length) {
-    if (tag === defaults[index]) {
-      replace(
-        schema,
-        defaults[index],
-        defaults[index].split('-').slice(0, -1).join('-')
-      )
-      tag = bcp47.stringify(Object.assign({}, schema, emptyExtraFields))
-    }
-  }
-
-  // 5. Sort extensions on singleton.
-  schema.extensions.sort(compareSingleton)
-
-  // 6. Warn if fields (currently only regions) should be updated but have
-  // multiple choices.
-  if (settings.warning) {
-    for (key in many) {
-      if (own.call(many[key], schema[key])) {
-        settings.warning(
-          'Deprecated ' +
-            key +
-            ' `' +
-            schema[key] +
-            '`, expected one of `' +
-            many[key][schema[key]].join('`, `') +
-            '`',
-          null,
-          7
-        )
-      }
-    }
-  }
-
-  // 7. Add proper casing back.
-  // Format script (ISO 15924) as titlecase (example: `Latn`):
-  if (schema.script) {
-    schema.script =
-      schema.script.charAt(0).toUpperCase() + schema.script.slice(1)
-  }
-
-  // Format region (ISO 3166) as uppercase (note: this doesn’t affect numeric
-  // codes, which is fine):
-  if (schema.region) {
-    schema.region = schema.region.toUpperCase()
-  }
-
-  return bcp47.stringify(schema)
-}
-
-function replace(schema, from, to) {
-  var left = bcp47.parse(from)
-  var right = bcp47.parse(to)
-  var removed = []
-  var key
-
-  // Remove values from `from`:
-  for (key in left) {
-    if (left[key] && left[key].length && remove(schema, key, left[key])) {
-      removed.push(key)
-    }
-  }
-
-  // Add values from `to`:
-  for (key in right) {
-    // Only add values that are defined on `to`, and that were either removed by
-    // `from` or are currently empty.
-    if (
-      right[key] &&
-      right[key].length &&
-      (removed.indexOf(key) > -1 || !schema[key] || !schema[key].length)
-    ) {
-      add(schema, key, right[key])
-    }
-  }
-}
-
-function remove(object, key, value) {
-  var removed = false
-  var current
-  var result
-  var index
-  var item
-
-  /* istanbul ignore else - this is currently done by wrapping code, so else is
-   * never reached.
-   * However, that could change in the future, so leave this guard here. */
-  if (value) {
-    current = object[key]
-    result = current
-
-    if (current && typeof current === 'object') {
-      result = []
-      index = -1
-
-      while (++index < current.length) {
-        item = current[index]
-
-        if (value.indexOf(item) < 0) {
-          result.push(item)
-        } else {
-          removed = true
-        }
-      }
-    } else if (current === value) {
-      result = null
-      removed = true
-    }
-
-    object[key] = result
-  }
-
-  return removed
-}
-
-function add(object, key, value) {
-  var current = object[key]
-  var list
-  var index
-  var item
-
-  if (current && typeof current === 'object') {
-    list = [].concat(value)
-    index = -1
-
-    while (++index < list.length) {
-      item = list[index]
-
-      /* istanbul ignore else - this currently can’t happen, but guard for the
-       * future. */
-      if (current.indexOf(item) < 0) {
-        current.push(item)
-      }
-    }
-  } else {
-    object[key] = value
-  }
-}
-
-function compareSingleton(left, right) {
-  return collator.compare(left.singleton, right.singleton)
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/bcp-47/index.js":
-/*!**************************************!*\
-  !*** ./node_modules/bcp-47/index.js ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-exports.parse = __webpack_require__(/*! ./lib/parse */ "./node_modules/bcp-47/lib/parse.js")
-exports.stringify = __webpack_require__(/*! ./lib/stringify */ "./node_modules/bcp-47/lib/stringify.js")
-
-
-/***/ }),
-
-/***/ "./node_modules/bcp-47/lib/parse.js":
-/*!******************************************!*\
-  !*** ./node_modules/bcp-47/lib/parse.js ***!
-  \******************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var alphanumeric = __webpack_require__(/*! is-alphanumerical */ "./node_modules/is-alphanumerical/index.js")
-var alphabetical = __webpack_require__(/*! is-alphabetical */ "./node_modules/is-alphabetical/index.js")
-var decimal = __webpack_require__(/*! is-decimal */ "./node_modules/is-decimal/index.js")
-var regular = __webpack_require__(/*! ./regular.json */ "./node_modules/bcp-47/lib/regular.json")
-var normal = __webpack_require__(/*! ./normalize.json */ "./node_modules/bcp-47/lib/normalize.json")
-
-module.exports = parse
-
-var own = {}.hasOwnProperty
-
-// Parse a BCP 47 language tag.
-/* eslint-disable-next-line complexity */
-function parse(tag, options) {
-  var settings = options || {}
-  var result = empty()
-  var source = String(tag)
-  var value = source.toLowerCase()
-  var index = 0
-  var start
-  var groups
-  var offset
-
-  // Check input.
-  if (tag == null) {
-    throw new Error('Expected string, got `' + tag + '`')
-  }
-
-  // Let’s start.
-  // First: the edge cases.
-  if (own.call(normal, value)) {
-    if ((settings.normalize == null || settings.normalize) && normal[value]) {
-      return parse(normal[value])
-    }
-
-    result[regular.indexOf(value) === -1 ? 'irregular' : 'regular'] = source
-
-    return result
-  }
-
-  // Now, to actually parse, eat what could be a language.
-  while (alphabetical(value.charCodeAt(index)) && index < 9) index++
-
-  // A language.
-  if (index > 1 /* Min 639. */ && index < 9 /* Max subtag. */) {
-    // 5 and up is a subtag.
-    // 4 is the size of reserved languages.
-    // 3 an ISO 639-2 or ISO 639-3.
-    // 2 is an ISO 639-1.
-    // <https://github.com/wooorm/iso-639-2>
-    // <https://github.com/wooorm/iso-639-3>
-    result.language = source.slice(0, index)
-
-    if (index < 4 /* Max 639. */) {
-      groups = 0
-
-      while (
-        value.charCodeAt(index) === 45 /* `-` */ &&
-        alphabetical(value.charCodeAt(index + 1)) &&
-        alphabetical(value.charCodeAt(index + 2)) &&
-        alphabetical(value.charCodeAt(index + 3)) &&
-        !alphabetical(value.charCodeAt(index + 4))
-      ) {
-        if (groups > 2 /* Max extended language subtag count. */) {
-          return fail(
-            index,
-            3,
-            'Too many extended language subtags, expected at most 3 subtags'
-          )
-        }
-
-        // Extended language subtag.
-        result.extendedLanguageSubtags.push(source.slice(index + 1, index + 4))
-        index += 4
-        groups++
-      }
-    }
-
-    // ISO 15924 script.
-    // <https://github.com/wooorm/iso-15924>
-    if (
-      value.charCodeAt(index) === 45 /* `-` */ &&
-      alphabetical(value.charCodeAt(index + 1)) &&
-      alphabetical(value.charCodeAt(index + 2)) &&
-      alphabetical(value.charCodeAt(index + 3)) &&
-      alphabetical(value.charCodeAt(index + 4)) &&
-      !alphabetical(value.charCodeAt(index + 5))
-    ) {
-      result.script = source.slice(index + 1, index + 5)
-      index += 5
-    }
-
-    if (value.charCodeAt(index) === 45 /* `-` */) {
-      // ISO 3166-1 region.
-      // <https://github.com/wooorm/iso-3166>
-      if (
-        alphabetical(value.charCodeAt(index + 1)) &&
-        alphabetical(value.charCodeAt(index + 2)) &&
-        !alphabetical(value.charCodeAt(index + 3))
-      ) {
-        result.region = source.slice(index + 1, index + 3)
-        index += 3
-      }
-      // UN M49 region.
-      // <https://github.com/wooorm/un-m49>
-      else if (
-        decimal(value.charCodeAt(index + 1)) &&
-        decimal(value.charCodeAt(index + 2)) &&
-        decimal(value.charCodeAt(index + 3)) &&
-        !decimal(value.charCodeAt(index + 4))
-      ) {
-        result.region = source.slice(index + 1, index + 4)
-        index += 4
-      }
-    }
-
-    while (value.charCodeAt(index) === 45 /* `-` */) {
-      offset = start = index + 1
-
-      while (alphanumeric(value.charCodeAt(offset))) {
-        if (offset - start > 7 /* Max variant. */) {
-          return fail(
-            offset,
-            1,
-            'Too long variant, expected at most 8 characters'
-          )
-        }
-
-        offset++
-      }
-
-      if (
-        // Long variant.
-        offset - start > 4 /* Min alpha numeric variant. */ ||
-        // Short variant.
-        (offset - start > 3 /* Min variant. */ &&
-          decimal(value.charCodeAt(start)))
-      ) {
-        result.variants.push(source.slice(start, offset))
-        index = offset
-      }
-      // Something else.
-      else {
-        break
-      }
-    }
-
-    // Extensions.
-    while (value.charCodeAt(index) === 45 /* `-` */) {
-      // Exit if this isn’t an extension.
-      if (
-        value.charCodeAt(index + 1) === 120 /* `x` */ ||
-        !alphanumeric(value.charCodeAt(index + 1)) ||
-        value.charCodeAt(index + 2) !== 45 /* `-` */ ||
-        !alphanumeric(value.charCodeAt(index + 3))
-      ) {
-        break
-      }
-
-      offset = index + 2
-      groups = 0
-
-      while (
-        value.charCodeAt(offset) === 45 /* `-` */ &&
-        alphanumeric(value.charCodeAt(offset + 1)) &&
-        alphanumeric(value.charCodeAt(offset + 2))
-      ) {
-        start = offset + 1
-        offset = start + 2
-        groups++
-
-        while (alphanumeric(value.charCodeAt(offset))) {
-          if (offset - start > 7 /* Max extension. */) {
-            return fail(
-              offset,
-              2,
-              'Too long extension, expected at most 8 characters'
-            )
-          }
-
-          offset++
-        }
-      }
-
-      if (!groups) {
-        return fail(
-          offset,
-          4,
-          'Empty extension, extensions must have at least 2 characters of content'
-        )
-      }
-
-      result.extensions.push({
-        singleton: source.charAt(index + 1),
-        extensions: source.slice(index + 3, offset).split('-')
-      })
-
-      index = offset
-    }
-  }
-  // Not a language.
-  else {
-    index = 0
-  }
-
-  // Private use.
-  if (
-    (index === 0 && value.charCodeAt(index) === 120) /* `x` */ ||
-    (value.charCodeAt(index) === 45 /* `-` */ &&
-      value.charCodeAt(index + 1) === 120) /* `x` */
-  ) {
-    offset = index = index ? index + 2 : 1
-
-    while (
-      value.charCodeAt(offset) === 45 /* `-` */ &&
-      alphanumeric(value.charCodeAt(offset + 1))
-    ) {
-      offset = start = index + 1
-
-      while (alphanumeric(value.charCodeAt(offset))) {
-        if (offset - start > 7 /* Max private use. */) {
-          return fail(
-            offset,
-            5,
-            'Too long private-use area, expected at most 8 characters'
-          )
-        }
-
-        offset++
-      }
-
-      result.privateuse.push(source.slice(index + 1, offset))
-      index = offset
-    }
-  }
-
-  if (index !== source.length) {
-    return fail(index, 6, 'Found superfluous content after tag')
-  }
-
-  return result
-
-  function fail(offset, code, reason) {
-    if (settings.warning) settings.warning(reason, code, offset)
-    return settings.forgiving ? result : empty()
-  }
-}
-
-// Create an empty results object.
-function empty() {
-  return {
-    language: null,
-    extendedLanguageSubtags: [],
-    script: null,
-    region: null,
-    variants: [],
-    extensions: [],
-    privateuse: [],
-    irregular: null,
-    regular: null
-  }
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/bcp-47/lib/stringify.js":
-/*!**********************************************!*\
-  !*** ./node_modules/bcp-47/lib/stringify.js ***!
-  \**********************************************/
-/***/ ((module) => {
-
-"use strict";
-
-
-module.exports = stringify
-
-// Compile a language schema to a BCP 47 language tag.
-function stringify(schema) {
-  var fields = schema || {}
-  var result = []
-  var values
-  var index
-  var value
-
-  if (fields.irregular || fields.regular) {
-    return fields.irregular || fields.regular
-  }
-
-  if (fields.language) {
-    result = result.concat(
-      fields.language,
-      fields.extendedLanguageSubtags || [],
-      fields.script || [],
-      fields.region || [],
-      fields.variants || []
-    )
-
-    values = fields.extensions || []
-    index = -1
-
-    while (++index < values.length) {
-      value = values[index]
-
-      if (value.singleton && value.extensions && value.extensions.length) {
-        result = result.concat(value.singleton, value.extensions)
-      }
-    }
-  }
-
-  if (fields.privateuse && fields.privateuse.length) {
-    result = result.concat('x', fields.privateuse)
-  }
-
-  return result.join('-')
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/codem-isoboxer/dist/iso_boxer.js":
 /*!*******************************************************!*\
   !*** ./node_modules/codem-isoboxer/dist/iso_boxer.js ***!
   \*******************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports) {
 
 /*! codem-isoboxer v0.3.9 https://github.com/madebyhiro/codem-isoboxer/blob/master/LICENSE.txt */
 var ISOBoxer = {};
@@ -24924,7 +24040,7 @@ ISOBox.prototype._boxProcessors['vtte'] = function() {
 /*!***********************************************!*\
   !*** ./node_modules/fast-deep-equal/index.js ***!
   \***********************************************/
-/***/ ((module) => {
+/***/ (function(module) {
 
 "use strict";
 
@@ -24990,7 +24106,7 @@ module.exports = function equal(a, b) {
 /*!*********************************************!*\
   !*** ./node_modules/html-entities/index.js ***!
   \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = {
   XmlEntities: __webpack_require__(/*! ./lib/xml-entities.js */ "./node_modules/html-entities/lib/xml-entities.js"),
@@ -25006,7 +24122,7 @@ module.exports = {
 /*!**********************************************************!*\
   !*** ./node_modules/html-entities/lib/html4-entities.js ***!
   \**********************************************************/
-/***/ ((module) => {
+/***/ (function(module) {
 
 var HTML_ALPHA = ['apos', 'nbsp', 'iexcl', 'cent', 'pound', 'curren', 'yen', 'brvbar', 'sect', 'uml', 'copy', 'ordf', 'laquo', 'not', 'shy', 'reg', 'macr', 'deg', 'plusmn', 'sup2', 'sup3', 'acute', 'micro', 'para', 'middot', 'cedil', 'sup1', 'ordm', 'raquo', 'frac14', 'frac12', 'frac34', 'iquest', 'Agrave', 'Aacute', 'Acirc', 'Atilde', 'Auml', 'Aring', 'Aelig', 'Ccedil', 'Egrave', 'Eacute', 'Ecirc', 'Euml', 'Igrave', 'Iacute', 'Icirc', 'Iuml', 'ETH', 'Ntilde', 'Ograve', 'Oacute', 'Ocirc', 'Otilde', 'Ouml', 'times', 'Oslash', 'Ugrave', 'Uacute', 'Ucirc', 'Uuml', 'Yacute', 'THORN', 'szlig', 'agrave', 'aacute', 'acirc', 'atilde', 'auml', 'aring', 'aelig', 'ccedil', 'egrave', 'eacute', 'ecirc', 'euml', 'igrave', 'iacute', 'icirc', 'iuml', 'eth', 'ntilde', 'ograve', 'oacute', 'ocirc', 'otilde', 'ouml', 'divide', 'oslash', 'ugrave', 'uacute', 'ucirc', 'uuml', 'yacute', 'thorn', 'yuml', 'quot', 'amp', 'lt', 'gt', 'OElig', 'oelig', 'Scaron', 'scaron', 'Yuml', 'circ', 'tilde', 'ensp', 'emsp', 'thinsp', 'zwnj', 'zwj', 'lrm', 'rlm', 'ndash', 'mdash', 'lsquo', 'rsquo', 'sbquo', 'ldquo', 'rdquo', 'bdquo', 'dagger', 'Dagger', 'permil', 'lsaquo', 'rsaquo', 'euro', 'fnof', 'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigmaf', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'thetasym', 'upsih', 'piv', 'bull', 'hellip', 'prime', 'Prime', 'oline', 'frasl', 'weierp', 'image', 'real', 'trade', 'alefsym', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'crarr', 'lArr', 'uArr', 'rArr', 'dArr', 'hArr', 'forall', 'part', 'exist', 'empty', 'nabla', 'isin', 'notin', 'ni', 'prod', 'sum', 'minus', 'lowast', 'radic', 'prop', 'infin', 'ang', 'and', 'or', 'cap', 'cup', 'int', 'there4', 'sim', 'cong', 'asymp', 'ne', 'equiv', 'le', 'ge', 'sub', 'sup', 'nsub', 'sube', 'supe', 'oplus', 'otimes', 'perp', 'sdot', 'lceil', 'rceil', 'lfloor', 'rfloor', 'lang', 'rang', 'loz', 'spades', 'clubs', 'hearts', 'diams'];
 var HTML_CODES = [39, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 34, 38, 60, 62, 338, 339, 352, 353, 376, 710, 732, 8194, 8195, 8201, 8204, 8205, 8206, 8207, 8211, 8212, 8216, 8217, 8218, 8220, 8221, 8222, 8224, 8225, 8240, 8249, 8250, 8364, 402, 913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 931, 932, 933, 934, 935, 936, 937, 945, 946, 947, 948, 949, 950, 951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967, 968, 969, 977, 978, 982, 8226, 8230, 8242, 8243, 8254, 8260, 8472, 8465, 8476, 8482, 8501, 8592, 8593, 8594, 8595, 8596, 8629, 8656, 8657, 8658, 8659, 8660, 8704, 8706, 8707, 8709, 8711, 8712, 8713, 8715, 8719, 8721, 8722, 8727, 8730, 8733, 8734, 8736, 8743, 8744, 8745, 8746, 8747, 8756, 8764, 8773, 8776, 8800, 8801, 8804, 8805, 8834, 8835, 8836, 8838, 8839, 8853, 8855, 8869, 8901, 8968, 8969, 8970, 8971, 9001, 9002, 9674, 9824, 9827, 9829, 9830];
@@ -25163,7 +24279,7 @@ module.exports = Html4Entities;
 /*!**********************************************************!*\
   !*** ./node_modules/html-entities/lib/html5-entities.js ***!
   \**********************************************************/
-/***/ ((module) => {
+/***/ (function(module) {
 
 var ENTITIES = [['Aacute', [193]], ['aacute', [225]], ['Abreve', [258]], ['abreve', [259]], ['ac', [8766]], ['acd', [8767]], ['acE', [8766, 819]], ['Acirc', [194]], ['acirc', [226]], ['acute', [180]], ['Acy', [1040]], ['acy', [1072]], ['AElig', [198]], ['aelig', [230]], ['af', [8289]], ['Afr', [120068]], ['afr', [120094]], ['Agrave', [192]], ['agrave', [224]], ['alefsym', [8501]], ['aleph', [8501]], ['Alpha', [913]], ['alpha', [945]], ['Amacr', [256]], ['amacr', [257]], ['amalg', [10815]], ['amp', [38]], ['AMP', [38]], ['andand', [10837]], ['And', [10835]], ['and', [8743]], ['andd', [10844]], ['andslope', [10840]], ['andv', [10842]], ['ang', [8736]], ['ange', [10660]], ['angle', [8736]], ['angmsdaa', [10664]], ['angmsdab', [10665]], ['angmsdac', [10666]], ['angmsdad', [10667]], ['angmsdae', [10668]], ['angmsdaf', [10669]], ['angmsdag', [10670]], ['angmsdah', [10671]], ['angmsd', [8737]], ['angrt', [8735]], ['angrtvb', [8894]], ['angrtvbd', [10653]], ['angsph', [8738]], ['angst', [197]], ['angzarr', [9084]], ['Aogon', [260]], ['aogon', [261]], ['Aopf', [120120]], ['aopf', [120146]], ['apacir', [10863]], ['ap', [8776]], ['apE', [10864]], ['ape', [8778]], ['apid', [8779]], ['apos', [39]], ['ApplyFunction', [8289]], ['approx', [8776]], ['approxeq', [8778]], ['Aring', [197]], ['aring', [229]], ['Ascr', [119964]], ['ascr', [119990]], ['Assign', [8788]], ['ast', [42]], ['asymp', [8776]], ['asympeq', [8781]], ['Atilde', [195]], ['atilde', [227]], ['Auml', [196]], ['auml', [228]], ['awconint', [8755]], ['awint', [10769]], ['backcong', [8780]], ['backepsilon', [1014]], ['backprime', [8245]], ['backsim', [8765]], ['backsimeq', [8909]], ['Backslash', [8726]], ['Barv', [10983]], ['barvee', [8893]], ['barwed', [8965]], ['Barwed', [8966]], ['barwedge', [8965]], ['bbrk', [9141]], ['bbrktbrk', [9142]], ['bcong', [8780]], ['Bcy', [1041]], ['bcy', [1073]], ['bdquo', [8222]], ['becaus', [8757]], ['because', [8757]], ['Because', [8757]], ['bemptyv', [10672]], ['bepsi', [1014]], ['bernou', [8492]], ['Bernoullis', [8492]], ['Beta', [914]], ['beta', [946]], ['beth', [8502]], ['between', [8812]], ['Bfr', [120069]], ['bfr', [120095]], ['bigcap', [8898]], ['bigcirc', [9711]], ['bigcup', [8899]], ['bigodot', [10752]], ['bigoplus', [10753]], ['bigotimes', [10754]], ['bigsqcup', [10758]], ['bigstar', [9733]], ['bigtriangledown', [9661]], ['bigtriangleup', [9651]], ['biguplus', [10756]], ['bigvee', [8897]], ['bigwedge', [8896]], ['bkarow', [10509]], ['blacklozenge', [10731]], ['blacksquare', [9642]], ['blacktriangle', [9652]], ['blacktriangledown', [9662]], ['blacktriangleleft', [9666]], ['blacktriangleright', [9656]], ['blank', [9251]], ['blk12', [9618]], ['blk14', [9617]], ['blk34', [9619]], ['block', [9608]], ['bne', [61, 8421]], ['bnequiv', [8801, 8421]], ['bNot', [10989]], ['bnot', [8976]], ['Bopf', [120121]], ['bopf', [120147]], ['bot', [8869]], ['bottom', [8869]], ['bowtie', [8904]], ['boxbox', [10697]], ['boxdl', [9488]], ['boxdL', [9557]], ['boxDl', [9558]], ['boxDL', [9559]], ['boxdr', [9484]], ['boxdR', [9554]], ['boxDr', [9555]], ['boxDR', [9556]], ['boxh', [9472]], ['boxH', [9552]], ['boxhd', [9516]], ['boxHd', [9572]], ['boxhD', [9573]], ['boxHD', [9574]], ['boxhu', [9524]], ['boxHu', [9575]], ['boxhU', [9576]], ['boxHU', [9577]], ['boxminus', [8863]], ['boxplus', [8862]], ['boxtimes', [8864]], ['boxul', [9496]], ['boxuL', [9563]], ['boxUl', [9564]], ['boxUL', [9565]], ['boxur', [9492]], ['boxuR', [9560]], ['boxUr', [9561]], ['boxUR', [9562]], ['boxv', [9474]], ['boxV', [9553]], ['boxvh', [9532]], ['boxvH', [9578]], ['boxVh', [9579]], ['boxVH', [9580]], ['boxvl', [9508]], ['boxvL', [9569]], ['boxVl', [9570]], ['boxVL', [9571]], ['boxvr', [9500]], ['boxvR', [9566]], ['boxVr', [9567]], ['boxVR', [9568]], ['bprime', [8245]], ['breve', [728]], ['Breve', [728]], ['brvbar', [166]], ['bscr', [119991]], ['Bscr', [8492]], ['bsemi', [8271]], ['bsim', [8765]], ['bsime', [8909]], ['bsolb', [10693]], ['bsol', [92]], ['bsolhsub', [10184]], ['bull', [8226]], ['bullet', [8226]], ['bump', [8782]], ['bumpE', [10926]], ['bumpe', [8783]], ['Bumpeq', [8782]], ['bumpeq', [8783]], ['Cacute', [262]], ['cacute', [263]], ['capand', [10820]], ['capbrcup', [10825]], ['capcap', [10827]], ['cap', [8745]], ['Cap', [8914]], ['capcup', [10823]], ['capdot', [10816]], ['CapitalDifferentialD', [8517]], ['caps', [8745, 65024]], ['caret', [8257]], ['caron', [711]], ['Cayleys', [8493]], ['ccaps', [10829]], ['Ccaron', [268]], ['ccaron', [269]], ['Ccedil', [199]], ['ccedil', [231]], ['Ccirc', [264]], ['ccirc', [265]], ['Cconint', [8752]], ['ccups', [10828]], ['ccupssm', [10832]], ['Cdot', [266]], ['cdot', [267]], ['cedil', [184]], ['Cedilla', [184]], ['cemptyv', [10674]], ['cent', [162]], ['centerdot', [183]], ['CenterDot', [183]], ['cfr', [120096]], ['Cfr', [8493]], ['CHcy', [1063]], ['chcy', [1095]], ['check', [10003]], ['checkmark', [10003]], ['Chi', [935]], ['chi', [967]], ['circ', [710]], ['circeq', [8791]], ['circlearrowleft', [8634]], ['circlearrowright', [8635]], ['circledast', [8859]], ['circledcirc', [8858]], ['circleddash', [8861]], ['CircleDot', [8857]], ['circledR', [174]], ['circledS', [9416]], ['CircleMinus', [8854]], ['CirclePlus', [8853]], ['CircleTimes', [8855]], ['cir', [9675]], ['cirE', [10691]], ['cire', [8791]], ['cirfnint', [10768]], ['cirmid', [10991]], ['cirscir', [10690]], ['ClockwiseContourIntegral', [8754]], ['clubs', [9827]], ['clubsuit', [9827]], ['colon', [58]], ['Colon', [8759]], ['Colone', [10868]], ['colone', [8788]], ['coloneq', [8788]], ['comma', [44]], ['commat', [64]], ['comp', [8705]], ['compfn', [8728]], ['complement', [8705]], ['complexes', [8450]], ['cong', [8773]], ['congdot', [10861]], ['Congruent', [8801]], ['conint', [8750]], ['Conint', [8751]], ['ContourIntegral', [8750]], ['copf', [120148]], ['Copf', [8450]], ['coprod', [8720]], ['Coproduct', [8720]], ['copy', [169]], ['COPY', [169]], ['copysr', [8471]], ['CounterClockwiseContourIntegral', [8755]], ['crarr', [8629]], ['cross', [10007]], ['Cross', [10799]], ['Cscr', [119966]], ['cscr', [119992]], ['csub', [10959]], ['csube', [10961]], ['csup', [10960]], ['csupe', [10962]], ['ctdot', [8943]], ['cudarrl', [10552]], ['cudarrr', [10549]], ['cuepr', [8926]], ['cuesc', [8927]], ['cularr', [8630]], ['cularrp', [10557]], ['cupbrcap', [10824]], ['cupcap', [10822]], ['CupCap', [8781]], ['cup', [8746]], ['Cup', [8915]], ['cupcup', [10826]], ['cupdot', [8845]], ['cupor', [10821]], ['cups', [8746, 65024]], ['curarr', [8631]], ['curarrm', [10556]], ['curlyeqprec', [8926]], ['curlyeqsucc', [8927]], ['curlyvee', [8910]], ['curlywedge', [8911]], ['curren', [164]], ['curvearrowleft', [8630]], ['curvearrowright', [8631]], ['cuvee', [8910]], ['cuwed', [8911]], ['cwconint', [8754]], ['cwint', [8753]], ['cylcty', [9005]], ['dagger', [8224]], ['Dagger', [8225]], ['daleth', [8504]], ['darr', [8595]], ['Darr', [8609]], ['dArr', [8659]], ['dash', [8208]], ['Dashv', [10980]], ['dashv', [8867]], ['dbkarow', [10511]], ['dblac', [733]], ['Dcaron', [270]], ['dcaron', [271]], ['Dcy', [1044]], ['dcy', [1076]], ['ddagger', [8225]], ['ddarr', [8650]], ['DD', [8517]], ['dd', [8518]], ['DDotrahd', [10513]], ['ddotseq', [10871]], ['deg', [176]], ['Del', [8711]], ['Delta', [916]], ['delta', [948]], ['demptyv', [10673]], ['dfisht', [10623]], ['Dfr', [120071]], ['dfr', [120097]], ['dHar', [10597]], ['dharl', [8643]], ['dharr', [8642]], ['DiacriticalAcute', [180]], ['DiacriticalDot', [729]], ['DiacriticalDoubleAcute', [733]], ['DiacriticalGrave', [96]], ['DiacriticalTilde', [732]], ['diam', [8900]], ['diamond', [8900]], ['Diamond', [8900]], ['diamondsuit', [9830]], ['diams', [9830]], ['die', [168]], ['DifferentialD', [8518]], ['digamma', [989]], ['disin', [8946]], ['div', [247]], ['divide', [247]], ['divideontimes', [8903]], ['divonx', [8903]], ['DJcy', [1026]], ['djcy', [1106]], ['dlcorn', [8990]], ['dlcrop', [8973]], ['dollar', [36]], ['Dopf', [120123]], ['dopf', [120149]], ['Dot', [168]], ['dot', [729]], ['DotDot', [8412]], ['doteq', [8784]], ['doteqdot', [8785]], ['DotEqual', [8784]], ['dotminus', [8760]], ['dotplus', [8724]], ['dotsquare', [8865]], ['doublebarwedge', [8966]], ['DoubleContourIntegral', [8751]], ['DoubleDot', [168]], ['DoubleDownArrow', [8659]], ['DoubleLeftArrow', [8656]], ['DoubleLeftRightArrow', [8660]], ['DoubleLeftTee', [10980]], ['DoubleLongLeftArrow', [10232]], ['DoubleLongLeftRightArrow', [10234]], ['DoubleLongRightArrow', [10233]], ['DoubleRightArrow', [8658]], ['DoubleRightTee', [8872]], ['DoubleUpArrow', [8657]], ['DoubleUpDownArrow', [8661]], ['DoubleVerticalBar', [8741]], ['DownArrowBar', [10515]], ['downarrow', [8595]], ['DownArrow', [8595]], ['Downarrow', [8659]], ['DownArrowUpArrow', [8693]], ['DownBreve', [785]], ['downdownarrows', [8650]], ['downharpoonleft', [8643]], ['downharpoonright', [8642]], ['DownLeftRightVector', [10576]], ['DownLeftTeeVector', [10590]], ['DownLeftVectorBar', [10582]], ['DownLeftVector', [8637]], ['DownRightTeeVector', [10591]], ['DownRightVectorBar', [10583]], ['DownRightVector', [8641]], ['DownTeeArrow', [8615]], ['DownTee', [8868]], ['drbkarow', [10512]], ['drcorn', [8991]], ['drcrop', [8972]], ['Dscr', [119967]], ['dscr', [119993]], ['DScy', [1029]], ['dscy', [1109]], ['dsol', [10742]], ['Dstrok', [272]], ['dstrok', [273]], ['dtdot', [8945]], ['dtri', [9663]], ['dtrif', [9662]], ['duarr', [8693]], ['duhar', [10607]], ['dwangle', [10662]], ['DZcy', [1039]], ['dzcy', [1119]], ['dzigrarr', [10239]], ['Eacute', [201]], ['eacute', [233]], ['easter', [10862]], ['Ecaron', [282]], ['ecaron', [283]], ['Ecirc', [202]], ['ecirc', [234]], ['ecir', [8790]], ['ecolon', [8789]], ['Ecy', [1069]], ['ecy', [1101]], ['eDDot', [10871]], ['Edot', [278]], ['edot', [279]], ['eDot', [8785]], ['ee', [8519]], ['efDot', [8786]], ['Efr', [120072]], ['efr', [120098]], ['eg', [10906]], ['Egrave', [200]], ['egrave', [232]], ['egs', [10902]], ['egsdot', [10904]], ['el', [10905]], ['Element', [8712]], ['elinters', [9191]], ['ell', [8467]], ['els', [10901]], ['elsdot', [10903]], ['Emacr', [274]], ['emacr', [275]], ['empty', [8709]], ['emptyset', [8709]], ['EmptySmallSquare', [9723]], ['emptyv', [8709]], ['EmptyVerySmallSquare', [9643]], ['emsp13', [8196]], ['emsp14', [8197]], ['emsp', [8195]], ['ENG', [330]], ['eng', [331]], ['ensp', [8194]], ['Eogon', [280]], ['eogon', [281]], ['Eopf', [120124]], ['eopf', [120150]], ['epar', [8917]], ['eparsl', [10723]], ['eplus', [10865]], ['epsi', [949]], ['Epsilon', [917]], ['epsilon', [949]], ['epsiv', [1013]], ['eqcirc', [8790]], ['eqcolon', [8789]], ['eqsim', [8770]], ['eqslantgtr', [10902]], ['eqslantless', [10901]], ['Equal', [10869]], ['equals', [61]], ['EqualTilde', [8770]], ['equest', [8799]], ['Equilibrium', [8652]], ['equiv', [8801]], ['equivDD', [10872]], ['eqvparsl', [10725]], ['erarr', [10609]], ['erDot', [8787]], ['escr', [8495]], ['Escr', [8496]], ['esdot', [8784]], ['Esim', [10867]], ['esim', [8770]], ['Eta', [919]], ['eta', [951]], ['ETH', [208]], ['eth', [240]], ['Euml', [203]], ['euml', [235]], ['euro', [8364]], ['excl', [33]], ['exist', [8707]], ['Exists', [8707]], ['expectation', [8496]], ['exponentiale', [8519]], ['ExponentialE', [8519]], ['fallingdotseq', [8786]], ['Fcy', [1060]], ['fcy', [1092]], ['female', [9792]], ['ffilig', [64259]], ['fflig', [64256]], ['ffllig', [64260]], ['Ffr', [120073]], ['ffr', [120099]], ['filig', [64257]], ['FilledSmallSquare', [9724]], ['FilledVerySmallSquare', [9642]], ['fjlig', [102, 106]], ['flat', [9837]], ['fllig', [64258]], ['fltns', [9649]], ['fnof', [402]], ['Fopf', [120125]], ['fopf', [120151]], ['forall', [8704]], ['ForAll', [8704]], ['fork', [8916]], ['forkv', [10969]], ['Fouriertrf', [8497]], ['fpartint', [10765]], ['frac12', [189]], ['frac13', [8531]], ['frac14', [188]], ['frac15', [8533]], ['frac16', [8537]], ['frac18', [8539]], ['frac23', [8532]], ['frac25', [8534]], ['frac34', [190]], ['frac35', [8535]], ['frac38', [8540]], ['frac45', [8536]], ['frac56', [8538]], ['frac58', [8541]], ['frac78', [8542]], ['frasl', [8260]], ['frown', [8994]], ['fscr', [119995]], ['Fscr', [8497]], ['gacute', [501]], ['Gamma', [915]], ['gamma', [947]], ['Gammad', [988]], ['gammad', [989]], ['gap', [10886]], ['Gbreve', [286]], ['gbreve', [287]], ['Gcedil', [290]], ['Gcirc', [284]], ['gcirc', [285]], ['Gcy', [1043]], ['gcy', [1075]], ['Gdot', [288]], ['gdot', [289]], ['ge', [8805]], ['gE', [8807]], ['gEl', [10892]], ['gel', [8923]], ['geq', [8805]], ['geqq', [8807]], ['geqslant', [10878]], ['gescc', [10921]], ['ges', [10878]], ['gesdot', [10880]], ['gesdoto', [10882]], ['gesdotol', [10884]], ['gesl', [8923, 65024]], ['gesles', [10900]], ['Gfr', [120074]], ['gfr', [120100]], ['gg', [8811]], ['Gg', [8921]], ['ggg', [8921]], ['gimel', [8503]], ['GJcy', [1027]], ['gjcy', [1107]], ['gla', [10917]], ['gl', [8823]], ['glE', [10898]], ['glj', [10916]], ['gnap', [10890]], ['gnapprox', [10890]], ['gne', [10888]], ['gnE', [8809]], ['gneq', [10888]], ['gneqq', [8809]], ['gnsim', [8935]], ['Gopf', [120126]], ['gopf', [120152]], ['grave', [96]], ['GreaterEqual', [8805]], ['GreaterEqualLess', [8923]], ['GreaterFullEqual', [8807]], ['GreaterGreater', [10914]], ['GreaterLess', [8823]], ['GreaterSlantEqual', [10878]], ['GreaterTilde', [8819]], ['Gscr', [119970]], ['gscr', [8458]], ['gsim', [8819]], ['gsime', [10894]], ['gsiml', [10896]], ['gtcc', [10919]], ['gtcir', [10874]], ['gt', [62]], ['GT', [62]], ['Gt', [8811]], ['gtdot', [8919]], ['gtlPar', [10645]], ['gtquest', [10876]], ['gtrapprox', [10886]], ['gtrarr', [10616]], ['gtrdot', [8919]], ['gtreqless', [8923]], ['gtreqqless', [10892]], ['gtrless', [8823]], ['gtrsim', [8819]], ['gvertneqq', [8809, 65024]], ['gvnE', [8809, 65024]], ['Hacek', [711]], ['hairsp', [8202]], ['half', [189]], ['hamilt', [8459]], ['HARDcy', [1066]], ['hardcy', [1098]], ['harrcir', [10568]], ['harr', [8596]], ['hArr', [8660]], ['harrw', [8621]], ['Hat', [94]], ['hbar', [8463]], ['Hcirc', [292]], ['hcirc', [293]], ['hearts', [9829]], ['heartsuit', [9829]], ['hellip', [8230]], ['hercon', [8889]], ['hfr', [120101]], ['Hfr', [8460]], ['HilbertSpace', [8459]], ['hksearow', [10533]], ['hkswarow', [10534]], ['hoarr', [8703]], ['homtht', [8763]], ['hookleftarrow', [8617]], ['hookrightarrow', [8618]], ['hopf', [120153]], ['Hopf', [8461]], ['horbar', [8213]], ['HorizontalLine', [9472]], ['hscr', [119997]], ['Hscr', [8459]], ['hslash', [8463]], ['Hstrok', [294]], ['hstrok', [295]], ['HumpDownHump', [8782]], ['HumpEqual', [8783]], ['hybull', [8259]], ['hyphen', [8208]], ['Iacute', [205]], ['iacute', [237]], ['ic', [8291]], ['Icirc', [206]], ['icirc', [238]], ['Icy', [1048]], ['icy', [1080]], ['Idot', [304]], ['IEcy', [1045]], ['iecy', [1077]], ['iexcl', [161]], ['iff', [8660]], ['ifr', [120102]], ['Ifr', [8465]], ['Igrave', [204]], ['igrave', [236]], ['ii', [8520]], ['iiiint', [10764]], ['iiint', [8749]], ['iinfin', [10716]], ['iiota', [8489]], ['IJlig', [306]], ['ijlig', [307]], ['Imacr', [298]], ['imacr', [299]], ['image', [8465]], ['ImaginaryI', [8520]], ['imagline', [8464]], ['imagpart', [8465]], ['imath', [305]], ['Im', [8465]], ['imof', [8887]], ['imped', [437]], ['Implies', [8658]], ['incare', [8453]], ['in', [8712]], ['infin', [8734]], ['infintie', [10717]], ['inodot', [305]], ['intcal', [8890]], ['int', [8747]], ['Int', [8748]], ['integers', [8484]], ['Integral', [8747]], ['intercal', [8890]], ['Intersection', [8898]], ['intlarhk', [10775]], ['intprod', [10812]], ['InvisibleComma', [8291]], ['InvisibleTimes', [8290]], ['IOcy', [1025]], ['iocy', [1105]], ['Iogon', [302]], ['iogon', [303]], ['Iopf', [120128]], ['iopf', [120154]], ['Iota', [921]], ['iota', [953]], ['iprod', [10812]], ['iquest', [191]], ['iscr', [119998]], ['Iscr', [8464]], ['isin', [8712]], ['isindot', [8949]], ['isinE', [8953]], ['isins', [8948]], ['isinsv', [8947]], ['isinv', [8712]], ['it', [8290]], ['Itilde', [296]], ['itilde', [297]], ['Iukcy', [1030]], ['iukcy', [1110]], ['Iuml', [207]], ['iuml', [239]], ['Jcirc', [308]], ['jcirc', [309]], ['Jcy', [1049]], ['jcy', [1081]], ['Jfr', [120077]], ['jfr', [120103]], ['jmath', [567]], ['Jopf', [120129]], ['jopf', [120155]], ['Jscr', [119973]], ['jscr', [119999]], ['Jsercy', [1032]], ['jsercy', [1112]], ['Jukcy', [1028]], ['jukcy', [1108]], ['Kappa', [922]], ['kappa', [954]], ['kappav', [1008]], ['Kcedil', [310]], ['kcedil', [311]], ['Kcy', [1050]], ['kcy', [1082]], ['Kfr', [120078]], ['kfr', [120104]], ['kgreen', [312]], ['KHcy', [1061]], ['khcy', [1093]], ['KJcy', [1036]], ['kjcy', [1116]], ['Kopf', [120130]], ['kopf', [120156]], ['Kscr', [119974]], ['kscr', [120000]], ['lAarr', [8666]], ['Lacute', [313]], ['lacute', [314]], ['laemptyv', [10676]], ['lagran', [8466]], ['Lambda', [923]], ['lambda', [955]], ['lang', [10216]], ['Lang', [10218]], ['langd', [10641]], ['langle', [10216]], ['lap', [10885]], ['Laplacetrf', [8466]], ['laquo', [171]], ['larrb', [8676]], ['larrbfs', [10527]], ['larr', [8592]], ['Larr', [8606]], ['lArr', [8656]], ['larrfs', [10525]], ['larrhk', [8617]], ['larrlp', [8619]], ['larrpl', [10553]], ['larrsim', [10611]], ['larrtl', [8610]], ['latail', [10521]], ['lAtail', [10523]], ['lat', [10923]], ['late', [10925]], ['lates', [10925, 65024]], ['lbarr', [10508]], ['lBarr', [10510]], ['lbbrk', [10098]], ['lbrace', [123]], ['lbrack', [91]], ['lbrke', [10635]], ['lbrksld', [10639]], ['lbrkslu', [10637]], ['Lcaron', [317]], ['lcaron', [318]], ['Lcedil', [315]], ['lcedil', [316]], ['lceil', [8968]], ['lcub', [123]], ['Lcy', [1051]], ['lcy', [1083]], ['ldca', [10550]], ['ldquo', [8220]], ['ldquor', [8222]], ['ldrdhar', [10599]], ['ldrushar', [10571]], ['ldsh', [8626]], ['le', [8804]], ['lE', [8806]], ['LeftAngleBracket', [10216]], ['LeftArrowBar', [8676]], ['leftarrow', [8592]], ['LeftArrow', [8592]], ['Leftarrow', [8656]], ['LeftArrowRightArrow', [8646]], ['leftarrowtail', [8610]], ['LeftCeiling', [8968]], ['LeftDoubleBracket', [10214]], ['LeftDownTeeVector', [10593]], ['LeftDownVectorBar', [10585]], ['LeftDownVector', [8643]], ['LeftFloor', [8970]], ['leftharpoondown', [8637]], ['leftharpoonup', [8636]], ['leftleftarrows', [8647]], ['leftrightarrow', [8596]], ['LeftRightArrow', [8596]], ['Leftrightarrow', [8660]], ['leftrightarrows', [8646]], ['leftrightharpoons', [8651]], ['leftrightsquigarrow', [8621]], ['LeftRightVector', [10574]], ['LeftTeeArrow', [8612]], ['LeftTee', [8867]], ['LeftTeeVector', [10586]], ['leftthreetimes', [8907]], ['LeftTriangleBar', [10703]], ['LeftTriangle', [8882]], ['LeftTriangleEqual', [8884]], ['LeftUpDownVector', [10577]], ['LeftUpTeeVector', [10592]], ['LeftUpVectorBar', [10584]], ['LeftUpVector', [8639]], ['LeftVectorBar', [10578]], ['LeftVector', [8636]], ['lEg', [10891]], ['leg', [8922]], ['leq', [8804]], ['leqq', [8806]], ['leqslant', [10877]], ['lescc', [10920]], ['les', [10877]], ['lesdot', [10879]], ['lesdoto', [10881]], ['lesdotor', [10883]], ['lesg', [8922, 65024]], ['lesges', [10899]], ['lessapprox', [10885]], ['lessdot', [8918]], ['lesseqgtr', [8922]], ['lesseqqgtr', [10891]], ['LessEqualGreater', [8922]], ['LessFullEqual', [8806]], ['LessGreater', [8822]], ['lessgtr', [8822]], ['LessLess', [10913]], ['lesssim', [8818]], ['LessSlantEqual', [10877]], ['LessTilde', [8818]], ['lfisht', [10620]], ['lfloor', [8970]], ['Lfr', [120079]], ['lfr', [120105]], ['lg', [8822]], ['lgE', [10897]], ['lHar', [10594]], ['lhard', [8637]], ['lharu', [8636]], ['lharul', [10602]], ['lhblk', [9604]], ['LJcy', [1033]], ['ljcy', [1113]], ['llarr', [8647]], ['ll', [8810]], ['Ll', [8920]], ['llcorner', [8990]], ['Lleftarrow', [8666]], ['llhard', [10603]], ['lltri', [9722]], ['Lmidot', [319]], ['lmidot', [320]], ['lmoustache', [9136]], ['lmoust', [9136]], ['lnap', [10889]], ['lnapprox', [10889]], ['lne', [10887]], ['lnE', [8808]], ['lneq', [10887]], ['lneqq', [8808]], ['lnsim', [8934]], ['loang', [10220]], ['loarr', [8701]], ['lobrk', [10214]], ['longleftarrow', [10229]], ['LongLeftArrow', [10229]], ['Longleftarrow', [10232]], ['longleftrightarrow', [10231]], ['LongLeftRightArrow', [10231]], ['Longleftrightarrow', [10234]], ['longmapsto', [10236]], ['longrightarrow', [10230]], ['LongRightArrow', [10230]], ['Longrightarrow', [10233]], ['looparrowleft', [8619]], ['looparrowright', [8620]], ['lopar', [10629]], ['Lopf', [120131]], ['lopf', [120157]], ['loplus', [10797]], ['lotimes', [10804]], ['lowast', [8727]], ['lowbar', [95]], ['LowerLeftArrow', [8601]], ['LowerRightArrow', [8600]], ['loz', [9674]], ['lozenge', [9674]], ['lozf', [10731]], ['lpar', [40]], ['lparlt', [10643]], ['lrarr', [8646]], ['lrcorner', [8991]], ['lrhar', [8651]], ['lrhard', [10605]], ['lrm', [8206]], ['lrtri', [8895]], ['lsaquo', [8249]], ['lscr', [120001]], ['Lscr', [8466]], ['lsh', [8624]], ['Lsh', [8624]], ['lsim', [8818]], ['lsime', [10893]], ['lsimg', [10895]], ['lsqb', [91]], ['lsquo', [8216]], ['lsquor', [8218]], ['Lstrok', [321]], ['lstrok', [322]], ['ltcc', [10918]], ['ltcir', [10873]], ['lt', [60]], ['LT', [60]], ['Lt', [8810]], ['ltdot', [8918]], ['lthree', [8907]], ['ltimes', [8905]], ['ltlarr', [10614]], ['ltquest', [10875]], ['ltri', [9667]], ['ltrie', [8884]], ['ltrif', [9666]], ['ltrPar', [10646]], ['lurdshar', [10570]], ['luruhar', [10598]], ['lvertneqq', [8808, 65024]], ['lvnE', [8808, 65024]], ['macr', [175]], ['male', [9794]], ['malt', [10016]], ['maltese', [10016]], ['Map', [10501]], ['map', [8614]], ['mapsto', [8614]], ['mapstodown', [8615]], ['mapstoleft', [8612]], ['mapstoup', [8613]], ['marker', [9646]], ['mcomma', [10793]], ['Mcy', [1052]], ['mcy', [1084]], ['mdash', [8212]], ['mDDot', [8762]], ['measuredangle', [8737]], ['MediumSpace', [8287]], ['Mellintrf', [8499]], ['Mfr', [120080]], ['mfr', [120106]], ['mho', [8487]], ['micro', [181]], ['midast', [42]], ['midcir', [10992]], ['mid', [8739]], ['middot', [183]], ['minusb', [8863]], ['minus', [8722]], ['minusd', [8760]], ['minusdu', [10794]], ['MinusPlus', [8723]], ['mlcp', [10971]], ['mldr', [8230]], ['mnplus', [8723]], ['models', [8871]], ['Mopf', [120132]], ['mopf', [120158]], ['mp', [8723]], ['mscr', [120002]], ['Mscr', [8499]], ['mstpos', [8766]], ['Mu', [924]], ['mu', [956]], ['multimap', [8888]], ['mumap', [8888]], ['nabla', [8711]], ['Nacute', [323]], ['nacute', [324]], ['nang', [8736, 8402]], ['nap', [8777]], ['napE', [10864, 824]], ['napid', [8779, 824]], ['napos', [329]], ['napprox', [8777]], ['natural', [9838]], ['naturals', [8469]], ['natur', [9838]], ['nbsp', [160]], ['nbump', [8782, 824]], ['nbumpe', [8783, 824]], ['ncap', [10819]], ['Ncaron', [327]], ['ncaron', [328]], ['Ncedil', [325]], ['ncedil', [326]], ['ncong', [8775]], ['ncongdot', [10861, 824]], ['ncup', [10818]], ['Ncy', [1053]], ['ncy', [1085]], ['ndash', [8211]], ['nearhk', [10532]], ['nearr', [8599]], ['neArr', [8663]], ['nearrow', [8599]], ['ne', [8800]], ['nedot', [8784, 824]], ['NegativeMediumSpace', [8203]], ['NegativeThickSpace', [8203]], ['NegativeThinSpace', [8203]], ['NegativeVeryThinSpace', [8203]], ['nequiv', [8802]], ['nesear', [10536]], ['nesim', [8770, 824]], ['NestedGreaterGreater', [8811]], ['NestedLessLess', [8810]], ['nexist', [8708]], ['nexists', [8708]], ['Nfr', [120081]], ['nfr', [120107]], ['ngE', [8807, 824]], ['nge', [8817]], ['ngeq', [8817]], ['ngeqq', [8807, 824]], ['ngeqslant', [10878, 824]], ['nges', [10878, 824]], ['nGg', [8921, 824]], ['ngsim', [8821]], ['nGt', [8811, 8402]], ['ngt', [8815]], ['ngtr', [8815]], ['nGtv', [8811, 824]], ['nharr', [8622]], ['nhArr', [8654]], ['nhpar', [10994]], ['ni', [8715]], ['nis', [8956]], ['nisd', [8954]], ['niv', [8715]], ['NJcy', [1034]], ['njcy', [1114]], ['nlarr', [8602]], ['nlArr', [8653]], ['nldr', [8229]], ['nlE', [8806, 824]], ['nle', [8816]], ['nleftarrow', [8602]], ['nLeftarrow', [8653]], ['nleftrightarrow', [8622]], ['nLeftrightarrow', [8654]], ['nleq', [8816]], ['nleqq', [8806, 824]], ['nleqslant', [10877, 824]], ['nles', [10877, 824]], ['nless', [8814]], ['nLl', [8920, 824]], ['nlsim', [8820]], ['nLt', [8810, 8402]], ['nlt', [8814]], ['nltri', [8938]], ['nltrie', [8940]], ['nLtv', [8810, 824]], ['nmid', [8740]], ['NoBreak', [8288]], ['NonBreakingSpace', [160]], ['nopf', [120159]], ['Nopf', [8469]], ['Not', [10988]], ['not', [172]], ['NotCongruent', [8802]], ['NotCupCap', [8813]], ['NotDoubleVerticalBar', [8742]], ['NotElement', [8713]], ['NotEqual', [8800]], ['NotEqualTilde', [8770, 824]], ['NotExists', [8708]], ['NotGreater', [8815]], ['NotGreaterEqual', [8817]], ['NotGreaterFullEqual', [8807, 824]], ['NotGreaterGreater', [8811, 824]], ['NotGreaterLess', [8825]], ['NotGreaterSlantEqual', [10878, 824]], ['NotGreaterTilde', [8821]], ['NotHumpDownHump', [8782, 824]], ['NotHumpEqual', [8783, 824]], ['notin', [8713]], ['notindot', [8949, 824]], ['notinE', [8953, 824]], ['notinva', [8713]], ['notinvb', [8951]], ['notinvc', [8950]], ['NotLeftTriangleBar', [10703, 824]], ['NotLeftTriangle', [8938]], ['NotLeftTriangleEqual', [8940]], ['NotLess', [8814]], ['NotLessEqual', [8816]], ['NotLessGreater', [8824]], ['NotLessLess', [8810, 824]], ['NotLessSlantEqual', [10877, 824]], ['NotLessTilde', [8820]], ['NotNestedGreaterGreater', [10914, 824]], ['NotNestedLessLess', [10913, 824]], ['notni', [8716]], ['notniva', [8716]], ['notnivb', [8958]], ['notnivc', [8957]], ['NotPrecedes', [8832]], ['NotPrecedesEqual', [10927, 824]], ['NotPrecedesSlantEqual', [8928]], ['NotReverseElement', [8716]], ['NotRightTriangleBar', [10704, 824]], ['NotRightTriangle', [8939]], ['NotRightTriangleEqual', [8941]], ['NotSquareSubset', [8847, 824]], ['NotSquareSubsetEqual', [8930]], ['NotSquareSuperset', [8848, 824]], ['NotSquareSupersetEqual', [8931]], ['NotSubset', [8834, 8402]], ['NotSubsetEqual', [8840]], ['NotSucceeds', [8833]], ['NotSucceedsEqual', [10928, 824]], ['NotSucceedsSlantEqual', [8929]], ['NotSucceedsTilde', [8831, 824]], ['NotSuperset', [8835, 8402]], ['NotSupersetEqual', [8841]], ['NotTilde', [8769]], ['NotTildeEqual', [8772]], ['NotTildeFullEqual', [8775]], ['NotTildeTilde', [8777]], ['NotVerticalBar', [8740]], ['nparallel', [8742]], ['npar', [8742]], ['nparsl', [11005, 8421]], ['npart', [8706, 824]], ['npolint', [10772]], ['npr', [8832]], ['nprcue', [8928]], ['nprec', [8832]], ['npreceq', [10927, 824]], ['npre', [10927, 824]], ['nrarrc', [10547, 824]], ['nrarr', [8603]], ['nrArr', [8655]], ['nrarrw', [8605, 824]], ['nrightarrow', [8603]], ['nRightarrow', [8655]], ['nrtri', [8939]], ['nrtrie', [8941]], ['nsc', [8833]], ['nsccue', [8929]], ['nsce', [10928, 824]], ['Nscr', [119977]], ['nscr', [120003]], ['nshortmid', [8740]], ['nshortparallel', [8742]], ['nsim', [8769]], ['nsime', [8772]], ['nsimeq', [8772]], ['nsmid', [8740]], ['nspar', [8742]], ['nsqsube', [8930]], ['nsqsupe', [8931]], ['nsub', [8836]], ['nsubE', [10949, 824]], ['nsube', [8840]], ['nsubset', [8834, 8402]], ['nsubseteq', [8840]], ['nsubseteqq', [10949, 824]], ['nsucc', [8833]], ['nsucceq', [10928, 824]], ['nsup', [8837]], ['nsupE', [10950, 824]], ['nsupe', [8841]], ['nsupset', [8835, 8402]], ['nsupseteq', [8841]], ['nsupseteqq', [10950, 824]], ['ntgl', [8825]], ['Ntilde', [209]], ['ntilde', [241]], ['ntlg', [8824]], ['ntriangleleft', [8938]], ['ntrianglelefteq', [8940]], ['ntriangleright', [8939]], ['ntrianglerighteq', [8941]], ['Nu', [925]], ['nu', [957]], ['num', [35]], ['numero', [8470]], ['numsp', [8199]], ['nvap', [8781, 8402]], ['nvdash', [8876]], ['nvDash', [8877]], ['nVdash', [8878]], ['nVDash', [8879]], ['nvge', [8805, 8402]], ['nvgt', [62, 8402]], ['nvHarr', [10500]], ['nvinfin', [10718]], ['nvlArr', [10498]], ['nvle', [8804, 8402]], ['nvlt', [60, 8402]], ['nvltrie', [8884, 8402]], ['nvrArr', [10499]], ['nvrtrie', [8885, 8402]], ['nvsim', [8764, 8402]], ['nwarhk', [10531]], ['nwarr', [8598]], ['nwArr', [8662]], ['nwarrow', [8598]], ['nwnear', [10535]], ['Oacute', [211]], ['oacute', [243]], ['oast', [8859]], ['Ocirc', [212]], ['ocirc', [244]], ['ocir', [8858]], ['Ocy', [1054]], ['ocy', [1086]], ['odash', [8861]], ['Odblac', [336]], ['odblac', [337]], ['odiv', [10808]], ['odot', [8857]], ['odsold', [10684]], ['OElig', [338]], ['oelig', [339]], ['ofcir', [10687]], ['Ofr', [120082]], ['ofr', [120108]], ['ogon', [731]], ['Ograve', [210]], ['ograve', [242]], ['ogt', [10689]], ['ohbar', [10677]], ['ohm', [937]], ['oint', [8750]], ['olarr', [8634]], ['olcir', [10686]], ['olcross', [10683]], ['oline', [8254]], ['olt', [10688]], ['Omacr', [332]], ['omacr', [333]], ['Omega', [937]], ['omega', [969]], ['Omicron', [927]], ['omicron', [959]], ['omid', [10678]], ['ominus', [8854]], ['Oopf', [120134]], ['oopf', [120160]], ['opar', [10679]], ['OpenCurlyDoubleQuote', [8220]], ['OpenCurlyQuote', [8216]], ['operp', [10681]], ['oplus', [8853]], ['orarr', [8635]], ['Or', [10836]], ['or', [8744]], ['ord', [10845]], ['order', [8500]], ['orderof', [8500]], ['ordf', [170]], ['ordm', [186]], ['origof', [8886]], ['oror', [10838]], ['orslope', [10839]], ['orv', [10843]], ['oS', [9416]], ['Oscr', [119978]], ['oscr', [8500]], ['Oslash', [216]], ['oslash', [248]], ['osol', [8856]], ['Otilde', [213]], ['otilde', [245]], ['otimesas', [10806]], ['Otimes', [10807]], ['otimes', [8855]], ['Ouml', [214]], ['ouml', [246]], ['ovbar', [9021]], ['OverBar', [8254]], ['OverBrace', [9182]], ['OverBracket', [9140]], ['OverParenthesis', [9180]], ['para', [182]], ['parallel', [8741]], ['par', [8741]], ['parsim', [10995]], ['parsl', [11005]], ['part', [8706]], ['PartialD', [8706]], ['Pcy', [1055]], ['pcy', [1087]], ['percnt', [37]], ['period', [46]], ['permil', [8240]], ['perp', [8869]], ['pertenk', [8241]], ['Pfr', [120083]], ['pfr', [120109]], ['Phi', [934]], ['phi', [966]], ['phiv', [981]], ['phmmat', [8499]], ['phone', [9742]], ['Pi', [928]], ['pi', [960]], ['pitchfork', [8916]], ['piv', [982]], ['planck', [8463]], ['planckh', [8462]], ['plankv', [8463]], ['plusacir', [10787]], ['plusb', [8862]], ['pluscir', [10786]], ['plus', [43]], ['plusdo', [8724]], ['plusdu', [10789]], ['pluse', [10866]], ['PlusMinus', [177]], ['plusmn', [177]], ['plussim', [10790]], ['plustwo', [10791]], ['pm', [177]], ['Poincareplane', [8460]], ['pointint', [10773]], ['popf', [120161]], ['Popf', [8473]], ['pound', [163]], ['prap', [10935]], ['Pr', [10939]], ['pr', [8826]], ['prcue', [8828]], ['precapprox', [10935]], ['prec', [8826]], ['preccurlyeq', [8828]], ['Precedes', [8826]], ['PrecedesEqual', [10927]], ['PrecedesSlantEqual', [8828]], ['PrecedesTilde', [8830]], ['preceq', [10927]], ['precnapprox', [10937]], ['precneqq', [10933]], ['precnsim', [8936]], ['pre', [10927]], ['prE', [10931]], ['precsim', [8830]], ['prime', [8242]], ['Prime', [8243]], ['primes', [8473]], ['prnap', [10937]], ['prnE', [10933]], ['prnsim', [8936]], ['prod', [8719]], ['Product', [8719]], ['profalar', [9006]], ['profline', [8978]], ['profsurf', [8979]], ['prop', [8733]], ['Proportional', [8733]], ['Proportion', [8759]], ['propto', [8733]], ['prsim', [8830]], ['prurel', [8880]], ['Pscr', [119979]], ['pscr', [120005]], ['Psi', [936]], ['psi', [968]], ['puncsp', [8200]], ['Qfr', [120084]], ['qfr', [120110]], ['qint', [10764]], ['qopf', [120162]], ['Qopf', [8474]], ['qprime', [8279]], ['Qscr', [119980]], ['qscr', [120006]], ['quaternions', [8461]], ['quatint', [10774]], ['quest', [63]], ['questeq', [8799]], ['quot', [34]], ['QUOT', [34]], ['rAarr', [8667]], ['race', [8765, 817]], ['Racute', [340]], ['racute', [341]], ['radic', [8730]], ['raemptyv', [10675]], ['rang', [10217]], ['Rang', [10219]], ['rangd', [10642]], ['range', [10661]], ['rangle', [10217]], ['raquo', [187]], ['rarrap', [10613]], ['rarrb', [8677]], ['rarrbfs', [10528]], ['rarrc', [10547]], ['rarr', [8594]], ['Rarr', [8608]], ['rArr', [8658]], ['rarrfs', [10526]], ['rarrhk', [8618]], ['rarrlp', [8620]], ['rarrpl', [10565]], ['rarrsim', [10612]], ['Rarrtl', [10518]], ['rarrtl', [8611]], ['rarrw', [8605]], ['ratail', [10522]], ['rAtail', [10524]], ['ratio', [8758]], ['rationals', [8474]], ['rbarr', [10509]], ['rBarr', [10511]], ['RBarr', [10512]], ['rbbrk', [10099]], ['rbrace', [125]], ['rbrack', [93]], ['rbrke', [10636]], ['rbrksld', [10638]], ['rbrkslu', [10640]], ['Rcaron', [344]], ['rcaron', [345]], ['Rcedil', [342]], ['rcedil', [343]], ['rceil', [8969]], ['rcub', [125]], ['Rcy', [1056]], ['rcy', [1088]], ['rdca', [10551]], ['rdldhar', [10601]], ['rdquo', [8221]], ['rdquor', [8221]], ['CloseCurlyDoubleQuote', [8221]], ['rdsh', [8627]], ['real', [8476]], ['realine', [8475]], ['realpart', [8476]], ['reals', [8477]], ['Re', [8476]], ['rect', [9645]], ['reg', [174]], ['REG', [174]], ['ReverseElement', [8715]], ['ReverseEquilibrium', [8651]], ['ReverseUpEquilibrium', [10607]], ['rfisht', [10621]], ['rfloor', [8971]], ['rfr', [120111]], ['Rfr', [8476]], ['rHar', [10596]], ['rhard', [8641]], ['rharu', [8640]], ['rharul', [10604]], ['Rho', [929]], ['rho', [961]], ['rhov', [1009]], ['RightAngleBracket', [10217]], ['RightArrowBar', [8677]], ['rightarrow', [8594]], ['RightArrow', [8594]], ['Rightarrow', [8658]], ['RightArrowLeftArrow', [8644]], ['rightarrowtail', [8611]], ['RightCeiling', [8969]], ['RightDoubleBracket', [10215]], ['RightDownTeeVector', [10589]], ['RightDownVectorBar', [10581]], ['RightDownVector', [8642]], ['RightFloor', [8971]], ['rightharpoondown', [8641]], ['rightharpoonup', [8640]], ['rightleftarrows', [8644]], ['rightleftharpoons', [8652]], ['rightrightarrows', [8649]], ['rightsquigarrow', [8605]], ['RightTeeArrow', [8614]], ['RightTee', [8866]], ['RightTeeVector', [10587]], ['rightthreetimes', [8908]], ['RightTriangleBar', [10704]], ['RightTriangle', [8883]], ['RightTriangleEqual', [8885]], ['RightUpDownVector', [10575]], ['RightUpTeeVector', [10588]], ['RightUpVectorBar', [10580]], ['RightUpVector', [8638]], ['RightVectorBar', [10579]], ['RightVector', [8640]], ['ring', [730]], ['risingdotseq', [8787]], ['rlarr', [8644]], ['rlhar', [8652]], ['rlm', [8207]], ['rmoustache', [9137]], ['rmoust', [9137]], ['rnmid', [10990]], ['roang', [10221]], ['roarr', [8702]], ['robrk', [10215]], ['ropar', [10630]], ['ropf', [120163]], ['Ropf', [8477]], ['roplus', [10798]], ['rotimes', [10805]], ['RoundImplies', [10608]], ['rpar', [41]], ['rpargt', [10644]], ['rppolint', [10770]], ['rrarr', [8649]], ['Rrightarrow', [8667]], ['rsaquo', [8250]], ['rscr', [120007]], ['Rscr', [8475]], ['rsh', [8625]], ['Rsh', [8625]], ['rsqb', [93]], ['rsquo', [8217]], ['rsquor', [8217]], ['CloseCurlyQuote', [8217]], ['rthree', [8908]], ['rtimes', [8906]], ['rtri', [9657]], ['rtrie', [8885]], ['rtrif', [9656]], ['rtriltri', [10702]], ['RuleDelayed', [10740]], ['ruluhar', [10600]], ['rx', [8478]], ['Sacute', [346]], ['sacute', [347]], ['sbquo', [8218]], ['scap', [10936]], ['Scaron', [352]], ['scaron', [353]], ['Sc', [10940]], ['sc', [8827]], ['sccue', [8829]], ['sce', [10928]], ['scE', [10932]], ['Scedil', [350]], ['scedil', [351]], ['Scirc', [348]], ['scirc', [349]], ['scnap', [10938]], ['scnE', [10934]], ['scnsim', [8937]], ['scpolint', [10771]], ['scsim', [8831]], ['Scy', [1057]], ['scy', [1089]], ['sdotb', [8865]], ['sdot', [8901]], ['sdote', [10854]], ['searhk', [10533]], ['searr', [8600]], ['seArr', [8664]], ['searrow', [8600]], ['sect', [167]], ['semi', [59]], ['seswar', [10537]], ['setminus', [8726]], ['setmn', [8726]], ['sext', [10038]], ['Sfr', [120086]], ['sfr', [120112]], ['sfrown', [8994]], ['sharp', [9839]], ['SHCHcy', [1065]], ['shchcy', [1097]], ['SHcy', [1064]], ['shcy', [1096]], ['ShortDownArrow', [8595]], ['ShortLeftArrow', [8592]], ['shortmid', [8739]], ['shortparallel', [8741]], ['ShortRightArrow', [8594]], ['ShortUpArrow', [8593]], ['shy', [173]], ['Sigma', [931]], ['sigma', [963]], ['sigmaf', [962]], ['sigmav', [962]], ['sim', [8764]], ['simdot', [10858]], ['sime', [8771]], ['simeq', [8771]], ['simg', [10910]], ['simgE', [10912]], ['siml', [10909]], ['simlE', [10911]], ['simne', [8774]], ['simplus', [10788]], ['simrarr', [10610]], ['slarr', [8592]], ['SmallCircle', [8728]], ['smallsetminus', [8726]], ['smashp', [10803]], ['smeparsl', [10724]], ['smid', [8739]], ['smile', [8995]], ['smt', [10922]], ['smte', [10924]], ['smtes', [10924, 65024]], ['SOFTcy', [1068]], ['softcy', [1100]], ['solbar', [9023]], ['solb', [10692]], ['sol', [47]], ['Sopf', [120138]], ['sopf', [120164]], ['spades', [9824]], ['spadesuit', [9824]], ['spar', [8741]], ['sqcap', [8851]], ['sqcaps', [8851, 65024]], ['sqcup', [8852]], ['sqcups', [8852, 65024]], ['Sqrt', [8730]], ['sqsub', [8847]], ['sqsube', [8849]], ['sqsubset', [8847]], ['sqsubseteq', [8849]], ['sqsup', [8848]], ['sqsupe', [8850]], ['sqsupset', [8848]], ['sqsupseteq', [8850]], ['square', [9633]], ['Square', [9633]], ['SquareIntersection', [8851]], ['SquareSubset', [8847]], ['SquareSubsetEqual', [8849]], ['SquareSuperset', [8848]], ['SquareSupersetEqual', [8850]], ['SquareUnion', [8852]], ['squarf', [9642]], ['squ', [9633]], ['squf', [9642]], ['srarr', [8594]], ['Sscr', [119982]], ['sscr', [120008]], ['ssetmn', [8726]], ['ssmile', [8995]], ['sstarf', [8902]], ['Star', [8902]], ['star', [9734]], ['starf', [9733]], ['straightepsilon', [1013]], ['straightphi', [981]], ['strns', [175]], ['sub', [8834]], ['Sub', [8912]], ['subdot', [10941]], ['subE', [10949]], ['sube', [8838]], ['subedot', [10947]], ['submult', [10945]], ['subnE', [10955]], ['subne', [8842]], ['subplus', [10943]], ['subrarr', [10617]], ['subset', [8834]], ['Subset', [8912]], ['subseteq', [8838]], ['subseteqq', [10949]], ['SubsetEqual', [8838]], ['subsetneq', [8842]], ['subsetneqq', [10955]], ['subsim', [10951]], ['subsub', [10965]], ['subsup', [10963]], ['succapprox', [10936]], ['succ', [8827]], ['succcurlyeq', [8829]], ['Succeeds', [8827]], ['SucceedsEqual', [10928]], ['SucceedsSlantEqual', [8829]], ['SucceedsTilde', [8831]], ['succeq', [10928]], ['succnapprox', [10938]], ['succneqq', [10934]], ['succnsim', [8937]], ['succsim', [8831]], ['SuchThat', [8715]], ['sum', [8721]], ['Sum', [8721]], ['sung', [9834]], ['sup1', [185]], ['sup2', [178]], ['sup3', [179]], ['sup', [8835]], ['Sup', [8913]], ['supdot', [10942]], ['supdsub', [10968]], ['supE', [10950]], ['supe', [8839]], ['supedot', [10948]], ['Superset', [8835]], ['SupersetEqual', [8839]], ['suphsol', [10185]], ['suphsub', [10967]], ['suplarr', [10619]], ['supmult', [10946]], ['supnE', [10956]], ['supne', [8843]], ['supplus', [10944]], ['supset', [8835]], ['Supset', [8913]], ['supseteq', [8839]], ['supseteqq', [10950]], ['supsetneq', [8843]], ['supsetneqq', [10956]], ['supsim', [10952]], ['supsub', [10964]], ['supsup', [10966]], ['swarhk', [10534]], ['swarr', [8601]], ['swArr', [8665]], ['swarrow', [8601]], ['swnwar', [10538]], ['szlig', [223]], ['Tab', [9]], ['target', [8982]], ['Tau', [932]], ['tau', [964]], ['tbrk', [9140]], ['Tcaron', [356]], ['tcaron', [357]], ['Tcedil', [354]], ['tcedil', [355]], ['Tcy', [1058]], ['tcy', [1090]], ['tdot', [8411]], ['telrec', [8981]], ['Tfr', [120087]], ['tfr', [120113]], ['there4', [8756]], ['therefore', [8756]], ['Therefore', [8756]], ['Theta', [920]], ['theta', [952]], ['thetasym', [977]], ['thetav', [977]], ['thickapprox', [8776]], ['thicksim', [8764]], ['ThickSpace', [8287, 8202]], ['ThinSpace', [8201]], ['thinsp', [8201]], ['thkap', [8776]], ['thksim', [8764]], ['THORN', [222]], ['thorn', [254]], ['tilde', [732]], ['Tilde', [8764]], ['TildeEqual', [8771]], ['TildeFullEqual', [8773]], ['TildeTilde', [8776]], ['timesbar', [10801]], ['timesb', [8864]], ['times', [215]], ['timesd', [10800]], ['tint', [8749]], ['toea', [10536]], ['topbot', [9014]], ['topcir', [10993]], ['top', [8868]], ['Topf', [120139]], ['topf', [120165]], ['topfork', [10970]], ['tosa', [10537]], ['tprime', [8244]], ['trade', [8482]], ['TRADE', [8482]], ['triangle', [9653]], ['triangledown', [9663]], ['triangleleft', [9667]], ['trianglelefteq', [8884]], ['triangleq', [8796]], ['triangleright', [9657]], ['trianglerighteq', [8885]], ['tridot', [9708]], ['trie', [8796]], ['triminus', [10810]], ['TripleDot', [8411]], ['triplus', [10809]], ['trisb', [10701]], ['tritime', [10811]], ['trpezium', [9186]], ['Tscr', [119983]], ['tscr', [120009]], ['TScy', [1062]], ['tscy', [1094]], ['TSHcy', [1035]], ['tshcy', [1115]], ['Tstrok', [358]], ['tstrok', [359]], ['twixt', [8812]], ['twoheadleftarrow', [8606]], ['twoheadrightarrow', [8608]], ['Uacute', [218]], ['uacute', [250]], ['uarr', [8593]], ['Uarr', [8607]], ['uArr', [8657]], ['Uarrocir', [10569]], ['Ubrcy', [1038]], ['ubrcy', [1118]], ['Ubreve', [364]], ['ubreve', [365]], ['Ucirc', [219]], ['ucirc', [251]], ['Ucy', [1059]], ['ucy', [1091]], ['udarr', [8645]], ['Udblac', [368]], ['udblac', [369]], ['udhar', [10606]], ['ufisht', [10622]], ['Ufr', [120088]], ['ufr', [120114]], ['Ugrave', [217]], ['ugrave', [249]], ['uHar', [10595]], ['uharl', [8639]], ['uharr', [8638]], ['uhblk', [9600]], ['ulcorn', [8988]], ['ulcorner', [8988]], ['ulcrop', [8975]], ['ultri', [9720]], ['Umacr', [362]], ['umacr', [363]], ['uml', [168]], ['UnderBar', [95]], ['UnderBrace', [9183]], ['UnderBracket', [9141]], ['UnderParenthesis', [9181]], ['Union', [8899]], ['UnionPlus', [8846]], ['Uogon', [370]], ['uogon', [371]], ['Uopf', [120140]], ['uopf', [120166]], ['UpArrowBar', [10514]], ['uparrow', [8593]], ['UpArrow', [8593]], ['Uparrow', [8657]], ['UpArrowDownArrow', [8645]], ['updownarrow', [8597]], ['UpDownArrow', [8597]], ['Updownarrow', [8661]], ['UpEquilibrium', [10606]], ['upharpoonleft', [8639]], ['upharpoonright', [8638]], ['uplus', [8846]], ['UpperLeftArrow', [8598]], ['UpperRightArrow', [8599]], ['upsi', [965]], ['Upsi', [978]], ['upsih', [978]], ['Upsilon', [933]], ['upsilon', [965]], ['UpTeeArrow', [8613]], ['UpTee', [8869]], ['upuparrows', [8648]], ['urcorn', [8989]], ['urcorner', [8989]], ['urcrop', [8974]], ['Uring', [366]], ['uring', [367]], ['urtri', [9721]], ['Uscr', [119984]], ['uscr', [120010]], ['utdot', [8944]], ['Utilde', [360]], ['utilde', [361]], ['utri', [9653]], ['utrif', [9652]], ['uuarr', [8648]], ['Uuml', [220]], ['uuml', [252]], ['uwangle', [10663]], ['vangrt', [10652]], ['varepsilon', [1013]], ['varkappa', [1008]], ['varnothing', [8709]], ['varphi', [981]], ['varpi', [982]], ['varpropto', [8733]], ['varr', [8597]], ['vArr', [8661]], ['varrho', [1009]], ['varsigma', [962]], ['varsubsetneq', [8842, 65024]], ['varsubsetneqq', [10955, 65024]], ['varsupsetneq', [8843, 65024]], ['varsupsetneqq', [10956, 65024]], ['vartheta', [977]], ['vartriangleleft', [8882]], ['vartriangleright', [8883]], ['vBar', [10984]], ['Vbar', [10987]], ['vBarv', [10985]], ['Vcy', [1042]], ['vcy', [1074]], ['vdash', [8866]], ['vDash', [8872]], ['Vdash', [8873]], ['VDash', [8875]], ['Vdashl', [10982]], ['veebar', [8891]], ['vee', [8744]], ['Vee', [8897]], ['veeeq', [8794]], ['vellip', [8942]], ['verbar', [124]], ['Verbar', [8214]], ['vert', [124]], ['Vert', [8214]], ['VerticalBar', [8739]], ['VerticalLine', [124]], ['VerticalSeparator', [10072]], ['VerticalTilde', [8768]], ['VeryThinSpace', [8202]], ['Vfr', [120089]], ['vfr', [120115]], ['vltri', [8882]], ['vnsub', [8834, 8402]], ['vnsup', [8835, 8402]], ['Vopf', [120141]], ['vopf', [120167]], ['vprop', [8733]], ['vrtri', [8883]], ['Vscr', [119985]], ['vscr', [120011]], ['vsubnE', [10955, 65024]], ['vsubne', [8842, 65024]], ['vsupnE', [10956, 65024]], ['vsupne', [8843, 65024]], ['Vvdash', [8874]], ['vzigzag', [10650]], ['Wcirc', [372]], ['wcirc', [373]], ['wedbar', [10847]], ['wedge', [8743]], ['Wedge', [8896]], ['wedgeq', [8793]], ['weierp', [8472]], ['Wfr', [120090]], ['wfr', [120116]], ['Wopf', [120142]], ['wopf', [120168]], ['wp', [8472]], ['wr', [8768]], ['wreath', [8768]], ['Wscr', [119986]], ['wscr', [120012]], ['xcap', [8898]], ['xcirc', [9711]], ['xcup', [8899]], ['xdtri', [9661]], ['Xfr', [120091]], ['xfr', [120117]], ['xharr', [10231]], ['xhArr', [10234]], ['Xi', [926]], ['xi', [958]], ['xlarr', [10229]], ['xlArr', [10232]], ['xmap', [10236]], ['xnis', [8955]], ['xodot', [10752]], ['Xopf', [120143]], ['xopf', [120169]], ['xoplus', [10753]], ['xotime', [10754]], ['xrarr', [10230]], ['xrArr', [10233]], ['Xscr', [119987]], ['xscr', [120013]], ['xsqcup', [10758]], ['xuplus', [10756]], ['xutri', [9651]], ['xvee', [8897]], ['xwedge', [8896]], ['Yacute', [221]], ['yacute', [253]], ['YAcy', [1071]], ['yacy', [1103]], ['Ycirc', [374]], ['ycirc', [375]], ['Ycy', [1067]], ['ycy', [1099]], ['yen', [165]], ['Yfr', [120092]], ['yfr', [120118]], ['YIcy', [1031]], ['yicy', [1111]], ['Yopf', [120144]], ['yopf', [120170]], ['Yscr', [119988]], ['yscr', [120014]], ['YUcy', [1070]], ['yucy', [1102]], ['yuml', [255]], ['Yuml', [376]], ['Zacute', [377]], ['zacute', [378]], ['Zcaron', [381]], ['zcaron', [382]], ['Zcy', [1047]], ['zcy', [1079]], ['Zdot', [379]], ['zdot', [380]], ['zeetrf', [8488]], ['ZeroWidthSpace', [8203]], ['Zeta', [918]], ['zeta', [950]], ['zfr', [120119]], ['Zfr', [8488]], ['ZHcy', [1046]], ['zhcy', [1078]], ['zigrarr', [8669]], ['zopf', [120171]], ['Zopf', [8484]], ['Zscr', [119989]], ['zscr', [120015]], ['zwj', [8205]], ['zwnj', [8204]]];
 
@@ -25363,7 +24479,7 @@ module.exports = Html5Entities;
 /*!********************************************************!*\
   !*** ./node_modules/html-entities/lib/xml-entities.js ***!
   \********************************************************/
-/***/ ((module) => {
+/***/ (function(module) {
 
 var ALPHA_INDEX = {
     '&lt': '<',
@@ -25524,81 +24640,11 @@ module.exports = XmlEntities;
 
 /***/ }),
 
-/***/ "./node_modules/is-alphabetical/index.js":
-/*!***********************************************!*\
-  !*** ./node_modules/is-alphabetical/index.js ***!
-  \***********************************************/
-/***/ ((module) => {
-
-"use strict";
-
-
-module.exports = alphabetical
-
-// Check if the given character code, or the character code at the first
-// character, is alphabetical.
-function alphabetical(character) {
-  var code = typeof character === 'string' ? character.charCodeAt(0) : character
-
-  return (
-    (code >= 97 && code <= 122) /* a-z */ ||
-    (code >= 65 && code <= 90) /* A-Z */
-  )
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/is-alphanumerical/index.js":
-/*!*************************************************!*\
-  !*** ./node_modules/is-alphanumerical/index.js ***!
-  \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var alphabetical = __webpack_require__(/*! is-alphabetical */ "./node_modules/is-alphabetical/index.js")
-var decimal = __webpack_require__(/*! is-decimal */ "./node_modules/is-decimal/index.js")
-
-module.exports = alphanumerical
-
-// Check if the given character code, or the character code at the first
-// character, is alphanumerical.
-function alphanumerical(character) {
-  return alphabetical(character) || decimal(character)
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/is-decimal/index.js":
-/*!******************************************!*\
-  !*** ./node_modules/is-decimal/index.js ***!
-  \******************************************/
-/***/ ((module) => {
-
-"use strict";
-
-
-module.exports = decimal
-
-// Check if the given character code, or the character code at the first
-// character, is decimal.
-function decimal(character) {
-  var code = typeof character === 'string' ? character.charCodeAt(0) : character
-
-  return code >= 48 && code <= 57 /* 0-9 */
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/localforage/dist/localforage.js":
 /*!******************************************************!*\
   !*** ./node_modules/localforage/dist/localforage.js ***!
   \******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
     localForage -- Offline Storage, Improved
@@ -28405,7 +27451,7 @@ module.exports = localforage_js;
 /*!***********************************************!*\
   !*** ./node_modules/path-browserify/index.js ***!
   \***********************************************/
-/***/ ((module) => {
+/***/ (function(module) {
 
 "use strict";
 // 'path' module extracted from Node.js v8.11.1 (only the posix part)
@@ -29826,69 +28872,14436 @@ var __WEBPACK_AMD_DEFINE_RESULT__;//////////////////////////////////////////////
 
 /***/ }),
 
-/***/ "./node_modules/bcp-47-normalize/lib/defaults.json":
-/*!*********************************************************!*\
-  !*** ./node_modules/bcp-47-normalize/lib/defaults.json ***!
-  \*********************************************************/
-/***/ ((module) => {
+/***/ "./node_modules/bcp-47-match/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/bcp-47-match/index.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-module.exports = JSON.parse('["mni-beng-in","mni-mtei-in","sat-deva-in","sat-olck-in","shi-latn-ma","shi-tfng-ma","vai-latn-lr","vai-vaii-lr","yue-hans-cn","yue-hant-hk","az-arab-ir","az-cyrl-az","az-latn-az","bm-nkoo-ml","bs-cyrl-ba","bs-latn-ba","en-dsrt-us","ff-adlm-gn","ff-latn-sn","ha-arab-ng","hi-latn-in","iu-latn-ca","ks-arab-in","ks-deva-in","mn-mong-cn","ms-arab-my","pa-arab-pk","pa-guru-in","sd-arab-pk","sd-deva-in","sr-cyrl-rs","sr-latn-rs","su-latn-id","uz-arab-af","uz-cyrl-uz","uz-latn-uz","zh-hans-cn","zh-hant-tw","mni-beng","sat-olck","shi-tfng","vai-vaii","yue-hant","az-latn","bs-latn","ff-latn","jbo-001","ks-arab","pa-guru","prg-001","sd-arab","sr-cyrl","su-latn","uz-latn","zh-hans","agq-cm","ar-001","arn-cl","asa-tz","ast-es","bas-cm","bem-zm","bez-tz","bgn-pk","blt-vn","brx-in","bss-cm","byn-er","cad-us","cch-ng","ccp-bd","ceb-ph","cgg-ug","chr-us","cic-us","ckb-iq","dav-ke","dje-ne","doi-in","dsb-de","dua-cm","dyo-sn","ebu-ke","eo-001","ewo-cm","fil-ph","fur-it","gaa-gh","gez-et","gsw-ch","guz-ke","haw-us","hsb-de","ia-001","ife-tg","io-001","jgo-cm","jmc-tz","kab-dz","kaj-ng","kam-ke","kcg-ng","kde-tz","kea-cv","ken-cm","khq-ml","kkj-cm","kln-ke","kok-in","kpe-lr","ksb-tz","ksf-cm","ksh-de","lag-tz","lkt-us","lrc-ir","luo-ke","luy-ke","mai-in","mas-ke","mer-ke","mfe-mu","mgh-mz","mgo-cm","moh-ca","mua-cm","mus-us","myv-ru","mzn-ir","naq-na","nds-de","nmg-cm","nnh-cm","nqo-gn","nso-za","nus-ss","nyn-ug","osa-us","pcm-ng","quc-gt","rof-tz","rwk-tz","sah-ru","saq-ke","sbp-tz","scn-it","sdh-ir","seh-mz","ses-ml","sid-et","sma-se","smj-se","smn-fi","sms-fi","ssy-er","syr-iq","szl-pl","teo-ug","tig-er","trv-tw","trw-pk","twq-ne","tzm-ma","vo-001","vun-tz","wae-ch","wal-et","wbp-au","xog-ug","yav-cm","yi-001","zgh-ma","aa-et","af-za","ak-gh","am-et","an-es","as-in","ba-ru","be-by","bg-bg","bm-ml","bn-bd","bo-cn","br-fr","ca-es","ce-ru","co-fr","cs-cz","cu-ru","cv-ru","cy-gb","da-dk","de-de","dv-mv","dz-bt","ee-gh","el-gr","en-us","es-es","et-ee","eu-es","fa-ir","fi-fi","fo-fo","fr-fr","fy-nl","ga-ie","gd-gb","gl-es","gn-py","gu-in","gv-im","ha-ng","he-il","hi-in","hr-hr","hu-hu","hy-am","id-id","ig-ng","ii-cn","is-is","it-it","iu-ca","ja-jp","jv-id","ka-ge","ki-ke","kk-kz","kl-gl","km-kh","kn-in","ko-kr","ku-tr","kw-gb","ky-kg","lb-lu","lg-ug","ln-cd","lo-la","lt-lt","lu-cd","lv-lv","mg-mg","mi-nz","mk-mk","ml-in","mn-mn","mr-in","ms-my","mt-mt","my-mm","nb-no","nd-zw","ne-np","nl-nl","nn-no","nr-za","nv-us","ny-mw","oc-fr","om-et","or-in","os-ge","pl-pl","ps-af","pt-br","qu-pe","rm-ch","rn-bi","ro-ro","ru-ru","rw-rw","sa-in","sc-it","se-no","sg-cf","si-lk","sk-sk","sl-si","sn-zw","so-so","sq-al","ss-za","st-za","sv-se","sw-tz","ta-in","te-in","tg-tj","th-th","ti-et","tk-tm","tn-za","to-to","tr-tr","ts-za","tt-ru","ug-cn","uk-ua","ur-pk","ve-za","vi-vn","wa-be","wo-sn","xh-za","yo-ng","zu-za"]');
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "basicFilter": function() { return /* binding */ basicFilter; },
+/* harmony export */   "extendedFilter": function() { return /* binding */ extendedFilter; },
+/* harmony export */   "lookup": function() { return /* binding */ lookup; }
+/* harmony export */ });
+/**
+ * See <https://tools.ietf.org/html/rfc4647#section-3.1>
+ * for more info on the algorithms.
+ */
+
+/**
+ * @typedef {string} Tag
+ *   BCP-47 tag.
+ * @typedef {Array<Tag>} Tags
+ *   List of BCP-47 tags.
+ * @typedef {string} Range
+ *   RFC 4647 range.
+ * @typedef {Array<Range>} Ranges
+ *   List of RFC 4647 range.
+ *
+ * @callback Check
+ *   An internal check.
+ * @param {Tag} tag
+ *   BCP-47 tag.
+ * @param {Range} range
+ *   RFC 4647 range.
+ * @returns {boolean}
+ *   Whether the range matches the tag.
+ *
+ * @typedef {FilterOrLookup<true>} Filter
+ *   Filter: yields all tags that match a range.
+ * @typedef {FilterOrLookup<false>} Lookup
+ *   Lookup: yields the best tag that matches a range.
+ */
+
+/**
+ * @template {boolean} IsFilter
+ *   Whether to filter or perform a lookup.
+ * @callback FilterOrLookup
+ *   A check.
+ * @param {Tag|Tags} tags
+ *   One or more BCP-47 tags.
+ * @param {Range|Ranges|undefined} [ranges='*']
+ *   One or more RFC 4647 ranges.
+ * @returns {IsFilter extends true ? Tags : Tag|undefined}
+ *   Result.
+ */
+
+/**
+ * Factory to perform a filter or a lookup.
+ *
+ * This factory creates a function that accepts a list of tags and a list of
+ * ranges, and contains logic to exit early for lookups.
+ * `check` just has to deal with one tag and one range.
+ * This match function iterates over ranges, and for each range,
+ * iterates over tags.
+ * That way, earlier ranges matching any tag have precedence over later ranges.
+ *
+ * @template {boolean} IsFilter
+ * @param {Check} check
+ *   A check.
+ * @param {IsFilter} filter
+ *   Whether to filter or perform a lookup.
+ * @returns {FilterOrLookup<IsFilter>}
+ *   Filter or lookup.
+ */
+function factory(check, filter) {
+  /**
+   * @param {Tag|Tags} tags
+   *   One or more BCP-47 tags.
+   * @param {Range|Ranges|undefined} [ranges='*']
+   *   One or more RFC 4647 ranges.
+   * @returns {IsFilter extends true ? Tags : Tag|undefined}
+   *   Result.
+   */
+  return function (tags, ranges) {
+    let left = cast(tags, 'tag')
+    const right = cast(
+      ranges === null || ranges === undefined ? '*' : ranges,
+      'range'
+    )
+    /** @type {Tags} */
+    const matches = []
+    let rightIndex = -1
+
+    while (++rightIndex < right.length) {
+      const range = right[rightIndex].toLowerCase()
+
+      // Ignore wildcards in lookup mode.
+      if (!filter && range === '*') continue
+
+      let leftIndex = -1
+      /** @type {Tags} */
+      const next = []
+
+      while (++leftIndex < left.length) {
+        if (check(left[leftIndex].toLowerCase(), range)) {
+          // Exit if this is a lookup and we have a match.
+          if (!filter) {
+            return /** @type {IsFilter extends true ? Tags : Tag|undefined} */ (
+              left[leftIndex]
+            )
+          }
+
+          matches.push(left[leftIndex])
+        } else {
+          next.push(left[leftIndex])
+        }
+      }
+
+      left = next
+    }
+
+    // If this is a filter, return the list.  If it’s a lookup, we didn’t find
+    // a match, so return `undefined`.
+    return /** @type {IsFilter extends true ? Tags : Tag|undefined} */ (
+      filter ? matches : undefined
+    )
+  }
+}
+
+/**
+ * Basic Filtering (Section 3.3.1) matches a language priority list consisting
+ * of basic language ranges (Section 2.1) to sets of language tags.
+ *
+ * @param {Tag|Tags} tags
+ *   One or more BCP-47 tags.
+ * @param {Range|Ranges|undefined} [ranges='*']
+ *   One or more RFC 4647 ranges.
+ * @returns {Tags}
+ *   List of BCP-47 tags.
+ */
+const basicFilter = factory(function (tag, range) {
+  return range === '*' || tag === range || tag.includes(range + '-')
+}, true)
+
+/**
+ * Extended Filtering (Section 3.3.2) matches a language priority list
+ * consisting of extended language ranges (Section 2.2) to sets of language
+ * tags.
+ *
+ * @param {Tag|Tags} tags
+ *   One or more BCP-47 tags.
+ * @param {Range|Ranges|undefined} [ranges='*']
+ *   One or more RFC 4647 ranges.
+ * @returns {Tags}
+ *   List of BCP-47 tags.
+ */
+const extendedFilter = factory(function (tag, range) {
+  // 3.3.2.1
+  const left = tag.split('-')
+  const right = range.split('-')
+  let leftIndex = 0
+  let rightIndex = 0
+
+  // 3.3.2.2
+  if (right[rightIndex] !== '*' && left[leftIndex] !== right[rightIndex]) {
+    return false
+  }
+
+  leftIndex++
+  rightIndex++
+
+  // 3.3.2.3
+  while (rightIndex < right.length) {
+    // 3.3.2.3.A
+    if (right[rightIndex] === '*') {
+      rightIndex++
+      continue
+    }
+
+    // 3.3.2.3.B
+    if (!left[leftIndex]) return false
+
+    // 3.3.2.3.C
+    if (left[leftIndex] === right[rightIndex]) {
+      leftIndex++
+      rightIndex++
+      continue
+    }
+
+    // 3.3.2.3.D
+    if (left[leftIndex].length === 1) return false
+
+    // 3.3.2.3.E
+    leftIndex++
+  }
+
+  // 3.3.2.4
+  return true
+}, true)
+
+/**
+ * Lookup (Section 3.4) matches a language priority list consisting of basic
+ * language ranges to sets of language tags to find the one exact language tag
+ * that best matches the range.
+ *
+ * @param {Tag|Tags} tags
+ *   One or more BCP-47 tags.
+ * @param {Range|Ranges|undefined} [ranges='*']
+ *   One or more RFC 4647 ranges.
+ * @returns {Tag|undefined}
+ *   BCP-47 tag.
+ */
+const lookup = factory(function (tag, range) {
+  let right = range
+
+  /* eslint-disable-next-line no-constant-condition */
+  while (true) {
+    if (right === '*' || tag === right) return true
+
+    let index = right.lastIndexOf('-')
+
+    if (index < 0) return false
+
+    if (right.charAt(index - 2) === '-') index -= 2
+
+    right = right.slice(0, index)
+  }
+}, false)
+
+/**
+ * Validate tags or ranges, and cast them to arrays.
+ *
+ * @param {string|Array<string>} values
+ * @param {string} name
+ * @returns {Array<string>}
+ */
+function cast(values, name) {
+  const value = values && typeof values === 'string' ? [values] : values
+
+  if (!value || typeof value !== 'object' || !('length' in value)) {
+    throw new Error(
+      'Invalid ' + name + ' `' + value + '`, expected non-empty string'
+    )
+  }
+
+  return value
+}
+
 
 /***/ }),
 
-/***/ "./node_modules/bcp-47-normalize/lib/fields.json":
-/*!*******************************************************!*\
-  !*** ./node_modules/bcp-47-normalize/lib/fields.json ***!
-  \*******************************************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('[{"from":{"field":"script","value":"qaai"},"to":{"field":"script","value":"zinh"}},{"from":{"field":"region","value":"bu"},"to":{"field":"region","value":"mm"}},{"from":{"field":"region","value":"ct"},"to":{"field":"region","value":"ki"}},{"from":{"field":"region","value":"dd"},"to":{"field":"region","value":"de"}},{"from":{"field":"region","value":"dy"},"to":{"field":"region","value":"bj"}},{"from":{"field":"region","value":"fx"},"to":{"field":"region","value":"fr"}},{"from":{"field":"region","value":"hv"},"to":{"field":"region","value":"bf"}},{"from":{"field":"region","value":"jt"},"to":{"field":"region","value":"um"}},{"from":{"field":"region","value":"mi"},"to":{"field":"region","value":"um"}},{"from":{"field":"region","value":"nh"},"to":{"field":"region","value":"vu"}},{"from":{"field":"region","value":"nq"},"to":{"field":"region","value":"aq"}},{"from":{"field":"region","value":"pu"},"to":{"field":"region","value":"um"}},{"from":{"field":"region","value":"pz"},"to":{"field":"region","value":"pa"}},{"from":{"field":"region","value":"qu"},"to":{"field":"region","value":"eu"}},{"from":{"field":"region","value":"rh"},"to":{"field":"region","value":"zw"}},{"from":{"field":"region","value":"tp"},"to":{"field":"region","value":"tl"}},{"from":{"field":"region","value":"uk"},"to":{"field":"region","value":"gb"}},{"from":{"field":"region","value":"vd"},"to":{"field":"region","value":"vn"}},{"from":{"field":"region","value":"wk"},"to":{"field":"region","value":"um"}},{"from":{"field":"region","value":"yd"},"to":{"field":"region","value":"ye"}},{"from":{"field":"region","value":"zr"},"to":{"field":"region","value":"cd"}},{"from":{"field":"region","value":"230"},"to":{"field":"region","value":"et"}},{"from":{"field":"region","value":"280"},"to":{"field":"region","value":"de"}},{"from":{"field":"region","value":"736"},"to":{"field":"region","value":"sd"}},{"from":{"field":"region","value":"886"},"to":{"field":"region","value":"ye"}},{"from":{"field":"region","value":"958"},"to":{"field":"region","value":"aa"}},{"from":{"field":"region","value":"020"},"to":{"field":"region","value":"ad"}},{"from":{"field":"region","value":"784"},"to":{"field":"region","value":"ae"}},{"from":{"field":"region","value":"004"},"to":{"field":"region","value":"af"}},{"from":{"field":"region","value":"028"},"to":{"field":"region","value":"ag"}},{"from":{"field":"region","value":"660"},"to":{"field":"region","value":"ai"}},{"from":{"field":"region","value":"008"},"to":{"field":"region","value":"al"}},{"from":{"field":"region","value":"051"},"to":{"field":"region","value":"am"}},{"from":{"field":"region","value":"024"},"to":{"field":"region","value":"ao"}},{"from":{"field":"region","value":"010"},"to":{"field":"region","value":"aq"}},{"from":{"field":"region","value":"032"},"to":{"field":"region","value":"ar"}},{"from":{"field":"region","value":"016"},"to":{"field":"region","value":"as"}},{"from":{"field":"region","value":"040"},"to":{"field":"region","value":"at"}},{"from":{"field":"region","value":"036"},"to":{"field":"region","value":"au"}},{"from":{"field":"region","value":"533"},"to":{"field":"region","value":"aw"}},{"from":{"field":"region","value":"248"},"to":{"field":"region","value":"ax"}},{"from":{"field":"region","value":"031"},"to":{"field":"region","value":"az"}},{"from":{"field":"region","value":"070"},"to":{"field":"region","value":"ba"}},{"from":{"field":"region","value":"052"},"to":{"field":"region","value":"bb"}},{"from":{"field":"region","value":"050"},"to":{"field":"region","value":"bd"}},{"from":{"field":"region","value":"056"},"to":{"field":"region","value":"be"}},{"from":{"field":"region","value":"854"},"to":{"field":"region","value":"bf"}},{"from":{"field":"region","value":"100"},"to":{"field":"region","value":"bg"}},{"from":{"field":"region","value":"048"},"to":{"field":"region","value":"bh"}},{"from":{"field":"region","value":"108"},"to":{"field":"region","value":"bi"}},{"from":{"field":"region","value":"204"},"to":{"field":"region","value":"bj"}},{"from":{"field":"region","value":"652"},"to":{"field":"region","value":"bl"}},{"from":{"field":"region","value":"060"},"to":{"field":"region","value":"bm"}},{"from":{"field":"region","value":"096"},"to":{"field":"region","value":"bn"}},{"from":{"field":"region","value":"068"},"to":{"field":"region","value":"bo"}},{"from":{"field":"region","value":"535"},"to":{"field":"region","value":"bq"}},{"from":{"field":"region","value":"076"},"to":{"field":"region","value":"br"}},{"from":{"field":"region","value":"044"},"to":{"field":"region","value":"bs"}},{"from":{"field":"region","value":"064"},"to":{"field":"region","value":"bt"}},{"from":{"field":"region","value":"104"},"to":{"field":"region","value":"mm"}},{"from":{"field":"region","value":"074"},"to":{"field":"region","value":"bv"}},{"from":{"field":"region","value":"072"},"to":{"field":"region","value":"bw"}},{"from":{"field":"region","value":"112"},"to":{"field":"region","value":"by"}},{"from":{"field":"region","value":"084"},"to":{"field":"region","value":"bz"}},{"from":{"field":"region","value":"124"},"to":{"field":"region","value":"ca"}},{"from":{"field":"region","value":"166"},"to":{"field":"region","value":"cc"}},{"from":{"field":"region","value":"180"},"to":{"field":"region","value":"cd"}},{"from":{"field":"region","value":"140"},"to":{"field":"region","value":"cf"}},{"from":{"field":"region","value":"178"},"to":{"field":"region","value":"cg"}},{"from":{"field":"region","value":"756"},"to":{"field":"region","value":"ch"}},{"from":{"field":"region","value":"384"},"to":{"field":"region","value":"ci"}},{"from":{"field":"region","value":"184"},"to":{"field":"region","value":"ck"}},{"from":{"field":"region","value":"152"},"to":{"field":"region","value":"cl"}},{"from":{"field":"region","value":"120"},"to":{"field":"region","value":"cm"}},{"from":{"field":"region","value":"156"},"to":{"field":"region","value":"cn"}},{"from":{"field":"region","value":"170"},"to":{"field":"region","value":"co"}},{"from":{"field":"region","value":"188"},"to":{"field":"region","value":"cr"}},{"from":{"field":"region","value":"192"},"to":{"field":"region","value":"cu"}},{"from":{"field":"region","value":"132"},"to":{"field":"region","value":"cv"}},{"from":{"field":"region","value":"531"},"to":{"field":"region","value":"cw"}},{"from":{"field":"region","value":"162"},"to":{"field":"region","value":"cx"}},{"from":{"field":"region","value":"196"},"to":{"field":"region","value":"cy"}},{"from":{"field":"region","value":"203"},"to":{"field":"region","value":"cz"}},{"from":{"field":"region","value":"278"},"to":{"field":"region","value":"de"}},{"from":{"field":"region","value":"276"},"to":{"field":"region","value":"de"}},{"from":{"field":"region","value":"262"},"to":{"field":"region","value":"dj"}},{"from":{"field":"region","value":"208"},"to":{"field":"region","value":"dk"}},{"from":{"field":"region","value":"212"},"to":{"field":"region","value":"dm"}},{"from":{"field":"region","value":"214"},"to":{"field":"region","value":"do"}},{"from":{"field":"region","value":"012"},"to":{"field":"region","value":"dz"}},{"from":{"field":"region","value":"218"},"to":{"field":"region","value":"ec"}},{"from":{"field":"region","value":"233"},"to":{"field":"region","value":"ee"}},{"from":{"field":"region","value":"818"},"to":{"field":"region","value":"eg"}},{"from":{"field":"region","value":"732"},"to":{"field":"region","value":"eh"}},{"from":{"field":"region","value":"232"},"to":{"field":"region","value":"er"}},{"from":{"field":"region","value":"724"},"to":{"field":"region","value":"es"}},{"from":{"field":"region","value":"231"},"to":{"field":"region","value":"et"}},{"from":{"field":"region","value":"246"},"to":{"field":"region","value":"fi"}},{"from":{"field":"region","value":"242"},"to":{"field":"region","value":"fj"}},{"from":{"field":"region","value":"238"},"to":{"field":"region","value":"fk"}},{"from":{"field":"region","value":"583"},"to":{"field":"region","value":"fm"}},{"from":{"field":"region","value":"234"},"to":{"field":"region","value":"fo"}},{"from":{"field":"region","value":"250"},"to":{"field":"region","value":"fr"}},{"from":{"field":"region","value":"249"},"to":{"field":"region","value":"fr"}},{"from":{"field":"region","value":"266"},"to":{"field":"region","value":"ga"}},{"from":{"field":"region","value":"826"},"to":{"field":"region","value":"gb"}},{"from":{"field":"region","value":"308"},"to":{"field":"region","value":"gd"}},{"from":{"field":"region","value":"268"},"to":{"field":"region","value":"ge"}},{"from":{"field":"region","value":"254"},"to":{"field":"region","value":"gf"}},{"from":{"field":"region","value":"831"},"to":{"field":"region","value":"gg"}},{"from":{"field":"region","value":"288"},"to":{"field":"region","value":"gh"}},{"from":{"field":"region","value":"292"},"to":{"field":"region","value":"gi"}},{"from":{"field":"region","value":"304"},"to":{"field":"region","value":"gl"}},{"from":{"field":"region","value":"270"},"to":{"field":"region","value":"gm"}},{"from":{"field":"region","value":"324"},"to":{"field":"region","value":"gn"}},{"from":{"field":"region","value":"312"},"to":{"field":"region","value":"gp"}},{"from":{"field":"region","value":"226"},"to":{"field":"region","value":"gq"}},{"from":{"field":"region","value":"300"},"to":{"field":"region","value":"gr"}},{"from":{"field":"region","value":"239"},"to":{"field":"region","value":"gs"}},{"from":{"field":"region","value":"320"},"to":{"field":"region","value":"gt"}},{"from":{"field":"region","value":"316"},"to":{"field":"region","value":"gu"}},{"from":{"field":"region","value":"624"},"to":{"field":"region","value":"gw"}},{"from":{"field":"region","value":"328"},"to":{"field":"region","value":"gy"}},{"from":{"field":"region","value":"344"},"to":{"field":"region","value":"hk"}},{"from":{"field":"region","value":"334"},"to":{"field":"region","value":"hm"}},{"from":{"field":"region","value":"340"},"to":{"field":"region","value":"hn"}},{"from":{"field":"region","value":"191"},"to":{"field":"region","value":"hr"}},{"from":{"field":"region","value":"332"},"to":{"field":"region","value":"ht"}},{"from":{"field":"region","value":"348"},"to":{"field":"region","value":"hu"}},{"from":{"field":"region","value":"360"},"to":{"field":"region","value":"id"}},{"from":{"field":"region","value":"372"},"to":{"field":"region","value":"ie"}},{"from":{"field":"region","value":"376"},"to":{"field":"region","value":"il"}},{"from":{"field":"region","value":"833"},"to":{"field":"region","value":"im"}},{"from":{"field":"region","value":"356"},"to":{"field":"region","value":"in"}},{"from":{"field":"region","value":"086"},"to":{"field":"region","value":"io"}},{"from":{"field":"region","value":"368"},"to":{"field":"region","value":"iq"}},{"from":{"field":"region","value":"364"},"to":{"field":"region","value":"ir"}},{"from":{"field":"region","value":"352"},"to":{"field":"region","value":"is"}},{"from":{"field":"region","value":"380"},"to":{"field":"region","value":"it"}},{"from":{"field":"region","value":"832"},"to":{"field":"region","value":"je"}},{"from":{"field":"region","value":"388"},"to":{"field":"region","value":"jm"}},{"from":{"field":"region","value":"400"},"to":{"field":"region","value":"jo"}},{"from":{"field":"region","value":"392"},"to":{"field":"region","value":"jp"}},{"from":{"field":"region","value":"404"},"to":{"field":"region","value":"ke"}},{"from":{"field":"region","value":"417"},"to":{"field":"region","value":"kg"}},{"from":{"field":"region","value":"116"},"to":{"field":"region","value":"kh"}},{"from":{"field":"region","value":"296"},"to":{"field":"region","value":"ki"}},{"from":{"field":"region","value":"174"},"to":{"field":"region","value":"km"}},{"from":{"field":"region","value":"659"},"to":{"field":"region","value":"kn"}},{"from":{"field":"region","value":"408"},"to":{"field":"region","value":"kp"}},{"from":{"field":"region","value":"410"},"to":{"field":"region","value":"kr"}},{"from":{"field":"region","value":"414"},"to":{"field":"region","value":"kw"}},{"from":{"field":"region","value":"136"},"to":{"field":"region","value":"ky"}},{"from":{"field":"region","value":"398"},"to":{"field":"region","value":"kz"}},{"from":{"field":"region","value":"418"},"to":{"field":"region","value":"la"}},{"from":{"field":"region","value":"422"},"to":{"field":"region","value":"lb"}},{"from":{"field":"region","value":"662"},"to":{"field":"region","value":"lc"}},{"from":{"field":"region","value":"438"},"to":{"field":"region","value":"li"}},{"from":{"field":"region","value":"144"},"to":{"field":"region","value":"lk"}},{"from":{"field":"region","value":"430"},"to":{"field":"region","value":"lr"}},{"from":{"field":"region","value":"426"},"to":{"field":"region","value":"ls"}},{"from":{"field":"region","value":"440"},"to":{"field":"region","value":"lt"}},{"from":{"field":"region","value":"442"},"to":{"field":"region","value":"lu"}},{"from":{"field":"region","value":"428"},"to":{"field":"region","value":"lv"}},{"from":{"field":"region","value":"434"},"to":{"field":"region","value":"ly"}},{"from":{"field":"region","value":"504"},"to":{"field":"region","value":"ma"}},{"from":{"field":"region","value":"492"},"to":{"field":"region","value":"mc"}},{"from":{"field":"region","value":"498"},"to":{"field":"region","value":"md"}},{"from":{"field":"region","value":"499"},"to":{"field":"region","value":"me"}},{"from":{"field":"region","value":"663"},"to":{"field":"region","value":"mf"}},{"from":{"field":"region","value":"450"},"to":{"field":"region","value":"mg"}},{"from":{"field":"region","value":"584"},"to":{"field":"region","value":"mh"}},{"from":{"field":"region","value":"807"},"to":{"field":"region","value":"mk"}},{"from":{"field":"region","value":"466"},"to":{"field":"region","value":"ml"}},{"from":{"field":"region","value":"496"},"to":{"field":"region","value":"mn"}},{"from":{"field":"region","value":"446"},"to":{"field":"region","value":"mo"}},{"from":{"field":"region","value":"580"},"to":{"field":"region","value":"mp"}},{"from":{"field":"region","value":"474"},"to":{"field":"region","value":"mq"}},{"from":{"field":"region","value":"478"},"to":{"field":"region","value":"mr"}},{"from":{"field":"region","value":"500"},"to":{"field":"region","value":"ms"}},{"from":{"field":"region","value":"470"},"to":{"field":"region","value":"mt"}},{"from":{"field":"region","value":"480"},"to":{"field":"region","value":"mu"}},{"from":{"field":"region","value":"462"},"to":{"field":"region","value":"mv"}},{"from":{"field":"region","value":"454"},"to":{"field":"region","value":"mw"}},{"from":{"field":"region","value":"484"},"to":{"field":"region","value":"mx"}},{"from":{"field":"region","value":"458"},"to":{"field":"region","value":"my"}},{"from":{"field":"region","value":"508"},"to":{"field":"region","value":"mz"}},{"from":{"field":"region","value":"516"},"to":{"field":"region","value":"na"}},{"from":{"field":"region","value":"540"},"to":{"field":"region","value":"nc"}},{"from":{"field":"region","value":"562"},"to":{"field":"region","value":"ne"}},{"from":{"field":"region","value":"574"},"to":{"field":"region","value":"nf"}},{"from":{"field":"region","value":"566"},"to":{"field":"region","value":"ng"}},{"from":{"field":"region","value":"558"},"to":{"field":"region","value":"ni"}},{"from":{"field":"region","value":"528"},"to":{"field":"region","value":"nl"}},{"from":{"field":"region","value":"578"},"to":{"field":"region","value":"no"}},{"from":{"field":"region","value":"524"},"to":{"field":"region","value":"np"}},{"from":{"field":"region","value":"520"},"to":{"field":"region","value":"nr"}},{"from":{"field":"region","value":"570"},"to":{"field":"region","value":"nu"}},{"from":{"field":"region","value":"554"},"to":{"field":"region","value":"nz"}},{"from":{"field":"region","value":"512"},"to":{"field":"region","value":"om"}},{"from":{"field":"region","value":"591"},"to":{"field":"region","value":"pa"}},{"from":{"field":"region","value":"604"},"to":{"field":"region","value":"pe"}},{"from":{"field":"region","value":"258"},"to":{"field":"region","value":"pf"}},{"from":{"field":"region","value":"598"},"to":{"field":"region","value":"pg"}},{"from":{"field":"region","value":"608"},"to":{"field":"region","value":"ph"}},{"from":{"field":"region","value":"586"},"to":{"field":"region","value":"pk"}},{"from":{"field":"region","value":"616"},"to":{"field":"region","value":"pl"}},{"from":{"field":"region","value":"666"},"to":{"field":"region","value":"pm"}},{"from":{"field":"region","value":"612"},"to":{"field":"region","value":"pn"}},{"from":{"field":"region","value":"630"},"to":{"field":"region","value":"pr"}},{"from":{"field":"region","value":"275"},"to":{"field":"region","value":"ps"}},{"from":{"field":"region","value":"620"},"to":{"field":"region","value":"pt"}},{"from":{"field":"region","value":"585"},"to":{"field":"region","value":"pw"}},{"from":{"field":"region","value":"600"},"to":{"field":"region","value":"py"}},{"from":{"field":"region","value":"634"},"to":{"field":"region","value":"qa"}},{"from":{"field":"region","value":"959"},"to":{"field":"region","value":"qm"}},{"from":{"field":"region","value":"960"},"to":{"field":"region","value":"qn"}},{"from":{"field":"region","value":"962"},"to":{"field":"region","value":"qp"}},{"from":{"field":"region","value":"963"},"to":{"field":"region","value":"qq"}},{"from":{"field":"region","value":"964"},"to":{"field":"region","value":"qr"}},{"from":{"field":"region","value":"965"},"to":{"field":"region","value":"qs"}},{"from":{"field":"region","value":"966"},"to":{"field":"region","value":"qt"}},{"from":{"field":"region","value":"967"},"to":{"field":"region","value":"eu"}},{"from":{"field":"region","value":"968"},"to":{"field":"region","value":"qv"}},{"from":{"field":"region","value":"969"},"to":{"field":"region","value":"qw"}},{"from":{"field":"region","value":"970"},"to":{"field":"region","value":"qx"}},{"from":{"field":"region","value":"971"},"to":{"field":"region","value":"qy"}},{"from":{"field":"region","value":"972"},"to":{"field":"region","value":"qz"}},{"from":{"field":"region","value":"638"},"to":{"field":"region","value":"re"}},{"from":{"field":"region","value":"642"},"to":{"field":"region","value":"ro"}},{"from":{"field":"region","value":"688"},"to":{"field":"region","value":"rs"}},{"from":{"field":"region","value":"643"},"to":{"field":"region","value":"ru"}},{"from":{"field":"region","value":"646"},"to":{"field":"region","value":"rw"}},{"from":{"field":"region","value":"682"},"to":{"field":"region","value":"sa"}},{"from":{"field":"region","value":"090"},"to":{"field":"region","value":"sb"}},{"from":{"field":"region","value":"690"},"to":{"field":"region","value":"sc"}},{"from":{"field":"region","value":"729"},"to":{"field":"region","value":"sd"}},{"from":{"field":"region","value":"752"},"to":{"field":"region","value":"se"}},{"from":{"field":"region","value":"702"},"to":{"field":"region","value":"sg"}},{"from":{"field":"region","value":"654"},"to":{"field":"region","value":"sh"}},{"from":{"field":"region","value":"705"},"to":{"field":"region","value":"si"}},{"from":{"field":"region","value":"744"},"to":{"field":"region","value":"sj"}},{"from":{"field":"region","value":"703"},"to":{"field":"region","value":"sk"}},{"from":{"field":"region","value":"694"},"to":{"field":"region","value":"sl"}},{"from":{"field":"region","value":"674"},"to":{"field":"region","value":"sm"}},{"from":{"field":"region","value":"686"},"to":{"field":"region","value":"sn"}},{"from":{"field":"region","value":"706"},"to":{"field":"region","value":"so"}},{"from":{"field":"region","value":"740"},"to":{"field":"region","value":"sr"}},{"from":{"field":"region","value":"728"},"to":{"field":"region","value":"ss"}},{"from":{"field":"region","value":"678"},"to":{"field":"region","value":"st"}},{"from":{"field":"region","value":"222"},"to":{"field":"region","value":"sv"}},{"from":{"field":"region","value":"534"},"to":{"field":"region","value":"sx"}},{"from":{"field":"region","value":"760"},"to":{"field":"region","value":"sy"}},{"from":{"field":"region","value":"748"},"to":{"field":"region","value":"sz"}},{"from":{"field":"region","value":"796"},"to":{"field":"region","value":"tc"}},{"from":{"field":"region","value":"148"},"to":{"field":"region","value":"td"}},{"from":{"field":"region","value":"260"},"to":{"field":"region","value":"tf"}},{"from":{"field":"region","value":"768"},"to":{"field":"region","value":"tg"}},{"from":{"field":"region","value":"764"},"to":{"field":"region","value":"th"}},{"from":{"field":"region","value":"762"},"to":{"field":"region","value":"tj"}},{"from":{"field":"region","value":"772"},"to":{"field":"region","value":"tk"}},{"from":{"field":"region","value":"626"},"to":{"field":"region","value":"tl"}},{"from":{"field":"region","value":"795"},"to":{"field":"region","value":"tm"}},{"from":{"field":"region","value":"788"},"to":{"field":"region","value":"tn"}},{"from":{"field":"region","value":"776"},"to":{"field":"region","value":"to"}},{"from":{"field":"region","value":"792"},"to":{"field":"region","value":"tr"}},{"from":{"field":"region","value":"780"},"to":{"field":"region","value":"tt"}},{"from":{"field":"region","value":"798"},"to":{"field":"region","value":"tv"}},{"from":{"field":"region","value":"158"},"to":{"field":"region","value":"tw"}},{"from":{"field":"region","value":"834"},"to":{"field":"region","value":"tz"}},{"from":{"field":"region","value":"804"},"to":{"field":"region","value":"ua"}},{"from":{"field":"region","value":"800"},"to":{"field":"region","value":"ug"}},{"from":{"field":"region","value":"581"},"to":{"field":"region","value":"um"}},{"from":{"field":"region","value":"840"},"to":{"field":"region","value":"us"}},{"from":{"field":"region","value":"858"},"to":{"field":"region","value":"uy"}},{"from":{"field":"region","value":"860"},"to":{"field":"region","value":"uz"}},{"from":{"field":"region","value":"336"},"to":{"field":"region","value":"va"}},{"from":{"field":"region","value":"670"},"to":{"field":"region","value":"vc"}},{"from":{"field":"region","value":"862"},"to":{"field":"region","value":"ve"}},{"from":{"field":"region","value":"092"},"to":{"field":"region","value":"vg"}},{"from":{"field":"region","value":"850"},"to":{"field":"region","value":"vi"}},{"from":{"field":"region","value":"704"},"to":{"field":"region","value":"vn"}},{"from":{"field":"region","value":"548"},"to":{"field":"region","value":"vu"}},{"from":{"field":"region","value":"876"},"to":{"field":"region","value":"wf"}},{"from":{"field":"region","value":"882"},"to":{"field":"region","value":"ws"}},{"from":{"field":"region","value":"973"},"to":{"field":"region","value":"xa"}},{"from":{"field":"region","value":"974"},"to":{"field":"region","value":"xb"}},{"from":{"field":"region","value":"975"},"to":{"field":"region","value":"xc"}},{"from":{"field":"region","value":"976"},"to":{"field":"region","value":"xd"}},{"from":{"field":"region","value":"977"},"to":{"field":"region","value":"xe"}},{"from":{"field":"region","value":"978"},"to":{"field":"region","value":"xf"}},{"from":{"field":"region","value":"979"},"to":{"field":"region","value":"xg"}},{"from":{"field":"region","value":"980"},"to":{"field":"region","value":"xh"}},{"from":{"field":"region","value":"981"},"to":{"field":"region","value":"xi"}},{"from":{"field":"region","value":"982"},"to":{"field":"region","value":"xj"}},{"from":{"field":"region","value":"983"},"to":{"field":"region","value":"xk"}},{"from":{"field":"region","value":"984"},"to":{"field":"region","value":"xl"}},{"from":{"field":"region","value":"985"},"to":{"field":"region","value":"xm"}},{"from":{"field":"region","value":"986"},"to":{"field":"region","value":"xn"}},{"from":{"field":"region","value":"987"},"to":{"field":"region","value":"xo"}},{"from":{"field":"region","value":"988"},"to":{"field":"region","value":"xp"}},{"from":{"field":"region","value":"989"},"to":{"field":"region","value":"xq"}},{"from":{"field":"region","value":"990"},"to":{"field":"region","value":"xr"}},{"from":{"field":"region","value":"991"},"to":{"field":"region","value":"xs"}},{"from":{"field":"region","value":"992"},"to":{"field":"region","value":"xt"}},{"from":{"field":"region","value":"993"},"to":{"field":"region","value":"xu"}},{"from":{"field":"region","value":"994"},"to":{"field":"region","value":"xv"}},{"from":{"field":"region","value":"995"},"to":{"field":"region","value":"xw"}},{"from":{"field":"region","value":"996"},"to":{"field":"region","value":"xx"}},{"from":{"field":"region","value":"997"},"to":{"field":"region","value":"xy"}},{"from":{"field":"region","value":"998"},"to":{"field":"region","value":"xz"}},{"from":{"field":"region","value":"720"},"to":{"field":"region","value":"ye"}},{"from":{"field":"region","value":"887"},"to":{"field":"region","value":"ye"}},{"from":{"field":"region","value":"175"},"to":{"field":"region","value":"yt"}},{"from":{"field":"region","value":"710"},"to":{"field":"region","value":"za"}},{"from":{"field":"region","value":"894"},"to":{"field":"region","value":"zm"}},{"from":{"field":"region","value":"716"},"to":{"field":"region","value":"zw"}},{"from":{"field":"region","value":"999"},"to":{"field":"region","value":"zz"}},{"from":{"field":"variants","value":"aaland"},"to":{"field":"region","value":"ax"}},{"from":{"field":"variants","value":"polytoni"},"to":{"field":"variants","value":"polyton"}},{"from":{"field":"variants","value":"heploc"},"to":{"field":"variants","value":"alalc97"}},{"from":{"field":"variants","value":"arevela"},"to":{"field":"language","value":"hy"}},{"from":{"field":"variants","value":"arevmda"},"to":{"field":"language","value":"hyw"}}]');
-
-/***/ }),
-
-/***/ "./node_modules/bcp-47-normalize/lib/many.json":
+/***/ "./node_modules/bcp-47-normalize/lib/fields.js":
 /*!*****************************************************!*\
-  !*** ./node_modules/bcp-47-normalize/lib/many.json ***!
+  !*** ./node_modules/bcp-47-normalize/lib/fields.js ***!
   \*****************************************************/
-/***/ ((module) => {
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-module.exports = JSON.parse('{"region":{"172":["ru","am","az","by","ge","kg","kz","md","tj","tm","ua","uz"],"200":["cz","sk"],"530":["cw","sx","bq"],"532":["cw","sx","bq"],"536":["sa","iq"],"582":["fm","mh","mp","pw"],"810":["ru","am","az","by","ee","ge","kz","kg","lv","lt","md","tj","tm","ua","uz"],"830":["je","gg"],"890":["rs","me","si","hr","mk","ba"],"891":["rs","me"],"an":["cw","sx","bq"],"cs":["rs","me"],"fq":["aq","tf"],"nt":["sa","iq"],"pc":["fm","mh","mp","pw"],"su":["ru","am","az","by","ee","ge","kz","kg","lv","lt","md","tj","tm","ua","uz"],"yu":["rs","me"],"062":["034","143"],"ant":["cw","sx","bq"],"scg":["rs","me"],"ntz":["sa","iq"],"sun":["ru","am","az","by","ee","ge","kz","kg","lv","lt","md","tj","tm","ua","uz"],"yug":["rs","me"]}}');
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fields": function() { return /* binding */ fields; }
+/* harmony export */ });
+/**
+ * @typedef {'script'|'region'|'variants'} Field
+ *
+ * @typedef AddOrRemove
+ * @property {Field} field
+ * @property {string} value
+ *
+ * @typedef Change
+ * @property {AddOrRemove} from
+ * @property {AddOrRemove} to
+ */
+
+/**
+ * @type {Array<Change>}
+ */
+const fields = [
+  {
+    from: {
+      field: 'script',
+      value: 'qaai'
+    },
+    to: {
+      field: 'script',
+      value: 'zinh'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'bu'
+    },
+    to: {
+      field: 'region',
+      value: 'mm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'ct'
+    },
+    to: {
+      field: 'region',
+      value: 'ki'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'dd'
+    },
+    to: {
+      field: 'region',
+      value: 'de'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'dy'
+    },
+    to: {
+      field: 'region',
+      value: 'bj'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'fx'
+    },
+    to: {
+      field: 'region',
+      value: 'fr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'hv'
+    },
+    to: {
+      field: 'region',
+      value: 'bf'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'jt'
+    },
+    to: {
+      field: 'region',
+      value: 'um'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'mi'
+    },
+    to: {
+      field: 'region',
+      value: 'um'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'nh'
+    },
+    to: {
+      field: 'region',
+      value: 'vu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'nq'
+    },
+    to: {
+      field: 'region',
+      value: 'aq'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'pu'
+    },
+    to: {
+      field: 'region',
+      value: 'um'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'pz'
+    },
+    to: {
+      field: 'region',
+      value: 'pa'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'qu'
+    },
+    to: {
+      field: 'region',
+      value: 'eu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'rh'
+    },
+    to: {
+      field: 'region',
+      value: 'zw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'tp'
+    },
+    to: {
+      field: 'region',
+      value: 'tl'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'uk'
+    },
+    to: {
+      field: 'region',
+      value: 'gb'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'vd'
+    },
+    to: {
+      field: 'region',
+      value: 'vn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'wk'
+    },
+    to: {
+      field: 'region',
+      value: 'um'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'yd'
+    },
+    to: {
+      field: 'region',
+      value: 'ye'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: 'zr'
+    },
+    to: {
+      field: 'region',
+      value: 'cd'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '230'
+    },
+    to: {
+      field: 'region',
+      value: 'et'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '280'
+    },
+    to: {
+      field: 'region',
+      value: 'de'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '736'
+    },
+    to: {
+      field: 'region',
+      value: 'sd'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '886'
+    },
+    to: {
+      field: 'region',
+      value: 'ye'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '958'
+    },
+    to: {
+      field: 'region',
+      value: 'aa'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '020'
+    },
+    to: {
+      field: 'region',
+      value: 'ad'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '784'
+    },
+    to: {
+      field: 'region',
+      value: 'ae'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '004'
+    },
+    to: {
+      field: 'region',
+      value: 'af'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '028'
+    },
+    to: {
+      field: 'region',
+      value: 'ag'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '660'
+    },
+    to: {
+      field: 'region',
+      value: 'ai'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '008'
+    },
+    to: {
+      field: 'region',
+      value: 'al'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '051'
+    },
+    to: {
+      field: 'region',
+      value: 'am'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '024'
+    },
+    to: {
+      field: 'region',
+      value: 'ao'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '010'
+    },
+    to: {
+      field: 'region',
+      value: 'aq'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '032'
+    },
+    to: {
+      field: 'region',
+      value: 'ar'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '016'
+    },
+    to: {
+      field: 'region',
+      value: 'as'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '040'
+    },
+    to: {
+      field: 'region',
+      value: 'at'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '036'
+    },
+    to: {
+      field: 'region',
+      value: 'au'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '533'
+    },
+    to: {
+      field: 'region',
+      value: 'aw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '248'
+    },
+    to: {
+      field: 'region',
+      value: 'ax'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '031'
+    },
+    to: {
+      field: 'region',
+      value: 'az'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '070'
+    },
+    to: {
+      field: 'region',
+      value: 'ba'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '052'
+    },
+    to: {
+      field: 'region',
+      value: 'bb'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '050'
+    },
+    to: {
+      field: 'region',
+      value: 'bd'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '056'
+    },
+    to: {
+      field: 'region',
+      value: 'be'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '854'
+    },
+    to: {
+      field: 'region',
+      value: 'bf'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '100'
+    },
+    to: {
+      field: 'region',
+      value: 'bg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '048'
+    },
+    to: {
+      field: 'region',
+      value: 'bh'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '108'
+    },
+    to: {
+      field: 'region',
+      value: 'bi'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '204'
+    },
+    to: {
+      field: 'region',
+      value: 'bj'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '652'
+    },
+    to: {
+      field: 'region',
+      value: 'bl'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '060'
+    },
+    to: {
+      field: 'region',
+      value: 'bm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '096'
+    },
+    to: {
+      field: 'region',
+      value: 'bn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '068'
+    },
+    to: {
+      field: 'region',
+      value: 'bo'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '535'
+    },
+    to: {
+      field: 'region',
+      value: 'bq'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '076'
+    },
+    to: {
+      field: 'region',
+      value: 'br'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '044'
+    },
+    to: {
+      field: 'region',
+      value: 'bs'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '064'
+    },
+    to: {
+      field: 'region',
+      value: 'bt'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '104'
+    },
+    to: {
+      field: 'region',
+      value: 'mm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '074'
+    },
+    to: {
+      field: 'region',
+      value: 'bv'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '072'
+    },
+    to: {
+      field: 'region',
+      value: 'bw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '112'
+    },
+    to: {
+      field: 'region',
+      value: 'by'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '084'
+    },
+    to: {
+      field: 'region',
+      value: 'bz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '124'
+    },
+    to: {
+      field: 'region',
+      value: 'ca'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '166'
+    },
+    to: {
+      field: 'region',
+      value: 'cc'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '180'
+    },
+    to: {
+      field: 'region',
+      value: 'cd'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '140'
+    },
+    to: {
+      field: 'region',
+      value: 'cf'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '178'
+    },
+    to: {
+      field: 'region',
+      value: 'cg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '756'
+    },
+    to: {
+      field: 'region',
+      value: 'ch'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '384'
+    },
+    to: {
+      field: 'region',
+      value: 'ci'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '184'
+    },
+    to: {
+      field: 'region',
+      value: 'ck'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '152'
+    },
+    to: {
+      field: 'region',
+      value: 'cl'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '120'
+    },
+    to: {
+      field: 'region',
+      value: 'cm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '156'
+    },
+    to: {
+      field: 'region',
+      value: 'cn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '170'
+    },
+    to: {
+      field: 'region',
+      value: 'co'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '188'
+    },
+    to: {
+      field: 'region',
+      value: 'cr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '192'
+    },
+    to: {
+      field: 'region',
+      value: 'cu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '132'
+    },
+    to: {
+      field: 'region',
+      value: 'cv'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '531'
+    },
+    to: {
+      field: 'region',
+      value: 'cw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '162'
+    },
+    to: {
+      field: 'region',
+      value: 'cx'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '196'
+    },
+    to: {
+      field: 'region',
+      value: 'cy'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '203'
+    },
+    to: {
+      field: 'region',
+      value: 'cz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '278'
+    },
+    to: {
+      field: 'region',
+      value: 'de'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '276'
+    },
+    to: {
+      field: 'region',
+      value: 'de'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '262'
+    },
+    to: {
+      field: 'region',
+      value: 'dj'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '208'
+    },
+    to: {
+      field: 'region',
+      value: 'dk'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '212'
+    },
+    to: {
+      field: 'region',
+      value: 'dm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '214'
+    },
+    to: {
+      field: 'region',
+      value: 'do'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '012'
+    },
+    to: {
+      field: 'region',
+      value: 'dz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '218'
+    },
+    to: {
+      field: 'region',
+      value: 'ec'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '233'
+    },
+    to: {
+      field: 'region',
+      value: 'ee'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '818'
+    },
+    to: {
+      field: 'region',
+      value: 'eg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '732'
+    },
+    to: {
+      field: 'region',
+      value: 'eh'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '232'
+    },
+    to: {
+      field: 'region',
+      value: 'er'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '724'
+    },
+    to: {
+      field: 'region',
+      value: 'es'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '231'
+    },
+    to: {
+      field: 'region',
+      value: 'et'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '246'
+    },
+    to: {
+      field: 'region',
+      value: 'fi'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '242'
+    },
+    to: {
+      field: 'region',
+      value: 'fj'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '238'
+    },
+    to: {
+      field: 'region',
+      value: 'fk'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '583'
+    },
+    to: {
+      field: 'region',
+      value: 'fm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '234'
+    },
+    to: {
+      field: 'region',
+      value: 'fo'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '250'
+    },
+    to: {
+      field: 'region',
+      value: 'fr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '249'
+    },
+    to: {
+      field: 'region',
+      value: 'fr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '266'
+    },
+    to: {
+      field: 'region',
+      value: 'ga'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '826'
+    },
+    to: {
+      field: 'region',
+      value: 'gb'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '308'
+    },
+    to: {
+      field: 'region',
+      value: 'gd'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '268'
+    },
+    to: {
+      field: 'region',
+      value: 'ge'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '254'
+    },
+    to: {
+      field: 'region',
+      value: 'gf'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '831'
+    },
+    to: {
+      field: 'region',
+      value: 'gg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '288'
+    },
+    to: {
+      field: 'region',
+      value: 'gh'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '292'
+    },
+    to: {
+      field: 'region',
+      value: 'gi'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '304'
+    },
+    to: {
+      field: 'region',
+      value: 'gl'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '270'
+    },
+    to: {
+      field: 'region',
+      value: 'gm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '324'
+    },
+    to: {
+      field: 'region',
+      value: 'gn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '312'
+    },
+    to: {
+      field: 'region',
+      value: 'gp'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '226'
+    },
+    to: {
+      field: 'region',
+      value: 'gq'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '300'
+    },
+    to: {
+      field: 'region',
+      value: 'gr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '239'
+    },
+    to: {
+      field: 'region',
+      value: 'gs'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '320'
+    },
+    to: {
+      field: 'region',
+      value: 'gt'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '316'
+    },
+    to: {
+      field: 'region',
+      value: 'gu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '624'
+    },
+    to: {
+      field: 'region',
+      value: 'gw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '328'
+    },
+    to: {
+      field: 'region',
+      value: 'gy'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '344'
+    },
+    to: {
+      field: 'region',
+      value: 'hk'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '334'
+    },
+    to: {
+      field: 'region',
+      value: 'hm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '340'
+    },
+    to: {
+      field: 'region',
+      value: 'hn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '191'
+    },
+    to: {
+      field: 'region',
+      value: 'hr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '332'
+    },
+    to: {
+      field: 'region',
+      value: 'ht'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '348'
+    },
+    to: {
+      field: 'region',
+      value: 'hu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '360'
+    },
+    to: {
+      field: 'region',
+      value: 'id'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '372'
+    },
+    to: {
+      field: 'region',
+      value: 'ie'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '376'
+    },
+    to: {
+      field: 'region',
+      value: 'il'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '833'
+    },
+    to: {
+      field: 'region',
+      value: 'im'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '356'
+    },
+    to: {
+      field: 'region',
+      value: 'in'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '086'
+    },
+    to: {
+      field: 'region',
+      value: 'io'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '368'
+    },
+    to: {
+      field: 'region',
+      value: 'iq'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '364'
+    },
+    to: {
+      field: 'region',
+      value: 'ir'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '352'
+    },
+    to: {
+      field: 'region',
+      value: 'is'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '380'
+    },
+    to: {
+      field: 'region',
+      value: 'it'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '832'
+    },
+    to: {
+      field: 'region',
+      value: 'je'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '388'
+    },
+    to: {
+      field: 'region',
+      value: 'jm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '400'
+    },
+    to: {
+      field: 'region',
+      value: 'jo'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '392'
+    },
+    to: {
+      field: 'region',
+      value: 'jp'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '404'
+    },
+    to: {
+      field: 'region',
+      value: 'ke'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '417'
+    },
+    to: {
+      field: 'region',
+      value: 'kg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '116'
+    },
+    to: {
+      field: 'region',
+      value: 'kh'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '296'
+    },
+    to: {
+      field: 'region',
+      value: 'ki'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '174'
+    },
+    to: {
+      field: 'region',
+      value: 'km'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '659'
+    },
+    to: {
+      field: 'region',
+      value: 'kn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '408'
+    },
+    to: {
+      field: 'region',
+      value: 'kp'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '410'
+    },
+    to: {
+      field: 'region',
+      value: 'kr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '414'
+    },
+    to: {
+      field: 'region',
+      value: 'kw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '136'
+    },
+    to: {
+      field: 'region',
+      value: 'ky'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '398'
+    },
+    to: {
+      field: 'region',
+      value: 'kz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '418'
+    },
+    to: {
+      field: 'region',
+      value: 'la'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '422'
+    },
+    to: {
+      field: 'region',
+      value: 'lb'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '662'
+    },
+    to: {
+      field: 'region',
+      value: 'lc'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '438'
+    },
+    to: {
+      field: 'region',
+      value: 'li'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '144'
+    },
+    to: {
+      field: 'region',
+      value: 'lk'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '430'
+    },
+    to: {
+      field: 'region',
+      value: 'lr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '426'
+    },
+    to: {
+      field: 'region',
+      value: 'ls'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '440'
+    },
+    to: {
+      field: 'region',
+      value: 'lt'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '442'
+    },
+    to: {
+      field: 'region',
+      value: 'lu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '428'
+    },
+    to: {
+      field: 'region',
+      value: 'lv'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '434'
+    },
+    to: {
+      field: 'region',
+      value: 'ly'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '504'
+    },
+    to: {
+      field: 'region',
+      value: 'ma'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '492'
+    },
+    to: {
+      field: 'region',
+      value: 'mc'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '498'
+    },
+    to: {
+      field: 'region',
+      value: 'md'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '499'
+    },
+    to: {
+      field: 'region',
+      value: 'me'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '663'
+    },
+    to: {
+      field: 'region',
+      value: 'mf'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '450'
+    },
+    to: {
+      field: 'region',
+      value: 'mg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '584'
+    },
+    to: {
+      field: 'region',
+      value: 'mh'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '807'
+    },
+    to: {
+      field: 'region',
+      value: 'mk'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '466'
+    },
+    to: {
+      field: 'region',
+      value: 'ml'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '496'
+    },
+    to: {
+      field: 'region',
+      value: 'mn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '446'
+    },
+    to: {
+      field: 'region',
+      value: 'mo'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '580'
+    },
+    to: {
+      field: 'region',
+      value: 'mp'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '474'
+    },
+    to: {
+      field: 'region',
+      value: 'mq'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '478'
+    },
+    to: {
+      field: 'region',
+      value: 'mr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '500'
+    },
+    to: {
+      field: 'region',
+      value: 'ms'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '470'
+    },
+    to: {
+      field: 'region',
+      value: 'mt'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '480'
+    },
+    to: {
+      field: 'region',
+      value: 'mu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '462'
+    },
+    to: {
+      field: 'region',
+      value: 'mv'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '454'
+    },
+    to: {
+      field: 'region',
+      value: 'mw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '484'
+    },
+    to: {
+      field: 'region',
+      value: 'mx'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '458'
+    },
+    to: {
+      field: 'region',
+      value: 'my'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '508'
+    },
+    to: {
+      field: 'region',
+      value: 'mz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '516'
+    },
+    to: {
+      field: 'region',
+      value: 'na'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '540'
+    },
+    to: {
+      field: 'region',
+      value: 'nc'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '562'
+    },
+    to: {
+      field: 'region',
+      value: 'ne'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '574'
+    },
+    to: {
+      field: 'region',
+      value: 'nf'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '566'
+    },
+    to: {
+      field: 'region',
+      value: 'ng'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '558'
+    },
+    to: {
+      field: 'region',
+      value: 'ni'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '528'
+    },
+    to: {
+      field: 'region',
+      value: 'nl'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '578'
+    },
+    to: {
+      field: 'region',
+      value: 'no'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '524'
+    },
+    to: {
+      field: 'region',
+      value: 'np'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '520'
+    },
+    to: {
+      field: 'region',
+      value: 'nr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '570'
+    },
+    to: {
+      field: 'region',
+      value: 'nu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '554'
+    },
+    to: {
+      field: 'region',
+      value: 'nz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '512'
+    },
+    to: {
+      field: 'region',
+      value: 'om'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '591'
+    },
+    to: {
+      field: 'region',
+      value: 'pa'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '604'
+    },
+    to: {
+      field: 'region',
+      value: 'pe'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '258'
+    },
+    to: {
+      field: 'region',
+      value: 'pf'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '598'
+    },
+    to: {
+      field: 'region',
+      value: 'pg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '608'
+    },
+    to: {
+      field: 'region',
+      value: 'ph'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '586'
+    },
+    to: {
+      field: 'region',
+      value: 'pk'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '616'
+    },
+    to: {
+      field: 'region',
+      value: 'pl'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '666'
+    },
+    to: {
+      field: 'region',
+      value: 'pm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '612'
+    },
+    to: {
+      field: 'region',
+      value: 'pn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '630'
+    },
+    to: {
+      field: 'region',
+      value: 'pr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '275'
+    },
+    to: {
+      field: 'region',
+      value: 'ps'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '620'
+    },
+    to: {
+      field: 'region',
+      value: 'pt'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '585'
+    },
+    to: {
+      field: 'region',
+      value: 'pw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '600'
+    },
+    to: {
+      field: 'region',
+      value: 'py'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '634'
+    },
+    to: {
+      field: 'region',
+      value: 'qa'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '959'
+    },
+    to: {
+      field: 'region',
+      value: 'qm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '960'
+    },
+    to: {
+      field: 'region',
+      value: 'qn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '962'
+    },
+    to: {
+      field: 'region',
+      value: 'qp'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '963'
+    },
+    to: {
+      field: 'region',
+      value: 'qq'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '964'
+    },
+    to: {
+      field: 'region',
+      value: 'qr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '965'
+    },
+    to: {
+      field: 'region',
+      value: 'qs'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '966'
+    },
+    to: {
+      field: 'region',
+      value: 'qt'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '967'
+    },
+    to: {
+      field: 'region',
+      value: 'eu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '968'
+    },
+    to: {
+      field: 'region',
+      value: 'qv'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '969'
+    },
+    to: {
+      field: 'region',
+      value: 'qw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '970'
+    },
+    to: {
+      field: 'region',
+      value: 'qx'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '971'
+    },
+    to: {
+      field: 'region',
+      value: 'qy'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '972'
+    },
+    to: {
+      field: 'region',
+      value: 'qz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '638'
+    },
+    to: {
+      field: 'region',
+      value: 're'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '642'
+    },
+    to: {
+      field: 'region',
+      value: 'ro'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '688'
+    },
+    to: {
+      field: 'region',
+      value: 'rs'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '643'
+    },
+    to: {
+      field: 'region',
+      value: 'ru'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '646'
+    },
+    to: {
+      field: 'region',
+      value: 'rw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '682'
+    },
+    to: {
+      field: 'region',
+      value: 'sa'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '090'
+    },
+    to: {
+      field: 'region',
+      value: 'sb'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '690'
+    },
+    to: {
+      field: 'region',
+      value: 'sc'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '729'
+    },
+    to: {
+      field: 'region',
+      value: 'sd'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '752'
+    },
+    to: {
+      field: 'region',
+      value: 'se'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '702'
+    },
+    to: {
+      field: 'region',
+      value: 'sg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '654'
+    },
+    to: {
+      field: 'region',
+      value: 'sh'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '705'
+    },
+    to: {
+      field: 'region',
+      value: 'si'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '744'
+    },
+    to: {
+      field: 'region',
+      value: 'sj'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '703'
+    },
+    to: {
+      field: 'region',
+      value: 'sk'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '694'
+    },
+    to: {
+      field: 'region',
+      value: 'sl'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '674'
+    },
+    to: {
+      field: 'region',
+      value: 'sm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '686'
+    },
+    to: {
+      field: 'region',
+      value: 'sn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '706'
+    },
+    to: {
+      field: 'region',
+      value: 'so'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '740'
+    },
+    to: {
+      field: 'region',
+      value: 'sr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '728'
+    },
+    to: {
+      field: 'region',
+      value: 'ss'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '678'
+    },
+    to: {
+      field: 'region',
+      value: 'st'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '222'
+    },
+    to: {
+      field: 'region',
+      value: 'sv'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '534'
+    },
+    to: {
+      field: 'region',
+      value: 'sx'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '760'
+    },
+    to: {
+      field: 'region',
+      value: 'sy'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '748'
+    },
+    to: {
+      field: 'region',
+      value: 'sz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '796'
+    },
+    to: {
+      field: 'region',
+      value: 'tc'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '148'
+    },
+    to: {
+      field: 'region',
+      value: 'td'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '260'
+    },
+    to: {
+      field: 'region',
+      value: 'tf'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '768'
+    },
+    to: {
+      field: 'region',
+      value: 'tg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '764'
+    },
+    to: {
+      field: 'region',
+      value: 'th'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '762'
+    },
+    to: {
+      field: 'region',
+      value: 'tj'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '772'
+    },
+    to: {
+      field: 'region',
+      value: 'tk'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '626'
+    },
+    to: {
+      field: 'region',
+      value: 'tl'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '795'
+    },
+    to: {
+      field: 'region',
+      value: 'tm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '788'
+    },
+    to: {
+      field: 'region',
+      value: 'tn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '776'
+    },
+    to: {
+      field: 'region',
+      value: 'to'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '792'
+    },
+    to: {
+      field: 'region',
+      value: 'tr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '780'
+    },
+    to: {
+      field: 'region',
+      value: 'tt'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '798'
+    },
+    to: {
+      field: 'region',
+      value: 'tv'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '158'
+    },
+    to: {
+      field: 'region',
+      value: 'tw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '834'
+    },
+    to: {
+      field: 'region',
+      value: 'tz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '804'
+    },
+    to: {
+      field: 'region',
+      value: 'ua'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '800'
+    },
+    to: {
+      field: 'region',
+      value: 'ug'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '581'
+    },
+    to: {
+      field: 'region',
+      value: 'um'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '840'
+    },
+    to: {
+      field: 'region',
+      value: 'us'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '858'
+    },
+    to: {
+      field: 'region',
+      value: 'uy'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '860'
+    },
+    to: {
+      field: 'region',
+      value: 'uz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '336'
+    },
+    to: {
+      field: 'region',
+      value: 'va'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '670'
+    },
+    to: {
+      field: 'region',
+      value: 'vc'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '862'
+    },
+    to: {
+      field: 'region',
+      value: 've'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '092'
+    },
+    to: {
+      field: 'region',
+      value: 'vg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '850'
+    },
+    to: {
+      field: 'region',
+      value: 'vi'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '704'
+    },
+    to: {
+      field: 'region',
+      value: 'vn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '548'
+    },
+    to: {
+      field: 'region',
+      value: 'vu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '876'
+    },
+    to: {
+      field: 'region',
+      value: 'wf'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '882'
+    },
+    to: {
+      field: 'region',
+      value: 'ws'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '973'
+    },
+    to: {
+      field: 'region',
+      value: 'xa'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '974'
+    },
+    to: {
+      field: 'region',
+      value: 'xb'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '975'
+    },
+    to: {
+      field: 'region',
+      value: 'xc'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '976'
+    },
+    to: {
+      field: 'region',
+      value: 'xd'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '977'
+    },
+    to: {
+      field: 'region',
+      value: 'xe'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '978'
+    },
+    to: {
+      field: 'region',
+      value: 'xf'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '979'
+    },
+    to: {
+      field: 'region',
+      value: 'xg'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '980'
+    },
+    to: {
+      field: 'region',
+      value: 'xh'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '981'
+    },
+    to: {
+      field: 'region',
+      value: 'xi'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '982'
+    },
+    to: {
+      field: 'region',
+      value: 'xj'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '983'
+    },
+    to: {
+      field: 'region',
+      value: 'xk'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '984'
+    },
+    to: {
+      field: 'region',
+      value: 'xl'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '985'
+    },
+    to: {
+      field: 'region',
+      value: 'xm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '986'
+    },
+    to: {
+      field: 'region',
+      value: 'xn'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '987'
+    },
+    to: {
+      field: 'region',
+      value: 'xo'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '988'
+    },
+    to: {
+      field: 'region',
+      value: 'xp'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '989'
+    },
+    to: {
+      field: 'region',
+      value: 'xq'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '990'
+    },
+    to: {
+      field: 'region',
+      value: 'xr'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '991'
+    },
+    to: {
+      field: 'region',
+      value: 'xs'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '992'
+    },
+    to: {
+      field: 'region',
+      value: 'xt'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '993'
+    },
+    to: {
+      field: 'region',
+      value: 'xu'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '994'
+    },
+    to: {
+      field: 'region',
+      value: 'xv'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '995'
+    },
+    to: {
+      field: 'region',
+      value: 'xw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '996'
+    },
+    to: {
+      field: 'region',
+      value: 'xx'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '997'
+    },
+    to: {
+      field: 'region',
+      value: 'xy'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '998'
+    },
+    to: {
+      field: 'region',
+      value: 'xz'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '720'
+    },
+    to: {
+      field: 'region',
+      value: 'ye'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '887'
+    },
+    to: {
+      field: 'region',
+      value: 'ye'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '175'
+    },
+    to: {
+      field: 'region',
+      value: 'yt'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '710'
+    },
+    to: {
+      field: 'region',
+      value: 'za'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '894'
+    },
+    to: {
+      field: 'region',
+      value: 'zm'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '716'
+    },
+    to: {
+      field: 'region',
+      value: 'zw'
+    }
+  },
+  {
+    from: {
+      field: 'region',
+      value: '999'
+    },
+    to: {
+      field: 'region',
+      value: 'zz'
+    }
+  },
+  {
+    from: {
+      field: 'variants',
+      value: 'polytoni'
+    },
+    to: {
+      field: 'variants',
+      value: 'polyton'
+    }
+  },
+  {
+    from: {
+      field: 'variants',
+      value: 'heploc'
+    },
+    to: {
+      field: 'variants',
+      value: 'alalc97'
+    }
+  }
+]
+
 
 /***/ }),
 
-/***/ "./node_modules/bcp-47-normalize/lib/matches.json":
-/*!********************************************************!*\
-  !*** ./node_modules/bcp-47-normalize/lib/matches.json ***!
-  \********************************************************/
-/***/ ((module) => {
+/***/ "./node_modules/bcp-47-normalize/lib/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/bcp-47-normalize/lib/index.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-module.exports = JSON.parse('[{"from":"in","to":"id"},{"from":"iw","to":"he"},{"from":"ji","to":"yi"},{"from":"jw","to":"jv"},{"from":"mo","to":"ro"},{"from":"scc","to":"sr"},{"from":"scr","to":"hr"},{"from":"aam","to":"aas"},{"from":"adp","to":"dz"},{"from":"aue","to":"ktz"},{"from":"ayx","to":"nun"},{"from":"bgm","to":"bcg"},{"from":"bjd","to":"drl"},{"from":"ccq","to":"rki"},{"from":"cjr","to":"mom"},{"from":"cka","to":"cmr"},{"from":"cmk","to":"xch"},{"from":"coy","to":"pij"},{"from":"cqu","to":"quh"},{"from":"drh","to":"mn"},{"from":"drw","to":"fa-af"},{"from":"gav","to":"dev"},{"from":"gfx","to":"vaj"},{"from":"ggn","to":"gvr"},{"from":"gti","to":"nyc"},{"from":"guv","to":"duz"},{"from":"hrr","to":"jal"},{"from":"ibi","to":"opa"},{"from":"ilw","to":"gal"},{"from":"jeg","to":"oyb"},{"from":"kgc","to":"tdf"},{"from":"kgh","to":"kml"},{"from":"koj","to":"kwv"},{"from":"krm","to":"bmf"},{"from":"ktr","to":"dtp"},{"from":"kvs","to":"gdj"},{"from":"kwq","to":"yam"},{"from":"kxe","to":"tvd"},{"from":"kzj","to":"dtp"},{"from":"kzt","to":"dtp"},{"from":"lii","to":"raq"},{"from":"lmm","to":"rmx"},{"from":"meg","to":"cir"},{"from":"mst","to":"mry"},{"from":"mwj","to":"vaj"},{"from":"myt","to":"mry"},{"from":"nad","to":"xny"},{"from":"ncp","to":"kdz"},{"from":"nnx","to":"ngv"},{"from":"nts","to":"pij"},{"from":"oun","to":"vaj"},{"from":"pcr","to":"adx"},{"from":"pmc","to":"huw"},{"from":"pmu","to":"phr"},{"from":"ppa","to":"bfy"},{"from":"ppr","to":"lcq"},{"from":"pry","to":"prt"},{"from":"puz","to":"pub"},{"from":"sca","to":"hle"},{"from":"skk","to":"oyb"},{"from":"tdu","to":"dtp"},{"from":"thc","to":"tpo"},{"from":"thx","to":"oyb"},{"from":"tie","to":"ras"},{"from":"tkk","to":"twm"},{"from":"tlw","to":"weo"},{"from":"tmp","to":"tyj"},{"from":"tne","to":"kak"},{"from":"tnf","to":"fa-af"},{"from":"tsf","to":"taj"},{"from":"uok","to":"ema"},{"from":"xba","to":"cax"},{"from":"xia","to":"acn"},{"from":"xkh","to":"waw"},{"from":"xsj","to":"suj"},{"from":"ybd","to":"rki"},{"from":"yma","to":"lrr"},{"from":"ymt","to":"mtm"},{"from":"yos","to":"zom"},{"from":"yuu","to":"yug"},{"from":"asd","to":"snz"},{"from":"dit","to":"dif"},{"from":"llo","to":"ngt"},{"from":"myd","to":"aog"},{"from":"nns","to":"nbr"},{"from":"sgn-br","to":"bzs"},{"from":"sgn-co","to":"csn"},{"from":"sgn-de","to":"gsg"},{"from":"sgn-dk","to":"dsl"},{"from":"sgn-fr","to":"fsl"},{"from":"sgn-gb","to":"bfi"},{"from":"sgn-gr","to":"gss"},{"from":"sgn-ie","to":"isg"},{"from":"sgn-it","to":"ise"},{"from":"sgn-jp","to":"jsl"},{"from":"sgn-mx","to":"mfs"},{"from":"sgn-ni","to":"ncs"},{"from":"sgn-nl","to":"dse"},{"from":"sgn-no","to":"nsi"},{"from":"sgn-pt","to":"psr"},{"from":"sgn-se","to":"swl"},{"from":"sgn-us","to":"ase"},{"from":"sgn-za","to":"sfs"},{"from":"no-bokmal","to":"nb"},{"from":"no-nynorsk","to":"nn"},{"from":"aa-saaho","to":"ssy"},{"from":"sh","to":"sr-latn"},{"from":"cnr","to":"sr-me"},{"from":"no","to":"nb"},{"from":"tl","to":"fil"},{"from":"az-az","to":"az-latn-az"},{"from":"bs-ba","to":"bs-latn-ba"},{"from":"ha-latn-gh","to":"ha-gh"},{"from":"ha-latn-ne","to":"ha-ne"},{"from":"ha-latn-ng","to":"ha-ng"},{"from":"kk-cyrl-kz","to":"kk-kz"},{"from":"ky-cyrl-kg","to":"ky-kg"},{"from":"ks-arab-in","to":"ks-in"},{"from":"mn-cyrl-mn","to":"mn-mn"},{"from":"ms-latn-bn","to":"ms-bn"},{"from":"ms-latn-my","to":"ms-my"},{"from":"ms-latn-sg","to":"ms-sg"},{"from":"pa-in","to":"pa-guru-in"},{"from":"pa-pk","to":"pa-arab-pk"},{"from":"shi-ma","to":"shi-tfng-ma"},{"from":"sr-ba","to":"sr-cyrl-ba"},{"from":"sr-me","to":"sr-latn-me"},{"from":"sr-rs","to":"sr-cyrl-rs"},{"from":"sr-xk","to":"sr-cyrl-xk"},{"from":"tzm-latn-ma","to":"tzm-ma"},{"from":"ug-arab-cn","to":"ug-cn"},{"from":"uz-af","to":"uz-arab-af"},{"from":"uz-uz","to":"uz-latn-uz"},{"from":"vai-lr","to":"vai-vaii-lr"},{"from":"yue-cn","to":"yue-hans-cn"},{"from":"yue-hk","to":"yue-hant-hk"},{"from":"zh-cn","to":"zh-hans-cn"},{"from":"zh-hk","to":"zh-hant-hk"},{"from":"zh-mo","to":"zh-hant-mo"},{"from":"zh-sg","to":"zh-hans-sg"},{"from":"zh-tw","to":"zh-hant-tw"},{"from":"aju","to":"jrb"},{"from":"als","to":"sq"},{"from":"arb","to":"ar"},{"from":"ayr","to":"ay"},{"from":"azj","to":"az"},{"from":"bcc","to":"bal"},{"from":"bcl","to":"bik"},{"from":"bxk","to":"luy"},{"from":"bxr","to":"bua"},{"from":"cld","to":"syr"},{"from":"cmn","to":"zh"},{"from":"cwd","to":"cr"},{"from":"dgo","to":"doi"},{"from":"dhd","to":"mwr"},{"from":"dik","to":"din"},{"from":"diq","to":"zza"},{"from":"lbk","to":"bnc"},{"from":"ekk","to":"et"},{"from":"emk","to":"man"},{"from":"esk","to":"ik"},{"from":"fat","to":"ak"},{"from":"fuc","to":"ff"},{"from":"gaz","to":"om"},{"from":"gbo","to":"grb"},{"from":"gno","to":"gon"},{"from":"gug","to":"gn"},{"from":"gya","to":"gba"},{"from":"hdn","to":"hai"},{"from":"hea","to":"hmn"},{"from":"ike","to":"iu"},{"from":"kmr","to":"ku"},{"from":"knc","to":"kr"},{"from":"kng","to":"kg"},{"from":"knn","to":"kok"},{"from":"kpv","to":"kv"},{"from":"lvs","to":"lv"},{"from":"mhr","to":"chm"},{"from":"mup","to":"raj"},{"from":"khk","to":"mn"},{"from":"npi","to":"ne"},{"from":"ojg","to":"oj"},{"from":"ory","to":"or"},{"from":"pbu","to":"ps"},{"from":"pes","to":"fa"},{"from":"plt","to":"mg"},{"from":"pnb","to":"lah"},{"from":"quz","to":"qu"},{"from":"rmy","to":"rom"},{"from":"spy","to":"kln"},{"from":"src","to":"sc"},{"from":"swh","to":"sw"},{"from":"ttq","to":"tmh"},{"from":"tw","to":"ak"},{"from":"umu","to":"del"},{"from":"uzn","to":"uz"},{"from":"xpe","to":"kpe"},{"from":"xsl","to":"den"},{"from":"ydd","to":"yi"},{"from":"zai","to":"zap"},{"from":"zsm","to":"ms"},{"from":"zyb","to":"za"},{"from":"him","to":"srx"},{"from":"mnk","to":"man"},{"from":"bh","to":"bho"},{"from":"prs","to":"fa-af"},{"from":"swc","to":"sw-cd"},{"from":"aar","to":"aa"},{"from":"abk","to":"ab"},{"from":"ave","to":"ae"},{"from":"afr","to":"af"},{"from":"aka","to":"ak"},{"from":"amh","to":"am"},{"from":"arg","to":"an"},{"from":"ara","to":"ar"},{"from":"asm","to":"as"},{"from":"ava","to":"av"},{"from":"aym","to":"ay"},{"from":"aze","to":"az"},{"from":"bak","to":"ba"},{"from":"bel","to":"be"},{"from":"bul","to":"bg"},{"from":"bih","to":"bho"},{"from":"bis","to":"bi"},{"from":"bam","to":"bm"},{"from":"ben","to":"bn"},{"from":"bod","to":"bo"},{"from":"bre","to":"br"},{"from":"bos","to":"bs"},{"from":"cat","to":"ca"},{"from":"che","to":"ce"},{"from":"cha","to":"ch"},{"from":"cos","to":"co"},{"from":"cre","to":"cr"},{"from":"ces","to":"cs"},{"from":"chu","to":"cu"},{"from":"chv","to":"cv"},{"from":"cym","to":"cy"},{"from":"dan","to":"da"},{"from":"deu","to":"de"},{"from":"div","to":"dv"},{"from":"dzo","to":"dz"},{"from":"ewe","to":"ee"},{"from":"ell","to":"el"},{"from":"eng","to":"en"},{"from":"epo","to":"eo"},{"from":"spa","to":"es"},{"from":"est","to":"et"},{"from":"eus","to":"eu"},{"from":"fas","to":"fa"},{"from":"ful","to":"ff"},{"from":"fin","to":"fi"},{"from":"fij","to":"fj"},{"from":"fao","to":"fo"},{"from":"fra","to":"fr"},{"from":"fry","to":"fy"},{"from":"gle","to":"ga"},{"from":"gla","to":"gd"},{"from":"glg","to":"gl"},{"from":"grn","to":"gn"},{"from":"guj","to":"gu"},{"from":"glv","to":"gv"},{"from":"hau","to":"ha"},{"from":"heb","to":"he"},{"from":"hin","to":"hi"},{"from":"hmo","to":"ho"},{"from":"hrv","to":"hr"},{"from":"hat","to":"ht"},{"from":"hun","to":"hu"},{"from":"hye","to":"hy"},{"from":"her","to":"hz"},{"from":"ina","to":"ia"},{"from":"ind","to":"id"},{"from":"ile","to":"ie"},{"from":"ibo","to":"ig"},{"from":"iii","to":"ii"},{"from":"ipk","to":"ik"},{"from":"ido","to":"io"},{"from":"isl","to":"is"},{"from":"ita","to":"it"},{"from":"iku","to":"iu"},{"from":"jpn","to":"ja"},{"from":"jav","to":"jv"},{"from":"kat","to":"ka"},{"from":"kon","to":"kg"},{"from":"kik","to":"ki"},{"from":"kua","to":"kj"},{"from":"kaz","to":"kk"},{"from":"kal","to":"kl"},{"from":"khm","to":"km"},{"from":"kan","to":"kn"},{"from":"kor","to":"ko"},{"from":"kau","to":"kr"},{"from":"kas","to":"ks"},{"from":"kur","to":"ku"},{"from":"kom","to":"kv"},{"from":"cor","to":"kw"},{"from":"kir","to":"ky"},{"from":"lat","to":"la"},{"from":"ltz","to":"lb"},{"from":"lug","to":"lg"},{"from":"lim","to":"li"},{"from":"lin","to":"ln"},{"from":"lao","to":"lo"},{"from":"lit","to":"lt"},{"from":"lub","to":"lu"},{"from":"lav","to":"lv"},{"from":"mlg","to":"mg"},{"from":"mah","to":"mh"},{"from":"mri","to":"mi"},{"from":"mkd","to":"mk"},{"from":"mal","to":"ml"},{"from":"mon","to":"mn"},{"from":"mol","to":"ro"},{"from":"mar","to":"mr"},{"from":"msa","to":"ms"},{"from":"mlt","to":"mt"},{"from":"mya","to":"my"},{"from":"nau","to":"na"},{"from":"nob","to":"nb"},{"from":"nde","to":"nd"},{"from":"nep","to":"ne"},{"from":"ndo","to":"ng"},{"from":"nld","to":"nl"},{"from":"nno","to":"nn"},{"from":"nor","to":"nb"},{"from":"nbl","to":"nr"},{"from":"nav","to":"nv"},{"from":"nya","to":"ny"},{"from":"oci","to":"oc"},{"from":"oji","to":"oj"},{"from":"orm","to":"om"},{"from":"ori","to":"or"},{"from":"oss","to":"os"},{"from":"pan","to":"pa"},{"from":"pli","to":"pi"},{"from":"pol","to":"pl"},{"from":"pus","to":"ps"},{"from":"por","to":"pt"},{"from":"que","to":"qu"},{"from":"roh","to":"rm"},{"from":"run","to":"rn"},{"from":"ron","to":"ro"},{"from":"rus","to":"ru"},{"from":"kin","to":"rw"},{"from":"san","to":"sa"},{"from":"srd","to":"sc"},{"from":"snd","to":"sd"},{"from":"sme","to":"se"},{"from":"sag","to":"sg"},{"from":"hbs","to":"sr-latn"},{"from":"sin","to":"si"},{"from":"slk","to":"sk"},{"from":"slv","to":"sl"},{"from":"smo","to":"sm"},{"from":"sna","to":"sn"},{"from":"som","to":"so"},{"from":"sqi","to":"sq"},{"from":"srp","to":"sr"},{"from":"ssw","to":"ss"},{"from":"sot","to":"st"},{"from":"sun","to":"su"},{"from":"swe","to":"sv"},{"from":"swa","to":"sw"},{"from":"tam","to":"ta"},{"from":"tel","to":"te"},{"from":"tgk","to":"tg"},{"from":"tha","to":"th"},{"from":"tir","to":"ti"},{"from":"tuk","to":"tk"},{"from":"tgl","to":"fil"},{"from":"tsn","to":"tn"},{"from":"ton","to":"to"},{"from":"tur","to":"tr"},{"from":"tso","to":"ts"},{"from":"tat","to":"tt"},{"from":"twi","to":"ak"},{"from":"tah","to":"ty"},{"from":"uig","to":"ug"},{"from":"ukr","to":"uk"},{"from":"urd","to":"ur"},{"from":"uzb","to":"uz"},{"from":"ven","to":"ve"},{"from":"vie","to":"vi"},{"from":"vol","to":"vo"},{"from":"wln","to":"wa"},{"from":"wol","to":"wo"},{"from":"xho","to":"xh"},{"from":"yid","to":"yi"},{"from":"yor","to":"yo"},{"from":"zha","to":"za"},{"from":"zho","to":"zh"},{"from":"zul","to":"zu"},{"from":"alb","to":"sq"},{"from":"arm","to":"hy"},{"from":"baq","to":"eu"},{"from":"bur","to":"my"},{"from":"chi","to":"zh"},{"from":"cze","to":"cs"},{"from":"dut","to":"nl"},{"from":"fre","to":"fr"},{"from":"geo","to":"ka"},{"from":"ger","to":"de"},{"from":"gre","to":"el"},{"from":"ice","to":"is"},{"from":"mac","to":"mk"},{"from":"mao","to":"mi"},{"from":"may","to":"ms"},{"from":"per","to":"fa"},{"from":"rum","to":"ro"},{"from":"slo","to":"sk"},{"from":"tib","to":"bo"},{"from":"wel","to":"cy"}]');
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "bcp47Normalize": function() { return /* binding */ bcp47Normalize; }
+/* harmony export */ });
+/* harmony import */ var bcp_47__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bcp-47 */ "./node_modules/bcp-47/lib/stringify.js");
+/* harmony import */ var bcp_47__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bcp-47 */ "./node_modules/bcp-47/lib/parse.js");
+/* harmony import */ var bcp_47_match__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! bcp-47-match */ "./node_modules/bcp-47-match/index.js");
+/* harmony import */ var _matches_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./matches.js */ "./node_modules/bcp-47-normalize/lib/matches.js");
+/* harmony import */ var _fields_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./fields.js */ "./node_modules/bcp-47-normalize/lib/fields.js");
+/* harmony import */ var _many_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./many.js */ "./node_modules/bcp-47-normalize/lib/many.js");
+/* harmony import */ var _likely_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./likely.js */ "./node_modules/bcp-47-normalize/lib/likely.js");
+/**
+ * @typedef {import('bcp-47').Warning} Warning
+ * @typedef {import('bcp-47').Schema} Schema
+ * @typedef {import('bcp-47').Extension} Extension
+ *
+ * @typedef Options
+ *   Configuration (optional).
+ * @property {boolean} [forgiving]
+ *   Passed to `bcp-47` as `options.forgiving`.
+ * @property {Warning} [warning]
+ *   Passed to `bcp-47` as `options.warning`.
+ *
+ *   One additional warning is given:
+ *
+ *   | code | reason                                                     |
+ *   | :--- | :--------------------------------------------------------- |
+ *   | 7    | Deprecated region `CURRENT`, expected one of `SUGGESTIONS` |
+ *
+ *   This warning is only given if the region cannot be automatically fixed
+ *   (when regions split into multiple regions).
+ */
+
+
+
+
+
+
+
+
+const own = {}.hasOwnProperty
+
+/**
+ * @param {Schema} base
+ * @param {Partial<Schema>} changes
+ * @returns {Schema}
+ */
+function merge(base, changes) {
+  if (!base.language) base.language = changes.language
+  if (!base.script) base.script = changes.script
+  if (!base.region) base.region = changes.region
+  if (changes.variants) base.variants.push(...changes.variants)
+
+  return base
+}
+
+/**
+ * Mostly like:
+ * <https://github.com/formatjs/formatjs/blob/a15e757/packages/intl-locale/index.ts#L254>
+ * But doesn’t crash.
+ *
+ * @param {Schema} schema
+ * @returns {string}
+ */
+function addLikelySubtags(schema) {
+  const {language, script, region} = schema
+  /** @type {string|undefined} */
+  let match
+
+  if (
+    script &&
+    region &&
+    (match = _likely_js__WEBPACK_IMPORTED_MODULE_0__.likely[(0,bcp_47__WEBPACK_IMPORTED_MODULE_1__.stringify)({language, script, region})])
+  ) {
+    schema.script = undefined
+    schema.region = undefined
+  } else if (script && (match = _likely_js__WEBPACK_IMPORTED_MODULE_0__.likely[(0,bcp_47__WEBPACK_IMPORTED_MODULE_1__.stringify)({language, script})])) {
+    schema.script = undefined
+  } else if (region && (match = _likely_js__WEBPACK_IMPORTED_MODULE_0__.likely[(0,bcp_47__WEBPACK_IMPORTED_MODULE_1__.stringify)({language, region})])) {
+    schema.region = undefined
+  } else if (language && (match = _likely_js__WEBPACK_IMPORTED_MODULE_0__.likely[language])) {
+    // Empty.
+  }
+
+  if (match) {
+    schema.language = undefined
+    merge(schema, (0,bcp_47__WEBPACK_IMPORTED_MODULE_2__.parse)(match))
+  }
+
+  return (0,bcp_47__WEBPACK_IMPORTED_MODULE_1__.stringify)(schema)
+}
+
+/**
+ * @param {Schema} schema
+ */
+function removeLikelySubtags(schema) {
+  addLikelySubtags(schema)
+
+  const {language, script, region} = schema
+
+  if (!language) return schema
+
+  const maxLocale = (0,bcp_47__WEBPACK_IMPORTED_MODULE_1__.stringify)({language, script, region})
+
+  if (maxLocale === addLikelySubtags((0,bcp_47__WEBPACK_IMPORTED_MODULE_2__.parse)(language))) {
+    schema.script = undefined
+    schema.region = undefined
+  } else if (
+    region &&
+    maxLocale === addLikelySubtags((0,bcp_47__WEBPACK_IMPORTED_MODULE_2__.parse)(language + '-' + region))
+  ) {
+    schema.script = undefined
+  } else if (
+    script &&
+    maxLocale === addLikelySubtags((0,bcp_47__WEBPACK_IMPORTED_MODULE_2__.parse)(language + '-' + script))
+  ) {
+    schema.region = undefined
+  }
+
+  return schema
+}
+
+/**
+ * Normalize the given BCP 47 tag according to Unicode CLDR suggestions.
+ *
+ * @param {string} tag
+ *   BCP 47 tag.
+ * @param {Options} [options]
+ *   Configuration (optional).
+ * @returns {string}
+ *   Normal, canonical, and pretty BCP 47 tag.
+ */
+function bcp47Normalize(tag, options) {
+  const settings = options || {}
+  // 1. normalize and lowercase the tag (`sgn-be-fr` -> `sfb`).
+  const schema = (0,bcp_47__WEBPACK_IMPORTED_MODULE_2__.parse)(String(tag || '').toLowerCase(), settings)
+  const value = (0,bcp_47__WEBPACK_IMPORTED_MODULE_1__.stringify)(schema)
+
+  if (!value) {
+    return value
+  }
+
+  let index = -1
+
+  // 2. Do fancy, expensive replaces (`ha-latn-gh` -> `ha-gh`).
+  while (++index < _matches_js__WEBPACK_IMPORTED_MODULE_3__.matches.length) {
+    let from = _matches_js__WEBPACK_IMPORTED_MODULE_3__.matches[index].from
+
+    if (from.slice(0, 4) === 'und-' && schema.language) {
+      from = schema.language + from.slice(3)
+    }
+
+    if ((0,bcp_47_match__WEBPACK_IMPORTED_MODULE_4__.extendedFilter)(value, from).length > 0) {
+      replace(schema, from, _matches_js__WEBPACK_IMPORTED_MODULE_3__.matches[index].to)
+    }
+  }
+
+  // 3. Do basic field replaces (`en-840` -> `en-us`).
+  index = -1
+
+  while (++index < _fields_js__WEBPACK_IMPORTED_MODULE_5__.fields.length) {
+    if (remove(schema, _fields_js__WEBPACK_IMPORTED_MODULE_5__.fields[index].from.field, _fields_js__WEBPACK_IMPORTED_MODULE_5__.fields[index].from.value)) {
+      add(schema, _fields_js__WEBPACK_IMPORTED_MODULE_5__.fields[index].to.field, _fields_js__WEBPACK_IMPORTED_MODULE_5__.fields[index].to.value)
+    }
+  }
+
+  // 4. Minimize.
+  removeLikelySubtags(schema)
+
+  // 5. Sort variants, and sort extensions on singleton.
+  schema.variants.sort()
+  schema.extensions.sort(compareSingleton)
+
+  // 6. Warn if fields (currently only regions) should be updated but have
+  // multiple choices.
+  if (settings.warning) {
+    /** @type {keyof many} */
+    let key
+
+    for (key in _many_js__WEBPACK_IMPORTED_MODULE_6__.many) {
+      if (own.call(_many_js__WEBPACK_IMPORTED_MODULE_6__.many, key)) {
+        const map = _many_js__WEBPACK_IMPORTED_MODULE_6__.many[key]
+        const value = schema[key]
+        if (value && own.call(map, value)) {
+          const replacements = map[value]
+          settings.warning(
+            'Deprecated ' +
+              key +
+              ' `' +
+              value +
+              '`, expected one of `' +
+              replacements.join('`, `') +
+              '`',
+            -1,
+            7
+          )
+        }
+      }
+    }
+  }
+
+  // 7. Add proper casing back.
+  // Format script (ISO 15924) as titlecase (example: `Latn`):
+  if (schema.script) {
+    schema.script =
+      schema.script.charAt(0).toUpperCase() + schema.script.slice(1)
+  }
+
+  // Format region (ISO 3166) as uppercase (note: this doesn’t affect numeric
+  // codes, which is fine):
+  if (schema.region) {
+    schema.region = schema.region.toUpperCase()
+  }
+
+  return (0,bcp_47__WEBPACK_IMPORTED_MODULE_1__.stringify)(schema)
+}
+
+/**
+ * @param {Schema} schema
+ * @param {string} from
+ * @param {string} to
+ * @returns {void}
+ */
+function replace(schema, from, to) {
+  const left = (0,bcp_47__WEBPACK_IMPORTED_MODULE_2__.parse)(from)
+  const right = (0,bcp_47__WEBPACK_IMPORTED_MODULE_2__.parse)(to)
+  /** @type {Array<string>} */
+  const removed = []
+  /** @type {string|null|undefined} */
+  const lang = left.language
+  /** @type {keyof schema} */
+  let key
+
+  // Remove values from `from`:
+  for (key in left) {
+    if (own.call(left, key)) {
+      const value = left[key]
+      if (value && remove(schema, key, value)) {
+        removed.push(key)
+      }
+    }
+  }
+
+  // Add values from `to`:
+  for (key in right) {
+    if (own.call(right, key)) {
+      const value = right[key]
+      // Only add values that are defined on `to`, and that were either removed by
+      // `from` or are currently empty.
+      if (lang && value && (removed.includes(key) || !schema[key])) {
+        add(schema, key, key === 'language' && value === 'und' ? lang : value)
+      }
+    }
+  }
+}
+
+/**
+ * @param {Schema} object
+ * @param {keyof Schema} key
+ * @param {string|Array<string>|Array<Extension>} value
+ * @returns {boolean}
+ */
+function remove(object, key, value) {
+  let removed = false
+  /** @type {string|Array<string>|Array<Extension>|null|undefined} */
+  let result
+
+  if (value) {
+    const current = object[key]
+    result = current
+
+    if (Array.isArray(current)) {
+      result = []
+      let index = -1
+
+      while (++index < current.length) {
+        const item = current[index]
+
+        // @ts-expect-error: TS can’t handle the two lists.
+        if (value.includes(item)) {
+          removed = true
+        } else {
+          // @ts-expect-error: TS can’t handle the two lists.
+          result.push(item)
+        }
+      }
+    } else if (current === value) {
+      result = null
+      removed = true
+    }
+
+    // @ts-expect-error: Assume the value matches.
+    object[key] = result
+  }
+
+  return removed
+}
+
+/**
+ * @param {Schema} object
+ * @param {keyof Schema} key
+ * @param {string|Array<string>|Array<Extension>} value
+ * @returns {void}
+ */
+function add(object, key, value) {
+  /** @type {string|Array<string>|Array<Extension>|null|undefined} */
+  const current = object[key]
+
+  if (Array.isArray(current)) {
+    const list = Array.isArray(value) ? value : [value]
+    /** @type {number} */
+    let index = -1
+
+    while (++index < list.length) {
+      const item = list[index]
+
+      // @ts-expect-error: TS can’t handle the two lists.
+      if (!current.includes(item)) {
+        // @ts-expect-error: TS can’t handle the two lists.
+        current.push(item)
+      }
+    }
+  } else {
+    // @ts-expect-error: Assume the value matches.
+    object[key] = value
+  }
+}
+
+/**
+ * @param {Extension} left
+ * @param {Extension} right
+ * @returns {number}
+ */
+function compareSingleton(left, right) {
+  if (left.singleton > right.singleton) {
+    return 1
+  }
+
+  if (left.singleton < right.singleton) {
+    return -1
+  }
+
+  // It is invalid to have more than one extension with the same singleton so
+  // we should never reach this code.
+  return 0
+}
+
 
 /***/ }),
 
-/***/ "./node_modules/bcp-47/lib/normalize.json":
-/*!************************************************!*\
-  !*** ./node_modules/bcp-47/lib/normalize.json ***!
-  \************************************************/
-/***/ ((module) => {
+/***/ "./node_modules/bcp-47-normalize/lib/likely.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/bcp-47-normalize/lib/likely.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-module.exports = JSON.parse('{"en-gb-oed":"en-GB-oxendict","i-ami":"ami","i-bnn":"bnn","i-default":null,"i-enochian":null,"i-hak":"hak","i-klingon":"tlh","i-lux":"lb","i-mingo":null,"i-navajo":"nv","i-pwn":"pwn","i-tao":"tao","i-tay":"tay","i-tsu":"tsu","sgn-be-fr":"sfb","sgn-be-nl":"vgt","sgn-ch-de":"sgg","art-lojban":"jbo","cel-gaulish":null,"no-bok":"nb","no-nyn":"nn","zh-guoyu":"cmn","zh-hakka":"hak","zh-min":null,"zh-min-nan":"nan","zh-xiang":"hsn"}');
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "likely": function() { return /* binding */ likely; }
+/* harmony export */ });
+/**
+ * @type {Record<string, string>}
+ */
+const likely = {
+  aa: 'aa-latn-et',
+  aaa: 'aaa-latn-ng',
+  aab: 'aab-latn-ng',
+  aac: 'aac-latn-pg',
+  aad: 'aad-latn-pg',
+  aae: 'aae-latn-it',
+  'aae-grek': 'aae-grek-it',
+  aaf: 'aaf-mlym-in',
+  'aaf-arab': 'aaf-arab-in',
+  aag: 'aag-latn-pg',
+  aah: 'aah-latn-pg',
+  aai: 'aai-latn-zz',
+  aak: 'aak-latn-zz',
+  aal: 'aal-latn-cm',
+  aan: 'aan-latn-br',
+  aao: 'aao-arab-dz',
+  aap: 'aap-latn-br',
+  aaq: 'aaq-latn-us',
+  aas: 'aas-latn-tz',
+  aat: 'aat-grek-gr',
+  aau: 'aau-latn-zz',
+  aaw: 'aaw-latn-pg',
+  aax: 'aax-latn-id',
+  aaz: 'aaz-latn-id',
+  ab: 'ab-cyrl-ge',
+  aba: 'aba-latn-ci',
+  abb: 'abb-latn-cm',
+  abc: 'abc-latn-ph',
+  abd: 'abd-latn-ph',
+  abe: 'abe-latn-ca',
+  abf: 'abf-latn-my',
+  abg: 'abg-latn-pg',
+  abh: 'abh-arab-tj',
+  abi: 'abi-latn-zz',
+  abl: 'abl-rjng-id',
+  'abl-latn': 'abl-latn-id',
+  abm: 'abm-latn-ng',
+  abn: 'abn-latn-ng',
+  abo: 'abo-latn-ng',
+  abp: 'abp-latn-ph',
+  abq: 'abq-cyrl-zz',
+  abr: 'abr-latn-gh',
+  abs: 'abs-latn-id',
+  abt: 'abt-latn-zz',
+  abu: 'abu-latn-ci',
+  abv: 'abv-arab-bh',
+  abw: 'abw-latn-pg',
+  abx: 'abx-latn-ph',
+  aby: 'aby-latn-zz',
+  abz: 'abz-latn-id',
+  aca: 'aca-latn-co',
+  acb: 'acb-latn-ng',
+  acd: 'acd-latn-zz',
+  ace: 'ace-latn-id',
+  acf: 'acf-latn-lc',
+  ach: 'ach-latn-ug',
+  acm: 'acm-arab-iq',
+  acn: 'acn-latn-cn',
+  acp: 'acp-latn-ng',
+  acq: 'acq-arab-ye',
+  acr: 'acr-latn-gt',
+  acs: 'acs-latn-br',
+  act: 'act-latn-nl',
+  acu: 'acu-latn-ec',
+  acv: 'acv-latn-us',
+  acw: 'acw-arab-sa',
+  acx: 'acx-arab-om',
+  acy: 'acy-latn-cy',
+  'acy-arab': 'acy-arab-cy',
+  'acy-grek': 'acy-grek-cy',
+  acz: 'acz-latn-sd',
+  ada: 'ada-latn-gh',
+  adb: 'adb-latn-tl',
+  add: 'add-latn-cm',
+  ade: 'ade-latn-zz',
+  adf: 'adf-arab-om',
+  adg: 'adg-latn-au',
+  adh: 'adh-latn-ug',
+  adi: 'adi-latn-in',
+  'adi-tibt': 'adi-tibt-cn',
+  adj: 'adj-latn-zz',
+  adl: 'adl-latn-in',
+  adn: 'adn-latn-id',
+  ado: 'ado-latn-pg',
+  adp: 'adp-tibt-bt',
+  adq: 'adq-latn-gh',
+  adr: 'adr-latn-id',
+  adt: 'adt-latn-au',
+  adu: 'adu-latn-ng',
+  adw: 'adw-latn-br',
+  adx: 'adx-tibt-cn',
+  ady: 'ady-cyrl-ru',
+  adz: 'adz-latn-zz',
+  ae: 'ae-avst-ir',
+  aea: 'aea-latn-au',
+  aeb: 'aeb-arab-tn',
+  aec: 'aec-arab-eg',
+  aee: 'aee-arab-af',
+  aek: 'aek-latn-nc',
+  ael: 'ael-latn-cm',
+  aem: 'aem-latn-vn',
+  aeq: 'aeq-arab-pk',
+  aer: 'aer-latn-au',
+  aeu: 'aeu-latn-cn',
+  aew: 'aew-latn-pg',
+  aey: 'aey-latn-zz',
+  aez: 'aez-latn-pg',
+  af: 'af-latn-za',
+  afb: 'afb-arab-kw',
+  afd: 'afd-latn-pg',
+  afe: 'afe-latn-ng',
+  afh: 'afh-latn-gh',
+  afi: 'afi-latn-pg',
+  afk: 'afk-latn-pg',
+  afn: 'afn-latn-ng',
+  afo: 'afo-latn-ng',
+  afp: 'afp-latn-pg',
+  afs: 'afs-latn-mx',
+  afu: 'afu-latn-gh',
+  afz: 'afz-latn-id',
+  aga: 'aga-latn-pe',
+  agb: 'agb-latn-ng',
+  agc: 'agc-latn-zz',
+  agd: 'agd-latn-zz',
+  age: 'age-latn-pg',
+  agf: 'agf-latn-id',
+  agg: 'agg-latn-zz',
+  agh: 'agh-latn-cd',
+  agi: 'agi-deva-in',
+  agj: 'agj-ethi-et',
+  'agj-arab': 'agj-arab-et',
+  agk: 'agk-latn-ph',
+  agl: 'agl-latn-pg',
+  agm: 'agm-latn-zz',
+  agn: 'agn-latn-ph',
+  ago: 'ago-latn-zz',
+  agq: 'agq-latn-cm',
+  agr: 'agr-latn-pe',
+  ags: 'ags-latn-cm',
+  agt: 'agt-latn-ph',
+  agu: 'agu-latn-gt',
+  agv: 'agv-latn-ph',
+  agw: 'agw-latn-sb',
+  agx: 'agx-cyrl-ru',
+  agy: 'agy-latn-ph',
+  agz: 'agz-latn-ph',
+  aha: 'aha-latn-zz',
+  ahb: 'ahb-latn-vu',
+  ahg: 'ahg-ethi-et',
+  ahh: 'ahh-latn-id',
+  ahi: 'ahi-latn-ci',
+  ahk: 'ahk-latn-mm',
+  'ahk-mymr': 'ahk-mymr-mm',
+  'ahk-th': 'ahk-latn-th',
+  'ahk-thai': 'ahk-thai-th',
+  ahl: 'ahl-latn-zz',
+  ahm: 'ahm-latn-ci',
+  ahn: 'ahn-latn-ng',
+  aho: 'aho-ahom-in',
+  ahp: 'ahp-latn-ci',
+  ahr: 'ahr-deva-in',
+  ahs: 'ahs-latn-ng',
+  aht: 'aht-latn-us',
+  aia: 'aia-latn-sb',
+  aib: 'aib-arab-cn',
+  aic: 'aic-latn-pg',
+  aid: 'aid-latn-au',
+  aie: 'aie-latn-pg',
+  aif: 'aif-latn-pg',
+  aig: 'aig-latn-ag',
+  aij: 'aij-hebr-il',
+  aik: 'aik-latn-ng',
+  ail: 'ail-latn-pg',
+  aim: 'aim-latn-in',
+  ain: 'ain-kana-jp',
+  'ain-latn': 'ain-latn-jp',
+  aio: 'aio-mymr-in',
+  aip: 'aip-latn-id',
+  aiq: 'aiq-arab-af',
+  air: 'air-latn-id',
+  ait: 'ait-latn-br',
+  aiw: 'aiw-latn-et',
+  'aiw-arab': 'aiw-arab-et',
+  'aiw-ethi': 'aiw-ethi-et',
+  aix: 'aix-latn-pg',
+  aiy: 'aiy-latn-cf',
+  aja: 'aja-latn-ss',
+  ajg: 'ajg-latn-zz',
+  aji: 'aji-latn-nc',
+  ajn: 'ajn-latn-au',
+  ajp: 'ajp-arab-jo',
+  ajt: 'ajt-arab-tn',
+  ajw: 'ajw-latn-ng',
+  ajz: 'ajz-latn-in',
+  ak: 'ak-latn-gh',
+  akb: 'akb-latn-id',
+  'akb-batk': 'akb-batk-id',
+  akc: 'akc-latn-id',
+  akd: 'akd-latn-ng',
+  ake: 'ake-latn-gy',
+  akf: 'akf-latn-ng',
+  akg: 'akg-latn-id',
+  akh: 'akh-latn-pg',
+  aki: 'aki-latn-pg',
+  akk: 'akk-xsux-iq',
+  akl: 'akl-latn-ph',
+  ako: 'ako-latn-sr',
+  akp: 'akp-latn-gh',
+  akq: 'akq-latn-pg',
+  akr: 'akr-latn-vu',
+  aks: 'aks-latn-tg',
+  akt: 'akt-latn-pg',
+  aku: 'aku-latn-cm',
+  akv: 'akv-cyrl-ru',
+  akw: 'akw-latn-cg',
+  akz: 'akz-latn-us',
+  ala: 'ala-latn-zz',
+  alc: 'alc-latn-cl',
+  ald: 'ald-latn-ci',
+  ale: 'ale-latn-us',
+  alf: 'alf-latn-ng',
+  alh: 'alh-latn-au',
+  ali: 'ali-latn-zz',
+  alj: 'alj-latn-ph',
+  alk: 'alk-laoo-la',
+  all: 'all-mlym-in',
+  alm: 'alm-latn-vu',
+  aln: 'aln-latn-xk',
+  alo: 'alo-latn-id',
+  alp: 'alp-latn-id',
+  alq: 'alq-latn-ca',
+  alr: 'alr-cyrl-ru',
+  alt: 'alt-cyrl-ru',
+  alu: 'alu-latn-sb',
+  alw: 'alw-ethi-et',
+  alx: 'alx-latn-pg',
+  aly: 'aly-latn-au',
+  alz: 'alz-latn-cd',
+  am: 'am-ethi-et',
+  ama: 'ama-latn-br',
+  amb: 'amb-latn-ng',
+  amc: 'amc-latn-pe',
+  ame: 'ame-latn-pe',
+  amf: 'amf-latn-et',
+  'amf-ethi': 'amf-ethi-et',
+  amg: 'amg-latn-au',
+  ami: 'ami-latn-tw',
+  amj: 'amj-latn-td',
+  amk: 'amk-latn-id',
+  amm: 'amm-latn-zz',
+  amn: 'amn-latn-zz',
+  amo: 'amo-latn-ng',
+  amp: 'amp-latn-zz',
+  amq: 'amq-latn-id',
+  amr: 'amr-latn-pe',
+  ams: 'ams-jpan-jp',
+  amt: 'amt-latn-pg',
+  amu: 'amu-latn-mx',
+  amv: 'amv-latn-id',
+  amw: 'amw-syrc-sy',
+  'amw-arab': 'amw-arab-sy',
+  'amw-armi': 'amw-armi-sy',
+  'amw-latn': 'amw-latn-sy',
+  amx: 'amx-latn-au',
+  amy: 'amy-latn-au',
+  amz: 'amz-latn-au',
+  an: 'an-latn-es',
+  ana: 'ana-latn-co',
+  anb: 'anb-latn-pe',
+  anc: 'anc-latn-zz',
+  and: 'and-latn-id',
+  ane: 'ane-latn-nc',
+  anf: 'anf-latn-gh',
+  ang: 'ang-latn-gb',
+  anh: 'anh-latn-pg',
+  ani: 'ani-cyrl-ru',
+  anj: 'anj-latn-pg',
+  ank: 'ank-latn-zz',
+  anl: 'anl-latn-mm',
+  anm: 'anm-latn-in',
+  ann: 'ann-latn-ng',
+  ano: 'ano-latn-co',
+  anp: 'anp-deva-in',
+  anr: 'anr-deva-in',
+  ans: 'ans-latn-co',
+  ant: 'ant-latn-au',
+  anu: 'anu-ethi-et',
+  'anu-arab': 'anu-arab-ss',
+  'anu-latn': 'anu-latn-ss',
+  anv: 'anv-latn-cm',
+  anw: 'anw-latn-ng',
+  anx: 'anx-latn-pg',
+  any: 'any-latn-zz',
+  anz: 'anz-latn-pg',
+  aoa: 'aoa-latn-st',
+  aob: 'aob-latn-pg',
+  aoc: 'aoc-latn-ve',
+  aod: 'aod-latn-pg',
+  aoe: 'aoe-latn-pg',
+  aof: 'aof-latn-pg',
+  aog: 'aog-latn-pg',
+  aoi: 'aoi-latn-au',
+  aoj: 'aoj-latn-zz',
+  aok: 'aok-latn-nc',
+  aol: 'aol-latn-id',
+  aom: 'aom-latn-zz',
+  aon: 'aon-latn-pg',
+  aor: 'aor-latn-vu',
+  aos: 'aos-latn-id',
+  aot: 'aot-beng-bd',
+  'aot-latn': 'aot-latn-in',
+  aox: 'aox-latn-gy',
+  aoz: 'aoz-latn-id',
+  apb: 'apb-latn-sb',
+  apc: 'apc-arab-sy',
+  apd: 'apd-arab-tg',
+  ape: 'ape-latn-zz',
+  apf: 'apf-latn-ph',
+  apg: 'apg-latn-id',
+  aph: 'aph-deva-np',
+  api: 'api-latn-br',
+  apj: 'apj-latn-us',
+  apk: 'apk-latn-us',
+  apl: 'apl-latn-us',
+  apm: 'apm-latn-us',
+  apn: 'apn-latn-br',
+  apo: 'apo-latn-pg',
+  app: 'app-latn-vu',
+  apr: 'apr-latn-zz',
+  aps: 'aps-latn-zz',
+  apt: 'apt-latn-in',
+  apu: 'apu-latn-br',
+  apv: 'apv-latn-br',
+  apw: 'apw-latn-us',
+  apx: 'apx-latn-id',
+  apy: 'apy-latn-br',
+  apz: 'apz-latn-zz',
+  aqc: 'aqc-cyrl-ru',
+  aqd: 'aqd-latn-ml',
+  aqg: 'aqg-latn-ng',
+  aqk: 'aqk-latn-ng',
+  aqm: 'aqm-latn-id',
+  aqn: 'aqn-latn-ph',
+  aqr: 'aqr-latn-nc',
+  aqt: 'aqt-latn-py',
+  aqz: 'aqz-latn-br',
+  ar: 'ar-arab-eg',
+  arc: 'arc-armi-ir',
+  'arc-nbat': 'arc-nbat-jo',
+  'arc-palm': 'arc-palm-sy',
+  ard: 'ard-latn-au',
+  are: 'are-latn-au',
+  arh: 'arh-latn-zz',
+  ari: 'ari-latn-us',
+  arj: 'arj-latn-br',
+  ark: 'ark-latn-br',
+  arl: 'arl-latn-pe',
+  arn: 'arn-latn-cl',
+  aro: 'aro-latn-bo',
+  arp: 'arp-latn-us',
+  arq: 'arq-arab-dz',
+  arr: 'arr-latn-br',
+  ars: 'ars-arab-sa',
+  aru: 'aru-latn-br',
+  arw: 'arw-latn-sr',
+  arx: 'arx-latn-br',
+  ary: 'ary-arab-ma',
+  arz: 'arz-arab-eg',
+  as: 'as-beng-in',
+  asa: 'asa-latn-tz',
+  asb: 'asb-latn-ca',
+  asc: 'asc-latn-id',
+  ase: 'ase-sgnw-us',
+  asg: 'asg-latn-zz',
+  ash: 'ash-latn-pe',
+  asi: 'asi-latn-id',
+  asj: 'asj-latn-cm',
+  ask: 'ask-arab-af',
+  asl: 'asl-latn-id',
+  asn: 'asn-latn-br',
+  aso: 'aso-latn-zz',
+  ass: 'ass-latn-cm',
+  ast: 'ast-latn-es',
+  asu: 'asu-latn-br',
+  asv: 'asv-latn-cd',
+  asx: 'asx-latn-pg',
+  asy: 'asy-latn-id',
+  asz: 'asz-latn-id',
+  ata: 'ata-latn-zz',
+  atb: 'atb-latn-cn',
+  'atb-lisu': 'atb-lisu-cn',
+  atc: 'atc-latn-pe',
+  atd: 'atd-latn-ph',
+  ate: 'ate-latn-pg',
+  atg: 'atg-latn-zz',
+  ati: 'ati-latn-ci',
+  atj: 'atj-latn-ca',
+  atk: 'atk-latn-ph',
+  atl: 'atl-latn-ph',
+  atm: 'atm-latn-ph',
+  atn: 'atn-arab-ir',
+  ato: 'ato-latn-cm',
+  atp: 'atp-latn-ph',
+  atq: 'atq-latn-id',
+  atr: 'atr-latn-br',
+  ats: 'ats-latn-us',
+  att: 'att-latn-ph',
+  atu: 'atu-latn-ss',
+  atv: 'atv-cyrl-ru',
+  atw: 'atw-latn-us',
+  atx: 'atx-latn-br',
+  aty: 'aty-latn-vu',
+  atz: 'atz-latn-ph',
+  aua: 'aua-latn-sb',
+  auc: 'auc-latn-ec',
+  aud: 'aud-latn-sb',
+  aug: 'aug-latn-bj',
+  auh: 'auh-latn-zm',
+  aui: 'aui-latn-pg',
+  auj: 'auj-arab-ly',
+  'auj-latn': 'auj-latn-ly',
+  'auj-tfng': 'auj-tfng-ly',
+  auk: 'auk-latn-pg',
+  aul: 'aul-latn-vu',
+  aum: 'aum-latn-ng',
+  aun: 'aun-latn-pg',
+  auo: 'auo-latn-ng',
+  aup: 'aup-latn-pg',
+  auq: 'auq-latn-id',
+  aur: 'aur-latn-pg',
+  aut: 'aut-latn-pf',
+  auu: 'auu-latn-id',
+  auw: 'auw-latn-id',
+  auy: 'auy-latn-zz',
+  auz: 'auz-arab-uz',
+  av: 'av-cyrl-ru',
+  avb: 'avb-latn-pg',
+  avd: 'avd-arab-ir',
+  avi: 'avi-latn-ci',
+  avk: 'avk-latn-001',
+  avl: 'avl-arab-zz',
+  avm: 'avm-latn-au',
+  avn: 'avn-latn-zz',
+  avo: 'avo-latn-br',
+  avs: 'avs-latn-pe',
+  avt: 'avt-latn-zz',
+  avu: 'avu-latn-zz',
+  avv: 'avv-latn-br',
+  awa: 'awa-deva-in',
+  awb: 'awb-latn-zz',
+  awc: 'awc-latn-ng',
+  awe: 'awe-latn-br',
+  awg: 'awg-latn-au',
+  awh: 'awh-latn-id',
+  awi: 'awi-latn-pg',
+  awk: 'awk-latn-au',
+  awm: 'awm-latn-pg',
+  awn: 'awn-ethi-et',
+  awo: 'awo-latn-zz',
+  awr: 'awr-latn-id',
+  aws: 'aws-latn-id',
+  awt: 'awt-latn-br',
+  awu: 'awu-latn-id',
+  awv: 'awv-latn-id',
+  aww: 'aww-latn-pg',
+  awx: 'awx-latn-zz',
+  awy: 'awy-latn-id',
+  axb: 'axb-latn-ar',
+  axe: 'axe-latn-au',
+  axg: 'axg-latn-br',
+  axk: 'axk-latn-cf',
+  axl: 'axl-latn-au',
+  axm: 'axm-armn-am',
+  axx: 'axx-latn-nc',
+  ay: 'ay-latn-bo',
+  aya: 'aya-latn-pg',
+  ayb: 'ayb-latn-zz',
+  ayc: 'ayc-latn-pe',
+  ayd: 'ayd-latn-au',
+  aye: 'aye-latn-ng',
+  ayg: 'ayg-latn-tg',
+  ayh: 'ayh-arab-ye',
+  ayi: 'ayi-latn-ng',
+  ayk: 'ayk-latn-ng',
+  ayl: 'ayl-arab-ly',
+  ayn: 'ayn-arab-ye',
+  ayo: 'ayo-latn-py',
+  ayp: 'ayp-arab-iq',
+  ayq: 'ayq-latn-pg',
+  ays: 'ays-latn-ph',
+  ayt: 'ayt-latn-ph',
+  ayu: 'ayu-latn-ng',
+  ayz: 'ayz-latn-id',
+  az: 'az-latn-az',
+  'az-arab': 'az-arab-ir',
+  'az-iq': 'az-arab-iq',
+  'az-ir': 'az-arab-ir',
+  'az-ru': 'az-cyrl-ru',
+  azb: 'azb-arab-ir',
+  'azb-cyrl': 'azb-cyrl-az',
+  'azb-latn': 'azb-latn-az',
+  azd: 'azd-latn-mx',
+  azg: 'azg-latn-mx',
+  azm: 'azm-latn-mx',
+  azn: 'azn-latn-mx',
+  azo: 'azo-latn-cm',
+  azt: 'azt-latn-ph',
+  azz: 'azz-latn-mx',
+  ba: 'ba-cyrl-ru',
+  baa: 'baa-latn-sb',
+  bab: 'bab-latn-gw',
+  bac: 'bac-latn-id',
+  bae: 'bae-latn-ve',
+  baf: 'baf-latn-cm',
+  bag: 'bag-latn-cm',
+  bah: 'bah-latn-bs',
+  baj: 'baj-latn-id',
+  bal: 'bal-arab-pk',
+  ban: 'ban-latn-id',
+  bao: 'bao-latn-co',
+  bap: 'bap-deva-np',
+  bar: 'bar-latn-at',
+  bas: 'bas-latn-cm',
+  bau: 'bau-latn-ng',
+  bav: 'bav-latn-zz',
+  baw: 'baw-latn-cm',
+  bax: 'bax-bamu-cm',
+  bay: 'bay-latn-id',
+  bba: 'bba-latn-zz',
+  bbb: 'bbb-latn-zz',
+  bbc: 'bbc-latn-id',
+  bbd: 'bbd-latn-zz',
+  bbe: 'bbe-latn-cd',
+  bbf: 'bbf-latn-pg',
+  bbg: 'bbg-latn-ga',
+  bbi: 'bbi-latn-cm',
+  bbj: 'bbj-latn-cm',
+  bbk: 'bbk-latn-cm',
+  bbl: 'bbl-geor-ge',
+  bbm: 'bbm-latn-cd',
+  bbn: 'bbn-latn-pg',
+  bbo: 'bbo-latn-bf',
+  bbp: 'bbp-latn-zz',
+  bbq: 'bbq-latn-cm',
+  bbr: 'bbr-latn-zz',
+  bbs: 'bbs-latn-ng',
+  bbt: 'bbt-latn-ng',
+  bbu: 'bbu-latn-ng',
+  bbv: 'bbv-latn-pg',
+  bbw: 'bbw-latn-cm',
+  bbx: 'bbx-latn-cm',
+  bby: 'bby-latn-cm',
+  bca: 'bca-latn-cn',
+  'bca-hani': 'bca-hani-cn',
+  bcb: 'bcb-latn-sn',
+  bcd: 'bcd-latn-id',
+  bce: 'bce-latn-cm',
+  bcf: 'bcf-latn-zz',
+  bcg: 'bcg-latn-gn',
+  bch: 'bch-latn-zz',
+  bci: 'bci-latn-ci',
+  bcj: 'bcj-latn-au',
+  bck: 'bck-latn-au',
+  bcm: 'bcm-latn-zz',
+  bcn: 'bcn-latn-zz',
+  bco: 'bco-latn-zz',
+  bcp: 'bcp-latn-cd',
+  bcq: 'bcq-ethi-zz',
+  bcr: 'bcr-latn-ca',
+  bcs: 'bcs-latn-ng',
+  bct: 'bct-latn-cd',
+  bcu: 'bcu-latn-zz',
+  bcv: 'bcv-latn-ng',
+  bcw: 'bcw-latn-cm',
+  bcy: 'bcy-latn-ng',
+  bcz: 'bcz-latn-sn',
+  bda: 'bda-latn-sn',
+  bdb: 'bdb-latn-id',
+  bdc: 'bdc-latn-co',
+  bdd: 'bdd-latn-zz',
+  bde: 'bde-latn-ng',
+  bdf: 'bdf-latn-pg',
+  bdg: 'bdg-latn-my',
+  bdh: 'bdh-latn-ss',
+  bdi: 'bdi-latn-sd',
+  bdj: 'bdj-latn-ss',
+  bdk: 'bdk-latn-az',
+  bdl: 'bdl-latn-id',
+  bdm: 'bdm-latn-td',
+  bdn: 'bdn-latn-cm',
+  bdo: 'bdo-latn-td',
+  bdp: 'bdp-latn-tz',
+  bdq: 'bdq-latn-vn',
+  bdr: 'bdr-latn-my',
+  bds: 'bds-latn-tz',
+  bdt: 'bdt-latn-cf',
+  bdu: 'bdu-latn-cm',
+  bdv: 'bdv-orya-in',
+  bdw: 'bdw-latn-id',
+  bdx: 'bdx-latn-id',
+  bdy: 'bdy-latn-au',
+  bdz: 'bdz-arab-pk',
+  be: 'be-cyrl-by',
+  bea: 'bea-latn-ca',
+  'bea-cans': 'bea-cans-ca',
+  beb: 'beb-latn-cm',
+  bec: 'bec-latn-cm',
+  bed: 'bed-latn-id',
+  bee: 'bee-deva-in',
+  bef: 'bef-latn-zz',
+  beh: 'beh-latn-zz',
+  bei: 'bei-latn-id',
+  bej: 'bej-arab-sd',
+  bek: 'bek-latn-pg',
+  bem: 'bem-latn-zm',
+  beo: 'beo-latn-pg',
+  bep: 'bep-latn-id',
+  beq: 'beq-latn-cg',
+  bes: 'bes-latn-td',
+  bet: 'bet-latn-zz',
+  beu: 'beu-latn-id',
+  bev: 'bev-latn-ci',
+  bew: 'bew-latn-id',
+  bex: 'bex-latn-zz',
+  bey: 'bey-latn-pg',
+  bez: 'bez-latn-tz',
+  bfa: 'bfa-latn-ss',
+  'bfa-arab': 'bfa-arab-ss',
+  bfb: 'bfb-deva-in',
+  bfc: 'bfc-latn-cn',
+  bfd: 'bfd-latn-cm',
+  bfe: 'bfe-latn-id',
+  bff: 'bff-latn-cf',
+  bfg: 'bfg-latn-id',
+  bfh: 'bfh-latn-pg',
+  bfj: 'bfj-latn-cm',
+  bfl: 'bfl-latn-cf',
+  bfm: 'bfm-latn-cm',
+  bfn: 'bfn-latn-tl',
+  bfo: 'bfo-latn-bf',
+  bfp: 'bfp-latn-cm',
+  bfq: 'bfq-taml-in',
+  bfs: 'bfs-latn-cn',
+  'bfs-hani': 'bfs-hani-cn',
+  bft: 'bft-arab-pk',
+  bfu: 'bfu-tibt-in',
+  'bfu-takr': 'bfu-takr-in',
+  bfw: 'bfw-orya-in',
+  bfx: 'bfx-latn-ph',
+  bfy: 'bfy-deva-in',
+  bfz: 'bfz-deva-in',
+  bg: 'bg-cyrl-bg',
+  bga: 'bga-latn-ng',
+  bgb: 'bgb-latn-id',
+  bgc: 'bgc-deva-in',
+  bgd: 'bgd-deva-in',
+  bgf: 'bgf-latn-cm',
+  bgg: 'bgg-latn-in',
+  bgi: 'bgi-latn-ph',
+  bgj: 'bgj-latn-cm',
+  bgn: 'bgn-arab-pk',
+  bgo: 'bgo-latn-gn',
+  bgp: 'bgp-arab-pk',
+  bgq: 'bgq-deva-in',
+  bgr: 'bgr-latn-in',
+  bgs: 'bgs-latn-ph',
+  bgt: 'bgt-latn-sb',
+  bgu: 'bgu-latn-ng',
+  bgv: 'bgv-latn-id',
+  bgw: 'bgw-deva-in',
+  bgx: 'bgx-grek-tr',
+  bgy: 'bgy-latn-id',
+  bgz: 'bgz-latn-id',
+  bha: 'bha-deva-in',
+  bhb: 'bhb-deva-in',
+  bhc: 'bhc-latn-id',
+  bhd: 'bhd-deva-in',
+  'bhd-arab': 'bhd-arab-in',
+  'bhd-takr': 'bhd-takr-in',
+  bhe: 'bhe-arab-pk',
+  bhf: 'bhf-latn-pg',
+  bhg: 'bhg-latn-zz',
+  bhh: 'bhh-cyrl-il',
+  'bhh-hebr': 'bhh-hebr-il',
+  'bhh-latn': 'bhh-latn-il',
+  bhi: 'bhi-deva-in',
+  bhj: 'bhj-deva-np',
+  bhl: 'bhl-latn-zz',
+  bhm: 'bhm-arab-om',
+  bhn: 'bhn-syrc-ge',
+  bho: 'bho-deva-in',
+  bhp: 'bhp-latn-id',
+  bhq: 'bhq-latn-id',
+  bhr: 'bhr-latn-mg',
+  bhs: 'bhs-latn-cm',
+  bht: 'bht-takr-in',
+  'bht-deva': 'bht-deva-in',
+  'bht-latn': 'bht-latn-in',
+  bhu: 'bhu-deva-in',
+  bhv: 'bhv-latn-id',
+  bhw: 'bhw-latn-id',
+  bhy: 'bhy-latn-zz',
+  bhz: 'bhz-latn-id',
+  bi: 'bi-latn-vu',
+  bia: 'bia-latn-au',
+  bib: 'bib-latn-zz',
+  bid: 'bid-latn-td',
+  bie: 'bie-latn-pg',
+  bif: 'bif-latn-gw',
+  big: 'big-latn-zz',
+  bik: 'bik-latn-ph',
+  bil: 'bil-latn-ng',
+  bim: 'bim-latn-zz',
+  bin: 'bin-latn-ng',
+  bio: 'bio-latn-zz',
+  bip: 'bip-latn-cd',
+  biq: 'biq-latn-zz',
+  bir: 'bir-latn-pg',
+  bit: 'bit-latn-pg',
+  biu: 'biu-latn-in',
+  biv: 'biv-latn-gh',
+  biw: 'biw-latn-cm',
+  biy: 'biy-deva-in',
+  biz: 'biz-latn-cd',
+  bja: 'bja-latn-cd',
+  bjb: 'bjb-latn-au',
+  bjc: 'bjc-latn-pg',
+  bjf: 'bjf-syrc-il',
+  bjg: 'bjg-latn-gw',
+  bjh: 'bjh-latn-zz',
+  bji: 'bji-ethi-zz',
+  bjj: 'bjj-deva-in',
+  bjk: 'bjk-latn-pg',
+  bjl: 'bjl-latn-pg',
+  bjm: 'bjm-arab-iq',
+  bjn: 'bjn-latn-id',
+  bjo: 'bjo-latn-zz',
+  bjp: 'bjp-latn-pg',
+  bjr: 'bjr-latn-zz',
+  bjs: 'bjs-latn-bb',
+  bjt: 'bjt-latn-sn',
+  bju: 'bju-latn-cm',
+  bjv: 'bjv-latn-td',
+  bjw: 'bjw-latn-ci',
+  bjx: 'bjx-latn-ph',
+  bjy: 'bjy-latn-au',
+  bjz: 'bjz-latn-zz',
+  bka: 'bka-latn-ng',
+  bkc: 'bkc-latn-zz',
+  bkd: 'bkd-latn-ph',
+  bkf: 'bkf-latn-cd',
+  bkg: 'bkg-latn-cf',
+  bkh: 'bkh-latn-cm',
+  bki: 'bki-latn-vu',
+  bkj: 'bkj-latn-cf',
+  bkl: 'bkl-latn-id',
+  bkm: 'bkm-latn-cm',
+  bkn: 'bkn-latn-id',
+  bko: 'bko-latn-cm',
+  bkp: 'bkp-latn-cd',
+  bkq: 'bkq-latn-zz',
+  bkr: 'bkr-latn-id',
+  bks: 'bks-latn-ph',
+  bkt: 'bkt-latn-cd',
+  bku: 'bku-latn-ph',
+  bkv: 'bkv-latn-zz',
+  bkw: 'bkw-latn-cg',
+  bkx: 'bkx-latn-tl',
+  bky: 'bky-latn-ng',
+  bkz: 'bkz-latn-id',
+  bla: 'bla-latn-ca',
+  blb: 'blb-latn-sb',
+  blc: 'blc-latn-ca',
+  bld: 'bld-latn-id',
+  ble: 'ble-latn-gw',
+  blf: 'blf-latn-id',
+  blg: 'blg-latn-my',
+  blh: 'blh-latn-lr',
+  bli: 'bli-latn-cd',
+  blj: 'blj-latn-id',
+  blk: 'blk-mymr-mm',
+  blm: 'blm-latn-ss',
+  bln: 'bln-latn-ph',
+  blo: 'blo-latn-bj',
+  blp: 'blp-latn-sb',
+  blq: 'blq-latn-pg',
+  blr: 'blr-latn-cn',
+  'blr-tale': 'blr-tale-cn',
+  'blr-thai': 'blr-thai-th',
+  bls: 'bls-latn-id',
+  blt: 'blt-tavt-vn',
+  blv: 'blv-latn-ao',
+  blw: 'blw-latn-ph',
+  blx: 'blx-latn-ph',
+  bly: 'bly-latn-bj',
+  blz: 'blz-latn-id',
+  bm: 'bm-latn-ml',
+  bma: 'bma-latn-ng',
+  bmb: 'bmb-latn-cd',
+  bmc: 'bmc-latn-pg',
+  bmd: 'bmd-latn-gn',
+  bme: 'bme-latn-cf',
+  bmf: 'bmf-latn-sl',
+  bmg: 'bmg-latn-cd',
+  bmh: 'bmh-latn-zz',
+  bmi: 'bmi-latn-td',
+  bmj: 'bmj-deva-np',
+  bmk: 'bmk-latn-zz',
+  bml: 'bml-latn-cd',
+  bmm: 'bmm-latn-mg',
+  bmn: 'bmn-latn-pg',
+  bmo: 'bmo-latn-cm',
+  bmp: 'bmp-latn-pg',
+  bmq: 'bmq-latn-ml',
+  bmr: 'bmr-latn-co',
+  bms: 'bms-latn-ne',
+  bmu: 'bmu-latn-zz',
+  bmv: 'bmv-latn-cm',
+  bmw: 'bmw-latn-cg',
+  bmx: 'bmx-latn-pg',
+  bmz: 'bmz-latn-pg',
+  bn: 'bn-beng-bd',
+  bna: 'bna-latn-id',
+  bnb: 'bnb-latn-my',
+  bnc: 'bnc-latn-ph',
+  bnd: 'bnd-latn-id',
+  bne: 'bne-latn-id',
+  bnf: 'bnf-latn-id',
+  bng: 'bng-latn-zz',
+  bni: 'bni-latn-cd',
+  bnj: 'bnj-latn-ph',
+  bnk: 'bnk-latn-vu',
+  bnm: 'bnm-latn-zz',
+  bnn: 'bnn-latn-tw',
+  bno: 'bno-latn-ph',
+  bnp: 'bnp-latn-zz',
+  bnq: 'bnq-latn-id',
+  bnr: 'bnr-latn-vu',
+  bns: 'bns-deva-in',
+  bnu: 'bnu-latn-id',
+  bnv: 'bnv-latn-id',
+  bnw: 'bnw-latn-pg',
+  bnx: 'bnx-latn-cd',
+  bny: 'bny-latn-my',
+  bnz: 'bnz-latn-cm',
+  bo: 'bo-tibt-cn',
+  boa: 'boa-latn-pe',
+  bob: 'bob-latn-ke',
+  boe: 'boe-latn-cm',
+  bof: 'bof-latn-bf',
+  boh: 'boh-latn-cd',
+  boj: 'boj-latn-zz',
+  bok: 'bok-latn-cg',
+  bol: 'bol-latn-ng',
+  bom: 'bom-latn-zz',
+  bon: 'bon-latn-zz',
+  boo: 'boo-latn-ml',
+  bop: 'bop-latn-pg',
+  boq: 'boq-latn-pg',
+  bor: 'bor-latn-br',
+  bot: 'bot-latn-ss',
+  bou: 'bou-latn-tz',
+  bov: 'bov-latn-gh',
+  bow: 'bow-latn-pg',
+  box: 'box-latn-bf',
+  boy: 'boy-latn-cf',
+  boz: 'boz-latn-ml',
+  'boz-arab': 'boz-arab-ml',
+  bpa: 'bpa-latn-vu',
+  bpc: 'bpc-latn-cm',
+  bpd: 'bpd-latn-cf',
+  bpe: 'bpe-latn-pg',
+  bpg: 'bpg-latn-id',
+  bph: 'bph-cyrl-ru',
+  bpi: 'bpi-latn-pg',
+  bpj: 'bpj-latn-cd',
+  bpk: 'bpk-latn-nc',
+  bpl: 'bpl-latn-au',
+  bpm: 'bpm-latn-pg',
+  bpo: 'bpo-latn-id',
+  bpp: 'bpp-latn-id',
+  bpq: 'bpq-latn-id',
+  bpr: 'bpr-latn-ph',
+  bps: 'bps-latn-ph',
+  bpt: 'bpt-latn-au',
+  bpu: 'bpu-latn-pg',
+  bpv: 'bpv-latn-id',
+  bpw: 'bpw-latn-pg',
+  bpx: 'bpx-deva-in',
+  bpy: 'bpy-beng-in',
+  bpz: 'bpz-latn-id',
+  bqa: 'bqa-latn-bj',
+  bqb: 'bqb-latn-id',
+  bqc: 'bqc-latn-zz',
+  bqd: 'bqd-latn-cm',
+  bqf: 'bqf-latn-gn',
+  'bqf-arab': 'bqf-arab-gn',
+  bqg: 'bqg-latn-tg',
+  bqi: 'bqi-arab-ir',
+  bqj: 'bqj-latn-sn',
+  bqk: 'bqk-latn-cf',
+  bql: 'bql-latn-pg',
+  bqm: 'bqm-latn-cm',
+  bqo: 'bqo-latn-cm',
+  bqp: 'bqp-latn-zz',
+  bqq: 'bqq-latn-id',
+  bqr: 'bqr-latn-id',
+  bqs: 'bqs-latn-pg',
+  bqt: 'bqt-latn-cm',
+  bqu: 'bqu-latn-cd',
+  bqv: 'bqv-latn-ci',
+  bqw: 'bqw-latn-ng',
+  bqx: 'bqx-latn-ng',
+  bqz: 'bqz-latn-cm',
+  br: 'br-latn-fr',
+  bra: 'bra-deva-in',
+  brb: 'brb-khmr-kh',
+  'brb-laoo': 'brb-laoo-la',
+  'brb-latn': 'brb-latn-vn',
+  brc: 'brc-latn-gy',
+  brd: 'brd-deva-np',
+  brf: 'brf-latn-cd',
+  brg: 'brg-latn-bo',
+  brh: 'brh-arab-pk',
+  bri: 'bri-latn-cm',
+  brj: 'brj-latn-vu',
+  brk: 'brk-arab-sd',
+  brl: 'brl-latn-bw',
+  brm: 'brm-latn-cd',
+  brn: 'brn-latn-cr',
+  brp: 'brp-latn-id',
+  brq: 'brq-latn-pg',
+  brr: 'brr-latn-sb',
+  brs: 'brs-latn-id',
+  brt: 'brt-latn-ng',
+  bru: 'bru-latn-vn',
+  'bru-laoo': 'bru-laoo-la',
+  'bru-thai': 'bru-thai-la',
+  brv: 'brv-laoo-la',
+  brx: 'brx-deva-in',
+  bry: 'bry-latn-pg',
+  brz: 'brz-latn-zz',
+  bs: 'bs-latn-ba',
+  bsa: 'bsa-latn-id',
+  bsb: 'bsb-latn-bn',
+  bsc: 'bsc-latn-sn',
+  bse: 'bse-latn-cm',
+  bsf: 'bsf-latn-ng',
+  bsh: 'bsh-arab-af',
+  bsi: 'bsi-latn-cm',
+  bsj: 'bsj-latn-zz',
+  bsk: 'bsk-arab-pk',
+  'bsk-latn': 'bsk-latn-pk',
+  bsl: 'bsl-latn-ng',
+  bsm: 'bsm-latn-id',
+  bsn: 'bsn-latn-co',
+  bso: 'bso-latn-td',
+  bsp: 'bsp-latn-gn',
+  bsq: 'bsq-bass-lr',
+  bsr: 'bsr-latn-ng',
+  bss: 'bss-latn-cm',
+  bst: 'bst-ethi-zz',
+  bsu: 'bsu-latn-id',
+  bsv: 'bsv-latn-gn',
+  'bsv-arab': 'bsv-arab-gn',
+  bsw: 'bsw-latn-et',
+  'bsw-ethi': 'bsw-ethi-et',
+  bsx: 'bsx-latn-ng',
+  bsy: 'bsy-latn-my',
+  bta: 'bta-latn-ng',
+  btc: 'btc-latn-cm',
+  btd: 'btd-batk-id',
+  bte: 'bte-latn-ng',
+  btf: 'btf-latn-td',
+  btg: 'btg-latn-ci',
+  bth: 'bth-latn-my',
+  bti: 'bti-latn-id',
+  btj: 'btj-latn-id',
+  btm: 'btm-batk-id',
+  btn: 'btn-latn-ph',
+  bto: 'bto-latn-ph',
+  btp: 'btp-latn-pg',
+  btq: 'btq-latn-my',
+  btr: 'btr-latn-vu',
+  bts: 'bts-latn-id',
+  'bts-batk': 'bts-batk-id',
+  btt: 'btt-latn-zz',
+  btu: 'btu-latn-ng',
+  btv: 'btv-deva-pk',
+  btw: 'btw-latn-ph',
+  btx: 'btx-latn-id',
+  'btx-batk': 'btx-batk-id',
+  bty: 'bty-latn-id',
+  btz: 'btz-latn-id',
+  bua: 'bua-cyrl-ru',
+  bub: 'bub-latn-td',
+  buc: 'buc-latn-yt',
+  bud: 'bud-latn-zz',
+  bue: 'bue-latn-ca',
+  buf: 'buf-latn-cd',
+  bug: 'bug-latn-id',
+  buh: 'buh-latn-cn',
+  bui: 'bui-latn-cg',
+  buj: 'buj-latn-ng',
+  buk: 'buk-latn-zz',
+  bum: 'bum-latn-cm',
+  bun: 'bun-latn-sl',
+  buo: 'buo-latn-zz',
+  bup: 'bup-latn-id',
+  buq: 'buq-latn-pg',
+  bus: 'bus-latn-zz',
+  but: 'but-latn-pg',
+  buu: 'buu-latn-zz',
+  buv: 'buv-latn-pg',
+  buw: 'buw-latn-ga',
+  bux: 'bux-latn-ng',
+  buy: 'buy-latn-sl',
+  buz: 'buz-latn-ng',
+  bva: 'bva-latn-td',
+  bvb: 'bvb-latn-gq',
+  bvc: 'bvc-latn-sb',
+  bvd: 'bvd-latn-sb',
+  bve: 'bve-latn-id',
+  bvf: 'bvf-latn-td',
+  bvg: 'bvg-latn-cm',
+  bvh: 'bvh-latn-ng',
+  bvi: 'bvi-latn-ss',
+  bvj: 'bvj-latn-ng',
+  bvk: 'bvk-latn-id',
+  bvm: 'bvm-latn-cm',
+  bvn: 'bvn-latn-pg',
+  bvo: 'bvo-latn-td',
+  bvq: 'bvq-latn-cf',
+  bvr: 'bvr-latn-au',
+  bvt: 'bvt-latn-id',
+  bvu: 'bvu-latn-id',
+  bvv: 'bvv-latn-ve',
+  bvw: 'bvw-latn-ng',
+  bvx: 'bvx-latn-cg',
+  bvy: 'bvy-latn-ph',
+  bvz: 'bvz-latn-id',
+  bwa: 'bwa-latn-nc',
+  bwb: 'bwb-latn-fj',
+  bwc: 'bwc-latn-zm',
+  bwd: 'bwd-latn-zz',
+  bwe: 'bwe-mymr-mm',
+  'bwe-latn': 'bwe-latn-mm',
+  bwf: 'bwf-latn-pg',
+  bwg: 'bwg-latn-mz',
+  bwh: 'bwh-latn-cm',
+  bwi: 'bwi-latn-ve',
+  bwj: 'bwj-latn-bf',
+  bwk: 'bwk-latn-pg',
+  bwl: 'bwl-latn-cd',
+  bwm: 'bwm-latn-pg',
+  bwo: 'bwo-latn-et',
+  'bwo-ethi': 'bwo-ethi-et',
+  bwp: 'bwp-latn-id',
+  bwq: 'bwq-latn-bf',
+  bwr: 'bwr-latn-zz',
+  bws: 'bws-latn-cd',
+  bwt: 'bwt-latn-cm',
+  bwu: 'bwu-latn-gh',
+  bww: 'bww-latn-cd',
+  bwx: 'bwx-latn-cn',
+  bwy: 'bwy-latn-bf',
+  bwz: 'bwz-latn-cg',
+  bxa: 'bxa-latn-sb',
+  bxb: 'bxb-latn-ss',
+  bxc: 'bxc-latn-gq',
+  bxf: 'bxf-latn-pg',
+  bxg: 'bxg-latn-cd',
+  bxh: 'bxh-latn-zz',
+  bxi: 'bxi-latn-au',
+  bxj: 'bxj-latn-au',
+  bxl: 'bxl-latn-bf',
+  bxm: 'bxm-cyrl-mn',
+  'bxm-latn': 'bxm-latn-mn',
+  'bxm-mong': 'bxm-mong-mn',
+  bxn: 'bxn-latn-au',
+  bxo: 'bxo-latn-ng',
+  bxp: 'bxp-latn-cm',
+  bxq: 'bxq-latn-ng',
+  bxs: 'bxs-latn-cm',
+  bxu: 'bxu-mong-cn',
+  'bxu-cyrl': 'bxu-cyrl-cn',
+  'bxu-latn': 'bxu-latn-cn',
+  bxv: 'bxv-latn-td',
+  bxw: 'bxw-latn-ml',
+  bxz: 'bxz-latn-pg',
+  bya: 'bya-latn-ph',
+  byb: 'byb-latn-cm',
+  byc: 'byc-latn-ng',
+  byd: 'byd-latn-id',
+  bye: 'bye-latn-zz',
+  byf: 'byf-latn-ng',
+  byh: 'byh-deva-np',
+  byi: 'byi-latn-cd',
+  byj: 'byj-latn-ng',
+  byk: 'byk-latn-cn',
+  byl: 'byl-latn-id',
+  bym: 'bym-latn-au',
+  byn: 'byn-ethi-er',
+  byp: 'byp-latn-ng',
+  byr: 'byr-latn-zz',
+  bys: 'bys-latn-zz',
+  byv: 'byv-latn-cm',
+  byw: 'byw-deva-np',
+  byx: 'byx-latn-zz',
+  byz: 'byz-latn-pg',
+  bza: 'bza-latn-zz',
+  bzb: 'bzb-latn-id',
+  bzc: 'bzc-latn-mg',
+  bzd: 'bzd-latn-cr',
+  bze: 'bze-latn-ml',
+  bzf: 'bzf-latn-zz',
+  bzh: 'bzh-latn-zz',
+  bzi: 'bzi-thai-th',
+  bzj: 'bzj-latn-bz',
+  bzk: 'bzk-latn-ni',
+  bzl: 'bzl-latn-id',
+  bzm: 'bzm-latn-cd',
+  bzn: 'bzn-latn-id',
+  bzo: 'bzo-latn-cd',
+  bzp: 'bzp-latn-id',
+  bzq: 'bzq-latn-id',
+  bzr: 'bzr-latn-au',
+  bzt: 'bzt-latn-001',
+  bzu: 'bzu-latn-id',
+  bzv: 'bzv-latn-cm',
+  bzw: 'bzw-latn-zz',
+  bzx: 'bzx-latn-ml',
+  bzy: 'bzy-latn-ng',
+  bzz: 'bzz-latn-ng',
+  ca: 'ca-latn-es',
+  caa: 'caa-latn-gt',
+  cab: 'cab-latn-hn',
+  cac: 'cac-latn-gt',
+  cad: 'cad-latn-us',
+  cae: 'cae-latn-sn',
+  caf: 'caf-latn-ca',
+  'caf-cans': 'caf-cans-ca',
+  cag: 'cag-latn-py',
+  cah: 'cah-latn-pe',
+  caj: 'caj-latn-ar',
+  cak: 'cak-latn-gt',
+  cal: 'cal-latn-mp',
+  cam: 'cam-latn-nc',
+  can: 'can-latn-zz',
+  cao: 'cao-latn-bo',
+  cap: 'cap-latn-bo',
+  caq: 'caq-latn-in',
+  car: 'car-latn-ve',
+  cas: 'cas-latn-bo',
+  cav: 'cav-latn-bo',
+  caw: 'caw-latn-bo',
+  cax: 'cax-latn-bo',
+  cay: 'cay-latn-ca',
+  caz: 'caz-latn-bo',
+  cbb: 'cbb-latn-co',
+  cbc: 'cbc-latn-co',
+  cbd: 'cbd-latn-co',
+  cbg: 'cbg-latn-co',
+  cbi: 'cbi-latn-ec',
+  cbj: 'cbj-latn-zz',
+  cbk: 'cbk-latn-ph',
+  'cbk-brai': 'cbk-brai-ph',
+  cbl: 'cbl-latn-mm',
+  cbn: 'cbn-thai-th',
+  cbo: 'cbo-latn-ng',
+  cbq: 'cbq-latn-ng',
+  cbr: 'cbr-latn-pe',
+  cbs: 'cbs-latn-pe',
+  cbt: 'cbt-latn-pe',
+  cbu: 'cbu-latn-pe',
+  cbv: 'cbv-latn-co',
+  cbw: 'cbw-latn-ph',
+  cby: 'cby-latn-co',
+  ccc: 'ccc-latn-pe',
+  ccd: 'ccd-latn-br',
+  cce: 'cce-latn-mz',
+  ccg: 'ccg-latn-ng',
+  cch: 'cch-latn-ng',
+  ccj: 'ccj-latn-gw',
+  ccl: 'ccl-latn-tz',
+  ccm: 'ccm-latn-my',
+  cco: 'cco-latn-mx',
+  ccp: 'ccp-cakm-bd',
+  ccr: 'ccr-latn-sv',
+  cde: 'cde-telu-in',
+  cdf: 'cdf-latn-in',
+  'cdf-beng': 'cdf-beng-in',
+  cdh: 'cdh-deva-in',
+  'cdh-takr': 'cdh-takr-in',
+  cdi: 'cdi-gujr-in',
+  cdj: 'cdj-deva-in',
+  cdm: 'cdm-deva-np',
+  'cdm-latn': 'cdm-latn-np',
+  cdo: 'cdo-hans-cn',
+  'cdo-hant': 'cdo-hant-cn',
+  'cdo-latn': 'cdo-latn-cn',
+  cdr: 'cdr-latn-ng',
+  cdz: 'cdz-beng-in',
+  ce: 'ce-cyrl-ru',
+  cea: 'cea-latn-us',
+  ceb: 'ceb-latn-ph',
+  ceg: 'ceg-latn-py',
+  cek: 'cek-latn-mm',
+  cen: 'cen-latn-ng',
+  cet: 'cet-latn-ng',
+  cey: 'cey-latn-mm',
+  cfa: 'cfa-latn-zz',
+  cfd: 'cfd-latn-ng',
+  cfg: 'cfg-latn-ng',
+  cfm: 'cfm-latn-mm',
+  'cfm-beng': 'cfm-beng-in',
+  cga: 'cga-latn-pg',
+  cgc: 'cgc-latn-ph',
+  cgg: 'cgg-latn-ug',
+  cgk: 'cgk-tibt-bt',
+  ch: 'ch-latn-gu',
+  chb: 'chb-latn-co',
+  chd: 'chd-latn-mx',
+  chf: 'chf-latn-mx',
+  chg: 'chg-arab-tm',
+  chh: 'chh-latn-us',
+  chj: 'chj-latn-mx',
+  chk: 'chk-latn-fm',
+  chl: 'chl-latn-us',
+  chm: 'chm-cyrl-ru',
+  chn: 'chn-latn-us',
+  'chn-dupl': 'chn-dupl-us',
+  cho: 'cho-latn-us',
+  chp: 'chp-latn-ca',
+  chq: 'chq-latn-mx',
+  chr: 'chr-cher-us',
+  cht: 'cht-latn-pe',
+  chw: 'chw-latn-mz',
+  chx: 'chx-deva-np',
+  chy: 'chy-latn-us',
+  chz: 'chz-latn-mx',
+  cia: 'cia-latn-id',
+  'cia-arab': 'cia-arab-id',
+  'cia-hang': 'cia-hang-id',
+  cib: 'cib-latn-bj',
+  cic: 'cic-latn-us',
+  cie: 'cie-latn-ng',
+  cih: 'cih-deva-in',
+  cim: 'cim-latn-it',
+  cin: 'cin-latn-br',
+  cip: 'cip-latn-mx',
+  cir: 'cir-latn-nc',
+  ciw: 'ciw-latn-us',
+  'ciw-cans': 'ciw-cans-us',
+  ciy: 'ciy-latn-ve',
+  cja: 'cja-arab-kh',
+  cje: 'cje-latn-vn',
+  cjh: 'cjh-latn-us',
+  cji: 'cji-cyrl-ru',
+  cjk: 'cjk-latn-ao',
+  cjm: 'cjm-cham-vn',
+  cjn: 'cjn-latn-pg',
+  cjo: 'cjo-latn-pe',
+  cjp: 'cjp-latn-cr',
+  cjs: 'cjs-latn-ru',
+  'cjs-cyrl': 'cjs-cyrl-ru',
+  cjv: 'cjv-latn-zz',
+  cjy: 'cjy-hans-cn',
+  'cjy-hant': 'cjy-hant-cn',
+  ckb: 'ckb-arab-iq',
+  ckl: 'ckl-latn-zz',
+  ckm: 'ckm-latn-hr',
+  'ckm-glag': 'ckm-glag-hr',
+  ckn: 'ckn-latn-mm',
+  cko: 'cko-latn-zz',
+  ckq: 'ckq-latn-td',
+  ckr: 'ckr-latn-pg',
+  cks: 'cks-latn-nc',
+  ckt: 'ckt-cyrl-ru',
+  cku: 'cku-latn-us',
+  ckv: 'ckv-latn-tw',
+  ckx: 'ckx-latn-cm',
+  cky: 'cky-latn-zz',
+  ckz: 'ckz-latn-gt',
+  cla: 'cla-latn-zz',
+  clc: 'clc-latn-ca',
+  cle: 'cle-latn-mx',
+  clh: 'clh-arab-pk',
+  cli: 'cli-latn-gh',
+  clj: 'clj-latn-mm',
+  clk: 'clk-latn-in',
+  'clk-tibt': 'clk-tibt-cn',
+  cll: 'cll-latn-gh',
+  clm: 'clm-latn-us',
+  clo: 'clo-latn-mx',
+  clt: 'clt-latn-mm',
+  clu: 'clu-latn-ph',
+  clw: 'clw-cyrl-ru',
+  cly: 'cly-latn-mx',
+  cma: 'cma-latn-vn',
+  cme: 'cme-latn-zz',
+  cmg: 'cmg-soyo-mn',
+  cmi: 'cmi-latn-co',
+  cml: 'cml-latn-id',
+  cmo: 'cmo-latn-vn',
+  'cmo-kh': 'cmo-latn-kh',
+  'cmo-khmr': 'cmo-khmr-kh',
+  cmr: 'cmr-latn-mm',
+  cms: 'cms-latn-it',
+  cmt: 'cmt-latn-za',
+  cna: 'cna-tibt-in',
+  cnb: 'cnb-latn-mm',
+  cnc: 'cnc-latn-vn',
+  cng: 'cng-latn-cn',
+  cnh: 'cnh-latn-mm',
+  cni: 'cni-latn-pe',
+  cnk: 'cnk-latn-mm',
+  cnl: 'cnl-latn-mx',
+  cnp: 'cnp-hans-cn',
+  'cnp-hant': 'cnp-hant-cn',
+  cnq: 'cnq-latn-cm',
+  cns: 'cns-latn-id',
+  cnt: 'cnt-latn-mx',
+  cnw: 'cnw-latn-mm',
+  cnx: 'cnx-latn-gb',
+  co: 'co-latn-fr',
+  coa: 'coa-latn-au',
+  cob: 'cob-latn-mx',
+  coc: 'coc-latn-mx',
+  cod: 'cod-latn-pe',
+  coe: 'coe-latn-co',
+  cof: 'cof-latn-ec',
+  cog: 'cog-thai-th',
+  coh: 'coh-latn-ke',
+  coj: 'coj-latn-mx',
+  cok: 'cok-latn-mx',
+  col: 'col-latn-us',
+  com: 'com-latn-us',
+  coo: 'coo-latn-ca',
+  cop: 'cop-copt-eg',
+  coq: 'coq-latn-us',
+  cot: 'cot-latn-pe',
+  cou: 'cou-latn-sn',
+  cox: 'cox-latn-pe',
+  coz: 'coz-latn-mx',
+  cpa: 'cpa-latn-mx',
+  cpb: 'cpb-latn-pe',
+  cpc: 'cpc-latn-pe',
+  cpg: 'cpg-grek-gr',
+  cpi: 'cpi-latn-nr',
+  cpn: 'cpn-latn-gh',
+  cpo: 'cpo-latn-bf',
+  cps: 'cps-latn-ph',
+  cpu: 'cpu-latn-pe',
+  cpx: 'cpx-latn-cn',
+  cpy: 'cpy-latn-pe',
+  cqd: 'cqd-latn-cn',
+  cr: 'cr-cans-ca',
+  crb: 'crb-latn-vc',
+  crc: 'crc-latn-vu',
+  crd: 'crd-latn-us',
+  crf: 'crf-latn-co',
+  crg: 'crg-latn-ca',
+  crh: 'crh-cyrl-ua',
+  cri: 'cri-latn-st',
+  crj: 'crj-cans-ca',
+  'crj-latn': 'crj-latn-ca',
+  crk: 'crk-cans-ca',
+  crl: 'crl-cans-ca',
+  crm: 'crm-cans-ca',
+  crn: 'crn-latn-mx',
+  cro: 'cro-latn-us',
+  crq: 'crq-latn-ar',
+  crs: 'crs-latn-sc',
+  crt: 'crt-latn-ar',
+  crv: 'crv-latn-in',
+  crw: 'crw-latn-vn',
+  crx: 'crx-latn-ca',
+  'crx-cans': 'crx-cans-ca',
+  cry: 'cry-latn-ng',
+  crz: 'crz-latn-us',
+  cs: 'cs-latn-cz',
+  csa: 'csa-latn-mx',
+  csb: 'csb-latn-pl',
+  csh: 'csh-mymr-mm',
+  'csh-latn': 'csh-latn-mm',
+  csj: 'csj-latn-mm',
+  csk: 'csk-latn-sn',
+  csm: 'csm-latn-us',
+  cso: 'cso-latn-mx',
+  csp: 'csp-hans-cn',
+  'csp-hant': 'csp-hant-cn',
+  css: 'css-latn-us',
+  cst: 'cst-latn-us',
+  csv: 'csv-latn-mm',
+  csw: 'csw-cans-ca',
+  csy: 'csy-latn-mm',
+  csz: 'csz-latn-us',
+  cta: 'cta-latn-mx',
+  ctc: 'ctc-latn-us',
+  ctd: 'ctd-pauc-mm',
+  cte: 'cte-latn-mx',
+  ctg: 'ctg-beng-bd',
+  'ctg-arab': 'ctg-arab-bd',
+  'ctg-latn': 'ctg-latn-bd',
+  cth: 'cth-latn-mm',
+  ctl: 'ctl-latn-mx',
+  ctm: 'ctm-latn-us',
+  ctn: 'ctn-deva-np',
+  cto: 'cto-latn-co',
+  ctp: 'ctp-latn-mx',
+  cts: 'cts-latn-ph',
+  ctt: 'ctt-taml-in',
+  ctu: 'ctu-latn-mx',
+  ctz: 'ctz-latn-mx',
+  cu: 'cu-cyrl-ru',
+  'cu-glag': 'cu-glag-bg',
+  cua: 'cua-latn-vn',
+  cub: 'cub-latn-co',
+  cuc: 'cuc-latn-mx',
+  cuh: 'cuh-latn-ke',
+  cui: 'cui-latn-co',
+  cuj: 'cuj-latn-pe',
+  cuk: 'cuk-latn-pa',
+  cul: 'cul-latn-br',
+  cuo: 'cuo-latn-ve',
+  cup: 'cup-latn-us',
+  cut: 'cut-latn-mx',
+  cuu: 'cuu-lana-cn',
+  cuv: 'cuv-latn-cm',
+  cux: 'cux-latn-mx',
+  cv: 'cv-cyrl-ru',
+  cvg: 'cvg-latn-in',
+  'cvg-tibt': 'cvg-tibt-in',
+  cvn: 'cvn-latn-mx',
+  cwa: 'cwa-latn-tz',
+  cwb: 'cwb-latn-mz',
+  cwe: 'cwe-latn-tz',
+  cwg: 'cwg-latn-my',
+  cwt: 'cwt-latn-sn',
+  cy: 'cy-latn-gb',
+  cya: 'cya-latn-mx',
+  cyb: 'cyb-latn-bo',
+  cyo: 'cyo-latn-ph',
+  czh: 'czh-hans-cn',
+  'czh-hant': 'czh-hant-cn',
+  czk: 'czk-hebr-cz',
+  czn: 'czn-latn-mx',
+  czt: 'czt-latn-mm',
+  da: 'da-latn-dk',
+  daa: 'daa-latn-td',
+  dac: 'dac-latn-pg',
+  dad: 'dad-latn-zz',
+  dae: 'dae-latn-cm',
+  daf: 'daf-latn-ci',
+  dag: 'dag-latn-zz',
+  dah: 'dah-latn-zz',
+  dai: 'dai-latn-td',
+  daj: 'daj-latn-sd',
+  dak: 'dak-latn-us',
+  dal: 'dal-latn-ke',
+  dam: 'dam-latn-ng',
+  dao: 'dao-latn-mm',
+  daq: 'daq-deva-in',
+  dar: 'dar-cyrl-ru',
+  das: 'das-latn-ci',
+  dau: 'dau-latn-td',
+  dav: 'dav-latn-ke',
+  daw: 'daw-latn-ph',
+  dax: 'dax-latn-au',
+  daz: 'daz-latn-id',
+  dba: 'dba-latn-ml',
+  dbb: 'dbb-latn-ng',
+  dbd: 'dbd-latn-zz',
+  dbe: 'dbe-latn-id',
+  dbf: 'dbf-latn-id',
+  dbg: 'dbg-latn-ml',
+  dbi: 'dbi-latn-ng',
+  dbj: 'dbj-latn-my',
+  'dbj-arab': 'dbj-arab-my',
+  dbl: 'dbl-latn-au',
+  dbm: 'dbm-latn-ng',
+  dbn: 'dbn-latn-id',
+  dbo: 'dbo-latn-ng',
+  dbp: 'dbp-latn-ng',
+  dbq: 'dbq-latn-zz',
+  dbt: 'dbt-latn-ml',
+  dbu: 'dbu-latn-ml',
+  dbv: 'dbv-latn-ng',
+  dbw: 'dbw-latn-ml',
+  dby: 'dby-latn-pg',
+  dcc: 'dcc-arab-in',
+  dcr: 'dcr-latn-vi',
+  dda: 'dda-latn-au',
+  ddd: 'ddd-latn-ss',
+  dde: 'dde-latn-cg',
+  ddg: 'ddg-latn-tl',
+  ddi: 'ddi-latn-pg',
+  ddj: 'ddj-latn-au',
+  ddn: 'ddn-latn-zz',
+  ddo: 'ddo-cyrl-ru',
+  ddr: 'ddr-latn-au',
+  dds: 'dds-latn-ml',
+  ddw: 'ddw-latn-id',
+  de: 'de-latn-de',
+  dec: 'dec-latn-sd',
+  ded: 'ded-latn-zz',
+  dee: 'dee-latn-lr',
+  def: 'def-arab-ir',
+  deg: 'deg-latn-ng',
+  deh: 'deh-arab-pk',
+  dei: 'dei-latn-id',
+  dek: 'dek-latn-cm',
+  del: 'del-latn-us',
+  dem: 'dem-latn-id',
+  den: 'den-latn-ca',
+  deq: 'deq-latn-cf',
+  der: 'der-beng-in',
+  'der-latn': 'der-latn-in',
+  des: 'des-latn-br',
+  dev: 'dev-latn-pg',
+  dez: 'dez-latn-cd',
+  dga: 'dga-latn-zz',
+  dgb: 'dgb-latn-ml',
+  dgc: 'dgc-latn-ph',
+  dgd: 'dgd-latn-bf',
+  dge: 'dge-latn-pg',
+  dgg: 'dgg-latn-pg',
+  dgh: 'dgh-latn-zz',
+  dgi: 'dgi-latn-zz',
+  dgk: 'dgk-latn-cf',
+  dgl: 'dgl-arab-zz',
+  dgn: 'dgn-latn-au',
+  dgr: 'dgr-latn-ca',
+  dgs: 'dgs-latn-bf',
+  dgt: 'dgt-latn-au',
+  dgw: 'dgw-latn-au',
+  dgx: 'dgx-latn-pg',
+  dgz: 'dgz-latn-zz',
+  dhg: 'dhg-latn-au',
+  dhi: 'dhi-deva-np',
+  dhl: 'dhl-latn-au',
+  dhm: 'dhm-latn-ao',
+  dhn: 'dhn-gujr-in',
+  dho: 'dho-deva-in',
+  dhr: 'dhr-latn-au',
+  dhs: 'dhs-latn-tz',
+  dhu: 'dhu-latn-au',
+  dhv: 'dhv-latn-nc',
+  dhw: 'dhw-deva-np',
+  dhx: 'dhx-latn-au',
+  dia: 'dia-latn-zz',
+  dib: 'dib-latn-ss',
+  dic: 'dic-latn-ci',
+  did: 'did-latn-ss',
+  dif: 'dif-latn-au',
+  dig: 'dig-latn-ke',
+  dih: 'dih-latn-mx',
+  dii: 'dii-latn-cm',
+  dij: 'dij-latn-id',
+  dil: 'dil-latn-sd',
+  din: 'din-latn-ss',
+  'din-arab': 'din-arab-ss',
+  dio: 'dio-latn-ng',
+  dip: 'dip-latn-ss',
+  dir: 'dir-latn-ng',
+  dis: 'dis-latn-in',
+  'dis-beng': 'dis-beng-in',
+  diu: 'diu-latn-na',
+  diw: 'diw-latn-ss',
+  dix: 'dix-latn-vu',
+  diy: 'diy-latn-id',
+  diz: 'diz-latn-cd',
+  dja: 'dja-latn-au',
+  djb: 'djb-latn-au',
+  djc: 'djc-latn-td',
+  djd: 'djd-latn-au',
+  dje: 'dje-latn-ne',
+  djf: 'djf-latn-au',
+  dji: 'dji-latn-au',
+  djj: 'djj-latn-au',
+  djk: 'djk-latn-sr',
+  djm: 'djm-latn-ml',
+  djn: 'djn-latn-au',
+  djo: 'djo-latn-id',
+  djr: 'djr-latn-au',
+  dju: 'dju-latn-pg',
+  djw: 'djw-latn-au',
+  dka: 'dka-tibt-bt',
+  dkg: 'dkg-latn-ng',
+  dkk: 'dkk-latn-id',
+  dkr: 'dkr-latn-my',
+  dks: 'dks-latn-ss',
+  dkx: 'dkx-latn-cm',
+  dlg: 'dlg-cyrl-ru',
+  dlm: 'dlm-latn-hr',
+  dln: 'dln-latn-in',
+  dma: 'dma-latn-ga',
+  dmb: 'dmb-latn-ml',
+  dmc: 'dmc-latn-pg',
+  dmd: 'dmd-latn-au',
+  dme: 'dme-latn-cm',
+  dmf: 'dmf-medf-ng',
+  dmg: 'dmg-latn-my',
+  dmk: 'dmk-arab-pk',
+  dml: 'dml-arab-pk',
+  dmm: 'dmm-latn-cm',
+  dmo: 'dmo-latn-cm',
+  dmr: 'dmr-latn-id',
+  dms: 'dms-latn-id',
+  dmu: 'dmu-latn-id',
+  dmv: 'dmv-latn-my',
+  dmw: 'dmw-latn-au',
+  dmx: 'dmx-latn-mz',
+  dmy: 'dmy-latn-id',
+  dna: 'dna-latn-id',
+  dnd: 'dnd-latn-pg',
+  dne: 'dne-latn-tz',
+  dng: 'dng-cyrl-kg',
+  'dng-arab': 'dng-arab-kg',
+  dni: 'dni-latn-id',
+  dnj: 'dnj-latn-ci',
+  dnk: 'dnk-latn-id',
+  dnn: 'dnn-latn-bf',
+  dno: 'dno-latn-cd',
+  dnr: 'dnr-latn-pg',
+  dnt: 'dnt-latn-id',
+  dnu: 'dnu-mymr-mm',
+  dnv: 'dnv-mymr-mm',
+  dnw: 'dnw-latn-id',
+  dny: 'dny-latn-br',
+  doa: 'doa-latn-pg',
+  dob: 'dob-latn-zz',
+  doc: 'doc-latn-cn',
+  doe: 'doe-latn-tz',
+  dof: 'dof-latn-pg',
+  doh: 'doh-latn-ng',
+  doi: 'doi-deva-in',
+  dok: 'dok-latn-id',
+  dol: 'dol-latn-pg',
+  don: 'don-latn-pg',
+  doo: 'doo-latn-cd',
+  dop: 'dop-latn-zz',
+  dor: 'dor-latn-sb',
+  dos: 'dos-latn-bf',
+  dot: 'dot-latn-ng',
+  dov: 'dov-latn-zw',
+  dow: 'dow-latn-zz',
+  dox: 'dox-ethi-et',
+  doy: 'doy-latn-gh',
+  dpp: 'dpp-latn-my',
+  drc: 'drc-latn-pt',
+  dre: 'dre-tibt-np',
+  drg: 'drg-latn-my',
+  drh: 'drh-mong-cn',
+  dri: 'dri-latn-zz',
+  drl: 'drl-latn-au',
+  drn: 'drn-latn-id',
+  dro: 'dro-latn-my',
+  drq: 'drq-deva-np',
+  drs: 'drs-ethi-zz',
+  drt: 'drt-latn-nl',
+  dru: 'dru-latn-tw',
+  dry: 'dry-deva-np',
+  dsb: 'dsb-latn-de',
+  dsh: 'dsh-latn-ke',
+  dsi: 'dsi-latn-td',
+  dsn: 'dsn-latn-id',
+  dso: 'dso-orya-in',
+  dsq: 'dsq-latn-ml',
+  'dsq-arab': 'dsq-arab-ml',
+  dta: 'dta-latn-cn',
+  'dta-cyrl': 'dta-cyrl-cn',
+  'dta-hans': 'dta-hans-cn',
+  dtb: 'dtb-latn-my',
+  dtd: 'dtd-latn-ca',
+  dth: 'dth-latn-au',
+  dti: 'dti-latn-ml',
+  dtk: 'dtk-latn-ml',
+  dtm: 'dtm-latn-ml',
+  dto: 'dto-latn-ml',
+  dtp: 'dtp-latn-my',
+  dtr: 'dtr-latn-my',
+  dts: 'dts-latn-zz',
+  dtt: 'dtt-latn-ml',
+  dtu: 'dtu-latn-ml',
+  dty: 'dty-deva-np',
+  dua: 'dua-latn-cm',
+  dub: 'dub-gujr-in',
+  duc: 'duc-latn-zz',
+  dud: 'dud-latn-zz',
+  due: 'due-latn-ph',
+  duf: 'duf-latn-nc',
+  dug: 'dug-latn-zz',
+  duh: 'duh-deva-in',
+  'duh-gujr': 'duh-gujr-in',
+  dui: 'dui-latn-pg',
+  duk: 'duk-latn-pg',
+  dul: 'dul-latn-ph',
+  dum: 'dum-latn-nl',
+  dun: 'dun-latn-id',
+  duo: 'duo-latn-ph',
+  dup: 'dup-latn-id',
+  duq: 'duq-latn-id',
+  dur: 'dur-latn-cm',
+  dus: 'dus-deva-np',
+  duu: 'duu-latn-cn',
+  duv: 'duv-latn-id',
+  duw: 'duw-latn-id',
+  dux: 'dux-latn-ml',
+  duy: 'duy-latn-ph',
+  duz: 'duz-latn-cm',
+  dv: 'dv-thaa-mv',
+  dva: 'dva-latn-zz',
+  dwa: 'dwa-latn-ng',
+  dwk: 'dwk-orya-in',
+  dwr: 'dwr-latn-et',
+  'dwr-ethi': 'dwr-ethi-et',
+  dws: 'dws-latn-001',
+  dwu: 'dwu-latn-au',
+  dww: 'dww-latn-zz',
+  dwy: 'dwy-latn-au',
+  dwz: 'dwz-deva-np',
+  dya: 'dya-latn-bf',
+  dyb: 'dyb-latn-au',
+  dyd: 'dyd-latn-au',
+  dyg: 'dyg-latn-ph',
+  dyi: 'dyi-latn-ci',
+  dym: 'dym-latn-ml',
+  dyn: 'dyn-latn-au',
+  dyo: 'dyo-latn-sn',
+  dyu: 'dyu-latn-bf',
+  dyy: 'dyy-latn-au',
+  dz: 'dz-tibt-bt',
+  dza: 'dza-latn-ng',
+  dze: 'dze-latn-au',
+  dzg: 'dzg-latn-zz',
+  dzl: 'dzl-tibt-bt',
+  dzn: 'dzn-latn-cd',
+  eaa: 'eaa-latn-au',
+  ebc: 'ebc-latn-id',
+  ebg: 'ebg-latn-ng',
+  ebk: 'ebk-latn-ph',
+  ebo: 'ebo-latn-cg',
+  ebr: 'ebr-latn-ci',
+  ebu: 'ebu-latn-ke',
+  ecr: 'ecr-grek-gr',
+  ecy: 'ecy-cprt-cy',
+  ee: 'ee-latn-gh',
+  efa: 'efa-latn-ng',
+  efe: 'efe-latn-cd',
+  efi: 'efi-latn-ng',
+  ega: 'ega-latn-ci',
+  egl: 'egl-latn-it',
+  egm: 'egm-latn-tz',
+  ego: 'ego-latn-ng',
+  egy: 'egy-egyp-eg',
+  ehu: 'ehu-latn-ng',
+  eip: 'eip-latn-id',
+  eit: 'eit-latn-pg',
+  eiv: 'eiv-latn-pg',
+  eja: 'eja-latn-gw',
+  eka: 'eka-latn-zz',
+  eke: 'eke-latn-ng',
+  ekg: 'ekg-latn-id',
+  eki: 'eki-latn-ng',
+  ekl: 'ekl-latn-bd',
+  ekm: 'ekm-latn-cm',
+  eko: 'eko-latn-mz',
+  'eko-arab': 'eko-arab-mz',
+  ekp: 'ekp-latn-ng',
+  ekr: 'ekr-latn-ng',
+  eky: 'eky-kali-mm',
+  el: 'el-grek-gr',
+  ele: 'ele-latn-pg',
+  elk: 'elk-latn-pg',
+  elm: 'elm-latn-ng',
+  elo: 'elo-latn-ke',
+  elu: 'elu-latn-pg',
+  ema: 'ema-latn-zz',
+  emb: 'emb-latn-id',
+  eme: 'eme-latn-gf',
+  emg: 'emg-deva-np',
+  emi: 'emi-latn-zz',
+  emm: 'emm-latn-mx',
+  emn: 'emn-latn-cm',
+  emp: 'emp-latn-pa',
+  ems: 'ems-latn-us',
+  'ems-cyrl': 'ems-cyrl-us',
+  emu: 'emu-deva-in',
+  emw: 'emw-latn-id',
+  emx: 'emx-latn-fr',
+  emz: 'emz-latn-cm',
+  en: 'en-latn-us',
+  'en-shaw': 'en-shaw-gb',
+  ena: 'ena-latn-pg',
+  enb: 'enb-latn-ke',
+  enc: 'enc-latn-vn',
+  end: 'end-latn-id',
+  enf: 'enf-cyrl-ru',
+  enh: 'enh-cyrl-ru',
+  enl: 'enl-latn-py',
+  enm: 'enm-latn-gb',
+  enn: 'enn-latn-zz',
+  eno: 'eno-latn-id',
+  enq: 'enq-latn-zz',
+  enr: 'enr-latn-id',
+  env: 'env-latn-ng',
+  enw: 'enw-latn-ng',
+  enx: 'enx-latn-py',
+  eo: 'eo-latn-001',
+  eot: 'eot-latn-ci',
+  epi: 'epi-latn-ng',
+  era: 'era-taml-in',
+  erg: 'erg-latn-vu',
+  erh: 'erh-latn-ng',
+  eri: 'eri-latn-zz',
+  erk: 'erk-latn-vu',
+  err: 'err-latn-au',
+  ert: 'ert-latn-id',
+  erw: 'erw-latn-id',
+  es: 'es-latn-es',
+  ese: 'ese-latn-bo',
+  esg: 'esg-gonm-in',
+  esh: 'esh-arab-ir',
+  esi: 'esi-latn-us',
+  esm: 'esm-latn-ci',
+  ess: 'ess-latn-us',
+  'ess-cyrl': 'ess-cyrl-us',
+  esu: 'esu-latn-us',
+  esy: 'esy-latn-ph',
+  et: 'et-latn-ee',
+  etb: 'etb-latn-ng',
+  etn: 'etn-latn-vu',
+  eto: 'eto-latn-cm',
+  etr: 'etr-latn-zz',
+  ets: 'ets-latn-ng',
+  ett: 'ett-ital-it',
+  etu: 'etu-latn-zz',
+  etx: 'etx-latn-zz',
+  etz: 'etz-latn-id',
+  eu: 'eu-latn-es',
+  eve: 'eve-cyrl-ru',
+  evh: 'evh-latn-ng',
+  evn: 'evn-cyrl-ru',
+  'evn-latn': 'evn-latn-cn',
+  'evn-mong': 'evn-mong-cn',
+  ewo: 'ewo-latn-cm',
+  ext: 'ext-latn-es',
+  eya: 'eya-latn-us',
+  eyo: 'eyo-latn-ke',
+  eza: 'eza-latn-zz',
+  eze: 'eze-latn-ng',
+  fa: 'fa-arab-ir',
+  faa: 'faa-latn-zz',
+  fab: 'fab-latn-zz',
+  fad: 'fad-latn-pg',
+  faf: 'faf-latn-sb',
+  fag: 'fag-latn-zz',
+  fah: 'fah-latn-ng',
+  fai: 'fai-latn-zz',
+  faj: 'faj-latn-pg',
+  fak: 'fak-latn-cm',
+  fal: 'fal-latn-cm',
+  fam: 'fam-latn-ng',
+  fan: 'fan-latn-gq',
+  fap: 'fap-latn-sn',
+  far: 'far-latn-sb',
+  fau: 'fau-latn-id',
+  fax: 'fax-latn-es',
+  fay: 'fay-arab-ir',
+  faz: 'faz-arab-ir',
+  fbl: 'fbl-latn-ph',
+  fer: 'fer-latn-ss',
+  ff: 'ff-latn-sn',
+  'ff-adlm': 'ff-adlm-gn',
+  ffi: 'ffi-latn-zz',
+  ffm: 'ffm-latn-ml',
+  fgr: 'fgr-latn-td',
+  fi: 'fi-latn-fi',
+  fia: 'fia-arab-sd',
+  fie: 'fie-latn-ng',
+  fif: 'fif-latn-sa',
+  fil: 'fil-latn-ph',
+  fip: 'fip-latn-tz',
+  fir: 'fir-latn-ng',
+  fit: 'fit-latn-se',
+  fiw: 'fiw-latn-pg',
+  fj: 'fj-latn-fj',
+  fkk: 'fkk-latn-ng',
+  fkv: 'fkv-latn-no',
+  fla: 'fla-latn-us',
+  flh: 'flh-latn-id',
+  fli: 'fli-latn-ng',
+  fll: 'fll-latn-cm',
+  fln: 'fln-latn-au',
+  flr: 'flr-latn-zz',
+  fly: 'fly-latn-za',
+  fmp: 'fmp-latn-zz',
+  fmu: 'fmu-deva-in',
+  fnb: 'fnb-latn-vu',
+  fng: 'fng-latn-za',
+  fni: 'fni-latn-td',
+  fo: 'fo-latn-fo',
+  fod: 'fod-latn-zz',
+  foi: 'foi-latn-pg',
+  fom: 'fom-latn-cd',
+  fon: 'fon-latn-bj',
+  for: 'for-latn-zz',
+  fos: 'fos-latn-tw',
+  fpe: 'fpe-latn-zz',
+  fqs: 'fqs-latn-zz',
+  fr: 'fr-latn-fr',
+  frc: 'frc-latn-us',
+  frd: 'frd-latn-id',
+  frk: 'frk-latn-de',
+  frm: 'frm-latn-fr',
+  fro: 'fro-latn-fr',
+  frp: 'frp-latn-fr',
+  frq: 'frq-latn-pg',
+  frr: 'frr-latn-de',
+  frs: 'frs-latn-de',
+  frt: 'frt-latn-vu',
+  fub: 'fub-arab-cm',
+  fud: 'fud-latn-wf',
+  fue: 'fue-latn-zz',
+  fuf: 'fuf-latn-gn',
+  fuh: 'fuh-latn-zz',
+  fui: 'fui-latn-td',
+  fum: 'fum-latn-ng',
+  fun: 'fun-latn-br',
+  fuq: 'fuq-latn-ne',
+  fur: 'fur-latn-it',
+  fut: 'fut-latn-vu',
+  fuu: 'fuu-latn-cd',
+  fuv: 'fuv-latn-ng',
+  fuy: 'fuy-latn-zz',
+  fvr: 'fvr-latn-sd',
+  fwa: 'fwa-latn-nc',
+  fwe: 'fwe-latn-na',
+  fy: 'fy-latn-nl',
+  ga: 'ga-latn-ie',
+  gaa: 'gaa-latn-gh',
+  gab: 'gab-latn-td',
+  gac: 'gac-latn-in',
+  'gac-deva': 'gac-deva-in',
+  gad: 'gad-latn-ph',
+  gae: 'gae-latn-ve',
+  gaf: 'gaf-latn-zz',
+  gag: 'gag-latn-md',
+  gah: 'gah-latn-zz',
+  gai: 'gai-latn-pg',
+  gaj: 'gaj-latn-zz',
+  gak: 'gak-latn-id',
+  gal: 'gal-latn-tl',
+  gam: 'gam-latn-zz',
+  gan: 'gan-hans-cn',
+  gao: 'gao-latn-pg',
+  gap: 'gap-latn-pg',
+  gaq: 'gaq-orya-in',
+  gar: 'gar-latn-pg',
+  gas: 'gas-gujr-in',
+  gat: 'gat-latn-pg',
+  gau: 'gau-telu-in',
+  gaw: 'gaw-latn-zz',
+  gax: 'gax-latn-et',
+  'gax-ethi': 'gax-ethi-et',
+  gay: 'gay-latn-id',
+  gba: 'gba-latn-zz',
+  gbb: 'gbb-latn-au',
+  gbd: 'gbd-latn-au',
+  gbe: 'gbe-latn-pg',
+  gbf: 'gbf-latn-zz',
+  gbg: 'gbg-latn-cf',
+  gbh: 'gbh-latn-bj',
+  gbi: 'gbi-latn-id',
+  gbj: 'gbj-orya-in',
+  gbk: 'gbk-deva-in',
+  'gbk-takr': 'gbk-takr-in',
+  gbl: 'gbl-gujr-in',
+  'gbl-deva': 'gbl-deva-in',
+  gbm: 'gbm-deva-in',
+  gbn: 'gbn-latn-ss',
+  gbp: 'gbp-latn-cf',
+  gbq: 'gbq-latn-cf',
+  gbr: 'gbr-latn-ng',
+  gbs: 'gbs-latn-bj',
+  gbu: 'gbu-latn-au',
+  gbv: 'gbv-latn-cf',
+  gbw: 'gbw-latn-au',
+  gbx: 'gbx-latn-bj',
+  gby: 'gby-latn-zz',
+  gbz: 'gbz-arab-ir',
+  gcc: 'gcc-latn-pg',
+  gcd: 'gcd-latn-au',
+  gcf: 'gcf-latn-gp',
+  gcl: 'gcl-latn-gd',
+  gcn: 'gcn-latn-pg',
+  gcr: 'gcr-latn-gf',
+  gct: 'gct-latn-ve',
+  gd: 'gd-latn-gb',
+  gdb: 'gdb-orya-in',
+  'gdb-telu': 'gdb-telu-in',
+  gdc: 'gdc-latn-au',
+  gdd: 'gdd-latn-pg',
+  gde: 'gde-latn-zz',
+  gdf: 'gdf-latn-ng',
+  gdg: 'gdg-latn-ph',
+  gdh: 'gdh-latn-au',
+  gdi: 'gdi-latn-cf',
+  gdj: 'gdj-latn-au',
+  gdk: 'gdk-latn-td',
+  gdl: 'gdl-latn-et',
+  'gdl-ethi': 'gdl-ethi-et',
+  gdm: 'gdm-latn-td',
+  gdn: 'gdn-latn-zz',
+  gdo: 'gdo-cyrl-ru',
+  gdq: 'gdq-latn-ye',
+  gdr: 'gdr-latn-zz',
+  gdt: 'gdt-latn-au',
+  gdu: 'gdu-latn-ng',
+  gdx: 'gdx-deva-in',
+  gea: 'gea-latn-ng',
+  geb: 'geb-latn-zz',
+  gec: 'gec-latn-lr',
+  ged: 'ged-latn-ng',
+  gef: 'gef-latn-id',
+  geg: 'geg-latn-ng',
+  geh: 'geh-latn-ca',
+  gei: 'gei-latn-id',
+  gej: 'gej-latn-zz',
+  gek: 'gek-latn-ng',
+  gel: 'gel-latn-zz',
+  geq: 'geq-latn-cf',
+  ges: 'ges-latn-id',
+  gev: 'gev-latn-ga',
+  gew: 'gew-latn-ng',
+  gex: 'gex-latn-so',
+  gey: 'gey-latn-cd',
+  gez: 'gez-ethi-et',
+  gfk: 'gfk-latn-zz',
+  gga: 'gga-latn-sb',
+  ggb: 'ggb-latn-lr',
+  ggd: 'ggd-latn-au',
+  gge: 'gge-latn-au',
+  ggg: 'ggg-arab-pk',
+  ggk: 'ggk-latn-au',
+  ggl: 'ggl-latn-pg',
+  ggn: 'ggn-deva-np',
+  ggt: 'ggt-latn-pg',
+  ggu: 'ggu-latn-ci',
+  ggw: 'ggw-latn-pg',
+  gha: 'gha-arab-ly',
+  'gha-latn': 'gha-latn-ly',
+  'gha-tfng': 'gha-tfng-ly',
+  ghc: 'ghc-latn-gb',
+  ghe: 'ghe-deva-np',
+  ghk: 'ghk-latn-mm',
+  ghn: 'ghn-latn-sb',
+  ghr: 'ghr-arab-pk',
+  ghs: 'ghs-latn-zz',
+  ght: 'ght-tibt-np',
+  gia: 'gia-latn-au',
+  gib: 'gib-latn-ng',
+  gic: 'gic-latn-za',
+  gid: 'gid-latn-cm',
+  gie: 'gie-latn-ci',
+  gig: 'gig-arab-pk',
+  gih: 'gih-latn-au',
+  gil: 'gil-latn-ki',
+  gim: 'gim-latn-zz',
+  gin: 'gin-cyrl-ru',
+  gip: 'gip-latn-pg',
+  giq: 'giq-latn-vn',
+  gir: 'gir-latn-vn',
+  gis: 'gis-latn-cm',
+  git: 'git-latn-ca',
+  gix: 'gix-latn-cd',
+  giy: 'giy-latn-au',
+  giz: 'giz-latn-cm',
+  gjk: 'gjk-arab-pk',
+  gjm: 'gjm-latn-au',
+  gjn: 'gjn-latn-zz',
+  gjr: 'gjr-latn-au',
+  gju: 'gju-arab-pk',
+  gka: 'gka-latn-pg',
+  gkd: 'gkd-latn-pg',
+  gke: 'gke-latn-cm',
+  gkn: 'gkn-latn-zz',
+  gko: 'gko-latn-au',
+  gkp: 'gkp-latn-zz',
+  gku: 'gku-latn-za',
+  gl: 'gl-latn-es',
+  glb: 'glb-latn-ng',
+  glc: 'glc-latn-td',
+  gld: 'gld-cyrl-ru',
+  glh: 'glh-arab-af',
+  glj: 'glj-latn-td',
+  glk: 'glk-arab-ir',
+  gll: 'gll-latn-au',
+  glo: 'glo-latn-ng',
+  glr: 'glr-latn-lr',
+  glu: 'glu-latn-td',
+  glw: 'glw-latn-ng',
+  gma: 'gma-latn-au',
+  gmb: 'gmb-latn-sb',
+  gmd: 'gmd-latn-ng',
+  gmg: 'gmg-latn-pg',
+  gmh: 'gmh-latn-de',
+  gmm: 'gmm-latn-zz',
+  gmn: 'gmn-latn-cm',
+  gmr: 'gmr-latn-au',
+  gmu: 'gmu-latn-pg',
+  gmv: 'gmv-ethi-zz',
+  gmx: 'gmx-latn-tz',
+  gmy: 'gmy-linb-gr',
+  gmz: 'gmz-latn-ng',
+  gn: 'gn-latn-py',
+  gna: 'gna-latn-bf',
+  gnb: 'gnb-latn-in',
+  gnc: 'gnc-latn-es',
+  gnd: 'gnd-latn-zz',
+  gne: 'gne-latn-ng',
+  gng: 'gng-latn-zz',
+  gnh: 'gnh-latn-ng',
+  gni: 'gni-latn-au',
+  gnj: 'gnj-latn-ci',
+  gnk: 'gnk-latn-bw',
+  gnl: 'gnl-latn-au',
+  gnm: 'gnm-latn-pg',
+  gnn: 'gnn-latn-au',
+  gnq: 'gnq-latn-my',
+  gnr: 'gnr-latn-au',
+  gnt: 'gnt-latn-pg',
+  gnu: 'gnu-latn-pg',
+  gnw: 'gnw-latn-bo',
+  gnz: 'gnz-latn-cf',
+  goa: 'goa-latn-ci',
+  gob: 'gob-latn-co',
+  goc: 'goc-latn-pg',
+  god: 'god-latn-zz',
+  goe: 'goe-tibt-bt',
+  gof: 'gof-ethi-zz',
+  gog: 'gog-latn-tz',
+  goh: 'goh-latn-de',
+  goi: 'goi-latn-zz',
+  gok: 'gok-deva-in',
+  gol: 'gol-latn-lr',
+  gom: 'gom-deva-in',
+  gon: 'gon-telu-in',
+  goo: 'goo-latn-fj',
+  gop: 'gop-latn-id',
+  goq: 'goq-latn-id',
+  gor: 'gor-latn-id',
+  gos: 'gos-latn-nl',
+  got: 'got-goth-ua',
+  gou: 'gou-latn-cm',
+  gov: 'gov-latn-ci',
+  gow: 'gow-latn-tz',
+  gox: 'gox-latn-cd',
+  goy: 'goy-latn-td',
+  gpa: 'gpa-latn-ng',
+  gpe: 'gpe-latn-gh',
+  gpn: 'gpn-latn-pg',
+  gqa: 'gqa-latn-ng',
+  gqn: 'gqn-latn-br',
+  gqr: 'gqr-latn-td',
+  gra: 'gra-deva-in',
+  'gra-gujr': 'gra-gujr-in',
+  grb: 'grb-latn-zz',
+  grc: 'grc-cprt-cy',
+  'grc-linb': 'grc-linb-gr',
+  grd: 'grd-latn-ng',
+  grg: 'grg-latn-pg',
+  grh: 'grh-latn-ng',
+  gri: 'gri-latn-sb',
+  grj: 'grj-latn-lr',
+  grm: 'grm-latn-my',
+  grq: 'grq-latn-pg',
+  grs: 'grs-latn-id',
+  grt: 'grt-beng-in',
+  gru: 'gru-ethi-et',
+  'gru-latn': 'gru-latn-et',
+  grv: 'grv-latn-lr',
+  grw: 'grw-latn-zz',
+  grx: 'grx-latn-pg',
+  gry: 'gry-latn-lr',
+  grz: 'grz-latn-pg',
+  gsl: 'gsl-latn-sn',
+  gsn: 'gsn-latn-pg',
+  gso: 'gso-latn-cf',
+  gsp: 'gsp-latn-pg',
+  gsw: 'gsw-latn-ch',
+  gta: 'gta-latn-br',
+  gtu: 'gtu-latn-au',
+  gu: 'gu-gujr-in',
+  gua: 'gua-latn-ng',
+  gub: 'gub-latn-br',
+  guc: 'guc-latn-co',
+  gud: 'gud-latn-zz',
+  gue: 'gue-latn-au',
+  guf: 'guf-latn-au',
+  guh: 'guh-latn-co',
+  gui: 'gui-latn-bo',
+  guk: 'guk-latn-et',
+  'guk-ethi': 'guk-ethi-et',
+  gul: 'gul-latn-us',
+  gum: 'gum-latn-co',
+  gun: 'gun-latn-br',
+  guo: 'guo-latn-co',
+  gup: 'gup-latn-au',
+  guq: 'guq-latn-py',
+  gur: 'gur-latn-gh',
+  gut: 'gut-latn-cr',
+  guu: 'guu-latn-ve',
+  guw: 'guw-latn-zz',
+  gux: 'gux-latn-zz',
+  guz: 'guz-latn-ke',
+  gv: 'gv-latn-im',
+  gva: 'gva-latn-py',
+  gvc: 'gvc-latn-br',
+  gve: 'gve-latn-pg',
+  gvf: 'gvf-latn-zz',
+  gvj: 'gvj-latn-br',
+  gvl: 'gvl-latn-td',
+  gvm: 'gvm-latn-ng',
+  gvn: 'gvn-latn-au',
+  gvo: 'gvo-latn-br',
+  gvp: 'gvp-latn-br',
+  gvr: 'gvr-deva-np',
+  gvs: 'gvs-latn-zz',
+  gvy: 'gvy-latn-au',
+  gwa: 'gwa-latn-ci',
+  gwb: 'gwb-latn-ng',
+  gwc: 'gwc-arab-zz',
+  gwd: 'gwd-latn-et',
+  gwe: 'gwe-latn-tz',
+  gwf: 'gwf-arab-pk',
+  gwg: 'gwg-latn-ng',
+  gwi: 'gwi-latn-ca',
+  gwj: 'gwj-latn-bw',
+  gwm: 'gwm-latn-au',
+  gwn: 'gwn-latn-ng',
+  gwr: 'gwr-latn-ug',
+  gwt: 'gwt-arab-zz',
+  gwu: 'gwu-latn-au',
+  gww: 'gww-latn-au',
+  gwx: 'gwx-latn-gh',
+  gxx: 'gxx-latn-ci',
+  gyb: 'gyb-latn-pg',
+  gyd: 'gyd-latn-au',
+  gye: 'gye-latn-ng',
+  gyf: 'gyf-latn-au',
+  gyg: 'gyg-latn-cf',
+  gyi: 'gyi-latn-zz',
+  gyl: 'gyl-latn-et',
+  'gyl-ethi': 'gyl-ethi-et',
+  gym: 'gym-latn-pa',
+  gyn: 'gyn-latn-gy',
+  gyo: 'gyo-deva-np',
+  gyr: 'gyr-latn-bo',
+  gyy: 'gyy-latn-au',
+  gyz: 'gyz-latn-ng',
+  gza: 'gza-latn-sd',
+  gzi: 'gzi-arab-ir',
+  gzn: 'gzn-latn-id',
+  ha: 'ha-latn-ng',
+  'ha-cm': 'ha-arab-cm',
+  'ha-sd': 'ha-arab-sd',
+  haa: 'haa-latn-us',
+  hac: 'hac-arab-ir',
+  had: 'had-latn-id',
+  hae: 'hae-latn-et',
+  hag: 'hag-latn-zz',
+  hah: 'hah-latn-pg',
+  hai: 'hai-latn-ca',
+  haj: 'haj-latn-in',
+  'haj-beng': 'haj-beng-in',
+  hak: 'hak-hans-cn',
+  hal: 'hal-latn-vn',
+  ham: 'ham-latn-zz',
+  han: 'han-latn-tz',
+  hao: 'hao-latn-pg',
+  hap: 'hap-latn-id',
+  haq: 'haq-latn-tz',
+  har: 'har-ethi-et',
+  'har-arab': 'har-arab-et',
+  'har-latn': 'har-latn-et',
+  has: 'has-latn-ca',
+  hav: 'hav-latn-cd',
+  haw: 'haw-latn-us',
+  hax: 'hax-latn-ca',
+  hay: 'hay-latn-tz',
+  haz: 'haz-arab-af',
+  hba: 'hba-latn-cd',
+  hbb: 'hbb-latn-zz',
+  hbn: 'hbn-latn-sd',
+  hbo: 'hbo-hebr-il',
+  hbu: 'hbu-latn-tl',
+  hch: 'hch-latn-mx',
+  hdy: 'hdy-ethi-zz',
+  he: 'he-hebr-il',
+  hed: 'hed-latn-td',
+  heg: 'heg-latn-id',
+  heh: 'heh-latn-tz',
+  hei: 'hei-latn-ca',
+  hem: 'hem-latn-cd',
+  hgm: 'hgm-latn-na',
+  hgw: 'hgw-latn-pg',
+  hhi: 'hhi-latn-pg',
+  hhr: 'hhr-latn-sn',
+  hhy: 'hhy-latn-zz',
+  hi: 'hi-deva-in',
+  'hi-latn': 'hi-latn-in',
+  hia: 'hia-latn-zz',
+  hib: 'hib-latn-pe',
+  hid: 'hid-latn-us',
+  hif: 'hif-latn-fj',
+  hig: 'hig-latn-zz',
+  hih: 'hih-latn-zz',
+  hii: 'hii-takr-in',
+  'hii-deva': 'hii-deva-in',
+  hij: 'hij-latn-cm',
+  hik: 'hik-latn-id',
+  hil: 'hil-latn-ph',
+  hio: 'hio-latn-bw',
+  hir: 'hir-latn-br',
+  hit: 'hit-xsux-tr',
+  hiw: 'hiw-latn-vu',
+  hix: 'hix-latn-br',
+  hji: 'hji-latn-id',
+  hka: 'hka-latn-tz',
+  hke: 'hke-latn-cd',
+  hkh: 'hkh-arab-in',
+  'hkh-deva': 'hkh-deva-in',
+  'hkh-latn': 'hkh-latn-in',
+  hkk: 'hkk-latn-pg',
+  hla: 'hla-latn-zz',
+  hlb: 'hlb-deva-in',
+  hld: 'hld-latn-vn',
+  hlt: 'hlt-latn-mm',
+  hlu: 'hlu-hluw-tr',
+  hma: 'hma-latn-cn',
+  hmb: 'hmb-latn-ml',
+  hmd: 'hmd-plrd-cn',
+  hmf: 'hmf-latn-vn',
+  hmj: 'hmj-bopo-cn',
+  hmm: 'hmm-latn-cn',
+  hmn: 'hmn-latn-cn',
+  'hmn-bopo': 'hmn-bopo-cn',
+  'hmn-hmng': 'hmn-hmng-cn',
+  hmp: 'hmp-latn-cn',
+  hmq: 'hmq-bopo-cn',
+  hmr: 'hmr-latn-in',
+  hms: 'hms-latn-cn',
+  hmt: 'hmt-latn-zz',
+  hmu: 'hmu-latn-id',
+  hmv: 'hmv-latn-vn',
+  hmw: 'hmw-latn-cn',
+  hmy: 'hmy-latn-cn',
+  hmz: 'hmz-latn-cn',
+  'hmz-plrd': 'hmz-plrd-cn',
+  hna: 'hna-latn-cm',
+  hnd: 'hnd-arab-pk',
+  hne: 'hne-deva-in',
+  hng: 'hng-latn-ao',
+  hnh: 'hnh-latn-bw',
+  hni: 'hni-latn-cn',
+  hnj: 'hnj-hmnp-us',
+  'hnj-au': 'hnj-laoo-au',
+  'hnj-cn': 'hnj-laoo-cn',
+  'hnj-fr': 'hnj-laoo-fr',
+  'hnj-gf': 'hnj-laoo-gf',
+  'hnj-la': 'hnj-laoo-la',
+  'hnj-laoo': 'hnj-laoo-la',
+  'hnj-mm': 'hnj-laoo-mm',
+  'hnj-sr': 'hnj-laoo-sr',
+  'hnj-th': 'hnj-laoo-th',
+  'hnj-us': 'hnj-hmnp-us',
+  'hnj-vn': 'hnj-laoo-vn',
+  hnn: 'hnn-latn-ph',
+  hno: 'hno-arab-pk',
+  hns: 'hns-latn-sr',
+  ho: 'ho-latn-pg',
+  hoa: 'hoa-latn-sb',
+  hob: 'hob-latn-pg',
+  hoc: 'hoc-deva-in',
+  hod: 'hod-latn-ng',
+  hoe: 'hoe-latn-ng',
+  hoh: 'hoh-arab-om',
+  hoi: 'hoi-latn-us',
+  hoj: 'hoj-deva-in',
+  hol: 'hol-latn-ao',
+  hom: 'hom-latn-ss',
+  hoo: 'hoo-latn-cd',
+  hop: 'hop-latn-us',
+  hor: 'hor-latn-td',
+  hot: 'hot-latn-zz',
+  hov: 'hov-latn-id',
+  how: 'how-hani-cn',
+  hoy: 'hoy-deva-in',
+  hpo: 'hpo-mymr-mm',
+  hr: 'hr-latn-hr',
+  hra: 'hra-latn-in',
+  hrc: 'hrc-latn-pg',
+  hre: 'hre-latn-vn',
+  hrk: 'hrk-latn-id',
+  hrm: 'hrm-latn-cn',
+  'hrm-hmng': 'hrm-hmng-cn',
+  hro: 'hro-latn-vn',
+  hrp: 'hrp-latn-au',
+  hrt: 'hrt-syrc-tr',
+  hru: 'hru-latn-in',
+  hrw: 'hrw-latn-pg',
+  hrx: 'hrx-latn-br',
+  hrz: 'hrz-arab-ir',
+  hsb: 'hsb-latn-de',
+  hsn: 'hsn-hans-cn',
+  hss: 'hss-arab-om',
+  ht: 'ht-latn-ht',
+  hti: 'hti-latn-id',
+  hto: 'hto-latn-co',
+  hts: 'hts-latn-tz',
+  htu: 'htu-latn-id',
+  htx: 'htx-xsux-tr',
+  hu: 'hu-latn-hu',
+  hub: 'hub-latn-pe',
+  huc: 'huc-latn-bw',
+  hud: 'hud-latn-id',
+  hue: 'hue-latn-mx',
+  huf: 'huf-latn-pg',
+  hug: 'hug-latn-pe',
+  huh: 'huh-latn-cl',
+  hui: 'hui-latn-zz',
+  huk: 'huk-latn-id',
+  hul: 'hul-latn-pg',
+  hum: 'hum-latn-cd',
+  hup: 'hup-latn-us',
+  hur: 'hur-latn-ca',
+  hus: 'hus-latn-mx',
+  hut: 'hut-deva-np',
+  'hut-tibt': 'hut-tibt-np',
+  huu: 'huu-latn-pe',
+  huv: 'huv-latn-mx',
+  huw: 'huw-latn-id',
+  hux: 'hux-latn-pe',
+  huy: 'huy-hebr-il',
+  huz: 'huz-cyrl-ru',
+  hvc: 'hvc-latn-ht',
+  hve: 'hve-latn-mx',
+  hvk: 'hvk-latn-nc',
+  hvn: 'hvn-latn-id',
+  hvv: 'hvv-latn-mx',
+  hwa: 'hwa-latn-ci',
+  hwc: 'hwc-latn-us',
+  hwo: 'hwo-latn-ng',
+  hy: 'hy-armn-am',
+  hya: 'hya-latn-cm',
+  hyw: 'hyw-armn-am',
+  hz: 'hz-latn-na',
+  ia: 'ia-latn-001',
+  iai: 'iai-latn-nc',
+  ian: 'ian-latn-zz',
+  iar: 'iar-latn-zz',
+  iba: 'iba-latn-my',
+  ibb: 'ibb-latn-ng',
+  ibd: 'ibd-latn-au',
+  ibe: 'ibe-latn-ng',
+  ibg: 'ibg-latn-ph',
+  ibh: 'ibh-latn-vn',
+  ibl: 'ibl-latn-ph',
+  ibm: 'ibm-latn-ng',
+  ibn: 'ibn-latn-ng',
+  ibr: 'ibr-latn-ng',
+  ibu: 'ibu-latn-id',
+  iby: 'iby-latn-zz',
+  ica: 'ica-latn-zz',
+  ich: 'ich-latn-zz',
+  icr: 'icr-latn-co',
+  id: 'id-latn-id',
+  ida: 'ida-latn-ke',
+  idb: 'idb-latn-in',
+  idc: 'idc-latn-ng',
+  idd: 'idd-latn-zz',
+  ide: 'ide-latn-ng',
+  idi: 'idi-latn-zz',
+  idr: 'idr-latn-ss',
+  ids: 'ids-latn-ng',
+  idt: 'idt-latn-tl',
+  idu: 'idu-latn-zz',
+  ie: 'ie-latn-001',
+  ifa: 'ifa-latn-ph',
+  ifb: 'ifb-latn-ph',
+  ife: 'ife-latn-tg',
+  iff: 'iff-latn-vu',
+  ifk: 'ifk-latn-ph',
+  ifm: 'ifm-latn-cg',
+  ifu: 'ifu-latn-ph',
+  ify: 'ify-latn-ph',
+  ig: 'ig-latn-ng',
+  igb: 'igb-latn-zz',
+  ige: 'ige-latn-zz',
+  igg: 'igg-latn-pg',
+  igl: 'igl-latn-ng',
+  igm: 'igm-latn-pg',
+  ign: 'ign-latn-bo',
+  igo: 'igo-latn-pg',
+  igs: 'igs-latn-001',
+  'igs-grek': 'igs-grek-001',
+  igw: 'igw-latn-ng',
+  ihb: 'ihb-latn-id',
+  ihi: 'ihi-latn-ng',
+  ihp: 'ihp-latn-id',
+  ihw: 'ihw-latn-au',
+  ii: 'ii-yiii-cn',
+  iin: 'iin-latn-au',
+  ijc: 'ijc-latn-ng',
+  ije: 'ije-latn-ng',
+  ijj: 'ijj-latn-zz',
+  ijn: 'ijn-latn-ng',
+  ijs: 'ijs-latn-ng',
+  ik: 'ik-latn-us',
+  iki: 'iki-latn-ng',
+  ikk: 'ikk-latn-zz',
+  ikl: 'ikl-latn-ng',
+  iko: 'iko-latn-ng',
+  ikp: 'ikp-latn-ng',
+  ikr: 'ikr-latn-au',
+  ikt: 'ikt-latn-ca',
+  'ikt-cans': 'ikt-cans-ca',
+  ikv: 'ikv-latn-ng',
+  ikw: 'ikw-latn-zz',
+  ikx: 'ikx-latn-zz',
+  ikz: 'ikz-latn-tz',
+  ila: 'ila-latn-id',
+  ilb: 'ilb-latn-zm',
+  ilg: 'ilg-latn-au',
+  ili: 'ili-latn-cn',
+  'ili-arab': 'ili-arab-cn',
+  'ili-cyrl': 'ili-cyrl-kz',
+  ilk: 'ilk-latn-ph',
+  ilm: 'ilm-latn-my',
+  ilo: 'ilo-latn-ph',
+  ilp: 'ilp-latn-ph',
+  ilu: 'ilu-latn-id',
+  ilv: 'ilv-latn-ng',
+  imi: 'imi-latn-pg',
+  iml: 'iml-latn-us',
+  imn: 'imn-latn-pg',
+  imo: 'imo-latn-zz',
+  imr: 'imr-latn-id',
+  ims: 'ims-latn-it',
+  imt: 'imt-latn-ss',
+  imy: 'imy-lyci-tr',
+  in: 'in-latn-id',
+  inb: 'inb-latn-co',
+  ing: 'ing-latn-us',
+  inh: 'inh-cyrl-ru',
+  inj: 'inj-latn-co',
+  inn: 'inn-latn-ph',
+  ino: 'ino-latn-pg',
+  inp: 'inp-latn-pe',
+  int: 'int-mymr-mm',
+  io: 'io-latn-001',
+  ior: 'ior-ethi-et',
+  iou: 'iou-latn-zz',
+  iow: 'iow-latn-us',
+  ipi: 'ipi-latn-pg',
+  ipo: 'ipo-latn-pg',
+  iqu: 'iqu-latn-pe',
+  iqw: 'iqw-latn-ng',
+  ire: 'ire-latn-id',
+  irh: 'irh-latn-id',
+  iri: 'iri-latn-zz',
+  irk: 'irk-latn-tz',
+  irn: 'irn-latn-br',
+  iru: 'iru-taml-in',
+  'iru-mlym': 'iru-mlym-in',
+  irx: 'irx-latn-id',
+  iry: 'iry-latn-ph',
+  is: 'is-latn-is',
+  isa: 'isa-latn-pg',
+  isc: 'isc-latn-pe',
+  isd: 'isd-latn-ph',
+  ish: 'ish-latn-ng',
+  isi: 'isi-latn-ng',
+  isk: 'isk-arab-af',
+  'isk-cyrl': 'isk-cyrl-tj',
+  ism: 'ism-latn-id',
+  isn: 'isn-latn-tz',
+  iso: 'iso-latn-ng',
+  ist: 'ist-latn-hr',
+  isu: 'isu-latn-cm',
+  it: 'it-latn-it',
+  itb: 'itb-latn-ph',
+  itd: 'itd-latn-id',
+  ite: 'ite-latn-bo',
+  iti: 'iti-latn-ph',
+  itk: 'itk-hebr-it',
+  itl: 'itl-cyrl-ru',
+  itm: 'itm-latn-ng',
+  ito: 'ito-latn-bo',
+  itr: 'itr-latn-pg',
+  its: 'its-latn-ng',
+  itt: 'itt-latn-ph',
+  itv: 'itv-latn-ph',
+  itw: 'itw-latn-ng',
+  itx: 'itx-latn-id',
+  ity: 'ity-latn-ph',
+  itz: 'itz-latn-gt',
+  iu: 'iu-cans-ca',
+  ium: 'ium-latn-cn',
+  'ium-hani': 'ium-hani-cn',
+  'ium-laoo': 'ium-laoo-la',
+  'ium-thai': 'ium-thai-th',
+  ivb: 'ivb-latn-ph',
+  ivv: 'ivv-latn-ph',
+  iw: 'iw-hebr-il',
+  iwk: 'iwk-latn-ph',
+  iwm: 'iwm-latn-zz',
+  iwo: 'iwo-latn-id',
+  iws: 'iws-latn-zz',
+  ixc: 'ixc-latn-mx',
+  ixl: 'ixl-latn-gt',
+  iya: 'iya-latn-ng',
+  iyo: 'iyo-latn-cm',
+  iyx: 'iyx-latn-cg',
+  izh: 'izh-latn-ru',
+  izi: 'izi-latn-zz',
+  izr: 'izr-latn-ng',
+  izz: 'izz-latn-ng',
+  ja: 'ja-jpan-jp',
+  jaa: 'jaa-latn-br',
+  jab: 'jab-latn-zz',
+  jac: 'jac-latn-gt',
+  jad: 'jad-arab-gn',
+  jae: 'jae-latn-pg',
+  jaf: 'jaf-latn-ng',
+  jah: 'jah-latn-my',
+  jaj: 'jaj-latn-sb',
+  jak: 'jak-latn-my',
+  jal: 'jal-latn-id',
+  jam: 'jam-latn-jm',
+  jan: 'jan-latn-au',
+  jao: 'jao-latn-au',
+  jaq: 'jaq-latn-id',
+  jar: 'jar-latn-zz',
+  jas: 'jas-latn-nc',
+  jat: 'jat-arab-af',
+  jau: 'jau-latn-id',
+  jax: 'jax-latn-id',
+  jay: 'jay-latn-au',
+  jaz: 'jaz-latn-nc',
+  jbe: 'jbe-hebr-il',
+  jbi: 'jbi-latn-au',
+  jbj: 'jbj-latn-id',
+  jbk: 'jbk-latn-pg',
+  jbm: 'jbm-latn-ng',
+  jbn: 'jbn-arab-ly',
+  jbo: 'jbo-latn-001',
+  jbr: 'jbr-latn-id',
+  jbt: 'jbt-latn-br',
+  jbu: 'jbu-latn-zz',
+  jbw: 'jbw-latn-au',
+  jct: 'jct-cyrl-ua',
+  'jct-latn': 'jct-latn-ua',
+  jda: 'jda-tibt-in',
+  jdg: 'jdg-arab-pk',
+  jdt: 'jdt-cyrl-ru',
+  'jdt-hebr': 'jdt-hebr-ru',
+  'jdt-latn': 'jdt-latn-az',
+  jeb: 'jeb-latn-pe',
+  jee: 'jee-deva-np',
+  jeh: 'jeh-latn-vn',
+  'jeh-laoo': 'jeh-laoo-la',
+  jei: 'jei-latn-id',
+  jek: 'jek-latn-ci',
+  jel: 'jel-latn-id',
+  jen: 'jen-latn-zz',
+  jer: 'jer-latn-ng',
+  jet: 'jet-latn-pg',
+  jeu: 'jeu-latn-td',
+  jgb: 'jgb-latn-cd',
+  jge: 'jge-geor-ge',
+  'jge-hebr': 'jge-hebr-il',
+  jgk: 'jgk-latn-zz',
+  jgo: 'jgo-latn-cm',
+  jhi: 'jhi-latn-my',
+  ji: 'ji-hebr-ua',
+  jia: 'jia-latn-cm',
+  jib: 'jib-latn-zz',
+  jic: 'jic-latn-hn',
+  jid: 'jid-latn-ng',
+  jie: 'jie-latn-ng',
+  jig: 'jig-latn-au',
+  jil: 'jil-latn-pg',
+  jim: 'jim-latn-cm',
+  jit: 'jit-latn-tz',
+  jiu: 'jiu-latn-cn',
+  jiv: 'jiv-latn-ec',
+  jiy: 'jiy-latn-cn',
+  jje: 'jje-hang-kr',
+  jjr: 'jjr-latn-ng',
+  jka: 'jka-latn-id',
+  jkm: 'jkm-mymr-mm',
+  'jkm-brai': 'jkm-brai-mm',
+  'jkm-latn': 'jkm-latn-mm',
+  jko: 'jko-latn-pg',
+  jku: 'jku-latn-ng',
+  jle: 'jle-latn-sd',
+  jma: 'jma-latn-pg',
+  jmb: 'jmb-latn-ng',
+  jmc: 'jmc-latn-tz',
+  jmd: 'jmd-latn-id',
+  jmi: 'jmi-latn-ng',
+  jml: 'jml-deva-np',
+  jmn: 'jmn-latn-mm',
+  jmr: 'jmr-latn-gh',
+  jms: 'jms-latn-ng',
+  jmw: 'jmw-latn-pg',
+  jmx: 'jmx-latn-mx',
+  jna: 'jna-takr-in',
+  jnd: 'jnd-arab-pk',
+  jng: 'jng-latn-au',
+  jni: 'jni-latn-ng',
+  jnj: 'jnj-latn-et',
+  'jnj-ethi': 'jnj-ethi-et',
+  jnl: 'jnl-deva-in',
+  jns: 'jns-deva-in',
+  'jns-latn': 'jns-latn-in',
+  'jns-takr': 'jns-takr-in',
+  job: 'job-latn-cd',
+  jod: 'jod-latn-ci',
+  jog: 'jog-arab-pk',
+  jor: 'jor-latn-bo',
+  jow: 'jow-latn-ml',
+  jpa: 'jpa-hebr-ps',
+  jpr: 'jpr-hebr-il',
+  jqr: 'jqr-latn-pe',
+  jra: 'jra-latn-zz',
+  jrr: 'jrr-latn-ng',
+  jrt: 'jrt-latn-ng',
+  jru: 'jru-latn-ve',
+  jua: 'jua-latn-br',
+  jub: 'jub-latn-ng',
+  jud: 'jud-latn-ci',
+  juh: 'juh-latn-ng',
+  jui: 'jui-latn-au',
+  juk: 'juk-latn-ng',
+  jul: 'jul-deva-np',
+  jum: 'jum-latn-sd',
+  jun: 'jun-orya-in',
+  juo: 'juo-latn-ng',
+  jup: 'jup-latn-br',
+  jur: 'jur-latn-br',
+  jut: 'jut-latn-dk',
+  juu: 'juu-latn-ng',
+  juw: 'juw-latn-ng',
+  juy: 'juy-orya-in',
+  jv: 'jv-latn-id',
+  jvd: 'jvd-latn-id',
+  jvn: 'jvn-latn-sr',
+  jw: 'jw-latn-id',
+  jwi: 'jwi-latn-gh',
+  jya: 'jya-tibt-cn',
+  jye: 'jye-hebr-il',
+  jyy: 'jyy-latn-td',
+  ka: 'ka-geor-ge',
+  kaa: 'kaa-cyrl-uz',
+  kab: 'kab-latn-dz',
+  kac: 'kac-latn-mm',
+  kad: 'kad-latn-zz',
+  kag: 'kag-latn-my',
+  kah: 'kah-latn-cf',
+  kai: 'kai-latn-zz',
+  kaj: 'kaj-latn-ng',
+  kak: 'kak-latn-ph',
+  kam: 'kam-latn-ke',
+  kao: 'kao-latn-ml',
+  kap: 'kap-cyrl-ru',
+  kaq: 'kaq-latn-pe',
+  kav: 'kav-latn-br',
+  kaw: 'kaw-kawi-id',
+  kax: 'kax-latn-id',
+  kay: 'kay-latn-br',
+  kba: 'kba-latn-au',
+  kbb: 'kbb-latn-br',
+  kbc: 'kbc-latn-br',
+  kbd: 'kbd-cyrl-ru',
+  kbe: 'kbe-latn-au',
+  kbh: 'kbh-latn-co',
+  kbi: 'kbi-latn-id',
+  kbj: 'kbj-latn-cd',
+  kbk: 'kbk-latn-pg',
+  kbl: 'kbl-latn-td',
+  kbm: 'kbm-latn-zz',
+  kbn: 'kbn-latn-cf',
+  kbo: 'kbo-latn-ss',
+  kbp: 'kbp-latn-zz',
+  kbq: 'kbq-latn-zz',
+  kbr: 'kbr-latn-et',
+  'kbr-ethi': 'kbr-ethi-et',
+  kbs: 'kbs-latn-ga',
+  kbt: 'kbt-latn-pg',
+  kbu: 'kbu-arab-pk',
+  kbv: 'kbv-latn-id',
+  kbw: 'kbw-latn-pg',
+  kbx: 'kbx-latn-zz',
+  kby: 'kby-arab-ne',
+  kbz: 'kbz-latn-ng',
+  kca: 'kca-cyrl-ru',
+  kcb: 'kcb-latn-pg',
+  kcc: 'kcc-latn-ng',
+  kcd: 'kcd-latn-id',
+  kce: 'kce-latn-ng',
+  kcf: 'kcf-latn-ng',
+  kcg: 'kcg-latn-ng',
+  kch: 'kch-latn-ng',
+  kci: 'kci-latn-ng',
+  kcj: 'kcj-latn-gw',
+  kck: 'kck-latn-zw',
+  kcl: 'kcl-latn-zz',
+  kcm: 'kcm-latn-cf',
+  kcn: 'kcn-latn-ug',
+  kco: 'kco-latn-pg',
+  kcp: 'kcp-latn-sd',
+  kcq: 'kcq-latn-ng',
+  kcs: 'kcs-latn-ng',
+  kct: 'kct-latn-zz',
+  kcu: 'kcu-latn-tz',
+  kcv: 'kcv-latn-cd',
+  kcw: 'kcw-latn-cd',
+  kcz: 'kcz-latn-tz',
+  kda: 'kda-latn-au',
+  kdc: 'kdc-latn-tz',
+  kdd: 'kdd-latn-au',
+  kde: 'kde-latn-tz',
+  kdf: 'kdf-latn-pg',
+  kdg: 'kdg-latn-cd',
+  kdh: 'kdh-latn-tg',
+  kdi: 'kdi-latn-ug',
+  kdj: 'kdj-latn-ug',
+  kdk: 'kdk-latn-nc',
+  kdl: 'kdl-latn-zz',
+  kdm: 'kdm-latn-ng',
+  kdn: 'kdn-latn-zw',
+  kdp: 'kdp-latn-ng',
+  kdq: 'kdq-beng-in',
+  kdr: 'kdr-latn-lt',
+  'kdr-cyrl': 'kdr-cyrl-ua',
+  kdt: 'kdt-thai-th',
+  kdw: 'kdw-latn-id',
+  kdx: 'kdx-latn-ng',
+  kdy: 'kdy-latn-id',
+  kdz: 'kdz-latn-cm',
+  kea: 'kea-latn-cv',
+  keb: 'keb-latn-ga',
+  kec: 'kec-latn-sd',
+  ked: 'ked-latn-tz',
+  kee: 'kee-latn-us',
+  kef: 'kef-latn-tg',
+  keg: 'keg-latn-sd',
+  keh: 'keh-latn-pg',
+  kei: 'kei-latn-id',
+  kek: 'kek-latn-gt',
+  kel: 'kel-latn-cd',
+  kem: 'kem-latn-tl',
+  ken: 'ken-latn-cm',
+  keo: 'keo-latn-ug',
+  ker: 'ker-latn-td',
+  kes: 'kes-latn-ng',
+  ket: 'ket-cyrl-ru',
+  keu: 'keu-latn-tg',
+  kew: 'kew-latn-pg',
+  kex: 'kex-deva-in',
+  'kex-gujr': 'kex-gujr-in',
+  key: 'key-telu-in',
+  kez: 'kez-latn-zz',
+  kfa: 'kfa-knda-in',
+  kfb: 'kfb-deva-in',
+  kfc: 'kfc-telu-in',
+  kfd: 'kfd-knda-in',
+  kfe: 'kfe-taml-in',
+  kff: 'kff-latn-in',
+  'kff-deva': 'kff-deva-in',
+  'kff-orya': 'kff-orya-in',
+  'kff-telu': 'kff-telu-in',
+  kfh: 'kfh-mlym-in',
+  kfi: 'kfi-taml-in',
+  'kfi-knda': 'kfi-knda-in',
+  kfk: 'kfk-deva-in',
+  'kfk-takr': 'kfk-takr-in',
+  kfl: 'kfl-latn-cm',
+  kfm: 'kfm-arab-ir',
+  kfn: 'kfn-latn-cm',
+  kfo: 'kfo-latn-ci',
+  kfp: 'kfp-deva-in',
+  kfq: 'kfq-deva-in',
+  kfr: 'kfr-deva-in',
+  kfs: 'kfs-deva-in',
+  kfv: 'kfv-latn-in',
+  kfw: 'kfw-latn-in',
+  kfx: 'kfx-deva-in',
+  'kfx-takr': 'kfx-takr-in',
+  kfy: 'kfy-deva-in',
+  kfz: 'kfz-latn-bf',
+  kg: 'kg-latn-cd',
+  kga: 'kga-latn-ci',
+  kgb: 'kgb-latn-id',
+  kge: 'kge-latn-id',
+  kgf: 'kgf-latn-zz',
+  kgj: 'kgj-deva-np',
+  kgk: 'kgk-latn-br',
+  kgl: 'kgl-latn-au',
+  kgm: 'kgm-latn-br',
+  kgo: 'kgo-latn-sd',
+  kgp: 'kgp-latn-br',
+  kgq: 'kgq-latn-id',
+  kgr: 'kgr-latn-id',
+  kgs: 'kgs-latn-au',
+  kgt: 'kgt-latn-ng',
+  kgu: 'kgu-latn-pg',
+  kgv: 'kgv-latn-id',
+  kgw: 'kgw-latn-id',
+  kgx: 'kgx-latn-id',
+  kgy: 'kgy-deva-np',
+  kha: 'kha-latn-in',
+  khb: 'khb-talu-cn',
+  khc: 'khc-latn-id',
+  khd: 'khd-latn-id',
+  khe: 'khe-latn-id',
+  khf: 'khf-thai-la',
+  khg: 'khg-tibt-cn',
+  khh: 'khh-latn-id',
+  khj: 'khj-latn-ng',
+  khl: 'khl-latn-pg',
+  khn: 'khn-deva-in',
+  khp: 'khp-latn-id',
+  khq: 'khq-latn-ml',
+  khr: 'khr-latn-in',
+  'khr-deva': 'khr-deva-in',
+  khs: 'khs-latn-zz',
+  kht: 'kht-mymr-in',
+  khu: 'khu-latn-ao',
+  khv: 'khv-cyrl-ru',
+  khw: 'khw-arab-pk',
+  khx: 'khx-latn-cd',
+  khy: 'khy-latn-cd',
+  khz: 'khz-latn-zz',
+  ki: 'ki-latn-ke',
+  kia: 'kia-latn-td',
+  kib: 'kib-latn-sd',
+  kic: 'kic-latn-us',
+  kid: 'kid-latn-cm',
+  kie: 'kie-latn-td',
+  kif: 'kif-deva-np',
+  kig: 'kig-latn-id',
+  kih: 'kih-latn-pg',
+  kij: 'kij-latn-zz',
+  kil: 'kil-latn-ng',
+  kim: 'kim-cyrl-ru',
+  kio: 'kio-latn-us',
+  kip: 'kip-deva-np',
+  kiq: 'kiq-latn-id',
+  kis: 'kis-latn-pg',
+  kit: 'kit-latn-pg',
+  kiu: 'kiu-latn-tr',
+  kiv: 'kiv-latn-tz',
+  kiw: 'kiw-latn-zz',
+  kix: 'kix-latn-in',
+  kiy: 'kiy-latn-id',
+  kiz: 'kiz-latn-tz',
+  kj: 'kj-latn-na',
+  kja: 'kja-latn-id',
+  kjb: 'kjb-latn-gt',
+  kjc: 'kjc-latn-id',
+  kjd: 'kjd-latn-zz',
+  kje: 'kje-latn-id',
+  kjg: 'kjg-laoo-la',
+  kjh: 'kjh-cyrl-ru',
+  kji: 'kji-latn-sb',
+  kjj: 'kjj-latn-az',
+  kjk: 'kjk-latn-id',
+  kjl: 'kjl-deva-np',
+  kjm: 'kjm-latn-vn',
+  kjn: 'kjn-latn-au',
+  kjo: 'kjo-deva-in',
+  kjp: 'kjp-mymr-mm',
+  'kjp-thai': 'kjp-thai-th',
+  kjq: 'kjq-latn-us',
+  kjr: 'kjr-latn-id',
+  kjs: 'kjs-latn-zz',
+  kjt: 'kjt-thai-th',
+  kju: 'kju-latn-us',
+  kjx: 'kjx-latn-pg',
+  kjy: 'kjy-latn-zz',
+  kk: 'kk-cyrl-kz',
+  'kk-af': 'kk-arab-af',
+  'kk-arab': 'kk-arab-cn',
+  'kk-cn': 'kk-arab-cn',
+  'kk-ir': 'kk-arab-ir',
+  'kk-mn': 'kk-arab-mn',
+  kka: 'kka-latn-ng',
+  kkb: 'kkb-latn-id',
+  kkc: 'kkc-latn-zz',
+  kkd: 'kkd-latn-ng',
+  kke: 'kke-latn-gn',
+  'kke-arab': 'kke-arab-gn',
+  kkf: 'kkf-tibt-in',
+  kkg: 'kkg-latn-ph',
+  kkh: 'kkh-lana-mm',
+  kki: 'kki-latn-tz',
+  kkj: 'kkj-latn-cm',
+  kkk: 'kkk-latn-sb',
+  kkl: 'kkl-latn-id',
+  kkm: 'kkm-latn-ng',
+  kko: 'kko-latn-sd',
+  kkp: 'kkp-latn-au',
+  kkq: 'kkq-latn-cd',
+  kkr: 'kkr-latn-ng',
+  kks: 'kks-latn-ng',
+  kkt: 'kkt-deva-np',
+  kku: 'kku-latn-ng',
+  kkv: 'kkv-latn-id',
+  kkw: 'kkw-latn-cg',
+  kkx: 'kkx-latn-id',
+  kky: 'kky-latn-au',
+  kkz: 'kkz-latn-ca',
+  kl: 'kl-latn-gl',
+  kla: 'kla-latn-us',
+  klb: 'klb-latn-mx',
+  klc: 'klc-latn-cm',
+  kld: 'kld-latn-au',
+  kle: 'kle-deva-np',
+  klf: 'klf-latn-td',
+  klg: 'klg-latn-ph',
+  klh: 'klh-latn-pg',
+  kli: 'kli-latn-id',
+  klj: 'klj-arab-ir',
+  klk: 'klk-latn-ng',
+  kll: 'kll-latn-ph',
+  klm: 'klm-latn-pg',
+  kln: 'kln-latn-ke',
+  klo: 'klo-latn-ng',
+  klp: 'klp-latn-pg',
+  klq: 'klq-latn-zz',
+  klr: 'klr-deva-np',
+  kls: 'kls-latn-pk',
+  'kls-arab': 'kls-arab-pk',
+  klt: 'klt-latn-zz',
+  klu: 'klu-latn-lr',
+  klv: 'klv-latn-vu',
+  klw: 'klw-latn-id',
+  klx: 'klx-latn-zz',
+  kly: 'kly-latn-id',
+  klz: 'klz-latn-id',
+  km: 'km-khmr-kh',
+  kma: 'kma-latn-gh',
+  kmb: 'kmb-latn-ao',
+  kmc: 'kmc-latn-cn',
+  'kmc-hani': 'kmc-hani-cn',
+  kmd: 'kmd-latn-ph',
+  kme: 'kme-latn-cm',
+  kmf: 'kmf-latn-pg',
+  kmg: 'kmg-latn-pg',
+  kmh: 'kmh-latn-zz',
+  kmi: 'kmi-latn-ng',
+  kmj: 'kmj-deva-in',
+  kmk: 'kmk-latn-ph',
+  kml: 'kml-latn-ph',
+  kmm: 'kmm-latn-in',
+  kmn: 'kmn-latn-pg',
+  kmo: 'kmo-latn-zz',
+  kmp: 'kmp-latn-cm',
+  kmq: 'kmq-latn-et',
+  kms: 'kms-latn-zz',
+  kmt: 'kmt-latn-id',
+  kmu: 'kmu-latn-zz',
+  kmv: 'kmv-latn-br',
+  kmw: 'kmw-latn-zz',
+  kmx: 'kmx-latn-pg',
+  kmy: 'kmy-latn-ng',
+  kmz: 'kmz-arab-ir',
+  kn: 'kn-knda-in',
+  kna: 'kna-latn-ng',
+  knb: 'knb-latn-ph',
+  knd: 'knd-latn-id',
+  kne: 'kne-latn-ph',
+  knf: 'knf-latn-gw',
+  kni: 'kni-latn-ng',
+  knj: 'knj-latn-gt',
+  knk: 'knk-latn-sl',
+  'knk-arab': 'knk-arab-sl',
+  knl: 'knl-latn-id',
+  knm: 'knm-latn-br',
+  kno: 'kno-latn-sl',
+  knp: 'knp-latn-zz',
+  knq: 'knq-latn-my',
+  knr: 'knr-latn-pg',
+  kns: 'kns-latn-my',
+  'kns-thai': 'kns-thai-th',
+  knt: 'knt-latn-br',
+  knu: 'knu-latn-gn',
+  knv: 'knv-latn-pg',
+  knw: 'knw-latn-na',
+  knx: 'knx-latn-id',
+  kny: 'kny-latn-cd',
+  knz: 'knz-latn-bf',
+  ko: 'ko-kore-kr',
+  koa: 'koa-latn-pg',
+  koc: 'koc-latn-ng',
+  kod: 'kod-latn-id',
+  koe: 'koe-latn-ss',
+  kof: 'kof-latn-ng',
+  kog: 'kog-latn-co',
+  koh: 'koh-latn-cg',
+  koi: 'koi-cyrl-ru',
+  kok: 'kok-deva-in',
+  kol: 'kol-latn-zz',
+  koo: 'koo-latn-ug',
+  kop: 'kop-latn-pg',
+  koq: 'koq-latn-ga',
+  kos: 'kos-latn-fm',
+  kot: 'kot-latn-cm',
+  kou: 'kou-latn-td',
+  kov: 'kov-latn-ng',
+  kow: 'kow-latn-ng',
+  koy: 'koy-latn-us',
+  koz: 'koz-latn-zz',
+  kpa: 'kpa-latn-ng',
+  kpc: 'kpc-latn-co',
+  kpd: 'kpd-latn-id',
+  kpe: 'kpe-latn-lr',
+  kpf: 'kpf-latn-zz',
+  kpg: 'kpg-latn-fm',
+  kph: 'kph-latn-gh',
+  kpi: 'kpi-latn-id',
+  kpj: 'kpj-latn-br',
+  kpk: 'kpk-latn-ng',
+  kpl: 'kpl-latn-cd',
+  kpm: 'kpm-latn-vn',
+  kpn: 'kpn-latn-br',
+  kpo: 'kpo-latn-zz',
+  kpq: 'kpq-latn-id',
+  kpr: 'kpr-latn-zz',
+  kps: 'kps-latn-id',
+  kpt: 'kpt-cyrl-ru',
+  kpu: 'kpu-latn-id',
+  kpw: 'kpw-latn-pg',
+  kpx: 'kpx-latn-zz',
+  kpy: 'kpy-cyrl-ru',
+  kpz: 'kpz-latn-ug',
+  kqa: 'kqa-latn-pg',
+  kqb: 'kqb-latn-zz',
+  kqc: 'kqc-latn-pg',
+  kqd: 'kqd-syrc-iq',
+  kqe: 'kqe-latn-ph',
+  kqf: 'kqf-latn-zz',
+  kqg: 'kqg-latn-bf',
+  kqh: 'kqh-latn-tz',
+  kqi: 'kqi-latn-pg',
+  kqj: 'kqj-latn-pg',
+  kqk: 'kqk-latn-bj',
+  kql: 'kql-latn-pg',
+  kqm: 'kqm-latn-ci',
+  kqn: 'kqn-latn-zm',
+  kqo: 'kqo-latn-lr',
+  kqp: 'kqp-latn-td',
+  kqq: 'kqq-latn-br',
+  kqr: 'kqr-latn-my',
+  kqs: 'kqs-latn-zz',
+  kqt: 'kqt-latn-my',
+  kqu: 'kqu-latn-za',
+  kqv: 'kqv-latn-id',
+  kqw: 'kqw-latn-pg',
+  kqx: 'kqx-latn-cm',
+  kqy: 'kqy-ethi-zz',
+  kqz: 'kqz-latn-za',
+  kr: 'kr-latn-zz',
+  kra: 'kra-deva-np',
+  krb: 'krb-latn-us',
+  krc: 'krc-cyrl-ru',
+  krd: 'krd-latn-tl',
+  kre: 'kre-latn-br',
+  krf: 'krf-latn-vu',
+  krh: 'krh-latn-ng',
+  kri: 'kri-latn-sl',
+  krj: 'krj-latn-ph',
+  krk: 'krk-cyrl-ru',
+  krl: 'krl-latn-ru',
+  krn: 'krn-latn-lr',
+  krp: 'krp-latn-ng',
+  krr: 'krr-khmr-kh',
+  krs: 'krs-latn-zz',
+  krt: 'krt-latn-ne',
+  kru: 'kru-deva-in',
+  krv: 'krv-khmr-kh',
+  krw: 'krw-latn-lr',
+  krx: 'krx-latn-sn',
+  kry: 'kry-latn-az',
+  krz: 'krz-latn-id',
+  ks: 'ks-arab-in',
+  ksa: 'ksa-latn-ng',
+  ksb: 'ksb-latn-tz',
+  ksc: 'ksc-latn-ph',
+  ksd: 'ksd-latn-zz',
+  kse: 'kse-latn-pg',
+  ksf: 'ksf-latn-cm',
+  ksg: 'ksg-latn-sb',
+  ksh: 'ksh-latn-de',
+  ksi: 'ksi-latn-pg',
+  ksj: 'ksj-latn-zz',
+  ksk: 'ksk-latn-us',
+  ksl: 'ksl-latn-pg',
+  ksm: 'ksm-latn-ng',
+  ksn: 'ksn-latn-ph',
+  kso: 'kso-latn-ng',
+  ksp: 'ksp-latn-cf',
+  ksq: 'ksq-latn-ng',
+  ksr: 'ksr-latn-zz',
+  kss: 'kss-latn-lr',
+  kst: 'kst-latn-bf',
+  ksu: 'ksu-mymr-in',
+  ksv: 'ksv-latn-cd',
+  ksw: 'ksw-mymr-mm',
+  'ksw-latn': 'ksw-latn-mm',
+  ksx: 'ksx-latn-id',
+  ksz: 'ksz-deva-in',
+  kta: 'kta-latn-vn',
+  ktb: 'ktb-ethi-zz',
+  ktc: 'ktc-latn-ng',
+  ktd: 'ktd-latn-au',
+  ktf: 'ktf-latn-cd',
+  ktg: 'ktg-latn-au',
+  kth: 'kth-latn-td',
+  kti: 'kti-latn-id',
+  ktj: 'ktj-latn-ci',
+  ktk: 'ktk-latn-pg',
+  ktl: 'ktl-arab-ir',
+  ktm: 'ktm-latn-zz',
+  ktn: 'ktn-latn-br',
+  kto: 'kto-latn-zz',
+  ktp: 'ktp-plrd-cn',
+  ktq: 'ktq-latn-ph',
+  ktr: 'ktr-latn-my',
+  kts: 'kts-latn-id',
+  ktt: 'ktt-latn-id',
+  ktu: 'ktu-latn-cd',
+  ktv: 'ktv-latn-vn',
+  ktw: 'ktw-latn-us',
+  ktx: 'ktx-latn-br',
+  kty: 'kty-latn-cd',
+  ktz: 'ktz-latn-na',
+  ku: 'ku-latn-tr',
+  'ku-arab': 'ku-arab-iq',
+  'ku-lb': 'ku-arab-lb',
+  'ku-yezi': 'ku-yezi-ge',
+  kub: 'kub-latn-zz',
+  kuc: 'kuc-latn-id',
+  kud: 'kud-latn-zz',
+  kue: 'kue-latn-zz',
+  kuf: 'kuf-laoo-la',
+  kug: 'kug-latn-ng',
+  kuh: 'kuh-latn-ng',
+  kui: 'kui-latn-br',
+  kuj: 'kuj-latn-zz',
+  kuk: 'kuk-latn-id',
+  kul: 'kul-latn-ng',
+  kum: 'kum-cyrl-ru',
+  kun: 'kun-latn-zz',
+  kuo: 'kuo-latn-pg',
+  kup: 'kup-latn-zz',
+  kuq: 'kuq-latn-br',
+  kus: 'kus-latn-zz',
+  kut: 'kut-latn-ca',
+  kuu: 'kuu-latn-us',
+  kuv: 'kuv-latn-id',
+  kuw: 'kuw-latn-cf',
+  kux: 'kux-latn-au',
+  kuy: 'kuy-latn-au',
+  kuz: 'kuz-latn-cl',
+  kv: 'kv-cyrl-ru',
+  kva: 'kva-cyrl-ru',
+  kvb: 'kvb-latn-id',
+  kvc: 'kvc-latn-pg',
+  kvd: 'kvd-latn-id',
+  kve: 'kve-latn-my',
+  kvf: 'kvf-latn-td',
+  kvg: 'kvg-latn-zz',
+  kvh: 'kvh-latn-id',
+  kvi: 'kvi-latn-td',
+  kvj: 'kvj-latn-cm',
+  kvl: 'kvl-latn-mm',
+  kvm: 'kvm-latn-cm',
+  kvn: 'kvn-latn-co',
+  kvo: 'kvo-latn-id',
+  kvp: 'kvp-latn-id',
+  kvq: 'kvq-mymr-mm',
+  'kvq-latn': 'kvq-latn-mm',
+  kvr: 'kvr-latn-id',
+  kvt: 'kvt-mymr-mm',
+  kvv: 'kvv-latn-id',
+  kvw: 'kvw-latn-id',
+  kvx: 'kvx-arab-pk',
+  kvy: 'kvy-kali-mm',
+  kvz: 'kvz-latn-id',
+  kw: 'kw-latn-gb',
+  kwa: 'kwa-latn-br',
+  kwb: 'kwb-latn-ng',
+  kwc: 'kwc-latn-cg',
+  kwd: 'kwd-latn-sb',
+  kwe: 'kwe-latn-id',
+  kwf: 'kwf-latn-sb',
+  kwg: 'kwg-latn-td',
+  kwh: 'kwh-latn-id',
+  kwi: 'kwi-latn-co',
+  kwj: 'kwj-latn-zz',
+  kwk: 'kwk-latn-ca',
+  kwl: 'kwl-latn-ng',
+  kwm: 'kwm-latn-na',
+  kwn: 'kwn-latn-na',
+  kwo: 'kwo-latn-zz',
+  kwp: 'kwp-latn-ci',
+  kwq: 'kwq-latn-zz',
+  kwr: 'kwr-latn-id',
+  kws: 'kws-latn-cd',
+  kwt: 'kwt-latn-id',
+  kwu: 'kwu-latn-cm',
+  kwv: 'kwv-latn-td',
+  kww: 'kww-latn-sr',
+  kwy: 'kwy-latn-cd',
+  kwz: 'kwz-latn-ao',
+  kxa: 'kxa-latn-zz',
+  kxb: 'kxb-latn-ci',
+  kxc: 'kxc-ethi-zz',
+  kxd: 'kxd-latn-bn',
+  'kxd-arab': 'kxd-arab-bn',
+  kxe: 'kxe-latn-zz',
+  kxf: 'kxf-mymr-mm',
+  'kxf-latn': 'kxf-latn-mm',
+  kxi: 'kxi-latn-my',
+  kxj: 'kxj-latn-td',
+  kxk: 'kxk-mymr-mm',
+  kxl: 'kxl-deva-in',
+  kxm: 'kxm-thai-th',
+  kxn: 'kxn-latn-my',
+  kxo: 'kxo-latn-br',
+  kxp: 'kxp-arab-pk',
+  kxq: 'kxq-latn-id',
+  kxr: 'kxr-latn-pg',
+  kxt: 'kxt-latn-pg',
+  kxv: 'kxv-orya-in',
+  'kxv-latn': 'kxv-latn-in',
+  'kxv-telu': 'kxv-telu-in',
+  kxw: 'kxw-latn-zz',
+  kxx: 'kxx-latn-cg',
+  kxy: 'kxy-latn-vn',
+  kxz: 'kxz-latn-zz',
+  ky: 'ky-cyrl-kg',
+  'ky-arab': 'ky-arab-cn',
+  'ky-cn': 'ky-arab-cn',
+  'ky-latn': 'ky-latn-tr',
+  'ky-tr': 'ky-latn-tr',
+  kya: 'kya-latn-tz',
+  kyb: 'kyb-latn-ph',
+  kyc: 'kyc-latn-pg',
+  kyd: 'kyd-latn-id',
+  kye: 'kye-latn-zz',
+  kyf: 'kyf-latn-ci',
+  kyg: 'kyg-latn-pg',
+  kyh: 'kyh-latn-us',
+  kyi: 'kyi-latn-my',
+  kyj: 'kyj-latn-ph',
+  kyk: 'kyk-latn-ph',
+  kyl: 'kyl-latn-us',
+  kym: 'kym-latn-cf',
+  kyn: 'kyn-latn-ph',
+  kyo: 'kyo-latn-id',
+  kyq: 'kyq-latn-td',
+  kyr: 'kyr-latn-br',
+  kys: 'kys-latn-my',
+  kyt: 'kyt-latn-id',
+  kyu: 'kyu-kali-mm',
+  'kyu-latn': 'kyu-latn-mm',
+  'kyu-mymr': 'kyu-mymr-mm',
+  kyv: 'kyv-deva-np',
+  kyw: 'kyw-deva-in',
+  'kyw-beng': 'kyw-beng-in',
+  'kyw-orya': 'kyw-orya-in',
+  kyx: 'kyx-latn-zz',
+  kyy: 'kyy-latn-pg',
+  kyz: 'kyz-latn-br',
+  kza: 'kza-latn-bf',
+  kzb: 'kzb-latn-id',
+  kzc: 'kzc-latn-ci',
+  kzd: 'kzd-latn-id',
+  kze: 'kze-latn-pg',
+  kzf: 'kzf-latn-id',
+  kzh: 'kzh-arab-zz',
+  kzi: 'kzi-latn-my',
+  kzj: 'kzj-latn-my',
+  kzk: 'kzk-latn-sb',
+  kzl: 'kzl-latn-id',
+  kzm: 'kzm-latn-id',
+  kzn: 'kzn-latn-mw',
+  kzo: 'kzo-latn-ga',
+  kzp: 'kzp-latn-id',
+  kzr: 'kzr-latn-zz',
+  kzs: 'kzs-latn-my',
+  kzt: 'kzt-latn-my',
+  kzu: 'kzu-latn-id',
+  kzv: 'kzv-latn-id',
+  kzw: 'kzw-latn-br',
+  kzx: 'kzx-latn-id',
+  kzy: 'kzy-latn-cd',
+  kzz: 'kzz-latn-id',
+  la: 'la-latn-va',
+  laa: 'laa-latn-ph',
+  lab: 'lab-lina-gr',
+  lac: 'lac-latn-mx',
+  lad: 'lad-hebr-il',
+  lae: 'lae-deva-in',
+  'lae-tibt': 'lae-tibt-in',
+  lag: 'lag-latn-tz',
+  lah: 'lah-arab-pk',
+  lai: 'lai-latn-mw',
+  laj: 'laj-latn-ug',
+  lal: 'lal-latn-cd',
+  lam: 'lam-latn-zm',
+  lan: 'lan-latn-ng',
+  lap: 'lap-latn-td',
+  laq: 'laq-latn-vn',
+  lar: 'lar-latn-gh',
+  las: 'las-latn-zz',
+  lau: 'lau-latn-id',
+  law: 'law-latn-id',
+  lax: 'lax-latn-in',
+  'lax-beng': 'lax-beng-in',
+  laz: 'laz-latn-pg',
+  lb: 'lb-latn-lu',
+  lbb: 'lbb-latn-pg',
+  lbc: 'lbc-lisu-cn',
+  lbe: 'lbe-cyrl-ru',
+  lbf: 'lbf-deva-in',
+  'lbf-tibt': 'lbf-tibt-cn',
+  lbi: 'lbi-latn-cm',
+  lbj: 'lbj-tibt-in',
+  'lbj-arab': 'lbj-arab-in',
+  lbl: 'lbl-latn-ph',
+  lbm: 'lbm-deva-in',
+  lbn: 'lbn-latn-la',
+  'lbn-laoo': 'lbn-laoo-la',
+  lbo: 'lbo-laoo-la',
+  'lbo-latn': 'lbo-latn-us',
+  lbq: 'lbq-latn-pg',
+  lbr: 'lbr-deva-np',
+  lbt: 'lbt-latn-vn',
+  lbu: 'lbu-latn-zz',
+  lbv: 'lbv-latn-pg',
+  lbw: 'lbw-latn-id',
+  lbx: 'lbx-latn-id',
+  lby: 'lby-latn-au',
+  lbz: 'lbz-latn-au',
+  lcc: 'lcc-latn-id',
+  lcd: 'lcd-latn-id',
+  lce: 'lce-latn-id',
+  lcf: 'lcf-latn-id',
+  lch: 'lch-latn-ao',
+  lcl: 'lcl-latn-id',
+  lcm: 'lcm-latn-zz',
+  lcp: 'lcp-thai-cn',
+  lcq: 'lcq-latn-id',
+  lcs: 'lcs-latn-id',
+  lda: 'lda-latn-ci',
+  ldb: 'ldb-latn-zz',
+  ldd: 'ldd-latn-ng',
+  ldg: 'ldg-latn-ng',
+  ldh: 'ldh-latn-ng',
+  ldi: 'ldi-latn-cg',
+  ldj: 'ldj-latn-ng',
+  ldk: 'ldk-latn-ng',
+  ldl: 'ldl-latn-ng',
+  ldm: 'ldm-latn-gn',
+  ldn: 'ldn-latn-001',
+  ldo: 'ldo-latn-ng',
+  ldp: 'ldp-latn-ng',
+  ldq: 'ldq-latn-ng',
+  lea: 'lea-latn-cd',
+  leb: 'leb-latn-zm',
+  lec: 'lec-latn-bo',
+  led: 'led-latn-zz',
+  lee: 'lee-latn-zz',
+  lef: 'lef-latn-gh',
+  leh: 'leh-latn-zm',
+  lei: 'lei-latn-pg',
+  lej: 'lej-latn-cd',
+  lek: 'lek-latn-pg',
+  lel: 'lel-latn-cd',
+  lem: 'lem-latn-zz',
+  len: 'len-latn-hn',
+  leo: 'leo-latn-cm',
+  lep: 'lep-lepc-in',
+  leq: 'leq-latn-zz',
+  ler: 'ler-latn-pg',
+  les: 'les-latn-cd',
+  let: 'let-latn-pg',
+  leu: 'leu-latn-zz',
+  lev: 'lev-latn-id',
+  lew: 'lew-latn-id',
+  lex: 'lex-latn-id',
+  ley: 'ley-latn-id',
+  lez: 'lez-cyrl-ru',
+  lfa: 'lfa-latn-cm',
+  lfn: 'lfn-latn-001',
+  'lfn-cyrl': 'lfn-cyrl-001',
+  lg: 'lg-latn-ug',
+  lga: 'lga-latn-sb',
+  lgb: 'lgb-latn-sb',
+  lgg: 'lgg-latn-zz',
+  lgh: 'lgh-latn-vn',
+  lgi: 'lgi-latn-id',
+  lgk: 'lgk-latn-vu',
+  lgl: 'lgl-latn-sb',
+  lgm: 'lgm-latn-cd',
+  lgn: 'lgn-latn-et',
+  lgo: 'lgo-latn-ss',
+  lgq: 'lgq-latn-gh',
+  lgr: 'lgr-latn-sb',
+  lgt: 'lgt-latn-pg',
+  lgu: 'lgu-latn-sb',
+  lgz: 'lgz-latn-cd',
+  lha: 'lha-latn-vn',
+  lhh: 'lhh-latn-id',
+  lhi: 'lhi-latn-cn',
+  lhm: 'lhm-deva-np',
+  lhn: 'lhn-latn-my',
+  lhs: 'lhs-syrc-sy',
+  lht: 'lht-latn-vu',
+  lhu: 'lhu-latn-cn',
+  li: 'li-latn-nl',
+  lia: 'lia-latn-zz',
+  lib: 'lib-latn-pg',
+  lic: 'lic-latn-cn',
+  lid: 'lid-latn-zz',
+  lie: 'lie-latn-cd',
+  lif: 'lif-deva-np',
+  'lif-limb': 'lif-limb-in',
+  lig: 'lig-latn-zz',
+  lih: 'lih-latn-zz',
+  lij: 'lij-latn-it',
+  lik: 'lik-latn-cd',
+  lil: 'lil-latn-ca',
+  lio: 'lio-latn-id',
+  lip: 'lip-latn-gh',
+  liq: 'liq-latn-et',
+  lir: 'lir-latn-lr',
+  lis: 'lis-lisu-cn',
+  liu: 'liu-latn-sd',
+  liv: 'liv-latn-lv',
+  liw: 'liw-latn-id',
+  lix: 'lix-latn-id',
+  liy: 'liy-latn-cf',
+  liz: 'liz-latn-cd',
+  lja: 'lja-latn-au',
+  lje: 'lje-latn-id',
+  lji: 'lji-latn-id',
+  ljl: 'ljl-latn-id',
+  ljp: 'ljp-latn-id',
+  ljw: 'ljw-latn-au',
+  ljx: 'ljx-latn-au',
+  lka: 'lka-latn-tl',
+  lkb: 'lkb-latn-ke',
+  lkc: 'lkc-latn-vn',
+  lkd: 'lkd-latn-br',
+  lke: 'lke-latn-ug',
+  lkh: 'lkh-tibt-bt',
+  lki: 'lki-arab-ir',
+  lkj: 'lkj-latn-my',
+  lkl: 'lkl-latn-pg',
+  lkm: 'lkm-latn-au',
+  lkn: 'lkn-latn-vu',
+  lko: 'lko-latn-ke',
+  lkr: 'lkr-latn-ss',
+  lks: 'lks-latn-ke',
+  lkt: 'lkt-latn-us',
+  lku: 'lku-latn-au',
+  lky: 'lky-latn-ss',
+  lla: 'lla-latn-ng',
+  llb: 'llb-latn-mz',
+  llc: 'llc-latn-gn',
+  lld: 'lld-latn-it',
+  lle: 'lle-latn-zz',
+  llf: 'llf-latn-pg',
+  llg: 'llg-latn-id',
+  lli: 'lli-latn-cg',
+  llj: 'llj-latn-au',
+  llk: 'llk-latn-my',
+  lll: 'lll-latn-pg',
+  llm: 'llm-latn-id',
+  lln: 'lln-latn-zz',
+  llp: 'llp-latn-vu',
+  llq: 'llq-latn-id',
+  llu: 'llu-latn-sb',
+  llx: 'llx-latn-fj',
+  lma: 'lma-latn-gn',
+  lmb: 'lmb-latn-vu',
+  lmc: 'lmc-latn-au',
+  lmd: 'lmd-latn-sd',
+  lme: 'lme-latn-td',
+  lmf: 'lmf-latn-id',
+  lmg: 'lmg-latn-pg',
+  lmh: 'lmh-deva-np',
+  lmi: 'lmi-latn-cd',
+  lmj: 'lmj-latn-id',
+  lmk: 'lmk-latn-in',
+  'lmk-mymr': 'lmk-mymr-in',
+  lml: 'lml-latn-vu',
+  lmn: 'lmn-telu-in',
+  lmo: 'lmo-latn-it',
+  lmp: 'lmp-latn-zz',
+  lmq: 'lmq-latn-id',
+  lmr: 'lmr-latn-id',
+  lmu: 'lmu-latn-vu',
+  lmv: 'lmv-latn-fj',
+  lmw: 'lmw-latn-us',
+  lmx: 'lmx-latn-cm',
+  lmy: 'lmy-latn-id',
+  ln: 'ln-latn-cd',
+  lna: 'lna-latn-cf',
+  lnb: 'lnb-latn-na',
+  lnd: 'lnd-latn-id',
+  lnh: 'lnh-latn-my',
+  lni: 'lni-latn-pg',
+  lnj: 'lnj-latn-au',
+  lnl: 'lnl-latn-cf',
+  lnm: 'lnm-latn-pg',
+  lnn: 'lnn-latn-vu',
+  lns: 'lns-latn-zz',
+  lnu: 'lnu-latn-zz',
+  lnw: 'lnw-latn-au',
+  lnz: 'lnz-latn-cd',
+  lo: 'lo-laoo-la',
+  loa: 'loa-latn-id',
+  lob: 'lob-latn-bf',
+  loc: 'loc-latn-ph',
+  loe: 'loe-latn-id',
+  log: 'log-latn-cd',
+  loh: 'loh-latn-ss',
+  loi: 'loi-latn-ci',
+  loj: 'loj-latn-zz',
+  lok: 'lok-latn-zz',
+  lol: 'lol-latn-cd',
+  lom: 'lom-latn-lr',
+  lon: 'lon-latn-mw',
+  loo: 'loo-latn-cd',
+  lop: 'lop-latn-ng',
+  loq: 'loq-latn-cd',
+  lor: 'lor-latn-zz',
+  los: 'los-latn-zz',
+  lot: 'lot-latn-ss',
+  'lot-arab': 'lot-arab-ss',
+  lou: 'lou-latn-us',
+  low: 'low-latn-my',
+  lox: 'lox-latn-id',
+  loy: 'loy-deva-np',
+  'loy-tibt': 'loy-tibt-np',
+  loz: 'loz-latn-zm',
+  lpa: 'lpa-latn-vu',
+  lpe: 'lpe-latn-id',
+  lpn: 'lpn-latn-mm',
+  lpo: 'lpo-plrd-cn',
+  'lpo-lisu': 'lpo-lisu-cn',
+  lpx: 'lpx-latn-ss',
+  lqr: 'lqr-latn-ss',
+  lra: 'lra-latn-my',
+  lrc: 'lrc-arab-ir',
+  lrg: 'lrg-latn-au',
+  lri: 'lri-latn-ke',
+  lrk: 'lrk-arab-pk',
+  lrl: 'lrl-arab-ir',
+  lrm: 'lrm-latn-ke',
+  lrn: 'lrn-latn-id',
+  lro: 'lro-latn-sd',
+  lrt: 'lrt-latn-id',
+  lrv: 'lrv-latn-vu',
+  lrz: 'lrz-latn-vu',
+  lsa: 'lsa-arab-ir',
+  lsd: 'lsd-hebr-il',
+  lse: 'lse-latn-cd',
+  lsi: 'lsi-latn-mm',
+  lsm: 'lsm-latn-ug',
+  lsr: 'lsr-latn-pg',
+  lss: 'lss-arab-pk',
+  lt: 'lt-latn-lt',
+  ltg: 'ltg-latn-lv',
+  lth: 'lth-latn-ug',
+  lti: 'lti-latn-id',
+  ltn: 'ltn-latn-br',
+  lto: 'lto-latn-ke',
+  lts: 'lts-latn-ke',
+  ltu: 'ltu-latn-id',
+  lu: 'lu-latn-cd',
+  lua: 'lua-latn-cd',
+  luc: 'luc-latn-ug',
+  lud: 'lud-latn-ru',
+  lue: 'lue-latn-zm',
+  luf: 'luf-latn-pg',
+  lui: 'lui-latn-us',
+  luj: 'luj-latn-cd',
+  luk: 'luk-tibt-bt',
+  lul: 'lul-latn-ss',
+  lum: 'lum-latn-ao',
+  lun: 'lun-latn-zm',
+  luo: 'luo-latn-ke',
+  lup: 'lup-latn-ga',
+  luq: 'luq-latn-cu',
+  lur: 'lur-latn-id',
+  lus: 'lus-latn-in',
+  'lus-beng': 'lus-beng-bd',
+  'lus-brai': 'lus-brai-in',
+  lut: 'lut-latn-us',
+  luu: 'luu-deva-np',
+  luv: 'luv-arab-om',
+  luw: 'luw-latn-cm',
+  luy: 'luy-latn-ke',
+  luz: 'luz-arab-ir',
+  lv: 'lv-latn-lv',
+  lva: 'lva-latn-tl',
+  lvi: 'lvi-latn-la',
+  lvk: 'lvk-latn-sb',
+  lvu: 'lvu-latn-id',
+  lwa: 'lwa-latn-cd',
+  lwe: 'lwe-latn-id',
+  lwg: 'lwg-latn-ke',
+  lwh: 'lwh-latn-vn',
+  lwl: 'lwl-thai-th',
+  lwm: 'lwm-thai-cn',
+  lwo: 'lwo-latn-ss',
+  'lwo-za': 'lwo-latn-za',
+  lwt: 'lwt-latn-id',
+  lww: 'lww-latn-vu',
+  lxm: 'lxm-latn-pg',
+  lya: 'lya-tibt-bt',
+  lyn: 'lyn-latn-zm',
+  lzh: 'lzh-hans-cn',
+  lzl: 'lzl-latn-vu',
+  lzn: 'lzn-latn-mm',
+  lzz: 'lzz-latn-tr',
+  maa: 'maa-latn-mx',
+  mab: 'mab-latn-mx',
+  mad: 'mad-latn-id',
+  mae: 'mae-latn-ng',
+  maf: 'maf-latn-cm',
+  mag: 'mag-deva-in',
+  mai: 'mai-deva-in',
+  maj: 'maj-latn-mx',
+  mak: 'mak-latn-id',
+  mam: 'mam-latn-gt',
+  man: 'man-latn-gm',
+  'man-gn': 'man-nkoo-gn',
+  'man-nkoo': 'man-nkoo-gn',
+  maq: 'maq-latn-mx',
+  mas: 'mas-latn-ke',
+  mat: 'mat-latn-mx',
+  mau: 'mau-latn-mx',
+  mav: 'mav-latn-br',
+  maw: 'maw-latn-zz',
+  max: 'max-latn-id',
+  maz: 'maz-latn-mx',
+  mba: 'mba-latn-ph',
+  mbb: 'mbb-latn-ph',
+  mbc: 'mbc-latn-br',
+  mbd: 'mbd-latn-ph',
+  mbf: 'mbf-latn-sg',
+  mbh: 'mbh-latn-zz',
+  mbi: 'mbi-latn-ph',
+  mbj: 'mbj-latn-br',
+  mbk: 'mbk-latn-pg',
+  mbl: 'mbl-latn-br',
+  mbm: 'mbm-latn-cg',
+  mbn: 'mbn-latn-co',
+  mbo: 'mbo-latn-zz',
+  mbp: 'mbp-latn-co',
+  mbq: 'mbq-latn-zz',
+  mbr: 'mbr-latn-co',
+  mbs: 'mbs-latn-ph',
+  mbt: 'mbt-latn-ph',
+  mbu: 'mbu-latn-zz',
+  mbv: 'mbv-latn-gn',
+  mbw: 'mbw-latn-zz',
+  mbx: 'mbx-latn-pg',
+  mby: 'mby-arab-pk',
+  mbz: 'mbz-latn-mx',
+  mca: 'mca-latn-py',
+  mcb: 'mcb-latn-pe',
+  mcc: 'mcc-latn-pg',
+  mcd: 'mcd-latn-pe',
+  mce: 'mce-latn-mx',
+  mcf: 'mcf-latn-pe',
+  mcg: 'mcg-latn-ve',
+  mch: 'mch-latn-ve',
+  mci: 'mci-latn-zz',
+  mcj: 'mcj-latn-ng',
+  mck: 'mck-latn-ao',
+  mcl: 'mcl-latn-co',
+  mcm: 'mcm-latn-my',
+  mcn: 'mcn-latn-td',
+  mco: 'mco-latn-mx',
+  mcp: 'mcp-latn-zz',
+  mcq: 'mcq-latn-zz',
+  mcr: 'mcr-latn-zz',
+  mcs: 'mcs-latn-cm',
+  mct: 'mct-latn-cm',
+  mcu: 'mcu-latn-zz',
+  mcv: 'mcv-latn-pg',
+  mcw: 'mcw-latn-td',
+  mcx: 'mcx-latn-cf',
+  mcy: 'mcy-latn-pg',
+  mcz: 'mcz-latn-pg',
+  mda: 'mda-latn-zz',
+  mdb: 'mdb-latn-pg',
+  mdc: 'mdc-latn-pg',
+  mdd: 'mdd-latn-cm',
+  mde: 'mde-arab-zz',
+  mdf: 'mdf-cyrl-ru',
+  mdg: 'mdg-latn-td',
+  mdh: 'mdh-latn-ph',
+  mdi: 'mdi-latn-cd',
+  mdj: 'mdj-latn-zz',
+  mdk: 'mdk-latn-cd',
+  mdm: 'mdm-latn-cd',
+  mdn: 'mdn-latn-cf',
+  mdp: 'mdp-latn-cd',
+  mdq: 'mdq-latn-cd',
+  mdr: 'mdr-latn-id',
+  mds: 'mds-latn-pg',
+  mdt: 'mdt-latn-cg',
+  mdu: 'mdu-latn-cg',
+  mdv: 'mdv-latn-mx',
+  mdw: 'mdw-latn-cg',
+  mdx: 'mdx-ethi-zz',
+  mdy: 'mdy-ethi-et',
+  'mdy-latn': 'mdy-latn-et',
+  mdz: 'mdz-latn-br',
+  mea: 'mea-latn-cm',
+  meb: 'meb-latn-pg',
+  mec: 'mec-latn-au',
+  med: 'med-latn-zz',
+  mee: 'mee-latn-zz',
+  meh: 'meh-latn-mx',
+  mej: 'mej-latn-id',
+  mek: 'mek-latn-zz',
+  mel: 'mel-latn-my',
+  mem: 'mem-latn-au',
+  men: 'men-latn-sl',
+  meo: 'meo-latn-my',
+  'meo-arab': 'meo-arab-my',
+  mep: 'mep-latn-au',
+  meq: 'meq-latn-cm',
+  mer: 'mer-latn-ke',
+  mes: 'mes-latn-td',
+  met: 'met-latn-zz',
+  meu: 'meu-latn-zz',
+  mev: 'mev-latn-lr',
+  mew: 'mew-latn-ng',
+  mey: 'mey-latn-mr',
+  'mey-arab': 'mey-arab-mr',
+  mez: 'mez-latn-us',
+  mfa: 'mfa-arab-th',
+  mfb: 'mfb-latn-id',
+  mfc: 'mfc-latn-cd',
+  mfd: 'mfd-latn-cm',
+  mfe: 'mfe-latn-mu',
+  mff: 'mff-latn-cm',
+  mfg: 'mfg-latn-gn',
+  'mfg-arab': 'mfg-arab-gn',
+  mfh: 'mfh-latn-cm',
+  mfi: 'mfi-arab-cm',
+  'mfi-latn': 'mfi-latn-cm',
+  mfj: 'mfj-latn-cm',
+  mfk: 'mfk-latn-cm',
+  mfl: 'mfl-latn-ng',
+  mfm: 'mfm-latn-ng',
+  mfn: 'mfn-latn-zz',
+  mfo: 'mfo-latn-zz',
+  mfp: 'mfp-latn-id',
+  mfq: 'mfq-latn-zz',
+  mfr: 'mfr-latn-au',
+  mft: 'mft-latn-pg',
+  mfu: 'mfu-latn-ao',
+  mfv: 'mfv-latn-gw',
+  mfw: 'mfw-latn-pg',
+  mfx: 'mfx-latn-et',
+  'mfx-ethi': 'mfx-ethi-et',
+  mfy: 'mfy-latn-mx',
+  mfz: 'mfz-latn-ss',
+  mg: 'mg-latn-mg',
+  mgb: 'mgb-latn-td',
+  mgc: 'mgc-latn-ss',
+  mgd: 'mgd-latn-ss',
+  'mgd-arab': 'mgd-arab-ss',
+  mge: 'mge-latn-td',
+  mgf: 'mgf-latn-id',
+  mgg: 'mgg-latn-cm',
+  mgh: 'mgh-latn-mz',
+  mgi: 'mgi-latn-ng',
+  mgj: 'mgj-latn-ng',
+  mgk: 'mgk-latn-id',
+  mgl: 'mgl-latn-zz',
+  mgm: 'mgm-latn-tl',
+  mgn: 'mgn-latn-cf',
+  mgo: 'mgo-latn-cm',
+  mgp: 'mgp-deva-np',
+  mgq: 'mgq-latn-tz',
+  mgr: 'mgr-latn-zm',
+  mgs: 'mgs-latn-tz',
+  mgt: 'mgt-latn-pg',
+  mgu: 'mgu-latn-pg',
+  mgv: 'mgv-latn-tz',
+  mgw: 'mgw-latn-tz',
+  mgy: 'mgy-latn-tz',
+  mgz: 'mgz-latn-tz',
+  mh: 'mh-latn-mh',
+  mhb: 'mhb-latn-ga',
+  mhc: 'mhc-latn-mx',
+  mhd: 'mhd-latn-tz',
+  mhe: 'mhe-latn-my',
+  mhf: 'mhf-latn-pg',
+  mhg: 'mhg-latn-au',
+  mhi: 'mhi-latn-zz',
+  mhj: 'mhj-arab-af',
+  mhk: 'mhk-latn-cm',
+  mhl: 'mhl-latn-zz',
+  mhm: 'mhm-latn-mz',
+  mhn: 'mhn-latn-it',
+  mho: 'mho-latn-zm',
+  mhp: 'mhp-latn-id',
+  mhq: 'mhq-latn-us',
+  mhs: 'mhs-latn-id',
+  mht: 'mht-latn-ve',
+  mhu: 'mhu-latn-in',
+  mhw: 'mhw-latn-bw',
+  mhx: 'mhx-latn-mm',
+  mhy: 'mhy-latn-id',
+  mhz: 'mhz-latn-id',
+  mi: 'mi-latn-nz',
+  mia: 'mia-latn-us',
+  mib: 'mib-latn-mx',
+  mic: 'mic-latn-ca',
+  mid: 'mid-mand-iq',
+  mie: 'mie-latn-mx',
+  mif: 'mif-latn-zz',
+  mig: 'mig-latn-mx',
+  mih: 'mih-latn-mx',
+  mii: 'mii-latn-mx',
+  mij: 'mij-latn-cm',
+  mik: 'mik-latn-us',
+  mil: 'mil-latn-mx',
+  mim: 'mim-latn-mx',
+  min: 'min-latn-id',
+  mio: 'mio-latn-mx',
+  mip: 'mip-latn-mx',
+  miq: 'miq-latn-ni',
+  mir: 'mir-latn-mx',
+  mit: 'mit-latn-mx',
+  miu: 'miu-latn-mx',
+  miw: 'miw-latn-zz',
+  mix: 'mix-latn-mx',
+  miy: 'miy-latn-mx',
+  miz: 'miz-latn-mx',
+  mjb: 'mjb-latn-tl',
+  mjc: 'mjc-latn-mx',
+  mjd: 'mjd-latn-us',
+  mje: 'mje-latn-td',
+  mjg: 'mjg-latn-cn',
+  mjh: 'mjh-latn-tz',
+  mji: 'mji-latn-cn',
+  mjj: 'mjj-latn-pg',
+  mjk: 'mjk-latn-pg',
+  mjl: 'mjl-deva-in',
+  'mjl-takr': 'mjl-takr-in',
+  mjm: 'mjm-latn-pg',
+  mjn: 'mjn-latn-pg',
+  mjq: 'mjq-mlym-in',
+  mjr: 'mjr-mlym-in',
+  mjs: 'mjs-latn-ng',
+  mjt: 'mjt-deva-in',
+  'mjt-beng': 'mjt-beng-bd',
+  mju: 'mju-telu-in',
+  mjv: 'mjv-mlym-in',
+  mjw: 'mjw-latn-in',
+  mjx: 'mjx-latn-bd',
+  'mjx-beng': 'mjx-beng-bd',
+  mjy: 'mjy-latn-us',
+  mjz: 'mjz-deva-np',
+  mk: 'mk-cyrl-mk',
+  mka: 'mka-latn-ci',
+  mkb: 'mkb-deva-in',
+  mkc: 'mkc-latn-pg',
+  mke: 'mke-deva-in',
+  mkf: 'mkf-latn-ng',
+  mki: 'mki-arab-zz',
+  mkj: 'mkj-latn-fm',
+  mkk: 'mkk-latn-cm',
+  mkl: 'mkl-latn-zz',
+  mkm: 'mkm-thai-th',
+  mkn: 'mkn-latn-id',
+  mko: 'mko-latn-ng',
+  mkp: 'mkp-latn-zz',
+  mkr: 'mkr-latn-pg',
+  mks: 'mks-latn-mx',
+  mkt: 'mkt-latn-nc',
+  mku: 'mku-latn-gn',
+  mkv: 'mkv-latn-vu',
+  mkw: 'mkw-latn-zz',
+  mkx: 'mkx-latn-ph',
+  mky: 'mky-latn-id',
+  mkz: 'mkz-latn-tl',
+  ml: 'ml-mlym-in',
+  mla: 'mla-latn-vu',
+  mlb: 'mlb-latn-cm',
+  mlc: 'mlc-latn-vn',
+  mle: 'mle-latn-zz',
+  mlf: 'mlf-thai-la',
+  'mlf-latn': 'mlf-latn-la',
+  mlh: 'mlh-latn-pg',
+  mli: 'mli-latn-id',
+  mlj: 'mlj-latn-td',
+  mlk: 'mlk-latn-ke',
+  mll: 'mll-latn-vu',
+  mln: 'mln-latn-sb',
+  mlo: 'mlo-latn-sn',
+  mlp: 'mlp-latn-zz',
+  mlq: 'mlq-latn-sn',
+  'mlq-arab': 'mlq-arab-sn',
+  mlr: 'mlr-latn-cm',
+  mls: 'mls-latn-sd',
+  mlu: 'mlu-latn-sb',
+  mlv: 'mlv-latn-vu',
+  mlw: 'mlw-latn-cm',
+  mlx: 'mlx-latn-vu',
+  mlz: 'mlz-latn-ph',
+  mma: 'mma-latn-ng',
+  mmb: 'mmb-latn-id',
+  mmc: 'mmc-latn-mx',
+  mmd: 'mmd-latn-cn',
+  'mmd-hans': 'mmd-hans-cn',
+  'mmd-hant': 'mmd-hant-cn',
+  mme: 'mme-latn-vu',
+  mmf: 'mmf-latn-ng',
+  mmg: 'mmg-latn-vu',
+  mmh: 'mmh-latn-br',
+  mmi: 'mmi-latn-pg',
+  mmm: 'mmm-latn-vu',
+  mmn: 'mmn-latn-ph',
+  mmo: 'mmo-latn-zz',
+  mmp: 'mmp-latn-pg',
+  mmq: 'mmq-latn-pg',
+  mmr: 'mmr-latn-cn',
+  mmt: 'mmt-latn-pg',
+  mmu: 'mmu-latn-zz',
+  mmv: 'mmv-latn-br',
+  mmw: 'mmw-latn-vu',
+  mmx: 'mmx-latn-zz',
+  mmy: 'mmy-latn-td',
+  mmz: 'mmz-latn-cd',
+  mn: 'mn-cyrl-mn',
+  'mn-cn': 'mn-mong-cn',
+  'mn-mong': 'mn-mong-cn',
+  mna: 'mna-latn-zz',
+  mnb: 'mnb-latn-id',
+  mnd: 'mnd-latn-br',
+  mne: 'mne-latn-td',
+  mnf: 'mnf-latn-zz',
+  mng: 'mng-latn-vn',
+  mnh: 'mnh-latn-cd',
+  mni: 'mni-beng-in',
+  mnj: 'mnj-arab-af',
+  mnl: 'mnl-latn-vu',
+  mnm: 'mnm-latn-pg',
+  mnn: 'mnn-latn-vn',
+  mnp: 'mnp-latn-cn',
+  mnq: 'mnq-latn-my',
+  mnr: 'mnr-latn-us',
+  mns: 'mns-cyrl-ru',
+  mnu: 'mnu-latn-id',
+  mnv: 'mnv-latn-sb',
+  mnw: 'mnw-mymr-mm',
+  mnx: 'mnx-latn-id',
+  mny: 'mny-latn-mz',
+  mnz: 'mnz-latn-id',
+  mo: 'mo-latn-ro',
+  moa: 'moa-latn-zz',
+  moc: 'moc-latn-ar',
+  mod: 'mod-latn-us',
+  moe: 'moe-latn-ca',
+  mog: 'mog-latn-id',
+  moh: 'moh-latn-ca',
+  moi: 'moi-latn-ng',
+  moj: 'moj-latn-cg',
+  mok: 'mok-latn-id',
+  mom: 'mom-latn-ni',
+  moo: 'moo-latn-vn',
+  mop: 'mop-latn-bz',
+  moq: 'moq-latn-id',
+  mor: 'mor-latn-sd',
+  mos: 'mos-latn-bf',
+  mot: 'mot-latn-co',
+  mou: 'mou-latn-td',
+  mov: 'mov-latn-us',
+  mow: 'mow-latn-cg',
+  mox: 'mox-latn-zz',
+  moy: 'moy-latn-et',
+  'moy-ethi': 'moy-ethi-et',
+  moz: 'moz-latn-td',
+  mpa: 'mpa-latn-tz',
+  mpb: 'mpb-latn-au',
+  mpc: 'mpc-latn-au',
+  mpd: 'mpd-latn-br',
+  mpe: 'mpe-latn-et',
+  'mpe-ethi': 'mpe-ethi-et',
+  mpg: 'mpg-latn-td',
+  mph: 'mph-latn-au',
+  mpi: 'mpi-latn-cm',
+  mpj: 'mpj-latn-au',
+  mpk: 'mpk-latn-td',
+  mpl: 'mpl-latn-pg',
+  mpm: 'mpm-latn-mx',
+  mpn: 'mpn-latn-pg',
+  mpo: 'mpo-latn-pg',
+  mpp: 'mpp-latn-zz',
+  mpq: 'mpq-latn-br',
+  mpr: 'mpr-latn-sb',
+  mps: 'mps-latn-zz',
+  mpt: 'mpt-latn-zz',
+  mpu: 'mpu-latn-br',
+  mpv: 'mpv-latn-pg',
+  mpw: 'mpw-latn-br',
+  mpx: 'mpx-latn-zz',
+  mpy: 'mpy-latn-id',
+  mpz: 'mpz-thai-th',
+  mqa: 'mqa-latn-id',
+  mqb: 'mqb-latn-cm',
+  mqc: 'mqc-latn-id',
+  mqe: 'mqe-latn-pg',
+  mqf: 'mqf-latn-id',
+  mqg: 'mqg-latn-id',
+  mqh: 'mqh-latn-mx',
+  mqi: 'mqi-latn-id',
+  mqj: 'mqj-latn-id',
+  mqk: 'mqk-latn-ph',
+  mql: 'mql-latn-zz',
+  mqm: 'mqm-latn-pf',
+  mqn: 'mqn-latn-id',
+  mqo: 'mqo-latn-id',
+  mqp: 'mqp-latn-id',
+  mqq: 'mqq-latn-my',
+  mqr: 'mqr-latn-id',
+  mqs: 'mqs-latn-id',
+  mqu: 'mqu-latn-ss',
+  mqv: 'mqv-latn-pg',
+  mqw: 'mqw-latn-pg',
+  mqx: 'mqx-latn-id',
+  'mqx-bugi': 'mqx-bugi-id',
+  mqy: 'mqy-latn-id',
+  mqz: 'mqz-latn-pg',
+  mr: 'mr-deva-in',
+  mra: 'mra-thai-th',
+  mrb: 'mrb-latn-vu',
+  mrc: 'mrc-latn-us',
+  mrd: 'mrd-deva-np',
+  mrf: 'mrf-latn-id',
+  mrg: 'mrg-latn-in',
+  'mrg-beng': 'mrg-beng-in',
+  'mrg-deva': 'mrg-deva-in',
+  mrh: 'mrh-latn-in',
+  mrj: 'mrj-cyrl-ru',
+  mrk: 'mrk-latn-nc',
+  mrl: 'mrl-latn-fm',
+  mrm: 'mrm-latn-vu',
+  mrn: 'mrn-latn-sb',
+  mro: 'mro-mroo-bd',
+  mrp: 'mrp-latn-vu',
+  mrq: 'mrq-latn-pf',
+  mrr: 'mrr-deva-in',
+  mrs: 'mrs-latn-vu',
+  mrt: 'mrt-latn-ng',
+  mru: 'mru-latn-cm',
+  mrv: 'mrv-latn-pf',
+  mrw: 'mrw-latn-ph',
+  'mrw-arab': 'mrw-arab-ph',
+  mrx: 'mrx-latn-id',
+  mry: 'mry-latn-ph',
+  mrz: 'mrz-latn-id',
+  ms: 'ms-latn-my',
+  'ms-cc': 'ms-arab-cc',
+  msb: 'msb-latn-ph',
+  msc: 'msc-latn-gn',
+  mse: 'mse-latn-td',
+  msf: 'msf-latn-id',
+  msg: 'msg-latn-id',
+  msh: 'msh-latn-mg',
+  msi: 'msi-latn-my',
+  msj: 'msj-latn-cd',
+  msk: 'msk-latn-ph',
+  msl: 'msl-latn-id',
+  msm: 'msm-latn-ph',
+  msn: 'msn-latn-vu',
+  mso: 'mso-latn-id',
+  msp: 'msp-latn-br',
+  msq: 'msq-latn-nc',
+  mss: 'mss-latn-id',
+  msu: 'msu-latn-pg',
+  msv: 'msv-latn-cm',
+  msw: 'msw-latn-gw',
+  msx: 'msx-latn-pg',
+  msy: 'msy-latn-pg',
+  msz: 'msz-latn-pg',
+  mt: 'mt-latn-mt',
+  mta: 'mta-latn-ph',
+  mtb: 'mtb-latn-ci',
+  mtc: 'mtc-latn-zz',
+  mtd: 'mtd-latn-id',
+  mte: 'mte-latn-sb',
+  mtf: 'mtf-latn-zz',
+  mtg: 'mtg-latn-id',
+  mth: 'mth-latn-id',
+  mti: 'mti-latn-zz',
+  mtj: 'mtj-latn-id',
+  mtk: 'mtk-latn-cm',
+  mtl: 'mtl-latn-ng',
+  mtm: 'mtm-cyrl-ru',
+  mtn: 'mtn-latn-ni',
+  mto: 'mto-latn-mx',
+  mtp: 'mtp-latn-bo',
+  mtq: 'mtq-latn-vn',
+  mtr: 'mtr-deva-in',
+  mts: 'mts-latn-pe',
+  mtt: 'mtt-latn-vu',
+  mtu: 'mtu-latn-mx',
+  mtv: 'mtv-latn-pg',
+  mtw: 'mtw-latn-ph',
+  mtx: 'mtx-latn-mx',
+  mty: 'mty-latn-pg',
+  mua: 'mua-latn-cm',
+  mub: 'mub-latn-td',
+  muc: 'muc-latn-cm',
+  mud: 'mud-cyrl-ru',
+  mue: 'mue-latn-ec',
+  mug: 'mug-latn-cm',
+  muh: 'muh-latn-ss',
+  mui: 'mui-latn-id',
+  muj: 'muj-latn-td',
+  muk: 'muk-tibt-np',
+  mum: 'mum-latn-pg',
+  muo: 'muo-latn-cm',
+  muq: 'muq-latn-cn',
+  mur: 'mur-latn-zz',
+  mus: 'mus-latn-us',
+  mut: 'mut-deva-in',
+  muu: 'muu-latn-ke',
+  muv: 'muv-taml-in',
+  mux: 'mux-latn-pg',
+  muy: 'muy-latn-cm',
+  muz: 'muz-ethi-et',
+  'muz-latn': 'muz-latn-et',
+  mva: 'mva-latn-zz',
+  mvd: 'mvd-latn-id',
+  mvf: 'mvf-mong-cn',
+  'mvf-phag': 'mvf-phag-cn',
+  mvg: 'mvg-latn-mx',
+  mvh: 'mvh-latn-td',
+  mvk: 'mvk-latn-pg',
+  mvl: 'mvl-latn-au',
+  mvn: 'mvn-latn-zz',
+  mvo: 'mvo-latn-sb',
+  mvp: 'mvp-latn-id',
+  mvq: 'mvq-latn-pg',
+  mvr: 'mvr-latn-id',
+  mvs: 'mvs-latn-id',
+  mvt: 'mvt-latn-vu',
+  mvu: 'mvu-latn-td',
+  mvv: 'mvv-latn-my',
+  mvw: 'mvw-latn-tz',
+  mvx: 'mvx-latn-id',
+  mvy: 'mvy-arab-pk',
+  mvz: 'mvz-ethi-et',
+  'mvz-arab': 'mvz-arab-et',
+  mwa: 'mwa-latn-pg',
+  mwb: 'mwb-latn-pg',
+  mwc: 'mwc-latn-pg',
+  mwe: 'mwe-latn-tz',
+  mwf: 'mwf-latn-au',
+  mwg: 'mwg-latn-pg',
+  mwh: 'mwh-latn-pg',
+  mwi: 'mwi-latn-vu',
+  mwk: 'mwk-latn-ml',
+  mwl: 'mwl-latn-pt',
+  mwm: 'mwm-latn-td',
+  mwn: 'mwn-latn-zm',
+  mwo: 'mwo-latn-vu',
+  mwp: 'mwp-latn-au',
+  mwq: 'mwq-latn-mm',
+  mwr: 'mwr-deva-in',
+  mws: 'mws-latn-ke',
+  mwt: 'mwt-mymr-mm',
+  'mwt-thai': 'mwt-thai-th',
+  mwu: 'mwu-latn-ss',
+  mwv: 'mwv-latn-id',
+  mww: 'mww-hmnp-us',
+  mwz: 'mwz-latn-cd',
+  mxa: 'mxa-latn-mx',
+  mxb: 'mxb-latn-mx',
+  mxc: 'mxc-latn-zw',
+  mxd: 'mxd-latn-id',
+  mxe: 'mxe-latn-vu',
+  mxf: 'mxf-latn-cm',
+  mxg: 'mxg-latn-ao',
+  mxh: 'mxh-latn-cd',
+  mxi: 'mxi-latn-es',
+  mxj: 'mxj-latn-in',
+  mxk: 'mxk-latn-pg',
+  mxl: 'mxl-latn-bj',
+  mxm: 'mxm-latn-zz',
+  mxn: 'mxn-latn-id',
+  mxo: 'mxo-latn-zm',
+  mxp: 'mxp-latn-mx',
+  mxq: 'mxq-latn-mx',
+  mxr: 'mxr-latn-my',
+  mxs: 'mxs-latn-mx',
+  mxt: 'mxt-latn-mx',
+  mxu: 'mxu-latn-cm',
+  mxv: 'mxv-latn-mx',
+  mxw: 'mxw-latn-pg',
+  mxx: 'mxx-latn-ci',
+  mxy: 'mxy-latn-mx',
+  mxz: 'mxz-latn-id',
+  my: 'my-mymr-mm',
+  myb: 'myb-latn-td',
+  myc: 'myc-latn-cd',
+  mye: 'mye-latn-ga',
+  myf: 'myf-latn-et',
+  myg: 'myg-latn-cm',
+  myh: 'myh-latn-us',
+  myj: 'myj-latn-ss',
+  myk: 'myk-latn-zz',
+  myl: 'myl-latn-id',
+  mym: 'mym-ethi-zz',
+  myp: 'myp-latn-br',
+  myr: 'myr-latn-pe',
+  myu: 'myu-latn-br',
+  myv: 'myv-cyrl-ru',
+  myw: 'myw-latn-zz',
+  myx: 'myx-latn-ug',
+  myy: 'myy-latn-co',
+  myz: 'myz-mand-ir',
+  mza: 'mza-latn-mx',
+  mzd: 'mzd-latn-cm',
+  mze: 'mze-latn-pg',
+  mzh: 'mzh-latn-ar',
+  mzi: 'mzi-latn-mx',
+  mzj: 'mzj-latn-lr',
+  mzk: 'mzk-latn-zz',
+  mzl: 'mzl-latn-mx',
+  mzm: 'mzm-latn-zz',
+  mzn: 'mzn-arab-ir',
+  mzo: 'mzo-latn-br',
+  mzp: 'mzp-latn-zz',
+  mzq: 'mzq-latn-id',
+  mzr: 'mzr-latn-br',
+  mzt: 'mzt-latn-my',
+  mzu: 'mzu-latn-pg',
+  mzv: 'mzv-latn-cf',
+  mzw: 'mzw-latn-zz',
+  mzx: 'mzx-latn-gy',
+  mzz: 'mzz-latn-zz',
+  na: 'na-latn-nr',
+  naa: 'naa-latn-id',
+  nab: 'nab-latn-br',
+  nac: 'nac-latn-zz',
+  nae: 'nae-latn-id',
+  naf: 'naf-latn-zz',
+  nag: 'nag-latn-in',
+  naj: 'naj-latn-gn',
+  nak: 'nak-latn-zz',
+  nal: 'nal-latn-pg',
+  nam: 'nam-latn-au',
+  nan: 'nan-hans-cn',
+  nao: 'nao-deva-np',
+  nap: 'nap-latn-it',
+  naq: 'naq-latn-na',
+  nar: 'nar-latn-ng',
+  nas: 'nas-latn-zz',
+  nat: 'nat-latn-ng',
+  naw: 'naw-latn-gh',
+  nax: 'nax-latn-pg',
+  nay: 'nay-latn-au',
+  naz: 'naz-latn-mx',
+  nb: 'nb-latn-no',
+  nba: 'nba-latn-ao',
+  nbb: 'nbb-latn-ng',
+  nbc: 'nbc-latn-in',
+  nbd: 'nbd-latn-cd',
+  nbe: 'nbe-latn-in',
+  nbh: 'nbh-latn-ng',
+  nbi: 'nbi-latn-in',
+  nbj: 'nbj-latn-au',
+  nbk: 'nbk-latn-pg',
+  nbm: 'nbm-latn-cf',
+  nbn: 'nbn-latn-id',
+  nbo: 'nbo-latn-ng',
+  nbp: 'nbp-latn-ng',
+  nbq: 'nbq-latn-id',
+  nbr: 'nbr-latn-ng',
+  nbt: 'nbt-latn-in',
+  'nbt-deva': 'nbt-deva-in',
+  nbu: 'nbu-latn-in',
+  nbv: 'nbv-latn-cm',
+  nbw: 'nbw-latn-cd',
+  nby: 'nby-latn-pg',
+  nca: 'nca-latn-zz',
+  ncb: 'ncb-latn-in',
+  'ncb-deva': 'ncb-deva-in',
+  ncc: 'ncc-latn-pg',
+  ncd: 'ncd-deva-np',
+  nce: 'nce-latn-zz',
+  ncf: 'ncf-latn-zz',
+  ncg: 'ncg-latn-ca',
+  nch: 'nch-latn-mx',
+  nci: 'nci-latn-mx',
+  ncj: 'ncj-latn-mx',
+  nck: 'nck-latn-au',
+  ncl: 'ncl-latn-mx',
+  ncm: 'ncm-latn-pg',
+  ncn: 'ncn-latn-pg',
+  nco: 'nco-latn-zz',
+  ncq: 'ncq-laoo-la',
+  'ncq-thai': 'ncq-thai-la',
+  ncr: 'ncr-latn-cm',
+  nct: 'nct-latn-in',
+  'nct-beng': 'nct-beng-in',
+  ncu: 'ncu-latn-zz',
+  ncx: 'ncx-latn-mx',
+  ncz: 'ncz-latn-us',
+  nd: 'nd-latn-zw',
+  nda: 'nda-latn-cg',
+  ndb: 'ndb-latn-cm',
+  ndc: 'ndc-latn-mz',
+  ndd: 'ndd-latn-ng',
+  ndf: 'ndf-cyrl-ru',
+  ndg: 'ndg-latn-tz',
+  ndh: 'ndh-latn-tz',
+  ndi: 'ndi-latn-ng',
+  ndj: 'ndj-latn-tz',
+  ndk: 'ndk-latn-cd',
+  ndl: 'ndl-latn-cd',
+  ndm: 'ndm-latn-td',
+  ndn: 'ndn-latn-cg',
+  ndp: 'ndp-latn-ug',
+  ndq: 'ndq-latn-ao',
+  ndr: 'ndr-latn-ng',
+  nds: 'nds-latn-de',
+  ndt: 'ndt-latn-cd',
+  ndu: 'ndu-latn-cm',
+  ndv: 'ndv-latn-sn',
+  ndw: 'ndw-latn-cd',
+  ndx: 'ndx-latn-id',
+  ndy: 'ndy-latn-cf',
+  'ndy-td': 'ndy-latn-td',
+  ndz: 'ndz-latn-ss',
+  ne: 'ne-deva-np',
+  nea: 'nea-latn-id',
+  neb: 'neb-latn-zz',
+  nec: 'nec-latn-id',
+  ned: 'ned-latn-ng',
+  nee: 'nee-latn-nc',
+  neg: 'neg-cyrl-ru',
+  neh: 'neh-tibt-bt',
+  nei: 'nei-xsux-tr',
+  nej: 'nej-latn-pg',
+  nek: 'nek-latn-nc',
+  nem: 'nem-latn-nc',
+  nen: 'nen-latn-nc',
+  neo: 'neo-latn-vn',
+  neq: 'neq-latn-mx',
+  ner: 'ner-latn-id',
+  net: 'net-latn-pg',
+  neu: 'neu-latn-001',
+  new: 'new-deva-np',
+  nex: 'nex-latn-zz',
+  ney: 'ney-latn-ci',
+  nez: 'nez-latn-us',
+  nfa: 'nfa-latn-id',
+  nfd: 'nfd-latn-ng',
+  nfl: 'nfl-latn-sb',
+  nfr: 'nfr-latn-zz',
+  nfu: 'nfu-latn-cm',
+  ng: 'ng-latn-na',
+  nga: 'nga-latn-zz',
+  ngb: 'ngb-latn-zz',
+  ngc: 'ngc-latn-cd',
+  ngd: 'ngd-latn-cf',
+  nge: 'nge-latn-cm',
+  ngg: 'ngg-latn-cf',
+  ngh: 'ngh-latn-za',
+  ngi: 'ngi-latn-ng',
+  ngj: 'ngj-latn-cm',
+  ngk: 'ngk-latn-au',
+  ngl: 'ngl-latn-mz',
+  ngm: 'ngm-latn-fm',
+  ngn: 'ngn-latn-cm',
+  ngp: 'ngp-latn-tz',
+  ngq: 'ngq-latn-tz',
+  ngr: 'ngr-latn-sb',
+  ngs: 'ngs-latn-ng',
+  ngt: 'ngt-laoo-la',
+  ngu: 'ngu-latn-mx',
+  ngv: 'ngv-latn-cm',
+  ngw: 'ngw-latn-ng',
+  ngx: 'ngx-latn-ng',
+  ngy: 'ngy-latn-cm',
+  ngz: 'ngz-latn-cg',
+  nha: 'nha-latn-au',
+  nhb: 'nhb-latn-zz',
+  nhc: 'nhc-latn-mx',
+  nhd: 'nhd-latn-py',
+  nhe: 'nhe-latn-mx',
+  nhf: 'nhf-latn-au',
+  nhg: 'nhg-latn-mx',
+  nhi: 'nhi-latn-mx',
+  nhk: 'nhk-latn-mx',
+  nhm: 'nhm-latn-mx',
+  nhn: 'nhn-latn-mx',
+  nho: 'nho-latn-pg',
+  nhp: 'nhp-latn-mx',
+  nhq: 'nhq-latn-mx',
+  nhr: 'nhr-latn-bw',
+  nht: 'nht-latn-mx',
+  nhu: 'nhu-latn-cm',
+  nhv: 'nhv-latn-mx',
+  nhw: 'nhw-latn-mx',
+  nhx: 'nhx-latn-mx',
+  nhy: 'nhy-latn-mx',
+  nhz: 'nhz-latn-mx',
+  nia: 'nia-latn-id',
+  nib: 'nib-latn-pg',
+  nid: 'nid-latn-au',
+  nie: 'nie-latn-td',
+  nif: 'nif-latn-zz',
+  nig: 'nig-latn-au',
+  nih: 'nih-latn-tz',
+  nii: 'nii-latn-zz',
+  nij: 'nij-latn-id',
+  nil: 'nil-latn-id',
+  nim: 'nim-latn-tz',
+  nin: 'nin-latn-zz',
+  nio: 'nio-cyrl-ru',
+  niq: 'niq-latn-ke',
+  nir: 'nir-latn-id',
+  nis: 'nis-latn-pg',
+  nit: 'nit-telu-in',
+  niu: 'niu-latn-nu',
+  niv: 'niv-cyrl-ru',
+  'niv-latn': 'niv-latn-ru',
+  niw: 'niw-latn-pg',
+  nix: 'nix-latn-cd',
+  niy: 'niy-latn-zz',
+  niz: 'niz-latn-zz',
+  nja: 'nja-latn-ng',
+  njb: 'njb-latn-in',
+  njd: 'njd-latn-tz',
+  njh: 'njh-latn-in',
+  nji: 'nji-latn-au',
+  njj: 'njj-latn-cm',
+  njl: 'njl-latn-ss',
+  njm: 'njm-latn-in',
+  njn: 'njn-latn-in',
+  njo: 'njo-latn-in',
+  njr: 'njr-latn-ng',
+  njs: 'njs-latn-id',
+  njt: 'njt-latn-sr',
+  nju: 'nju-latn-au',
+  njx: 'njx-latn-cg',
+  njy: 'njy-latn-cm',
+  njz: 'njz-latn-in',
+  'njz-beng': 'njz-beng-in',
+  nka: 'nka-latn-zm',
+  nkb: 'nkb-latn-in',
+  nkc: 'nkc-latn-cm',
+  nkd: 'nkd-latn-in',
+  nke: 'nke-latn-sb',
+  nkf: 'nkf-latn-in',
+  nkg: 'nkg-latn-zz',
+  nkh: 'nkh-latn-in',
+  nki: 'nki-latn-in',
+  'nki-beng': 'nki-beng-in',
+  nkj: 'nkj-latn-id',
+  nkk: 'nkk-latn-vu',
+  nkm: 'nkm-latn-pg',
+  nkn: 'nkn-latn-ao',
+  nko: 'nko-latn-zz',
+  nkq: 'nkq-latn-gh',
+  nkr: 'nkr-latn-fm',
+  nks: 'nks-latn-id',
+  nkt: 'nkt-latn-tz',
+  nku: 'nku-latn-ci',
+  nkv: 'nkv-latn-mw',
+  nkw: 'nkw-latn-cd',
+  nkx: 'nkx-latn-ng',
+  nkz: 'nkz-latn-ng',
+  nl: 'nl-latn-nl',
+  nla: 'nla-latn-cm',
+  nlc: 'nlc-latn-id',
+  nle: 'nle-latn-ke',
+  nlg: 'nlg-latn-sb',
+  nli: 'nli-arab-af',
+  nlj: 'nlj-latn-cd',
+  nlk: 'nlk-latn-id',
+  nlm: 'nlm-arab-pk',
+  nlo: 'nlo-latn-cd',
+  nlq: 'nlq-latn-mm',
+  nlu: 'nlu-latn-gh',
+  nlv: 'nlv-latn-mx',
+  nlw: 'nlw-latn-au',
+  nlx: 'nlx-deva-in',
+  nly: 'nly-latn-au',
+  nlz: 'nlz-latn-sb',
+  nma: 'nma-latn-in',
+  nmb: 'nmb-latn-vu',
+  nmc: 'nmc-latn-td',
+  nmd: 'nmd-latn-ga',
+  nme: 'nme-latn-in',
+  nmf: 'nmf-latn-in',
+  nmg: 'nmg-latn-cm',
+  nmh: 'nmh-latn-in',
+  nmi: 'nmi-latn-ng',
+  nmj: 'nmj-latn-cf',
+  nmk: 'nmk-latn-vu',
+  nml: 'nml-latn-cm',
+  nmm: 'nmm-deva-np',
+  'nmm-tibt': 'nmm-tibt-np',
+  nmn: 'nmn-latn-bw',
+  nmo: 'nmo-latn-in',
+  'nmo-beng': 'nmo-beng-in',
+  nmp: 'nmp-latn-au',
+  nmq: 'nmq-latn-zw',
+  nmr: 'nmr-latn-cm',
+  nms: 'nms-latn-vu',
+  nmt: 'nmt-latn-fm',
+  nmu: 'nmu-latn-us',
+  nmv: 'nmv-latn-au',
+  nmw: 'nmw-latn-pg',
+  nmx: 'nmx-latn-pg',
+  nmz: 'nmz-latn-zz',
+  nn: 'nn-latn-no',
+  nna: 'nna-latn-au',
+  nnb: 'nnb-latn-cd',
+  nnc: 'nnc-latn-td',
+  nnd: 'nnd-latn-vu',
+  nne: 'nne-latn-ao',
+  nnf: 'nnf-latn-zz',
+  nng: 'nng-latn-in',
+  'nng-beng': 'nng-beng-in',
+  nnh: 'nnh-latn-cm',
+  nni: 'nni-latn-id',
+  nnj: 'nnj-latn-et',
+  nnk: 'nnk-latn-zz',
+  nnl: 'nnl-latn-in',
+  nnm: 'nnm-latn-zz',
+  nnn: 'nnn-latn-td',
+  nnp: 'nnp-wcho-in',
+  nnq: 'nnq-latn-tz',
+  nnr: 'nnr-latn-au',
+  nnt: 'nnt-latn-us',
+  nnu: 'nnu-latn-gh',
+  nnv: 'nnv-latn-au',
+  nnw: 'nnw-latn-bf',
+  nny: 'nny-latn-au',
+  nnz: 'nnz-latn-cm',
+  no: 'no-latn-no',
+  noa: 'noa-latn-co',
+  noc: 'noc-latn-pg',
+  nod: 'nod-lana-th',
+  noe: 'noe-deva-in',
+  nof: 'nof-latn-pg',
+  nog: 'nog-cyrl-ru',
+  noh: 'noh-latn-pg',
+  noi: 'noi-deva-in',
+  noj: 'noj-latn-co',
+  nok: 'nok-latn-us',
+  nom: 'nom-latn-pe',
+  non: 'non-runr-se',
+  nop: 'nop-latn-zz',
+  noq: 'noq-latn-cd',
+  nos: 'nos-yiii-cn',
+  not: 'not-latn-pe',
+  nou: 'nou-latn-zz',
+  nov: 'nov-latn-001',
+  now: 'now-latn-tz',
+  noy: 'noy-latn-td',
+  npb: 'npb-tibt-bt',
+  npg: 'npg-latn-mm',
+  nph: 'nph-latn-in',
+  npl: 'npl-latn-mx',
+  npn: 'npn-latn-pg',
+  npo: 'npo-latn-in',
+  nps: 'nps-latn-id',
+  npu: 'npu-latn-in',
+  npx: 'npx-latn-sb',
+  npy: 'npy-latn-id',
+  nqg: 'nqg-latn-bj',
+  nqk: 'nqk-latn-bj',
+  nql: 'nql-latn-ao',
+  nqm: 'nqm-latn-id',
+  nqn: 'nqn-latn-pg',
+  nqo: 'nqo-nkoo-gn',
+  nqq: 'nqq-latn-mm',
+  nqt: 'nqt-latn-ng',
+  nqy: 'nqy-latn-mm',
+  nr: 'nr-latn-za',
+  nra: 'nra-latn-ga',
+  nrb: 'nrb-latn-zz',
+  nre: 'nre-latn-in',
+  nrf: 'nrf-latn-je',
+  nrg: 'nrg-latn-vu',
+  nri: 'nri-latn-in',
+  nrk: 'nrk-latn-au',
+  nrl: 'nrl-latn-au',
+  nrm: 'nrm-latn-my',
+  nrp: 'nrp-latn-it',
+  nru: 'nru-latn-cn',
+  'nru-hans': 'nru-hans-cn',
+  'nru-hant': 'nru-hant-cn',
+  nrx: 'nrx-latn-au',
+  nrz: 'nrz-latn-pg',
+  nsa: 'nsa-latn-in',
+  nsb: 'nsb-latn-za',
+  nsc: 'nsc-latn-ng',
+  nsd: 'nsd-yiii-cn',
+  nse: 'nse-latn-zm',
+  nsf: 'nsf-yiii-cn',
+  nsg: 'nsg-latn-tz',
+  nsh: 'nsh-latn-cm',
+  nsk: 'nsk-cans-ca',
+  nsm: 'nsm-latn-in',
+  nsn: 'nsn-latn-zz',
+  nso: 'nso-latn-za',
+  nsq: 'nsq-latn-us',
+  nss: 'nss-latn-zz',
+  nst: 'nst-tnsa-in',
+  nsu: 'nsu-latn-mx',
+  nsv: 'nsv-yiii-cn',
+  nsw: 'nsw-latn-vu',
+  nsx: 'nsx-latn-ao',
+  nsy: 'nsy-latn-id',
+  nsz: 'nsz-latn-us',
+  ntd: 'ntd-latn-my',
+  nte: 'nte-latn-mz',
+  ntg: 'ntg-latn-au',
+  nti: 'nti-latn-bf',
+  ntj: 'ntj-latn-au',
+  ntk: 'ntk-latn-tz',
+  ntm: 'ntm-latn-zz',
+  nto: 'nto-latn-cd',
+  ntp: 'ntp-latn-mx',
+  ntr: 'ntr-latn-zz',
+  ntu: 'ntu-latn-sb',
+  ntx: 'ntx-latn-mm',
+  nty: 'nty-yiii-vn',
+  ntz: 'ntz-arab-ir',
+  nua: 'nua-latn-nc',
+  nuc: 'nuc-latn-br',
+  nud: 'nud-latn-pg',
+  nue: 'nue-latn-cd',
+  nuf: 'nuf-latn-cn',
+  nug: 'nug-latn-au',
+  nuh: 'nuh-latn-ng',
+  nui: 'nui-latn-zz',
+  nuj: 'nuj-latn-ug',
+  nuk: 'nuk-latn-ca',
+  num: 'num-latn-to',
+  nun: 'nun-latn-mm',
+  nuo: 'nuo-latn-vn',
+  nup: 'nup-latn-zz',
+  nuq: 'nuq-latn-pg',
+  nur: 'nur-latn-pg',
+  nus: 'nus-latn-ss',
+  nut: 'nut-latn-vn',
+  nuu: 'nuu-latn-cd',
+  nuv: 'nuv-latn-zz',
+  nuw: 'nuw-latn-fm',
+  nux: 'nux-latn-zz',
+  nuy: 'nuy-latn-au',
+  nuz: 'nuz-latn-mx',
+  nv: 'nv-latn-us',
+  nvh: 'nvh-latn-vu',
+  nvm: 'nvm-latn-pg',
+  nvo: 'nvo-latn-cm',
+  nwb: 'nwb-latn-zz',
+  nwc: 'nwc-newa-np',
+  'nwc-brah': 'nwc-brah-np',
+  'nwc-deva': 'nwc-deva-np',
+  'nwc-sidd': 'nwc-sidd-np',
+  nwe: 'nwe-latn-cm',
+  nwg: 'nwg-latn-au',
+  nwi: 'nwi-latn-vu',
+  nwm: 'nwm-latn-ss',
+  nwo: 'nwo-latn-au',
+  nwr: 'nwr-latn-pg',
+  nww: 'nww-latn-tz',
+  nwx: 'nwx-deva-np',
+  nxa: 'nxa-latn-tl',
+  nxd: 'nxd-latn-cd',
+  nxe: 'nxe-latn-id',
+  nxg: 'nxg-latn-id',
+  nxi: 'nxi-latn-tz',
+  nxl: 'nxl-latn-id',
+  nxn: 'nxn-latn-au',
+  nxo: 'nxo-latn-ga',
+  nxq: 'nxq-latn-cn',
+  nxr: 'nxr-latn-zz',
+  nxx: 'nxx-latn-id',
+  ny: 'ny-latn-mw',
+  nyb: 'nyb-latn-gh',
+  nyc: 'nyc-latn-cd',
+  nyd: 'nyd-latn-ke',
+  nye: 'nye-latn-ao',
+  nyf: 'nyf-latn-ke',
+  nyg: 'nyg-latn-cd',
+  nyh: 'nyh-latn-au',
+  nyi: 'nyi-latn-sd',
+  nyj: 'nyj-latn-cd',
+  nyk: 'nyk-latn-ao',
+  nyl: 'nyl-thai-th',
+  nym: 'nym-latn-tz',
+  nyn: 'nyn-latn-ug',
+  nyo: 'nyo-latn-ug',
+  nyp: 'nyp-latn-ug',
+  nyq: 'nyq-arab-ir',
+  nyr: 'nyr-latn-mw',
+  nys: 'nys-latn-au',
+  nyt: 'nyt-latn-au',
+  nyu: 'nyu-latn-mz',
+  nyv: 'nyv-latn-au',
+  nyx: 'nyx-latn-au',
+  nyy: 'nyy-latn-tz',
+  nza: 'nza-latn-cm',
+  nzb: 'nzb-latn-ga',
+  nzd: 'nzd-latn-cd',
+  nzi: 'nzi-latn-gh',
+  nzk: 'nzk-latn-cf',
+  nzm: 'nzm-latn-in',
+  nzu: 'nzu-latn-cg',
+  nzy: 'nzy-latn-td',
+  nzz: 'nzz-latn-ml',
+  oaa: 'oaa-cyrl-ru',
+  oac: 'oac-cyrl-ru',
+  oar: 'oar-syrc-sy',
+  oav: 'oav-geor-ge',
+  obi: 'obi-latn-us',
+  obk: 'obk-latn-ph',
+  obl: 'obl-latn-cm',
+  obm: 'obm-phnx-jo',
+  obo: 'obo-latn-ph',
+  obr: 'obr-mymr-mm',
+  obt: 'obt-latn-fr',
+  obu: 'obu-latn-ng',
+  oc: 'oc-latn-fr',
+  oca: 'oca-latn-pe',
+  oco: 'oco-latn-gb',
+  ocu: 'ocu-latn-mx',
+  oda: 'oda-latn-ng',
+  odk: 'odk-arab-pk',
+  odt: 'odt-latn-nl',
+  odu: 'odu-latn-ng',
+  ofu: 'ofu-latn-ng',
+  ogb: 'ogb-latn-ng',
+  ogc: 'ogc-latn-zz',
+  ogg: 'ogg-latn-ng',
+  ogo: 'ogo-latn-ng',
+  ogu: 'ogu-latn-ng',
+  oht: 'oht-xsux-tr',
+  oia: 'oia-latn-id',
+  oie: 'oie-latn-ss',
+  oin: 'oin-latn-pg',
+  oj: 'oj-cans-ca',
+  ojb: 'ojb-latn-ca',
+  'ojb-cans': 'ojb-cans-ca',
+  ojc: 'ojc-latn-ca',
+  ojs: 'ojs-cans-ca',
+  ojv: 'ojv-latn-sb',
+  ojw: 'ojw-latn-ca',
+  'ojw-cans': 'ojw-cans-ca',
+  oka: 'oka-latn-ca',
+  okb: 'okb-latn-ng',
+  okc: 'okc-latn-cd',
+  okd: 'okd-latn-ng',
+  oke: 'oke-latn-ng',
+  okg: 'okg-latn-au',
+  oki: 'oki-latn-ke',
+  okk: 'okk-latn-pg',
+  okm: 'okm-hang-kr',
+  oko: 'oko-hani-kr',
+  okr: 'okr-latn-zz',
+  oks: 'oks-latn-ng',
+  oku: 'oku-latn-cm',
+  okv: 'okv-latn-zz',
+  okx: 'okx-latn-ng',
+  okz: 'okz-khmr-kh',
+  ola: 'ola-deva-np',
+  'ola-tibt': 'ola-tibt-cn',
+  old: 'old-latn-tz',
+  ole: 'ole-tibt-bt',
+  olk: 'olk-latn-au',
+  olm: 'olm-latn-ng',
+  olo: 'olo-latn-ru',
+  olr: 'olr-latn-vu',
+  olt: 'olt-latn-lt',
+  olu: 'olu-latn-ao',
+  om: 'om-latn-et',
+  oma: 'oma-latn-us',
+  omb: 'omb-latn-vu',
+  omc: 'omc-latn-pe',
+  omg: 'omg-latn-pe',
+  omi: 'omi-latn-cd',
+  omk: 'omk-cyrl-ru',
+  oml: 'oml-latn-cd',
+  omo: 'omo-latn-pg',
+  omp: 'omp-mtei-in',
+  omr: 'omr-modi-in',
+  omt: 'omt-latn-ke',
+  omu: 'omu-latn-pe',
+  omw: 'omw-latn-pg',
+  ona: 'ona-latn-ar',
+  one: 'one-latn-ca',
+  ong: 'ong-latn-zz',
+  oni: 'oni-latn-id',
+  onj: 'onj-latn-pg',
+  onk: 'onk-latn-pg',
+  onn: 'onn-latn-zz',
+  ono: 'ono-latn-ca',
+  onp: 'onp-latn-in',
+  'onp-deva': 'onp-deva-in',
+  onr: 'onr-latn-pg',
+  ons: 'ons-latn-zz',
+  ont: 'ont-latn-pg',
+  onu: 'onu-latn-vu',
+  onx: 'onx-latn-id',
+  ood: 'ood-latn-us',
+  oon: 'oon-deva-in',
+  oor: 'oor-latn-za',
+  opa: 'opa-latn-ng',
+  opk: 'opk-latn-id',
+  opm: 'opm-latn-zz',
+  opo: 'opo-latn-pg',
+  opt: 'opt-latn-mx',
+  opy: 'opy-latn-br',
+  or: 'or-orya-in',
+  ora: 'ora-latn-sb',
+  orc: 'orc-latn-ke',
+  ore: 'ore-latn-pe',
+  org: 'org-latn-ng',
+  orn: 'orn-latn-my',
+  oro: 'oro-latn-zz',
+  orr: 'orr-latn-ng',
+  ors: 'ors-latn-my',
+  ort: 'ort-telu-in',
+  oru: 'oru-arab-zz',
+  orv: 'orv-cyrl-ru',
+  orw: 'orw-latn-br',
+  orx: 'orx-latn-ng',
+  orz: 'orz-latn-id',
+  os: 'os-cyrl-ge',
+  osa: 'osa-osge-us',
+  osc: 'osc-ital-it',
+  'osc-latn': 'osc-latn-it',
+  osi: 'osi-java-id',
+  oso: 'oso-latn-ng',
+  osp: 'osp-latn-es',
+  ost: 'ost-latn-cm',
+  osu: 'osu-latn-pg',
+  osx: 'osx-latn-de',
+  ota: 'ota-arab-zz',
+  otb: 'otb-tibt-cn',
+  otd: 'otd-latn-id',
+  ote: 'ote-latn-mx',
+  oti: 'oti-latn-br',
+  otk: 'otk-orkh-mn',
+  otl: 'otl-latn-mx',
+  otm: 'otm-latn-mx',
+  otn: 'otn-latn-mx',
+  otq: 'otq-latn-mx',
+  otr: 'otr-latn-sd',
+  ots: 'ots-latn-mx',
+  ott: 'ott-latn-mx',
+  otu: 'otu-latn-br',
+  otw: 'otw-latn-ca',
+  otx: 'otx-latn-mx',
+  oty: 'oty-gran-in',
+  otz: 'otz-latn-mx',
+  oub: 'oub-latn-lr',
+  oue: 'oue-latn-pg',
+  oui: 'oui-ougr-143',
+  oum: 'oum-latn-pg',
+  ovd: 'ovd-latn-se',
+  owi: 'owi-latn-pg',
+  owl: 'owl-latn-gb',
+  oyd: 'oyd-latn-et',
+  oym: 'oym-latn-br',
+  oyy: 'oyy-latn-pg',
+  ozm: 'ozm-latn-zz',
+  pa: 'pa-guru-in',
+  'pa-arab': 'pa-arab-pk',
+  'pa-pk': 'pa-arab-pk',
+  pab: 'pab-latn-br',
+  pac: 'pac-latn-vn',
+  pad: 'pad-latn-br',
+  pae: 'pae-latn-cd',
+  paf: 'paf-latn-br',
+  pag: 'pag-latn-ph',
+  pah: 'pah-latn-br',
+  pai: 'pai-latn-ng',
+  pak: 'pak-latn-br',
+  pal: 'pal-phli-ir',
+  'pal-phlp': 'pal-phlp-cn',
+  pam: 'pam-latn-ph',
+  pao: 'pao-latn-us',
+  pap: 'pap-latn-cw',
+  paq: 'paq-cyrl-tj',
+  par: 'par-latn-us',
+  pas: 'pas-latn-id',
+  pau: 'pau-latn-pw',
+  pav: 'pav-latn-br',
+  paw: 'paw-latn-us',
+  pax: 'pax-latn-br',
+  pay: 'pay-latn-hn',
+  paz: 'paz-latn-br',
+  pbb: 'pbb-latn-co',
+  pbc: 'pbc-latn-gy',
+  pbe: 'pbe-latn-mx',
+  pbf: 'pbf-latn-mx',
+  pbg: 'pbg-latn-ve',
+  pbh: 'pbh-latn-ve',
+  pbi: 'pbi-latn-zz',
+  pbl: 'pbl-latn-ng',
+  pbm: 'pbm-latn-mx',
+  pbn: 'pbn-latn-ng',
+  pbo: 'pbo-latn-gw',
+  pbp: 'pbp-latn-gn',
+  pbr: 'pbr-latn-tz',
+  pbs: 'pbs-latn-mx',
+  pbt: 'pbt-arab-af',
+  pbv: 'pbv-latn-in',
+  pby: 'pby-latn-pg',
+  pca: 'pca-latn-mx',
+  pcb: 'pcb-khmr-kh',
+  pcc: 'pcc-latn-cn',
+  'pcc-hani': 'pcc-hani-cn',
+  pcd: 'pcd-latn-fr',
+  pce: 'pce-mymr-mm',
+  'pce-thai': 'pce-thai-th',
+  pcf: 'pcf-mlym-in',
+  pcg: 'pcg-mlym-in',
+  'pcg-knda': 'pcg-knda-in',
+  'pcg-taml': 'pcg-taml-in',
+  pch: 'pch-deva-in',
+  pci: 'pci-deva-in',
+  'pci-orya': 'pci-orya-in',
+  pcj: 'pcj-telu-in',
+  pck: 'pck-latn-in',
+  pcm: 'pcm-latn-ng',
+  pcn: 'pcn-latn-ng',
+  pcp: 'pcp-latn-bo',
+  pcw: 'pcw-latn-ng',
+  pda: 'pda-latn-pg',
+  pdc: 'pdc-latn-us',
+  pdn: 'pdn-latn-id',
+  pdo: 'pdo-latn-id',
+  pdt: 'pdt-latn-ca',
+  pdu: 'pdu-latn-mm',
+  'pdu-mymr': 'pdu-mymr-mm',
+  pea: 'pea-latn-id',
+  peb: 'peb-latn-us',
+  ped: 'ped-latn-zz',
+  pee: 'pee-latn-id',
+  peg: 'peg-orya-in',
+  pei: 'pei-latn-mx',
+  pek: 'pek-latn-pg',
+  pel: 'pel-latn-id',
+  pem: 'pem-latn-cd',
+  peo: 'peo-xpeo-ir',
+  pep: 'pep-latn-pg',
+  peq: 'peq-latn-us',
+  pev: 'pev-latn-ve',
+  pex: 'pex-latn-zz',
+  pey: 'pey-latn-id',
+  pez: 'pez-latn-my',
+  pfa: 'pfa-latn-fm',
+  pfe: 'pfe-latn-cm',
+  pfl: 'pfl-latn-de',
+  pga: 'pga-latn-ss',
+  pgd: 'pgd-khar-pk',
+  pgg: 'pgg-deva-in',
+  pgi: 'pgi-latn-pg',
+  pgk: 'pgk-latn-vu',
+  pgl: 'pgl-ogam-ie',
+  pgn: 'pgn-ital-it',
+  pgs: 'pgs-latn-ng',
+  pgu: 'pgu-latn-id',
+  phd: 'phd-deva-in',
+  phg: 'phg-latn-vn',
+  phh: 'phh-latn-vn',
+  phk: 'phk-mymr-in',
+  phl: 'phl-arab-zz',
+  phm: 'phm-latn-mz',
+  phn: 'phn-phnx-lb',
+  pho: 'pho-laoo-la',
+  phr: 'phr-arab-pk',
+  pht: 'pht-thai-th',
+  phv: 'phv-arab-af',
+  phw: 'phw-deva-np',
+  pi: 'pi-sinh-in',
+  'pi-brah': 'pi-brah-in',
+  'pi-deva': 'pi-deva-in',
+  'pi-khar': 'pi-khar-in',
+  'pi-khmr': 'pi-khmr-in',
+  'pi-mymr': 'pi-mymr-in',
+  'pi-thai': 'pi-thai-in',
+  pia: 'pia-latn-mx',
+  pib: 'pib-latn-pe',
+  pic: 'pic-latn-ga',
+  pid: 'pid-latn-ve',
+  pif: 'pif-latn-fm',
+  pig: 'pig-latn-pe',
+  pih: 'pih-latn-nf',
+  pij: 'pij-latn-co',
+  pil: 'pil-latn-zz',
+  pim: 'pim-latn-us',
+  pin: 'pin-latn-pg',
+  pio: 'pio-latn-co',
+  pip: 'pip-latn-zz',
+  pir: 'pir-latn-br',
+  pis: 'pis-latn-sb',
+  pit: 'pit-latn-au',
+  piu: 'piu-latn-au',
+  piv: 'piv-latn-sb',
+  piw: 'piw-latn-tz',
+  pix: 'pix-latn-pg',
+  piy: 'piy-latn-ng',
+  piz: 'piz-latn-nc',
+  pjt: 'pjt-latn-au',
+  pka: 'pka-brah-in',
+  pkb: 'pkb-latn-ke',
+  pkg: 'pkg-latn-pg',
+  pkh: 'pkh-latn-bd',
+  'pkh-deva': 'pkh-deva-bd',
+  pkn: 'pkn-latn-au',
+  pko: 'pko-latn-ke',
+  pkp: 'pkp-latn-ck',
+  pkr: 'pkr-mlym-in',
+  pku: 'pku-latn-id',
+  pl: 'pl-latn-pl',
+  pla: 'pla-latn-zz',
+  plb: 'plb-latn-vu',
+  plc: 'plc-latn-ph',
+  pld: 'pld-latn-gb',
+  ple: 'ple-latn-id',
+  plg: 'plg-latn-ar',
+  plh: 'plh-latn-id',
+  plj: 'plj-latn-ng',
+  plk: 'plk-arab-pk',
+  pll: 'pll-mymr-mm',
+  pln: 'pln-latn-co',
+  plo: 'plo-latn-mx',
+  plr: 'plr-latn-ci',
+  pls: 'pls-latn-mx',
+  plu: 'plu-latn-br',
+  plv: 'plv-latn-ph',
+  plw: 'plw-latn-ph',
+  plz: 'plz-latn-my',
+  pma: 'pma-latn-vu',
+  pmb: 'pmb-latn-cd',
+  pmd: 'pmd-latn-au',
+  pme: 'pme-latn-nc',
+  pmf: 'pmf-latn-id',
+  pmh: 'pmh-brah-in',
+  pmi: 'pmi-latn-cn',
+  pmj: 'pmj-latn-cn',
+  pml: 'pml-latn-tn',
+  pmm: 'pmm-latn-cm',
+  pmn: 'pmn-latn-cm',
+  pmo: 'pmo-latn-id',
+  pmq: 'pmq-latn-mx',
+  pmr: 'pmr-latn-pg',
+  pms: 'pms-latn-it',
+  pmt: 'pmt-latn-pf',
+  pmw: 'pmw-latn-us',
+  pmx: 'pmx-latn-in',
+  pmy: 'pmy-latn-id',
+  pmz: 'pmz-latn-mx',
+  pna: 'pna-latn-my',
+  pnc: 'pnc-latn-id',
+  pnd: 'pnd-latn-ao',
+  pne: 'pne-latn-my',
+  png: 'png-latn-zz',
+  pnh: 'pnh-latn-ck',
+  pni: 'pni-latn-id',
+  pnj: 'pnj-latn-au',
+  pnk: 'pnk-latn-bo',
+  pnl: 'pnl-latn-bf',
+  pnm: 'pnm-latn-my',
+  pnn: 'pnn-latn-zz',
+  pno: 'pno-latn-pe',
+  pnp: 'pnp-latn-id',
+  pnq: 'pnq-latn-bf',
+  pnr: 'pnr-latn-pg',
+  pns: 'pns-latn-id',
+  pnt: 'pnt-grek-gr',
+  pnv: 'pnv-latn-au',
+  pnw: 'pnw-latn-au',
+  pny: 'pny-latn-cm',
+  pnz: 'pnz-latn-cf',
+  poc: 'poc-latn-gt',
+  poe: 'poe-latn-mx',
+  pof: 'pof-latn-cd',
+  pog: 'pog-latn-br',
+  poh: 'poh-latn-gt',
+  poi: 'poi-latn-mx',
+  pok: 'pok-latn-br',
+  pom: 'pom-latn-us',
+  pon: 'pon-latn-fm',
+  poo: 'poo-latn-us',
+  pop: 'pop-latn-nc',
+  poq: 'poq-latn-mx',
+  pos: 'pos-latn-mx',
+  pot: 'pot-latn-us',
+  pov: 'pov-latn-gw',
+  pow: 'pow-latn-mx',
+  poy: 'poy-latn-tz',
+  ppa: 'ppa-deva-in',
+  ppe: 'ppe-latn-pg',
+  ppi: 'ppi-latn-mx',
+  ppk: 'ppk-latn-id',
+  ppl: 'ppl-latn-sv',
+  ppm: 'ppm-latn-id',
+  ppn: 'ppn-latn-pg',
+  ppo: 'ppo-latn-zz',
+  ppp: 'ppp-latn-cd',
+  ppq: 'ppq-latn-pg',
+  pps: 'pps-latn-mx',
+  ppt: 'ppt-latn-pg',
+  pqa: 'pqa-latn-ng',
+  pqm: 'pqm-latn-ca',
+  pra: 'pra-khar-pk',
+  prc: 'prc-arab-af',
+  prd: 'prd-arab-ir',
+  pre: 'pre-latn-st',
+  prf: 'prf-latn-ph',
+  prg: 'prg-latn-001',
+  prh: 'prh-latn-ph',
+  pri: 'pri-latn-nc',
+  prk: 'prk-latn-mm',
+  prm: 'prm-latn-pg',
+  pro: 'pro-latn-fr',
+  prp: 'prp-gujr-in',
+  prq: 'prq-latn-pe',
+  prr: 'prr-latn-br',
+  prt: 'prt-thai-th',
+  pru: 'pru-latn-id',
+  prw: 'prw-latn-pg',
+  prx: 'prx-arab-in',
+  'prx-tibt': 'prx-tibt-in',
+  ps: 'ps-arab-af',
+  psa: 'psa-latn-id',
+  pse: 'pse-latn-id',
+  psh: 'psh-arab-af',
+  psi: 'psi-arab-af',
+  psm: 'psm-latn-bo',
+  psn: 'psn-latn-id',
+  psq: 'psq-latn-pg',
+  pss: 'pss-latn-zz',
+  pst: 'pst-arab-pk',
+  psw: 'psw-latn-vu',
+  pt: 'pt-latn-br',
+  pta: 'pta-latn-py',
+  pth: 'pth-latn-br',
+  pti: 'pti-latn-au',
+  ptn: 'ptn-latn-id',
+  pto: 'pto-latn-br',
+  ptp: 'ptp-latn-zz',
+  ptr: 'ptr-latn-vu',
+  ptt: 'ptt-latn-id',
+  ptu: 'ptu-latn-id',
+  ptv: 'ptv-latn-vu',
+  pua: 'pua-latn-mx',
+  pub: 'pub-latn-in',
+  puc: 'puc-latn-id',
+  pud: 'pud-latn-id',
+  pue: 'pue-latn-ar',
+  puf: 'puf-latn-id',
+  pug: 'pug-latn-bf',
+  pui: 'pui-latn-co',
+  puj: 'puj-latn-id',
+  pum: 'pum-deva-np',
+  puo: 'puo-latn-vn',
+  pup: 'pup-latn-pg',
+  puq: 'puq-latn-pe',
+  pur: 'pur-latn-br',
+  put: 'put-latn-id',
+  puu: 'puu-latn-ga',
+  puw: 'puw-latn-fm',
+  pux: 'pux-latn-pg',
+  puy: 'puy-latn-us',
+  pwa: 'pwa-latn-zz',
+  pwb: 'pwb-latn-ng',
+  pwg: 'pwg-latn-pg',
+  pwm: 'pwm-latn-ph',
+  pwn: 'pwn-latn-tw',
+  pwo: 'pwo-mymr-mm',
+  pwr: 'pwr-deva-in',
+  pww: 'pww-thai-th',
+  pxm: 'pxm-latn-mx',
+  pye: 'pye-latn-ci',
+  pym: 'pym-latn-ng',
+  pyn: 'pyn-latn-br',
+  pyu: 'pyu-latn-tw',
+  'pyu-hani': 'pyu-hani-tw',
+  pyx: 'pyx-mymr-mm',
+  pyy: 'pyy-latn-mm',
+  pzh: 'pzh-latn-tw',
+  pzn: 'pzn-latn-mm',
+  qu: 'qu-latn-pe',
+  qua: 'qua-latn-us',
+  qub: 'qub-latn-pe',
+  quc: 'quc-latn-gt',
+  qud: 'qud-latn-ec',
+  quf: 'quf-latn-pe',
+  qug: 'qug-latn-ec',
+  qui: 'qui-latn-us',
+  quk: 'quk-latn-pe',
+  qul: 'qul-latn-bo',
+  qum: 'qum-latn-gt',
+  qun: 'qun-latn-us',
+  qup: 'qup-latn-pe',
+  quq: 'quq-latn-es',
+  qur: 'qur-latn-pe',
+  qus: 'qus-latn-ar',
+  quv: 'quv-latn-gt',
+  quw: 'quw-latn-ec',
+  qux: 'qux-latn-pe',
+  quy: 'quy-latn-pe',
+  qva: 'qva-latn-pe',
+  qvc: 'qvc-latn-pe',
+  qve: 'qve-latn-pe',
+  qvh: 'qvh-latn-pe',
+  qvi: 'qvi-latn-ec',
+  qvj: 'qvj-latn-ec',
+  qvl: 'qvl-latn-pe',
+  qvm: 'qvm-latn-pe',
+  qvn: 'qvn-latn-pe',
+  qvo: 'qvo-latn-pe',
+  qvp: 'qvp-latn-pe',
+  qvs: 'qvs-latn-pe',
+  qvw: 'qvw-latn-pe',
+  qvz: 'qvz-latn-ec',
+  qwa: 'qwa-latn-pe',
+  qwc: 'qwc-latn-pe',
+  qwh: 'qwh-latn-pe',
+  qwm: 'qwm-latn-ru',
+  'qwm-cyrl': 'qwm-cyrl-ru',
+  'qwm-runr': 'qwm-runr-ru',
+  qws: 'qws-latn-pe',
+  qwt: 'qwt-latn-us',
+  qxa: 'qxa-latn-pe',
+  qxc: 'qxc-latn-pe',
+  qxh: 'qxh-latn-pe',
+  qxl: 'qxl-latn-ec',
+  qxn: 'qxn-latn-pe',
+  qxo: 'qxo-latn-pe',
+  qxp: 'qxp-latn-pe',
+  qxq: 'qxq-arab-ir',
+  qxr: 'qxr-latn-ec',
+  qxt: 'qxt-latn-pe',
+  qxu: 'qxu-latn-pe',
+  qxw: 'qxw-latn-pe',
+  qya: 'qya-latn-001',
+  qyp: 'qyp-latn-us',
+  raa: 'raa-deva-np',
+  rab: 'rab-deva-np',
+  rac: 'rac-latn-id',
+  rad: 'rad-latn-vn',
+  raf: 'raf-deva-np',
+  rag: 'rag-latn-ke',
+  rah: 'rah-beng-in',
+  'rah-latn': 'rah-latn-in',
+  rai: 'rai-latn-zz',
+  raj: 'raj-deva-in',
+  rak: 'rak-latn-pg',
+  ram: 'ram-latn-br',
+  ran: 'ran-latn-id',
+  rao: 'rao-latn-zz',
+  rap: 'rap-latn-cl',
+  rar: 'rar-latn-ck',
+  rav: 'rav-deva-np',
+  raw: 'raw-latn-mm',
+  rax: 'rax-latn-ng',
+  ray: 'ray-latn-pf',
+  raz: 'raz-latn-id',
+  rbb: 'rbb-mymr-mm',
+  rbk: 'rbk-latn-ph',
+  rbl: 'rbl-latn-ph',
+  rbp: 'rbp-latn-au',
+  rcf: 'rcf-latn-re',
+  rdb: 'rdb-arab-ir',
+  rea: 'rea-latn-pg',
+  reb: 'reb-latn-id',
+  ree: 'ree-latn-my',
+  reg: 'reg-latn-tz',
+  rei: 'rei-orya-in',
+  'rei-telu': 'rei-telu-in',
+  rej: 'rej-latn-id',
+  rel: 'rel-latn-zz',
+  rem: 'rem-latn-pe',
+  ren: 'ren-latn-vn',
+  res: 'res-latn-zz',
+  ret: 'ret-latn-id',
+  rey: 'rey-latn-bo',
+  rga: 'rga-latn-vu',
+  rgn: 'rgn-latn-it',
+  rgr: 'rgr-latn-pe',
+  rgs: 'rgs-latn-vn',
+  rgu: 'rgu-latn-id',
+  rhg: 'rhg-rohg-mm',
+  rhp: 'rhp-latn-pg',
+  ria: 'ria-latn-in',
+  rif: 'rif-latn-ma',
+  ril: 'ril-latn-mm',
+  rim: 'rim-latn-tz',
+  rin: 'rin-latn-ng',
+  rir: 'rir-latn-id',
+  rit: 'rit-latn-au',
+  riu: 'riu-latn-id',
+  rjg: 'rjg-latn-id',
+  rji: 'rji-deva-np',
+  rjs: 'rjs-deva-np',
+  rka: 'rka-khmr-kh',
+  rkb: 'rkb-latn-br',
+  rkh: 'rkh-latn-ck',
+  rki: 'rki-mymr-mm',
+  rkm: 'rkm-latn-bf',
+  rkt: 'rkt-beng-bd',
+  rkw: 'rkw-latn-au',
+  rm: 'rm-latn-ch',
+  rma: 'rma-latn-ni',
+  rmb: 'rmb-latn-au',
+  rmc: 'rmc-latn-sk',
+  rmd: 'rmd-latn-dk',
+  rme: 'rme-latn-gb',
+  rmf: 'rmf-latn-fi',
+  rmg: 'rmg-latn-no',
+  rmh: 'rmh-latn-id',
+  rmi: 'rmi-armn-am',
+  rmk: 'rmk-latn-pg',
+  rml: 'rml-latn-pl',
+  'rml-cyrl': 'rml-cyrl-by',
+  rmm: 'rmm-latn-id',
+  rmn: 'rmn-latn-rs',
+  'rmn-cyrl': 'rmn-cyrl-bg',
+  'rmn-grek': 'rmn-grek-gr',
+  rmo: 'rmo-latn-ch',
+  rmp: 'rmp-latn-pg',
+  rmq: 'rmq-latn-es',
+  rmt: 'rmt-arab-ir',
+  rmu: 'rmu-latn-se',
+  rmw: 'rmw-latn-gb',
+  rmx: 'rmx-latn-vn',
+  rmz: 'rmz-mymr-in',
+  rn: 'rn-latn-bi',
+  rna: 'rna-latn-zz',
+  rnd: 'rnd-latn-cd',
+  rng: 'rng-latn-mz',
+  rnl: 'rnl-latn-in',
+  rnn: 'rnn-latn-id',
+  rnr: 'rnr-latn-au',
+  rnw: 'rnw-latn-tz',
+  ro: 'ro-latn-ro',
+  rob: 'rob-latn-id',
+  roc: 'roc-latn-vn',
+  rod: 'rod-latn-ng',
+  roe: 'roe-latn-pg',
+  rof: 'rof-latn-tz',
+  rog: 'rog-latn-vn',
+  rol: 'rol-latn-ph',
+  rom: 'rom-latn-ro',
+  'rom-cyrl': 'rom-cyrl-ro',
+  roo: 'roo-latn-zz',
+  rop: 'rop-latn-au',
+  ror: 'ror-latn-id',
+  rou: 'rou-latn-td',
+  row: 'row-latn-id',
+  rpn: 'rpn-latn-vu',
+  rpt: 'rpt-latn-pg',
+  rri: 'rri-latn-sb',
+  rro: 'rro-latn-zz',
+  rrt: 'rrt-latn-au',
+  rsk: 'rsk-cyrl-rs',
+  rtc: 'rtc-latn-mm',
+  rth: 'rth-latn-id',
+  rtm: 'rtm-latn-fj',
+  rtw: 'rtw-deva-in',
+  ru: 'ru-cyrl-ru',
+  rub: 'rub-latn-ug',
+  ruc: 'ruc-latn-ug',
+  rue: 'rue-cyrl-ua',
+  ruf: 'ruf-latn-tz',
+  rug: 'rug-latn-sb',
+  rui: 'rui-latn-tz',
+  ruk: 'ruk-latn-ng',
+  ruo: 'ruo-latn-hr',
+  rup: 'rup-latn-ro',
+  'rup-grek': 'rup-grek-gr',
+  ruq: 'ruq-latn-gr',
+  rut: 'rut-cyrl-ru',
+  'rut-latn': 'rut-latn-az',
+  ruu: 'ruu-latn-my',
+  ruy: 'ruy-latn-ng',
+  ruz: 'ruz-latn-ng',
+  rw: 'rw-latn-rw',
+  rwa: 'rwa-latn-pg',
+  rwk: 'rwk-latn-tz',
+  rwl: 'rwl-latn-tz',
+  rwm: 'rwm-latn-ug',
+  rwo: 'rwo-latn-zz',
+  rwr: 'rwr-deva-in',
+  rxd: 'rxd-latn-au',
+  rxw: 'rxw-latn-au',
+  ryu: 'ryu-kana-jp',
+  sa: 'sa-deva-in',
+  saa: 'saa-latn-td',
+  sab: 'sab-latn-pa',
+  sac: 'sac-latn-us',
+  sad: 'sad-latn-tz',
+  sae: 'sae-latn-br',
+  saf: 'saf-latn-gh',
+  sah: 'sah-cyrl-ru',
+  saj: 'saj-latn-id',
+  sak: 'sak-latn-ga',
+  sam: 'sam-samr-ps',
+  'sam-hebr': 'sam-hebr-ps',
+  'sam-syrc': 'sam-syrc-ps',
+  sao: 'sao-latn-id',
+  saq: 'saq-latn-ke',
+  sar: 'sar-latn-bo',
+  sas: 'sas-latn-id',
+  sat: 'sat-olck-in',
+  sau: 'sau-latn-id',
+  sav: 'sav-latn-sn',
+  saw: 'saw-latn-id',
+  sax: 'sax-latn-vu',
+  say: 'say-latn-ng',
+  saz: 'saz-saur-in',
+  sba: 'sba-latn-zz',
+  sbb: 'sbb-latn-sb',
+  sbc: 'sbc-latn-pg',
+  sbd: 'sbd-latn-bf',
+  sbe: 'sbe-latn-zz',
+  sbg: 'sbg-latn-id',
+  sbh: 'sbh-latn-pg',
+  sbi: 'sbi-latn-pg',
+  sbj: 'sbj-latn-td',
+  sbk: 'sbk-latn-tz',
+  sbl: 'sbl-latn-ph',
+  sbm: 'sbm-latn-tz',
+  sbn: 'sbn-arab-pk',
+  sbo: 'sbo-latn-my',
+  sbp: 'sbp-latn-tz',
+  sbq: 'sbq-latn-pg',
+  sbr: 'sbr-latn-id',
+  sbs: 'sbs-latn-na',
+  sbt: 'sbt-latn-id',
+  sbu: 'sbu-tibt-in',
+  'sbu-deva': 'sbu-deva-in',
+  sbv: 'sbv-latn-it',
+  sbw: 'sbw-latn-ga',
+  sbx: 'sbx-latn-id',
+  sby: 'sby-latn-zm',
+  sbz: 'sbz-latn-cf',
+  sc: 'sc-latn-it',
+  scb: 'scb-latn-vn',
+  sce: 'sce-latn-cn',
+  'sce-arab': 'sce-arab-cn',
+  scf: 'scf-latn-pa',
+  scg: 'scg-latn-id',
+  sch: 'sch-latn-in',
+  sci: 'sci-latn-lk',
+  sck: 'sck-deva-in',
+  scl: 'scl-arab-zz',
+  scn: 'scn-latn-it',
+  sco: 'sco-latn-gb',
+  scp: 'scp-deva-np',
+  scs: 'scs-latn-ca',
+  'scs-cans': 'scs-cans-ca',
+  sct: 'sct-laoo-la',
+  scu: 'scu-takr-in',
+  scv: 'scv-latn-ng',
+  scw: 'scw-latn-ng',
+  scx: 'scx-grek-it',
+  sd: 'sd-arab-pk',
+  'sd-deva': 'sd-deva-in',
+  'sd-in': 'sd-deva-in',
+  'sd-khoj': 'sd-khoj-in',
+  'sd-sind': 'sd-sind-in',
+  sda: 'sda-latn-id',
+  sdb: 'sdb-arab-iq',
+  sdc: 'sdc-latn-it',
+  sde: 'sde-latn-ng',
+  sdf: 'sdf-arab-iq',
+  sdg: 'sdg-arab-af',
+  sdh: 'sdh-arab-ir',
+  sdj: 'sdj-latn-cg',
+  sdk: 'sdk-latn-pg',
+  sdn: 'sdn-latn-it',
+  sdo: 'sdo-latn-my',
+  sdq: 'sdq-latn-id',
+  sds: 'sds-arab-tn',
+  sdu: 'sdu-latn-id',
+  sdx: 'sdx-latn-my',
+  se: 'se-latn-no',
+  sea: 'sea-latn-my',
+  seb: 'seb-latn-ci',
+  sec: 'sec-latn-ca',
+  sed: 'sed-latn-vn',
+  see: 'see-latn-us',
+  sef: 'sef-latn-ci',
+  seg: 'seg-latn-tz',
+  seh: 'seh-latn-mz',
+  sei: 'sei-latn-mx',
+  sej: 'sej-latn-pg',
+  sek: 'sek-latn-ca',
+  'sek-cans': 'sek-cans-ca',
+  sel: 'sel-cyrl-ru',
+  sen: 'sen-latn-bf',
+  seo: 'seo-latn-pg',
+  sep: 'sep-latn-bf',
+  seq: 'seq-latn-bf',
+  ser: 'ser-latn-us',
+  ses: 'ses-latn-ml',
+  set: 'set-latn-id',
+  seu: 'seu-latn-id',
+  sev: 'sev-latn-ci',
+  sew: 'sew-latn-pg',
+  sey: 'sey-latn-ec',
+  sez: 'sez-latn-mm',
+  sfe: 'sfe-latn-ph',
+  sfm: 'sfm-plrd-cn',
+  sfw: 'sfw-latn-gh',
+  sg: 'sg-latn-cf',
+  sga: 'sga-ogam-ie',
+  sgb: 'sgb-latn-ph',
+  sgc: 'sgc-latn-ke',
+  sgd: 'sgd-latn-ph',
+  sge: 'sge-latn-id',
+  sgh: 'sgh-cyrl-tj',
+  'sgh-arab': 'sgh-arab-af',
+  'sgh-latn': 'sgh-latn-tj',
+  sgi: 'sgi-latn-cm',
+  sgj: 'sgj-deva-in',
+  sgm: 'sgm-latn-ke',
+  sgp: 'sgp-latn-in',
+  sgr: 'sgr-arab-ir',
+  sgs: 'sgs-latn-lt',
+  sgt: 'sgt-tibt-bt',
+  sgu: 'sgu-latn-id',
+  sgw: 'sgw-ethi-zz',
+  sgy: 'sgy-arab-af',
+  sgz: 'sgz-latn-zz',
+  sha: 'sha-latn-ng',
+  shb: 'shb-latn-br',
+  shc: 'shc-latn-cd',
+  shd: 'shd-arab-pk',
+  she: 'she-latn-et',
+  shg: 'shg-latn-bw',
+  shh: 'shh-latn-us',
+  shi: 'shi-tfng-ma',
+  shj: 'shj-latn-sd',
+  shk: 'shk-latn-zz',
+  shm: 'shm-arab-ir',
+  shn: 'shn-mymr-mm',
+  sho: 'sho-latn-ng',
+  shp: 'shp-latn-pe',
+  shq: 'shq-latn-zm',
+  shr: 'shr-latn-cd',
+  shs: 'shs-latn-ca',
+  sht: 'sht-latn-us',
+  shu: 'shu-arab-zz',
+  shv: 'shv-arab-om',
+  shw: 'shw-latn-sd',
+  shy: 'shy-latn-dz',
+  'shy-arab': 'shy-arab-dz',
+  'shy-tfng': 'shy-tfng-dz',
+  shz: 'shz-latn-ml',
+  si: 'si-sinh-lk',
+  sia: 'sia-cyrl-ru',
+  sib: 'sib-latn-my',
+  sid: 'sid-latn-et',
+  sie: 'sie-latn-zm',
+  sif: 'sif-latn-bf',
+  sig: 'sig-latn-zz',
+  sih: 'sih-latn-nc',
+  sii: 'sii-latn-in',
+  sij: 'sij-latn-pg',
+  sik: 'sik-latn-br',
+  sil: 'sil-latn-zz',
+  sim: 'sim-latn-zz',
+  sip: 'sip-tibt-in',
+  siq: 'siq-latn-pg',
+  sir: 'sir-latn-ng',
+  sis: 'sis-latn-us',
+  siu: 'siu-latn-pg',
+  siv: 'siv-latn-pg',
+  siw: 'siw-latn-pg',
+  six: 'six-latn-pg',
+  siy: 'siy-arab-ir',
+  siz: 'siz-arab-eg',
+  sja: 'sja-latn-co',
+  sjb: 'sjb-latn-id',
+  sjd: 'sjd-cyrl-ru',
+  sje: 'sje-latn-se',
+  sjg: 'sjg-latn-td',
+  sjl: 'sjl-latn-in',
+  sjm: 'sjm-latn-ph',
+  sjp: 'sjp-deva-in',
+  'sjp-beng': 'sjp-beng-in',
+  sjr: 'sjr-latn-zz',
+  sjt: 'sjt-cyrl-ru',
+  sju: 'sju-latn-se',
+  sjw: 'sjw-latn-us',
+  sk: 'sk-latn-sk',
+  ska: 'ska-latn-us',
+  skb: 'skb-thai-th',
+  skc: 'skc-latn-zz',
+  skd: 'skd-latn-us',
+  ske: 'ske-latn-vu',
+  skf: 'skf-latn-br',
+  skg: 'skg-latn-mg',
+  skh: 'skh-latn-id',
+  ski: 'ski-latn-id',
+  skj: 'skj-deva-np',
+  skm: 'skm-latn-pg',
+  skn: 'skn-latn-ph',
+  sko: 'sko-latn-id',
+  skp: 'skp-latn-my',
+  skq: 'skq-latn-bf',
+  skr: 'skr-arab-pk',
+  sks: 'sks-latn-zz',
+  skt: 'skt-latn-cd',
+  sku: 'sku-latn-vu',
+  skv: 'skv-latn-id',
+  skw: 'skw-latn-gy',
+  skx: 'skx-latn-id',
+  sky: 'sky-latn-sb',
+  skz: 'skz-latn-id',
+  sl: 'sl-latn-si',
+  slc: 'slc-latn-co',
+  sld: 'sld-latn-zz',
+  slg: 'slg-latn-id',
+  slh: 'slh-latn-us',
+  sli: 'sli-latn-pl',
+  slj: 'slj-latn-br',
+  sll: 'sll-latn-zz',
+  slm: 'slm-latn-ph',
+  sln: 'sln-latn-us',
+  slp: 'slp-latn-id',
+  slq: 'slq-arab-ir',
+  slr: 'slr-latn-cn',
+  slu: 'slu-latn-id',
+  slw: 'slw-latn-pg',
+  slx: 'slx-latn-cd',
+  sly: 'sly-latn-id',
+  slz: 'slz-latn-id',
+  sm: 'sm-latn-ws',
+  sma: 'sma-latn-se',
+  smb: 'smb-latn-pg',
+  smc: 'smc-latn-pg',
+  smd: 'smd-latn-ao',
+  smf: 'smf-latn-pg',
+  smg: 'smg-latn-pg',
+  smh: 'smh-yiii-cn',
+  smj: 'smj-latn-se',
+  smk: 'smk-latn-ph',
+  sml: 'sml-latn-ph',
+  smn: 'smn-latn-fi',
+  smp: 'smp-samr-il',
+  smq: 'smq-latn-zz',
+  smr: 'smr-latn-id',
+  sms: 'sms-latn-fi',
+  smt: 'smt-latn-in',
+  smu: 'smu-khmr-kh',
+  smw: 'smw-latn-id',
+  smx: 'smx-latn-cd',
+  smy: 'smy-arab-ir',
+  smz: 'smz-latn-pg',
+  sn: 'sn-latn-zw',
+  snb: 'snb-latn-my',
+  snc: 'snc-latn-zz',
+  sne: 'sne-latn-my',
+  snf: 'snf-latn-sn',
+  sng: 'sng-latn-cd',
+  'sng-brai': 'sng-brai-cd',
+  sni: 'sni-latn-pe',
+  snj: 'snj-latn-cf',
+  snk: 'snk-latn-ml',
+  snl: 'snl-latn-ph',
+  snm: 'snm-latn-ug',
+  snn: 'snn-latn-co',
+  sno: 'sno-latn-us',
+  snp: 'snp-latn-zz',
+  snq: 'snq-latn-ga',
+  snr: 'snr-latn-pg',
+  sns: 'sns-latn-vu',
+  snu: 'snu-latn-id',
+  snv: 'snv-latn-my',
+  snw: 'snw-latn-gh',
+  snx: 'snx-latn-zz',
+  sny: 'sny-latn-zz',
+  snz: 'snz-latn-pg',
+  so: 'so-latn-so',
+  soa: 'soa-tavt-th',
+  'soa-thai': 'soa-thai-th',
+  sob: 'sob-latn-id',
+  soc: 'soc-latn-cd',
+  sod: 'sod-latn-cd',
+  soe: 'soe-latn-cd',
+  sog: 'sog-sogd-uz',
+  soi: 'soi-deva-np',
+  sok: 'sok-latn-zz',
+  sol: 'sol-latn-pg',
+  soo: 'soo-latn-cd',
+  sop: 'sop-latn-cd',
+  soq: 'soq-latn-zz',
+  sor: 'sor-latn-td',
+  sos: 'sos-latn-bf',
+  sou: 'sou-thai-th',
+  sov: 'sov-latn-pw',
+  sow: 'sow-latn-pg',
+  sox: 'sox-latn-cm',
+  soy: 'soy-latn-zz',
+  soz: 'soz-latn-tz',
+  spb: 'spb-latn-id',
+  spc: 'spc-latn-ve',
+  spd: 'spd-latn-zz',
+  spe: 'spe-latn-pg',
+  spg: 'spg-latn-my',
+  spi: 'spi-latn-id',
+  spk: 'spk-latn-pg',
+  spl: 'spl-latn-zz',
+  spm: 'spm-latn-pg',
+  spn: 'spn-latn-py',
+  spo: 'spo-latn-us',
+  spp: 'spp-latn-ml',
+  spq: 'spq-latn-pe',
+  spr: 'spr-latn-id',
+  sps: 'sps-latn-zz',
+  spt: 'spt-tibt-in',
+  spv: 'spv-orya-in',
+  sq: 'sq-latn-al',
+  sqa: 'sqa-latn-ng',
+  sqh: 'sqh-latn-ng',
+  sqm: 'sqm-latn-cf',
+  sqo: 'sqo-arab-ir',
+  sqq: 'sqq-laoo-la',
+  sqt: 'sqt-arab-ye',
+  'sqt-latn': 'sqt-latn-ye',
+  squ: 'squ-latn-ca',
+  sr: 'sr-cyrl-rs',
+  'sr-me': 'sr-latn-me',
+  'sr-ro': 'sr-latn-ro',
+  'sr-ru': 'sr-latn-ru',
+  'sr-tr': 'sr-latn-tr',
+  sra: 'sra-latn-pg',
+  srb: 'srb-sora-in',
+  sre: 'sre-latn-id',
+  srf: 'srf-latn-pg',
+  srg: 'srg-latn-ph',
+  srh: 'srh-arab-cn',
+  sri: 'sri-latn-co',
+  srk: 'srk-latn-my',
+  srl: 'srl-latn-id',
+  srm: 'srm-latn-sr',
+  srn: 'srn-latn-sr',
+  sro: 'sro-latn-it',
+  srq: 'srq-latn-bo',
+  srr: 'srr-latn-sn',
+  srs: 'srs-latn-ca',
+  srt: 'srt-latn-id',
+  sru: 'sru-latn-br',
+  srv: 'srv-latn-ph',
+  srw: 'srw-latn-id',
+  srx: 'srx-deva-in',
+  sry: 'sry-latn-pg',
+  srz: 'srz-arab-ir',
+  ss: 'ss-latn-za',
+  ssb: 'ssb-latn-ph',
+  ssc: 'ssc-latn-tz',
+  ssd: 'ssd-latn-zz',
+  sse: 'sse-latn-ph',
+  'sse-arab': 'sse-arab-ph',
+  ssf: 'ssf-latn-tw',
+  ssg: 'ssg-latn-zz',
+  ssh: 'ssh-arab-ae',
+  ssj: 'ssj-latn-pg',
+  ssl: 'ssl-latn-gh',
+  ssm: 'ssm-latn-my',
+  ssn: 'ssn-latn-ke',
+  sso: 'sso-latn-pg',
+  ssq: 'ssq-latn-id',
+  sss: 'sss-laoo-la',
+  'sss-thai': 'sss-thai-th',
+  sst: 'sst-latn-pg',
+  ssu: 'ssu-latn-pg',
+  ssv: 'ssv-latn-vu',
+  ssx: 'ssx-latn-pg',
+  ssy: 'ssy-latn-er',
+  ssz: 'ssz-latn-pg',
+  st: 'st-latn-za',
+  sta: 'sta-latn-zm',
+  stb: 'stb-latn-ph',
+  ste: 'ste-latn-id',
+  stf: 'stf-latn-pg',
+  stg: 'stg-latn-vn',
+  sth: 'sth-latn-ie',
+  sti: 'sti-latn-vn',
+  'sti-kh': 'sti-latn-kh',
+  stj: 'stj-latn-bf',
+  stk: 'stk-latn-zz',
+  stl: 'stl-latn-nl',
+  stm: 'stm-latn-pg',
+  stn: 'stn-latn-sb',
+  sto: 'sto-latn-ca',
+  stp: 'stp-latn-mx',
+  stq: 'stq-latn-de',
+  str: 'str-latn-ca',
+  sts: 'sts-arab-af',
+  stt: 'stt-latn-vn',
+  stv: 'stv-ethi-et',
+  'stv-arab': 'stv-arab-et',
+  stw: 'stw-latn-fm',
+  sty: 'sty-cyrl-ru',
+  su: 'su-latn-id',
+  sua: 'sua-latn-zz',
+  sub: 'sub-latn-cd',
+  suc: 'suc-latn-ph',
+  sue: 'sue-latn-zz',
+  sug: 'sug-latn-pg',
+  sui: 'sui-latn-pg',
+  suj: 'suj-latn-tz',
+  suk: 'suk-latn-tz',
+  suo: 'suo-latn-pg',
+  suq: 'suq-latn-et',
+  'suq-ethi': 'suq-ethi-et',
+  sur: 'sur-latn-zz',
+  sus: 'sus-latn-gn',
+  sut: 'sut-latn-ni',
+  suv: 'suv-latn-in',
+  'suv-beng': 'suv-beng-in',
+  'suv-deva': 'suv-deva-in',
+  suw: 'suw-latn-tz',
+  suy: 'suy-latn-br',
+  suz: 'suz-deva-np',
+  sv: 'sv-latn-se',
+  sva: 'sva-geor-ge',
+  'sva-cyrl': 'sva-cyrl-ge',
+  'sva-latn': 'sva-latn-ge',
+  svb: 'svb-latn-pg',
+  svc: 'svc-latn-vc',
+  sve: 'sve-latn-id',
+  svm: 'svm-latn-it',
+  svs: 'svs-latn-sb',
+  sw: 'sw-latn-tz',
+  swb: 'swb-arab-yt',
+  swc: 'swc-latn-cd',
+  swf: 'swf-latn-cd',
+  swg: 'swg-latn-de',
+  swi: 'swi-hani-cn',
+  swj: 'swj-latn-ga',
+  swk: 'swk-latn-mw',
+  swm: 'swm-latn-pg',
+  swo: 'swo-latn-br',
+  swp: 'swp-latn-zz',
+  swq: 'swq-latn-cm',
+  swr: 'swr-latn-id',
+  sws: 'sws-latn-id',
+  swt: 'swt-latn-id',
+  swu: 'swu-latn-id',
+  swv: 'swv-deva-in',
+  sww: 'sww-latn-vu',
+  swx: 'swx-latn-br',
+  swy: 'swy-latn-td',
+  sxb: 'sxb-latn-ke',
+  sxe: 'sxe-latn-ga',
+  sxn: 'sxn-latn-id',
+  sxr: 'sxr-latn-tw',
+  sxs: 'sxs-latn-ng',
+  sxu: 'sxu-latn-de',
+  'sxu-runr': 'sxu-runr-de',
+  sxw: 'sxw-latn-zz',
+  sya: 'sya-latn-id',
+  syb: 'syb-latn-ph',
+  syc: 'syc-syrc-tr',
+  syi: 'syi-latn-ga',
+  syk: 'syk-latn-ng',
+  syl: 'syl-beng-bd',
+  sym: 'sym-latn-bf',
+  syn: 'syn-syrc-ir',
+  syo: 'syo-latn-kh',
+  syr: 'syr-syrc-iq',
+  sys: 'sys-latn-td',
+  syw: 'syw-deva-np',
+  syx: 'syx-latn-ga',
+  sza: 'sza-latn-my',
+  szb: 'szb-latn-id',
+  szc: 'szc-latn-my',
+  szd: 'szd-latn-my',
+  szg: 'szg-latn-cd',
+  szl: 'szl-latn-pl',
+  szn: 'szn-latn-id',
+  szp: 'szp-latn-id',
+  szv: 'szv-latn-cm',
+  szw: 'szw-latn-id',
+  szy: 'szy-latn-tw',
+  ta: 'ta-taml-in',
+  taa: 'taa-latn-us',
+  tab: 'tab-cyrl-ru',
+  tac: 'tac-latn-mx',
+  tad: 'tad-latn-id',
+  tae: 'tae-latn-br',
+  taf: 'taf-latn-br',
+  tag: 'tag-latn-sd',
+  taj: 'taj-deva-np',
+  tak: 'tak-latn-ng',
+  tal: 'tal-latn-zz',
+  tan: 'tan-latn-zz',
+  tao: 'tao-latn-tw',
+  tap: 'tap-latn-cd',
+  taq: 'taq-latn-zz',
+  tar: 'tar-latn-mx',
+  tas: 'tas-latn-vn',
+  tau: 'tau-latn-us',
+  tav: 'tav-latn-co',
+  taw: 'taw-latn-pg',
+  tax: 'tax-latn-td',
+  tay: 'tay-latn-tw',
+  'tay-hans': 'tay-hans-tw',
+  'tay-hant': 'tay-hant-tw',
+  taz: 'taz-latn-sd',
+  tba: 'tba-latn-br',
+  tbc: 'tbc-latn-zz',
+  tbd: 'tbd-latn-zz',
+  tbe: 'tbe-latn-sb',
+  tbf: 'tbf-latn-zz',
+  tbg: 'tbg-latn-zz',
+  tbh: 'tbh-latn-au',
+  tbi: 'tbi-latn-sd',
+  tbj: 'tbj-latn-pg',
+  tbk: 'tbk-tagb-ph',
+  'tbk-hano': 'tbk-hano-ph',
+  'tbk-latn': 'tbk-latn-ph',
+  tbl: 'tbl-latn-ph',
+  tbm: 'tbm-latn-cd',
+  tbn: 'tbn-latn-co',
+  tbo: 'tbo-latn-zz',
+  tbp: 'tbp-latn-id',
+  tbs: 'tbs-latn-pg',
+  tbt: 'tbt-latn-cd',
+  tbu: 'tbu-latn-mx',
+  tbv: 'tbv-latn-pg',
+  tbw: 'tbw-latn-ph',
+  tbx: 'tbx-latn-pg',
+  tby: 'tby-latn-id',
+  tbz: 'tbz-latn-zz',
+  tca: 'tca-latn-br',
+  tcb: 'tcb-latn-us',
+  tcc: 'tcc-latn-tz',
+  tcd: 'tcd-latn-gh',
+  tce: 'tce-latn-ca',
+  tcf: 'tcf-latn-mx',
+  tcg: 'tcg-latn-id',
+  tch: 'tch-latn-tc',
+  tci: 'tci-latn-zz',
+  tck: 'tck-latn-ga',
+  tcm: 'tcm-latn-id',
+  tcn: 'tcn-tibt-np',
+  tco: 'tco-mymr-mm',
+  tcp: 'tcp-latn-mm',
+  tcq: 'tcq-latn-id',
+  tcs: 'tcs-latn-au',
+  tcu: 'tcu-latn-mx',
+  tcw: 'tcw-latn-mx',
+  tcx: 'tcx-taml-in',
+  tcy: 'tcy-knda-in',
+  tcz: 'tcz-latn-in',
+  tda: 'tda-tfng-ne',
+  'tda-arab': 'tda-arab-ne',
+  'tda-latn': 'tda-latn-ne',
+  tdb: 'tdb-deva-in',
+  'tdb-beng': 'tdb-beng-in',
+  'tdb-kthi': 'tdb-kthi-in',
+  tdc: 'tdc-latn-co',
+  tdd: 'tdd-tale-cn',
+  tde: 'tde-latn-ml',
+  tdg: 'tdg-deva-np',
+  tdh: 'tdh-deva-np',
+  tdi: 'tdi-latn-id',
+  tdj: 'tdj-latn-id',
+  tdk: 'tdk-latn-ng',
+  tdl: 'tdl-latn-ng',
+  tdm: 'tdm-latn-gy',
+  tdn: 'tdn-latn-id',
+  tdo: 'tdo-latn-ng',
+  tdq: 'tdq-latn-ng',
+  tdr: 'tdr-latn-vn',
+  tds: 'tds-latn-id',
+  tdt: 'tdt-latn-tl',
+  tdu: 'tdu-latn-my',
+  tdv: 'tdv-latn-ng',
+  tdx: 'tdx-latn-mg',
+  tdy: 'tdy-latn-ph',
+  te: 'te-telu-in',
+  tea: 'tea-latn-my',
+  teb: 'teb-latn-ec',
+  tec: 'tec-latn-ke',
+  ted: 'ted-latn-zz',
+  tee: 'tee-latn-mx',
+  teg: 'teg-latn-ga',
+  teh: 'teh-latn-ar',
+  tei: 'tei-latn-pg',
+  tek: 'tek-latn-cd',
+  tem: 'tem-latn-sl',
+  ten: 'ten-latn-co',
+  teo: 'teo-latn-ug',
+  tep: 'tep-latn-mx',
+  teq: 'teq-latn-sd',
+  ter: 'ter-latn-br',
+  tes: 'tes-java-id',
+  tet: 'tet-latn-tl',
+  teu: 'teu-latn-ug',
+  tev: 'tev-latn-id',
+  tew: 'tew-latn-us',
+  tex: 'tex-latn-ss',
+  tey: 'tey-latn-sd',
+  tfi: 'tfi-latn-zz',
+  tfn: 'tfn-latn-us',
+  tfo: 'tfo-latn-id',
+  tfr: 'tfr-latn-pa',
+  tft: 'tft-latn-id',
+  tg: 'tg-cyrl-tj',
+  'tg-arab': 'tg-arab-pk',
+  'tg-pk': 'tg-arab-pk',
+  tga: 'tga-latn-ke',
+  tgb: 'tgb-latn-my',
+  tgc: 'tgc-latn-zz',
+  tgd: 'tgd-latn-ng',
+  tge: 'tge-deva-np',
+  tgf: 'tgf-tibt-bt',
+  tgh: 'tgh-latn-tt',
+  tgi: 'tgi-latn-pg',
+  tgj: 'tgj-latn-in',
+  tgn: 'tgn-latn-ph',
+  tgo: 'tgo-latn-zz',
+  tgp: 'tgp-latn-vu',
+  tgq: 'tgq-latn-my',
+  tgs: 'tgs-latn-vu',
+  tgt: 'tgt-latn-ph',
+  'tgt-hano': 'tgt-hano-ph',
+  'tgt-tagb': 'tgt-tagb-ph',
+  tgu: 'tgu-latn-zz',
+  tgv: 'tgv-latn-br',
+  tgw: 'tgw-latn-ci',
+  tgx: 'tgx-latn-ca',
+  tgy: 'tgy-latn-ss',
+  tgz: 'tgz-latn-au',
+  th: 'th-thai-th',
+  thd: 'thd-latn-au',
+  the: 'the-deva-np',
+  thf: 'thf-deva-np',
+  thh: 'thh-latn-mx',
+  thi: 'thi-tale-la',
+  thk: 'thk-latn-ke',
+  thl: 'thl-deva-np',
+  thm: 'thm-thai-th',
+  thp: 'thp-latn-ca',
+  'thp-dupl': 'thp-dupl-ca',
+  thq: 'thq-deva-np',
+  thr: 'thr-deva-np',
+  ths: 'ths-deva-np',
+  tht: 'tht-latn-ca',
+  thu: 'thu-latn-ss',
+  thv: 'thv-latn-dz',
+  'thv-arab': 'thv-arab-dz',
+  'thv-tfng': 'thv-tfng-dz',
+  thy: 'thy-latn-ng',
+  thz: 'thz-latn-ne',
+  'thz-tfng': 'thz-tfng-ne',
+  ti: 'ti-ethi-et',
+  tic: 'tic-latn-sd',
+  tif: 'tif-latn-zz',
+  tig: 'tig-ethi-er',
+  tih: 'tih-latn-my',
+  tii: 'tii-latn-cd',
+  tij: 'tij-deva-np',
+  tik: 'tik-latn-zz',
+  til: 'til-latn-us',
+  tim: 'tim-latn-zz',
+  tin: 'tin-cyrl-ru',
+  tio: 'tio-latn-zz',
+  tip: 'tip-latn-id',
+  tiq: 'tiq-latn-bf',
+  tis: 'tis-latn-ph',
+  tit: 'tit-latn-co',
+  tiu: 'tiu-latn-ph',
+  tiv: 'tiv-latn-ng',
+  tiw: 'tiw-latn-au',
+  tix: 'tix-latn-us',
+  tiy: 'tiy-latn-ph',
+  tja: 'tja-latn-lr',
+  tjg: 'tjg-latn-id',
+  tji: 'tji-latn-cn',
+  tjj: 'tjj-latn-au',
+  tjl: 'tjl-mymr-mm',
+  tjn: 'tjn-latn-ci',
+  tjo: 'tjo-arab-dz',
+  tjp: 'tjp-latn-au',
+  tjs: 'tjs-latn-cn',
+  tju: 'tju-latn-au',
+  tjw: 'tjw-latn-au',
+  tk: 'tk-latn-tm',
+  tka: 'tka-latn-br',
+  tkb: 'tkb-deva-in',
+  tkd: 'tkd-latn-tl',
+  tke: 'tke-latn-mz',
+  tkf: 'tkf-latn-br',
+  tkg: 'tkg-latn-mg',
+  tkl: 'tkl-latn-tk',
+  tkp: 'tkp-latn-sb',
+  tkq: 'tkq-latn-ng',
+  tkr: 'tkr-latn-az',
+  tks: 'tks-arab-ir',
+  tkt: 'tkt-deva-np',
+  tku: 'tku-latn-mx',
+  tkv: 'tkv-latn-pg',
+  tkw: 'tkw-latn-sb',
+  tkx: 'tkx-latn-id',
+  tkz: 'tkz-latn-vn',
+  tl: 'tl-latn-ph',
+  tla: 'tla-latn-mx',
+  tlb: 'tlb-latn-id',
+  tlc: 'tlc-latn-mx',
+  tld: 'tld-latn-id',
+  tlf: 'tlf-latn-zz',
+  tlg: 'tlg-latn-id',
+  tli: 'tli-latn-us',
+  'tli-cyrl': 'tli-cyrl-us',
+  tlj: 'tlj-latn-ug',
+  tlk: 'tlk-latn-id',
+  tll: 'tll-latn-cd',
+  tlm: 'tlm-latn-vu',
+  tln: 'tln-latn-id',
+  tlp: 'tlp-latn-mx',
+  tlq: 'tlq-latn-mm',
+  tlr: 'tlr-latn-sb',
+  tls: 'tls-latn-vu',
+  tlt: 'tlt-latn-id',
+  tlu: 'tlu-latn-id',
+  tlv: 'tlv-latn-id',
+  tlx: 'tlx-latn-zz',
+  tly: 'tly-latn-az',
+  tma: 'tma-latn-td',
+  tmb: 'tmb-latn-vu',
+  tmc: 'tmc-latn-td',
+  tmd: 'tmd-latn-pg',
+  tme: 'tme-latn-br',
+  tmf: 'tmf-latn-py',
+  tmg: 'tmg-latn-id',
+  tmh: 'tmh-latn-ne',
+  tmi: 'tmi-latn-vu',
+  tmj: 'tmj-latn-id',
+  tmk: 'tmk-deva-np',
+  tml: 'tml-latn-id',
+  tmm: 'tmm-latn-vn',
+  tmn: 'tmn-latn-id',
+  tmo: 'tmo-latn-my',
+  tmq: 'tmq-latn-pg',
+  tmr: 'tmr-syrc-il',
+  tmt: 'tmt-latn-vu',
+  tmu: 'tmu-latn-id',
+  tmv: 'tmv-latn-cd',
+  tmw: 'tmw-latn-my',
+  tmy: 'tmy-latn-zz',
+  tmz: 'tmz-latn-ve',
+  tn: 'tn-latn-za',
+  tna: 'tna-latn-bo',
+  tnb: 'tnb-latn-co',
+  tnc: 'tnc-latn-co',
+  tnd: 'tnd-latn-co',
+  tng: 'tng-latn-td',
+  tnh: 'tnh-latn-zz',
+  tni: 'tni-latn-id',
+  tnk: 'tnk-latn-vu',
+  tnl: 'tnl-latn-vu',
+  tnm: 'tnm-latn-id',
+  tnn: 'tnn-latn-vu',
+  tno: 'tno-latn-bo',
+  tnp: 'tnp-latn-vu',
+  tnq: 'tnq-latn-pr',
+  tnr: 'tnr-latn-sn',
+  tns: 'tns-latn-pg',
+  tnt: 'tnt-latn-id',
+  tnv: 'tnv-cakm-bd',
+  tnw: 'tnw-latn-id',
+  tnx: 'tnx-latn-sb',
+  tny: 'tny-latn-tz',
+  to: 'to-latn-to',
+  tob: 'tob-latn-ar',
+  toc: 'toc-latn-mx',
+  tod: 'tod-latn-gn',
+  tof: 'tof-latn-zz',
+  tog: 'tog-latn-mw',
+  toh: 'toh-latn-mz',
+  toi: 'toi-latn-zm',
+  toj: 'toj-latn-mx',
+  tok: 'tok-latn-001',
+  tol: 'tol-latn-us',
+  tom: 'tom-latn-id',
+  too: 'too-latn-mx',
+  top: 'top-latn-mx',
+  toq: 'toq-latn-zz',
+  tor: 'tor-latn-cd',
+  tos: 'tos-latn-mx',
+  tou: 'tou-latn-vn',
+  tov: 'tov-arab-ir',
+  tow: 'tow-latn-us',
+  tox: 'tox-latn-pw',
+  toy: 'toy-latn-id',
+  toz: 'toz-latn-cm',
+  tpa: 'tpa-latn-pg',
+  tpc: 'tpc-latn-mx',
+  tpe: 'tpe-latn-bd',
+  'tpe-beng': 'tpe-beng-bd',
+  tpf: 'tpf-latn-id',
+  tpg: 'tpg-latn-id',
+  tpi: 'tpi-latn-pg',
+  tpj: 'tpj-latn-py',
+  tpk: 'tpk-latn-br',
+  tpl: 'tpl-latn-mx',
+  tpm: 'tpm-latn-zz',
+  tpn: 'tpn-latn-br',
+  tpp: 'tpp-latn-mx',
+  tpr: 'tpr-latn-br',
+  tpt: 'tpt-latn-mx',
+  tpu: 'tpu-khmr-kh',
+  tpv: 'tpv-latn-mp',
+  tpx: 'tpx-latn-mx',
+  tpy: 'tpy-latn-br',
+  tpz: 'tpz-latn-zz',
+  tqb: 'tqb-latn-br',
+  tql: 'tql-latn-vu',
+  tqm: 'tqm-latn-pg',
+  tqn: 'tqn-latn-us',
+  tqo: 'tqo-latn-zz',
+  tqp: 'tqp-latn-pg',
+  tqt: 'tqt-latn-mx',
+  tqu: 'tqu-latn-sb',
+  tqw: 'tqw-latn-us',
+  tr: 'tr-latn-tr',
+  tra: 'tra-arab-af',
+  trb: 'trb-latn-pg',
+  trc: 'trc-latn-mx',
+  tre: 'tre-latn-id',
+  trf: 'trf-latn-tt',
+  trg: 'trg-hebr-il',
+  trh: 'trh-latn-pg',
+  tri: 'tri-latn-sr',
+  trj: 'trj-latn-td',
+  trl: 'trl-latn-gb',
+  trm: 'trm-arab-af',
+  trn: 'trn-latn-bo',
+  tro: 'tro-latn-in',
+  trp: 'trp-latn-in',
+  'trp-beng': 'trp-beng-in',
+  trq: 'trq-latn-mx',
+  trr: 'trr-latn-pe',
+  trs: 'trs-latn-mx',
+  trt: 'trt-latn-id',
+  tru: 'tru-latn-tr',
+  trv: 'trv-latn-tw',
+  trw: 'trw-arab-pk',
+  trx: 'trx-latn-my',
+  try: 'try-latn-in',
+  trz: 'trz-latn-br',
+  ts: 'ts-latn-za',
+  tsa: 'tsa-latn-cg',
+  tsb: 'tsb-latn-et',
+  tsc: 'tsc-latn-mz',
+  tsd: 'tsd-grek-gr',
+  tsf: 'tsf-deva-np',
+  tsg: 'tsg-latn-ph',
+  tsh: 'tsh-latn-cm',
+  tsi: 'tsi-latn-ca',
+  tsj: 'tsj-tibt-bt',
+  tsl: 'tsl-latn-vn',
+  tsp: 'tsp-latn-bf',
+  tsr: 'tsr-latn-vu',
+  tst: 'tst-latn-ml',
+  tsu: 'tsu-latn-tw',
+  tsv: 'tsv-latn-ga',
+  tsw: 'tsw-latn-zz',
+  tsx: 'tsx-latn-pg',
+  tsz: 'tsz-latn-mx',
+  tt: 'tt-cyrl-ru',
+  ttb: 'ttb-latn-ng',
+  ttc: 'ttc-latn-gt',
+  ttd: 'ttd-latn-zz',
+  tte: 'tte-latn-zz',
+  ttf: 'ttf-latn-cm',
+  tth: 'tth-laoo-la',
+  tti: 'tti-latn-id',
+  ttj: 'ttj-latn-ug',
+  ttk: 'ttk-latn-co',
+  ttl: 'ttl-latn-zm',
+  ttm: 'ttm-latn-ca',
+  ttn: 'ttn-latn-id',
+  tto: 'tto-laoo-la',
+  ttp: 'ttp-latn-id',
+  ttr: 'ttr-latn-zz',
+  tts: 'tts-thai-th',
+  ttt: 'ttt-latn-az',
+  ttu: 'ttu-latn-pg',
+  ttv: 'ttv-latn-pg',
+  ttw: 'ttw-latn-my',
+  tty: 'tty-latn-id',
+  tua: 'tua-latn-pg',
+  tub: 'tub-latn-us',
+  tuc: 'tuc-latn-pg',
+  tud: 'tud-latn-br',
+  tue: 'tue-latn-co',
+  tuf: 'tuf-latn-co',
+  tug: 'tug-latn-td',
+  tuh: 'tuh-latn-zz',
+  tui: 'tui-latn-cm',
+  tuj: 'tuj-latn-id',
+  tul: 'tul-latn-zz',
+  tum: 'tum-latn-mw',
+  tun: 'tun-latn-us',
+  tuo: 'tuo-latn-br',
+  tuq: 'tuq-latn-zz',
+  tus: 'tus-latn-ca',
+  tuu: 'tuu-latn-us',
+  tuv: 'tuv-latn-ke',
+  tux: 'tux-latn-br',
+  tuy: 'tuy-latn-ke',
+  tuz: 'tuz-latn-bf',
+  tva: 'tva-latn-sb',
+  tvd: 'tvd-latn-zz',
+  tve: 'tve-latn-id',
+  tvk: 'tvk-latn-vu',
+  tvl: 'tvl-latn-tv',
+  tvm: 'tvm-latn-id',
+  tvn: 'tvn-mymr-mm',
+  tvo: 'tvo-latn-id',
+  tvs: 'tvs-latn-ke',
+  tvt: 'tvt-latn-in',
+  tvu: 'tvu-latn-zz',
+  tvw: 'tvw-latn-id',
+  tvx: 'tvx-latn-tw',
+  twa: 'twa-latn-us',
+  twb: 'twb-latn-ph',
+  twd: 'twd-latn-nl',
+  twe: 'twe-latn-id',
+  twf: 'twf-latn-us',
+  twg: 'twg-latn-id',
+  twh: 'twh-latn-zz',
+  twl: 'twl-latn-mz',
+  twm: 'twm-deva-in',
+  twn: 'twn-latn-cm',
+  two: 'two-latn-bw',
+  twp: 'twp-latn-pg',
+  twq: 'twq-latn-ne',
+  twr: 'twr-latn-mx',
+  twt: 'twt-latn-br',
+  twu: 'twu-latn-id',
+  tww: 'tww-latn-pg',
+  twx: 'twx-latn-mz',
+  twy: 'twy-latn-id',
+  txa: 'txa-latn-my',
+  txe: 'txe-latn-id',
+  txg: 'txg-tang-cn',
+  txi: 'txi-latn-br',
+  txj: 'txj-latn-ng',
+  txm: 'txm-latn-id',
+  txn: 'txn-latn-id',
+  txo: 'txo-toto-in',
+  txq: 'txq-latn-id',
+  txs: 'txs-latn-id',
+  txt: 'txt-latn-id',
+  txu: 'txu-latn-br',
+  txx: 'txx-latn-my',
+  txy: 'txy-latn-mg',
+  ty: 'ty-latn-pf',
+  tya: 'tya-latn-zz',
+  tye: 'tye-latn-ng',
+  tyh: 'tyh-latn-vn',
+  tyi: 'tyi-latn-cg',
+  tyj: 'tyj-latn-vn',
+  tyl: 'tyl-latn-vn',
+  tyn: 'tyn-latn-id',
+  typ: 'typ-latn-au',
+  tyr: 'tyr-tavt-vn',
+  tys: 'tys-latn-vn',
+  tyt: 'tyt-latn-vn',
+  'tyt-tavt': 'tyt-tavt-vn',
+  tyu: 'tyu-latn-bw',
+  tyv: 'tyv-cyrl-ru',
+  tyx: 'tyx-latn-cg',
+  tyy: 'tyy-latn-ng',
+  tyz: 'tyz-latn-vn',
+  tzh: 'tzh-latn-mx',
+  tzj: 'tzj-latn-gt',
+  tzl: 'tzl-latn-001',
+  tzm: 'tzm-latn-ma',
+  tzn: 'tzn-latn-id',
+  tzo: 'tzo-latn-mx',
+  tzx: 'tzx-latn-pg',
+  uam: 'uam-latn-br',
+  uar: 'uar-latn-pg',
+  uba: 'uba-latn-ng',
+  ubi: 'ubi-latn-td',
+  ubl: 'ubl-latn-ph',
+  ubr: 'ubr-latn-pg',
+  ubu: 'ubu-latn-zz',
+  uda: 'uda-latn-ng',
+  ude: 'ude-cyrl-ru',
+  udg: 'udg-mlym-in',
+  udi: 'udi-aghb-ru',
+  udj: 'udj-latn-id',
+  udl: 'udl-latn-cm',
+  udm: 'udm-cyrl-ru',
+  udu: 'udu-latn-sd',
+  ues: 'ues-latn-id',
+  ufi: 'ufi-latn-pg',
+  ug: 'ug-arab-cn',
+  'ug-cyrl': 'ug-cyrl-kz',
+  'ug-kz': 'ug-cyrl-kz',
+  'ug-mn': 'ug-cyrl-mn',
+  uga: 'uga-ugar-sy',
+  ugb: 'ugb-latn-au',
+  uge: 'uge-latn-sb',
+  ugh: 'ugh-cyrl-ru',
+  ugo: 'ugo-thai-th',
+  uha: 'uha-latn-ng',
+  uhn: 'uhn-latn-id',
+  uis: 'uis-latn-pg',
+  uiv: 'uiv-latn-cm',
+  uji: 'uji-latn-ng',
+  uk: 'uk-cyrl-ua',
+  uka: 'uka-latn-id',
+  ukg: 'ukg-latn-pg',
+  ukh: 'ukh-latn-cf',
+  uki: 'uki-orya-in',
+  ukk: 'ukk-latn-mm',
+  ukp: 'ukp-latn-ng',
+  ukq: 'ukq-latn-ng',
+  uku: 'uku-latn-ng',
+  ukv: 'ukv-latn-ss',
+  ukw: 'ukw-latn-ng',
+  uky: 'uky-latn-au',
+  ula: 'ula-latn-ng',
+  ulb: 'ulb-latn-ng',
+  ulc: 'ulc-cyrl-ru',
+  ule: 'ule-latn-ar',
+  ulf: 'ulf-latn-id',
+  uli: 'uli-latn-fm',
+  ulk: 'ulk-latn-au',
+  ulm: 'ulm-latn-id',
+  uln: 'uln-latn-pg',
+  ulu: 'ulu-latn-id',
+  ulw: 'ulw-latn-ni',
+  uma: 'uma-latn-us',
+  umb: 'umb-latn-ao',
+  umd: 'umd-latn-au',
+  umg: 'umg-latn-au',
+  umi: 'umi-latn-my',
+  umm: 'umm-latn-ng',
+  umn: 'umn-latn-mm',
+  umo: 'umo-latn-br',
+  ump: 'ump-latn-au',
+  umr: 'umr-latn-au',
+  ums: 'ums-latn-id',
+  una: 'una-latn-pg',
+  und: 'en-latn-us',
+  'und-002': 'en-latn-ng',
+  'und-003': 'en-latn-us',
+  'und-005': 'pt-latn-br',
+  'und-009': 'en-latn-au',
+  'und-011': 'en-latn-ng',
+  'und-013': 'es-latn-mx',
+  'und-014': 'sw-latn-tz',
+  'und-015': 'ar-arab-eg',
+  'und-017': 'sw-latn-cd',
+  'und-018': 'en-latn-za',
+  'und-019': 'en-latn-us',
+  'und-021': 'en-latn-us',
+  'und-029': 'es-latn-cu',
+  'und-030': 'zh-hans-cn',
+  'und-034': 'hi-deva-in',
+  'und-035': 'id-latn-id',
+  'und-039': 'it-latn-it',
+  'und-053': 'en-latn-au',
+  'und-054': 'en-latn-pg',
+  'und-057': 'en-latn-gu',
+  'und-061': 'sm-latn-ws',
+  'und-142': 'zh-hans-cn',
+  'und-143': 'uz-latn-uz',
+  'und-145': 'ar-arab-sa',
+  'und-150': 'ru-cyrl-ru',
+  'und-151': 'ru-cyrl-ru',
+  'und-154': 'en-latn-gb',
+  'und-155': 'de-latn-de',
+  'und-202': 'en-latn-ng',
+  'und-419': 'es-latn-419',
+  'und-ad': 'ca-latn-ad',
+  'und-adlm': 'ff-adlm-gn',
+  'und-ae': 'ar-arab-ae',
+  'und-af': 'fa-arab-af',
+  'und-aghb': 'udi-aghb-ru',
+  'und-ahom': 'aho-ahom-in',
+  'und-al': 'sq-latn-al',
+  'und-am': 'hy-armn-am',
+  'und-ao': 'pt-latn-ao',
+  'und-aq': 'und-latn-aq',
+  'und-ar': 'es-latn-ar',
+  'und-arab': 'ar-arab-eg',
+  'und-arab-cc': 'ms-arab-cc',
+  'und-arab-cn': 'ug-arab-cn',
+  'und-arab-gb': 'ur-arab-gb',
+  'und-arab-id': 'ms-arab-id',
+  'und-arab-in': 'ur-arab-in',
+  'und-arab-kh': 'cja-arab-kh',
+  'und-arab-mm': 'rhg-arab-mm',
+  'und-arab-mn': 'kk-arab-mn',
+  'und-arab-mu': 'ur-arab-mu',
+  'und-arab-ng': 'ha-arab-ng',
+  'und-arab-pk': 'ur-arab-pk',
+  'und-arab-tg': 'apd-arab-tg',
+  'und-arab-th': 'mfa-arab-th',
+  'und-arab-tj': 'fa-arab-tj',
+  'und-arab-tr': 'apc-arab-tr',
+  'und-arab-yt': 'swb-arab-yt',
+  'und-armi': 'arc-armi-ir',
+  'und-armn': 'hy-armn-am',
+  'und-as': 'sm-latn-as',
+  'und-at': 'de-latn-at',
+  'und-avst': 'ae-avst-ir',
+  'und-aw': 'nl-latn-aw',
+  'und-ax': 'sv-latn-ax',
+  'und-az': 'az-latn-az',
+  'und-ba': 'bs-latn-ba',
+  'und-bali': 'ban-bali-id',
+  'und-bamu': 'bax-bamu-cm',
+  'und-bass': 'bsq-bass-lr',
+  'und-batk': 'bbc-batk-id',
+  'und-bd': 'bn-beng-bd',
+  'und-be': 'nl-latn-be',
+  'und-beng': 'bn-beng-bd',
+  'und-bf': 'fr-latn-bf',
+  'und-bg': 'bg-cyrl-bg',
+  'und-bh': 'ar-arab-bh',
+  'und-bhks': 'sa-bhks-in',
+  'und-bi': 'rn-latn-bi',
+  'und-bj': 'fr-latn-bj',
+  'und-bl': 'fr-latn-bl',
+  'und-bn': 'ms-latn-bn',
+  'und-bo': 'es-latn-bo',
+  'und-bopo': 'zh-bopo-tw',
+  'und-bq': 'pap-latn-bq',
+  'und-br': 'pt-latn-br',
+  'und-brah': 'pka-brah-in',
+  'und-brai': 'fr-brai-fr',
+  'und-bt': 'dz-tibt-bt',
+  'und-bugi': 'bug-bugi-id',
+  'und-buhd': 'bku-buhd-ph',
+  'und-bv': 'und-latn-bv',
+  'und-by': 'be-cyrl-by',
+  'und-cakm': 'ccp-cakm-bd',
+  'und-cans': 'iu-cans-ca',
+  'und-cari': 'xcr-cari-tr',
+  'und-cd': 'sw-latn-cd',
+  'und-cf': 'fr-latn-cf',
+  'und-cg': 'fr-latn-cg',
+  'und-ch': 'de-latn-ch',
+  'und-cham': 'cjm-cham-vn',
+  'und-cher': 'chr-cher-us',
+  'und-chrs': 'xco-chrs-uz',
+  'und-ci': 'fr-latn-ci',
+  'und-cl': 'es-latn-cl',
+  'und-cm': 'fr-latn-cm',
+  'und-cn': 'zh-hans-cn',
+  'und-co': 'es-latn-co',
+  'und-copt': 'cop-copt-eg',
+  'und-cp': 'und-latn-cp',
+  'und-cpmn': 'und-cpmn-cy',
+  'und-cpmn-cy': 'und-cpmn-cy',
+  'und-cprt': 'grc-cprt-cy',
+  'und-cr': 'es-latn-cr',
+  'und-cu': 'es-latn-cu',
+  'und-cv': 'pt-latn-cv',
+  'und-cw': 'pap-latn-cw',
+  'und-cy': 'el-grek-cy',
+  'und-cyrl': 'ru-cyrl-ru',
+  'und-cyrl-al': 'mk-cyrl-al',
+  'und-cyrl-ba': 'sr-cyrl-ba',
+  'und-cyrl-ge': 'ab-cyrl-ge',
+  'und-cyrl-gr': 'mk-cyrl-gr',
+  'und-cyrl-md': 'uk-cyrl-md',
+  'und-cyrl-ro': 'bg-cyrl-ro',
+  'und-cyrl-sk': 'uk-cyrl-sk',
+  'und-cyrl-tr': 'kbd-cyrl-tr',
+  'und-cyrl-xk': 'sr-cyrl-xk',
+  'und-cz': 'cs-latn-cz',
+  'und-de': 'de-latn-de',
+  'und-deva': 'hi-deva-in',
+  'und-deva-bt': 'ne-deva-bt',
+  'und-deva-fj': 'hif-deva-fj',
+  'und-deva-mu': 'bho-deva-mu',
+  'und-deva-pk': 'btv-deva-pk',
+  'und-diak': 'dv-diak-mv',
+  'und-dj': 'aa-latn-dj',
+  'und-dk': 'da-latn-dk',
+  'und-do': 'es-latn-do',
+  'und-dogr': 'doi-dogr-in',
+  'und-dupl': 'fr-dupl-fr',
+  'und-dz': 'ar-arab-dz',
+  'und-ea': 'es-latn-ea',
+  'und-ec': 'es-latn-ec',
+  'und-ee': 'et-latn-ee',
+  'und-eg': 'ar-arab-eg',
+  'und-egyp': 'egy-egyp-eg',
+  'und-eh': 'ar-arab-eh',
+  'und-elba': 'sq-elba-al',
+  'und-elym': 'arc-elym-ir',
+  'und-er': 'ti-ethi-er',
+  'und-es': 'es-latn-es',
+  'und-et': 'am-ethi-et',
+  'und-ethi': 'am-ethi-et',
+  'und-eu': 'en-latn-ie',
+  'und-ez': 'de-latn-ez',
+  'und-fi': 'fi-latn-fi',
+  'und-fo': 'fo-latn-fo',
+  'und-fr': 'fr-latn-fr',
+  'und-ga': 'fr-latn-ga',
+  'und-ge': 'ka-geor-ge',
+  'und-geor': 'ka-geor-ge',
+  'und-gf': 'fr-latn-gf',
+  'und-gh': 'ak-latn-gh',
+  'und-gl': 'kl-latn-gl',
+  'und-glag': 'cu-glag-bg',
+  'und-gn': 'fr-latn-gn',
+  'und-gong': 'wsg-gong-in',
+  'und-gonm': 'esg-gonm-in',
+  'und-goth': 'got-goth-ua',
+  'und-gp': 'fr-latn-gp',
+  'und-gq': 'es-latn-gq',
+  'und-gr': 'el-grek-gr',
+  'und-gran': 'sa-gran-in',
+  'und-grek': 'el-grek-gr',
+  'und-grek-tr': 'bgx-grek-tr',
+  'und-gs': 'und-latn-gs',
+  'und-gt': 'es-latn-gt',
+  'und-gujr': 'gu-gujr-in',
+  'und-guru': 'pa-guru-in',
+  'und-gw': 'pt-latn-gw',
+  'und-hanb': 'zh-hanb-tw',
+  'und-hang': 'ko-hang-kr',
+  'und-hani': 'zh-hani-cn',
+  'und-hano': 'hnn-hano-ph',
+  'und-hans': 'zh-hans-cn',
+  'und-hant': 'zh-hant-tw',
+  'und-hant-ca': 'yue-hant-ca',
+  'und-hebr': 'he-hebr-il',
+  'und-hebr-se': 'yi-hebr-se',
+  'und-hebr-ua': 'yi-hebr-ua',
+  'und-hebr-us': 'yi-hebr-us',
+  'und-hira': 'ja-hira-jp',
+  'und-hk': 'zh-hant-hk',
+  'und-hluw': 'hlu-hluw-tr',
+  'und-hm': 'und-latn-hm',
+  'und-hmng': 'hnj-hmng-la',
+  'und-hmnp': 'hnj-hmnp-us',
+  'und-hn': 'es-latn-hn',
+  'und-hr': 'hr-latn-hr',
+  'und-ht': 'ht-latn-ht',
+  'und-hu': 'hu-latn-hu',
+  'und-hung': 'hu-hung-hu',
+  'und-ic': 'es-latn-ic',
+  'und-id': 'id-latn-id',
+  'und-il': 'he-hebr-il',
+  'und-in': 'hi-deva-in',
+  'und-iq': 'ar-arab-iq',
+  'und-ir': 'fa-arab-ir',
+  'und-is': 'is-latn-is',
+  'und-it': 'it-latn-it',
+  'und-ital': 'ett-ital-it',
+  'und-jamo': 'ko-jamo-kr',
+  'und-java': 'jv-java-id',
+  'und-jo': 'ar-arab-jo',
+  'und-jp': 'ja-jpan-jp',
+  'und-jpan': 'ja-jpan-jp',
+  'und-kali': 'eky-kali-mm',
+  'und-kana': 'ja-kana-jp',
+  'und-kawi': 'kaw-kawi-id',
+  'und-ke': 'sw-latn-ke',
+  'und-kg': 'ky-cyrl-kg',
+  'und-kh': 'km-khmr-kh',
+  'und-khar': 'pra-khar-pk',
+  'und-khmr': 'km-khmr-kh',
+  'und-khoj': 'sd-khoj-in',
+  'und-kits': 'zkt-kits-cn',
+  'und-km': 'ar-arab-km',
+  'und-knda': 'kn-knda-in',
+  'und-kore': 'ko-kore-kr',
+  'und-kp': 'ko-kore-kp',
+  'und-kr': 'ko-kore-kr',
+  'und-kthi': 'bho-kthi-in',
+  'und-kw': 'ar-arab-kw',
+  'und-kz': 'ru-cyrl-kz',
+  'und-la': 'lo-laoo-la',
+  'und-lana': 'nod-lana-th',
+  'und-laoo': 'lo-laoo-la',
+  'und-laoo-au': 'hnj-laoo-au',
+  'und-laoo-cn': 'hnj-laoo-cn',
+  'und-laoo-fr': 'hnj-laoo-fr',
+  'und-laoo-gf': 'hnj-laoo-gf',
+  'und-laoo-mm': 'hnj-laoo-mm',
+  'und-laoo-sr': 'hnj-laoo-sr',
+  'und-laoo-th': 'hnj-laoo-th',
+  'und-laoo-us': 'hnj-laoo-us',
+  'und-laoo-vn': 'hnj-laoo-vn',
+  'und-latn-af': 'tk-latn-af',
+  'und-latn-am': 'ku-latn-am',
+  'und-latn-cn': 'za-latn-cn',
+  'und-latn-cy': 'tr-latn-cy',
+  'und-latn-dz': 'fr-latn-dz',
+  'und-latn-et': 'en-latn-et',
+  'und-latn-ge': 'ku-latn-ge',
+  'und-latn-ir': 'tk-latn-ir',
+  'und-latn-km': 'fr-latn-km',
+  'und-latn-ma': 'fr-latn-ma',
+  'und-latn-mk': 'sq-latn-mk',
+  'und-latn-mm': 'kac-latn-mm',
+  'und-latn-mo': 'pt-latn-mo',
+  'und-latn-mr': 'fr-latn-mr',
+  'und-latn-ru': 'krl-latn-ru',
+  'und-latn-sy': 'fr-latn-sy',
+  'und-latn-tn': 'fr-latn-tn',
+  'und-latn-tw': 'trv-latn-tw',
+  'und-latn-ua': 'pl-latn-ua',
+  'und-lb': 'ar-arab-lb',
+  'und-lepc': 'lep-lepc-in',
+  'und-li': 'de-latn-li',
+  'und-limb': 'lif-limb-in',
+  'und-lina': 'lab-lina-gr',
+  'und-linb': 'grc-linb-gr',
+  'und-lisu': 'lis-lisu-cn',
+  'und-lk': 'si-sinh-lk',
+  'und-ls': 'st-latn-ls',
+  'und-lt': 'lt-latn-lt',
+  'und-lu': 'fr-latn-lu',
+  'und-lv': 'lv-latn-lv',
+  'und-ly': 'ar-arab-ly',
+  'und-lyci': 'xlc-lyci-tr',
+  'und-lydi': 'xld-lydi-tr',
+  'und-ma': 'ar-arab-ma',
+  'und-mahj': 'hi-mahj-in',
+  'und-maka': 'mak-maka-id',
+  'und-mand': 'myz-mand-ir',
+  'und-mani': 'xmn-mani-cn',
+  'und-marc': 'bo-marc-cn',
+  'und-mc': 'fr-latn-mc',
+  'und-md': 'ro-latn-md',
+  'und-me': 'sr-latn-me',
+  'und-medf': 'dmf-medf-ng',
+  'und-mend': 'men-mend-sl',
+  'und-merc': 'xmr-merc-sd',
+  'und-mero': 'xmr-mero-sd',
+  'und-mf': 'fr-latn-mf',
+  'und-mg': 'mg-latn-mg',
+  'und-mk': 'mk-cyrl-mk',
+  'und-ml': 'bm-latn-ml',
+  'und-mlym': 'ml-mlym-in',
+  'und-mm': 'my-mymr-mm',
+  'und-mn': 'mn-cyrl-mn',
+  'und-mo': 'zh-hant-mo',
+  'und-modi': 'mr-modi-in',
+  'und-mong': 'mn-mong-cn',
+  'und-mq': 'fr-latn-mq',
+  'und-mr': 'ar-arab-mr',
+  'und-mroo': 'mro-mroo-bd',
+  'und-mt': 'mt-latn-mt',
+  'und-mtei': 'mni-mtei-in',
+  'und-mu': 'mfe-latn-mu',
+  'und-mult': 'skr-mult-pk',
+  'und-mv': 'dv-thaa-mv',
+  'und-mx': 'es-latn-mx',
+  'und-my': 'ms-latn-my',
+  'und-mymr': 'my-mymr-mm',
+  'und-mymr-in': 'kht-mymr-in',
+  'und-mymr-th': 'mnw-mymr-th',
+  'und-mz': 'pt-latn-mz',
+  'und-na': 'af-latn-na',
+  'und-nagm': 'unr-nagm-in',
+  'und-nand': 'sa-nand-in',
+  'und-narb': 'xna-narb-sa',
+  'und-nbat': 'arc-nbat-jo',
+  'und-nc': 'fr-latn-nc',
+  'und-ne': 'ha-latn-ne',
+  'und-newa': 'new-newa-np',
+  'und-ni': 'es-latn-ni',
+  'und-nkoo': 'man-nkoo-gn',
+  'und-nl': 'nl-latn-nl',
+  'und-no': 'nb-latn-no',
+  'und-np': 'ne-deva-np',
+  'und-nshu': 'zhx-nshu-cn',
+  'und-ogam': 'sga-ogam-ie',
+  'und-olck': 'sat-olck-in',
+  'und-om': 'ar-arab-om',
+  'und-orkh': 'otk-orkh-mn',
+  'und-orya': 'or-orya-in',
+  'und-osge': 'osa-osge-us',
+  'und-osma': 'so-osma-so',
+  'und-ougr': 'oui-ougr-143',
+  'und-pa': 'es-latn-pa',
+  'und-palm': 'arc-palm-sy',
+  'und-pauc': 'ctd-pauc-mm',
+  'und-pe': 'es-latn-pe',
+  'und-perm': 'kv-perm-ru',
+  'und-pf': 'fr-latn-pf',
+  'und-pg': 'tpi-latn-pg',
+  'und-ph': 'fil-latn-ph',
+  'und-phag': 'lzh-phag-cn',
+  'und-phli': 'pal-phli-ir',
+  'und-phlp': 'pal-phlp-cn',
+  'und-phnx': 'phn-phnx-lb',
+  'und-pk': 'ur-arab-pk',
+  'und-pl': 'pl-latn-pl',
+  'und-plrd': 'hmd-plrd-cn',
+  'und-pm': 'fr-latn-pm',
+  'und-pr': 'es-latn-pr',
+  'und-prti': 'xpr-prti-ir',
+  'und-ps': 'ar-arab-ps',
+  'und-pt': 'pt-latn-pt',
+  'und-pw': 'pau-latn-pw',
+  'und-py': 'gn-latn-py',
+  'und-qa': 'ar-arab-qa',
+  'und-qo': 'en-latn-dg',
+  'und-re': 'fr-latn-re',
+  'und-rjng': 'rej-rjng-id',
+  'und-ro': 'ro-latn-ro',
+  'und-rohg': 'rhg-rohg-mm',
+  'und-rs': 'sr-cyrl-rs',
+  'und-ru': 'ru-cyrl-ru',
+  'und-runr': 'non-runr-se',
+  'und-rw': 'rw-latn-rw',
+  'und-sa': 'ar-arab-sa',
+  'und-samr': 'smp-samr-il',
+  'und-sarb': 'xsa-sarb-ye',
+  'und-saur': 'saz-saur-in',
+  'und-sc': 'fr-latn-sc',
+  'und-sd': 'ar-arab-sd',
+  'und-se': 'sv-latn-se',
+  'und-sgnw': 'ase-sgnw-us',
+  'und-shaw': 'en-shaw-gb',
+  'und-shrd': 'sa-shrd-in',
+  'und-si': 'sl-latn-si',
+  'und-sidd': 'sa-sidd-in',
+  'und-sind': 'sd-sind-in',
+  'und-sinh': 'si-sinh-lk',
+  'und-sj': 'nb-latn-sj',
+  'und-sk': 'sk-latn-sk',
+  'und-sm': 'it-latn-sm',
+  'und-sn': 'fr-latn-sn',
+  'und-so': 'so-latn-so',
+  'und-sogd': 'sog-sogd-uz',
+  'und-sogo': 'sog-sogo-uz',
+  'und-sora': 'srb-sora-in',
+  'und-soyo': 'cmg-soyo-mn',
+  'und-sr': 'nl-latn-sr',
+  'und-st': 'pt-latn-st',
+  'und-sund': 'su-sund-id',
+  'und-sv': 'es-latn-sv',
+  'und-sy': 'ar-arab-sy',
+  'und-sylo': 'syl-sylo-bd',
+  'und-syrc': 'syr-syrc-iq',
+  'und-tagb': 'tbw-tagb-ph',
+  'und-takr': 'doi-takr-in',
+  'und-tale': 'tdd-tale-cn',
+  'und-talu': 'khb-talu-cn',
+  'und-taml': 'ta-taml-in',
+  'und-tang': 'txg-tang-cn',
+  'und-tavt': 'blt-tavt-vn',
+  'und-td': 'fr-latn-td',
+  'und-telu': 'te-telu-in',
+  'und-tf': 'fr-latn-tf',
+  'und-tfng': 'zgh-tfng-ma',
+  'und-tg': 'fr-latn-tg',
+  'und-tglg': 'fil-tglg-ph',
+  'und-th': 'th-thai-th',
+  'und-thaa': 'dv-thaa-mv',
+  'und-thai': 'th-thai-th',
+  'und-thai-cn': 'lcp-thai-cn',
+  'und-thai-kh': 'kdt-thai-kh',
+  'und-thai-la': 'kdt-thai-la',
+  'und-tibt': 'bo-tibt-cn',
+  'und-tirh': 'mai-tirh-in',
+  'und-tj': 'tg-cyrl-tj',
+  'und-tk': 'tkl-latn-tk',
+  'und-tl': 'pt-latn-tl',
+  'und-tm': 'tk-latn-tm',
+  'und-tn': 'ar-arab-tn',
+  'und-tnsa': 'nst-tnsa-in',
+  'und-to': 'to-latn-to',
+  'und-toto': 'txo-toto-in',
+  'und-tr': 'tr-latn-tr',
+  'und-tv': 'tvl-latn-tv',
+  'und-tw': 'zh-hant-tw',
+  'und-tz': 'sw-latn-tz',
+  'und-ua': 'uk-cyrl-ua',
+  'und-ug': 'sw-latn-ug',
+  'und-ugar': 'uga-ugar-sy',
+  'und-uy': 'es-latn-uy',
+  'und-uz': 'uz-latn-uz',
+  'und-va': 'it-latn-va',
+  'und-vaii': 'vai-vaii-lr',
+  'und-ve': 'es-latn-ve',
+  'und-vith': 'sq-vith-al',
+  'und-vn': 'vi-latn-vn',
+  'und-vu': 'bi-latn-vu',
+  'und-wara': 'hoc-wara-in',
+  'und-wcho': 'nnp-wcho-in',
+  'und-wf': 'fr-latn-wf',
+  'und-ws': 'sm-latn-ws',
+  'und-xk': 'sq-latn-xk',
+  'und-xpeo': 'peo-xpeo-ir',
+  'und-xsux': 'akk-xsux-iq',
+  'und-ye': 'ar-arab-ye',
+  'und-yezi': 'ku-yezi-ge',
+  'und-yiii': 'ii-yiii-cn',
+  'und-yt': 'fr-latn-yt',
+  'und-zanb': 'cmg-zanb-mn',
+  'und-zw': 'sn-latn-zw',
+  une: 'une-latn-ng',
+  ung: 'ung-latn-au',
+  uni: 'uni-latn-pg',
+  unk: 'unk-latn-br',
+  unm: 'unm-latn-us',
+  unn: 'unn-latn-au',
+  unr: 'unr-beng-in',
+  'unr-deva': 'unr-deva-np',
+  'unr-np': 'unr-deva-np',
+  unu: 'unu-latn-pg',
+  unx: 'unx-beng-in',
+  unz: 'unz-latn-id',
+  uok: 'uok-latn-zz',
+  uon: 'uon-latn-tw',
+  upi: 'upi-latn-pg',
+  upv: 'upv-latn-vu',
+  ur: 'ur-arab-pk',
+  ura: 'ura-latn-pe',
+  urb: 'urb-latn-br',
+  urc: 'urc-latn-au',
+  ure: 'ure-latn-bo',
+  urf: 'urf-latn-au',
+  urg: 'urg-latn-pg',
+  urh: 'urh-latn-ng',
+  uri: 'uri-latn-zz',
+  urk: 'urk-thai-th',
+  urm: 'urm-latn-pg',
+  urn: 'urn-latn-id',
+  uro: 'uro-latn-pg',
+  urp: 'urp-latn-br',
+  urr: 'urr-latn-vu',
+  urt: 'urt-latn-zz',
+  uru: 'uru-latn-br',
+  urv: 'urv-latn-pg',
+  urw: 'urw-latn-zz',
+  urx: 'urx-latn-pg',
+  ury: 'ury-latn-id',
+  urz: 'urz-latn-br',
+  usa: 'usa-latn-zz',
+  ush: 'ush-arab-pk',
+  usi: 'usi-latn-bd',
+  'usi-beng': 'usi-beng-bd',
+  usk: 'usk-latn-cm',
+  usp: 'usp-latn-gt',
+  uss: 'uss-latn-ng',
+  usu: 'usu-latn-pg',
+  uta: 'uta-latn-ng',
+  ute: 'ute-latn-us',
+  uth: 'uth-latn-zz',
+  utp: 'utp-latn-sb',
+  utr: 'utr-latn-zz',
+  utu: 'utu-latn-pg',
+  uum: 'uum-grek-ge',
+  'uum-cyrl': 'uum-cyrl-ge',
+  uur: 'uur-latn-vu',
+  uve: 'uve-latn-nc',
+  uvh: 'uvh-latn-zz',
+  uvl: 'uvl-latn-zz',
+  uwa: 'uwa-latn-au',
+  uya: 'uya-latn-ng',
+  uz: 'uz-latn-uz',
+  'uz-af': 'uz-arab-af',
+  'uz-arab': 'uz-arab-af',
+  'uz-cn': 'uz-cyrl-cn',
+  uzs: 'uzs-arab-af',
+  vaa: 'vaa-taml-in',
+  vae: 'vae-latn-cf',
+  vaf: 'vaf-arab-ir',
+  vag: 'vag-latn-zz',
+  vah: 'vah-deva-in',
+  vai: 'vai-vaii-lr',
+  vaj: 'vaj-latn-na',
+  val: 'val-latn-pg',
+  vam: 'vam-latn-pg',
+  van: 'van-latn-zz',
+  vao: 'vao-latn-vu',
+  vap: 'vap-latn-in',
+  var: 'var-latn-mx',
+  vas: 'vas-deva-in',
+  'vas-gujr': 'vas-gujr-in',
+  vau: 'vau-latn-cd',
+  vav: 'vav-deva-in',
+  'vav-gujr': 'vav-gujr-in',
+  vay: 'vay-deva-np',
+  vbb: 'vbb-latn-id',
+  vbk: 'vbk-latn-ph',
+  ve: 've-latn-za',
+  vec: 'vec-latn-it',
+  vem: 'vem-latn-ng',
+  veo: 'veo-latn-us',
+  vep: 'vep-latn-ru',
+  ver: 'ver-latn-ng',
+  vgr: 'vgr-arab-pk',
+  vi: 'vi-latn-vn',
+  vic: 'vic-latn-sx',
+  vid: 'vid-latn-tz',
+  vif: 'vif-latn-cg',
+  vig: 'vig-latn-bf',
+  vil: 'vil-latn-ar',
+  vin: 'vin-latn-tz',
+  vit: 'vit-latn-ng',
+  viv: 'viv-latn-zz',
+  vka: 'vka-latn-au',
+  vkj: 'vkj-latn-td',
+  vkk: 'vkk-latn-id',
+  vkl: 'vkl-latn-id',
+  vkm: 'vkm-latn-br',
+  vkn: 'vkn-latn-ng',
+  vko: 'vko-latn-id',
+  vkp: 'vkp-latn-in',
+  'vkp-deva': 'vkp-deva-in',
+  vkt: 'vkt-latn-id',
+  vku: 'vku-latn-au',
+  vkz: 'vkz-latn-ng',
+  vlp: 'vlp-latn-vu',
+  vls: 'vls-latn-be',
+  vma: 'vma-latn-au',
+  vmb: 'vmb-latn-au',
+  vmc: 'vmc-latn-mx',
+  vmd: 'vmd-knda-in',
+  vme: 'vme-latn-id',
+  vmf: 'vmf-latn-de',
+  vmg: 'vmg-latn-pg',
+  vmh: 'vmh-arab-ir',
+  vmi: 'vmi-latn-au',
+  vmj: 'vmj-latn-mx',
+  vmk: 'vmk-latn-mz',
+  vml: 'vml-latn-au',
+  vmm: 'vmm-latn-mx',
+  vmp: 'vmp-latn-mx',
+  vmq: 'vmq-latn-mx',
+  vmr: 'vmr-latn-mz',
+  vms: 'vms-latn-id',
+  vmu: 'vmu-latn-au',
+  vmw: 'vmw-latn-mz',
+  vmx: 'vmx-latn-mx',
+  vmy: 'vmy-latn-mx',
+  vmz: 'vmz-latn-mx',
+  vnk: 'vnk-latn-sb',
+  vnm: 'vnm-latn-vu',
+  vnp: 'vnp-latn-vu',
+  vo: 'vo-latn-001',
+  vor: 'vor-latn-ng',
+  vot: 'vot-latn-ru',
+  vra: 'vra-latn-vu',
+  vro: 'vro-latn-ee',
+  vrs: 'vrs-latn-sb',
+  vrt: 'vrt-latn-vu',
+  vto: 'vto-latn-id',
+  vum: 'vum-latn-ga',
+  vun: 'vun-latn-tz',
+  vut: 'vut-latn-zz',
+  vwa: 'vwa-latn-cn',
+  'vwa-mymr': 'vwa-mymr-cn',
+  wa: 'wa-latn-be',
+  waa: 'waa-latn-us',
+  wab: 'wab-latn-pg',
+  wac: 'wac-latn-us',
+  wad: 'wad-latn-id',
+  wae: 'wae-latn-ch',
+  waf: 'waf-latn-br',
+  wag: 'wag-latn-pg',
+  wah: 'wah-latn-id',
+  wai: 'wai-latn-id',
+  waj: 'waj-latn-zz',
+  wal: 'wal-ethi-et',
+  wam: 'wam-latn-us',
+  wan: 'wan-latn-zz',
+  wap: 'wap-latn-gy',
+  waq: 'waq-latn-au',
+  war: 'war-latn-ph',
+  was: 'was-latn-us',
+  wat: 'wat-latn-pg',
+  wau: 'wau-latn-br',
+  wav: 'wav-latn-ng',
+  waw: 'waw-latn-br',
+  wax: 'wax-latn-pg',
+  way: 'way-latn-sr',
+  waz: 'waz-latn-pg',
+  wba: 'wba-latn-ve',
+  wbb: 'wbb-latn-id',
+  wbe: 'wbe-latn-id',
+  wbf: 'wbf-latn-bf',
+  wbh: 'wbh-latn-tz',
+  wbi: 'wbi-latn-tz',
+  wbj: 'wbj-latn-tz',
+  wbk: 'wbk-arab-af',
+  wbl: 'wbl-latn-pk',
+  'wbl-arab': 'wbl-arab-af',
+  'wbl-cyrl': 'wbl-cyrl-tj',
+  wbm: 'wbm-latn-cn',
+  wbp: 'wbp-latn-au',
+  wbq: 'wbq-telu-in',
+  wbr: 'wbr-deva-in',
+  wbt: 'wbt-latn-au',
+  wbv: 'wbv-latn-au',
+  wbw: 'wbw-latn-id',
+  wca: 'wca-latn-br',
+  wci: 'wci-latn-zz',
+  wdd: 'wdd-latn-ga',
+  wdg: 'wdg-latn-pg',
+  wdj: 'wdj-latn-au',
+  wdk: 'wdk-latn-au',
+  wdt: 'wdt-latn-ca',
+  wdu: 'wdu-latn-au',
+  wdy: 'wdy-latn-au',
+  wec: 'wec-latn-ci',
+  wed: 'wed-latn-pg',
+  weg: 'weg-latn-au',
+  weh: 'weh-latn-cm',
+  wei: 'wei-latn-pg',
+  wem: 'wem-latn-bj',
+  weo: 'weo-latn-id',
+  wep: 'wep-latn-de',
+  wer: 'wer-latn-zz',
+  wes: 'wes-latn-cm',
+  wet: 'wet-latn-id',
+  weu: 'weu-latn-mm',
+  wew: 'wew-latn-id',
+  wfg: 'wfg-latn-id',
+  wga: 'wga-latn-au',
+  wgb: 'wgb-latn-pg',
+  wgg: 'wgg-latn-au',
+  wgi: 'wgi-latn-zz',
+  wgo: 'wgo-latn-id',
+  wgu: 'wgu-latn-au',
+  wgy: 'wgy-latn-au',
+  wha: 'wha-latn-id',
+  whg: 'whg-latn-zz',
+  whk: 'whk-latn-id',
+  whu: 'whu-latn-id',
+  wib: 'wib-latn-zz',
+  wic: 'wic-latn-us',
+  wie: 'wie-latn-au',
+  wif: 'wif-latn-au',
+  wig: 'wig-latn-au',
+  wih: 'wih-latn-au',
+  wii: 'wii-latn-pg',
+  wij: 'wij-latn-au',
+  wik: 'wik-latn-au',
+  wil: 'wil-latn-au',
+  wim: 'wim-latn-au',
+  win: 'win-latn-us',
+  wir: 'wir-latn-br',
+  wiu: 'wiu-latn-zz',
+  wiv: 'wiv-latn-zz',
+  wiy: 'wiy-latn-us',
+  wja: 'wja-latn-zz',
+  wji: 'wji-latn-zz',
+  wka: 'wka-latn-tz',
+  wkd: 'wkd-latn-id',
+  wkr: 'wkr-latn-au',
+  wkw: 'wkw-latn-au',
+  wky: 'wky-latn-au',
+  wla: 'wla-latn-pg',
+  wlg: 'wlg-latn-au',
+  wlh: 'wlh-latn-tl',
+  wli: 'wli-latn-id',
+  wlm: 'wlm-latn-gb',
+  wlo: 'wlo-arab-id',
+  wlr: 'wlr-latn-vu',
+  wls: 'wls-latn-wf',
+  wlu: 'wlu-latn-au',
+  wlv: 'wlv-latn-ar',
+  wlw: 'wlw-latn-id',
+  wlx: 'wlx-latn-gh',
+  wma: 'wma-latn-ng',
+  wmb: 'wmb-latn-au',
+  wmc: 'wmc-latn-pg',
+  wmd: 'wmd-latn-br',
+  wme: 'wme-deva-np',
+  wmh: 'wmh-latn-tl',
+  wmi: 'wmi-latn-au',
+  wmm: 'wmm-latn-id',
+  wmn: 'wmn-latn-nc',
+  wmo: 'wmo-latn-zz',
+  wms: 'wms-latn-id',
+  wmt: 'wmt-latn-au',
+  wmw: 'wmw-latn-mz',
+  'wmw-arab': 'wmw-arab-mz',
+  wmx: 'wmx-latn-pg',
+  wnb: 'wnb-latn-pg',
+  wnc: 'wnc-latn-zz',
+  wnd: 'wnd-latn-au',
+  wne: 'wne-arab-pk',
+  wng: 'wng-latn-id',
+  wni: 'wni-arab-km',
+  wnk: 'wnk-latn-id',
+  wnm: 'wnm-latn-au',
+  wnn: 'wnn-latn-au',
+  wno: 'wno-latn-id',
+  wnp: 'wnp-latn-pg',
+  wnu: 'wnu-latn-zz',
+  wnw: 'wnw-latn-us',
+  wny: 'wny-latn-au',
+  wo: 'wo-latn-sn',
+  woa: 'woa-latn-au',
+  wob: 'wob-latn-zz',
+  woc: 'woc-latn-pg',
+  wod: 'wod-latn-id',
+  woe: 'woe-latn-fm',
+  wof: 'wof-latn-gm',
+  'wof-arab': 'wof-arab-gm',
+  wog: 'wog-latn-pg',
+  woi: 'woi-latn-id',
+  wok: 'wok-latn-cm',
+  wom: 'wom-latn-ng',
+  won: 'won-latn-cd',
+  woo: 'woo-latn-id',
+  wor: 'wor-latn-id',
+  wos: 'wos-latn-zz',
+  wow: 'wow-latn-id',
+  wpc: 'wpc-latn-ve',
+  wrb: 'wrb-latn-au',
+  wrg: 'wrg-latn-au',
+  wrh: 'wrh-latn-au',
+  wri: 'wri-latn-au',
+  wrk: 'wrk-latn-au',
+  wrl: 'wrl-latn-au',
+  wrm: 'wrm-latn-au',
+  wro: 'wro-latn-au',
+  wrp: 'wrp-latn-id',
+  wrr: 'wrr-latn-au',
+  wrs: 'wrs-latn-zz',
+  wru: 'wru-latn-id',
+  wrv: 'wrv-latn-pg',
+  wrw: 'wrw-latn-au',
+  wrx: 'wrx-latn-id',
+  wrz: 'wrz-latn-au',
+  wsa: 'wsa-latn-id',
+  wsg: 'wsg-gong-in',
+  wsi: 'wsi-latn-vu',
+  wsk: 'wsk-latn-zz',
+  wsr: 'wsr-latn-pg',
+  wss: 'wss-latn-gh',
+  wsu: 'wsu-latn-br',
+  wsv: 'wsv-arab-af',
+  wtf: 'wtf-latn-pg',
+  wth: 'wth-latn-au',
+  wti: 'wti-latn-et',
+  wtk: 'wtk-latn-pg',
+  wtm: 'wtm-deva-in',
+  wtw: 'wtw-latn-id',
+  'wtw-bugi': 'wtw-bugi-id',
+  wua: 'wua-latn-au',
+  wub: 'wub-latn-au',
+  wud: 'wud-latn-tg',
+  wul: 'wul-latn-id',
+  wum: 'wum-latn-ga',
+  wun: 'wun-latn-tz',
+  wur: 'wur-latn-au',
+  wut: 'wut-latn-pg',
+  wuu: 'wuu-hans-cn',
+  wuv: 'wuv-latn-zz',
+  wux: 'wux-latn-au',
+  wuy: 'wuy-latn-id',
+  wwa: 'wwa-latn-zz',
+  wwb: 'wwb-latn-au',
+  wwo: 'wwo-latn-vu',
+  wwr: 'wwr-latn-au',
+  www: 'www-latn-cm',
+  wxw: 'wxw-latn-au',
+  wyb: 'wyb-latn-au',
+  wyi: 'wyi-latn-au',
+  wym: 'wym-latn-pl',
+  wyn: 'wyn-latn-us',
+  wyr: 'wyr-latn-br',
+  wyy: 'wyy-latn-fj',
+  xaa: 'xaa-latn-es',
+  xab: 'xab-latn-ng',
+  xai: 'xai-latn-br',
+  xaj: 'xaj-latn-br',
+  xak: 'xak-latn-ve',
+  xal: 'xal-cyrl-ru',
+  xam: 'xam-latn-za',
+  xan: 'xan-ethi-et',
+  xao: 'xao-latn-vn',
+  xar: 'xar-latn-pg',
+  xas: 'xas-cyrl-ru',
+  xat: 'xat-latn-br',
+  xau: 'xau-latn-id',
+  xav: 'xav-latn-br',
+  xaw: 'xaw-latn-us',
+  xay: 'xay-latn-id',
+  xbb: 'xbb-latn-au',
+  xbd: 'xbd-latn-au',
+  xbe: 'xbe-latn-au',
+  xbg: 'xbg-latn-au',
+  xbi: 'xbi-latn-zz',
+  xbj: 'xbj-latn-au',
+  xbm: 'xbm-latn-fr',
+  xbn: 'xbn-latn-my',
+  xbp: 'xbp-latn-au',
+  xbr: 'xbr-latn-id',
+  xbw: 'xbw-latn-br',
+  xby: 'xby-latn-au',
+  xch: 'xch-latn-us',
+  xco: 'xco-chrs-uz',
+  xcr: 'xcr-cari-tr',
+  xda: 'xda-latn-au',
+  xdk: 'xdk-latn-au',
+  xdo: 'xdo-latn-ao',
+  xdq: 'xdq-cyrl-ru',
+  xdy: 'xdy-latn-id',
+  xed: 'xed-latn-cm',
+  xeg: 'xeg-latn-za',
+  xem: 'xem-latn-id',
+  xer: 'xer-latn-br',
+  xes: 'xes-latn-zz',
+  xet: 'xet-latn-br',
+  xeu: 'xeu-latn-pg',
+  xgb: 'xgb-latn-ci',
+  xgd: 'xgd-latn-au',
+  xgg: 'xgg-latn-au',
+  xgi: 'xgi-latn-au',
+  xgm: 'xgm-latn-au',
+  xgu: 'xgu-latn-au',
+  xgw: 'xgw-latn-au',
+  xh: 'xh-latn-za',
+  xhe: 'xhe-arab-pk',
+  xhm: 'xhm-khmr-kh',
+  xhv: 'xhv-latn-vn',
+  xii: 'xii-latn-za',
+  xin: 'xin-latn-gt',
+  xir: 'xir-latn-br',
+  xis: 'xis-orya-in',
+  xiy: 'xiy-latn-br',
+  xjb: 'xjb-latn-au',
+  xjt: 'xjt-latn-au',
+  xka: 'xka-arab-pk',
+  xkb: 'xkb-latn-bj',
+  xkc: 'xkc-arab-ir',
+  xkd: 'xkd-latn-id',
+  xke: 'xke-latn-id',
+  xkg: 'xkg-latn-ml',
+  xkj: 'xkj-arab-ir',
+  xkl: 'xkl-latn-id',
+  xkn: 'xkn-latn-id',
+  xkp: 'xkp-arab-ir',
+  xkq: 'xkq-latn-id',
+  xkr: 'xkr-latn-br',
+  xks: 'xks-latn-id',
+  xkt: 'xkt-latn-gh',
+  xku: 'xku-latn-cg',
+  xkv: 'xkv-latn-bw',
+  xkw: 'xkw-latn-id',
+  xkx: 'xkx-latn-pg',
+  xky: 'xky-latn-my',
+  xkz: 'xkz-latn-bt',
+  xla: 'xla-latn-zz',
+  xlc: 'xlc-lyci-tr',
+  xld: 'xld-lydi-tr',
+  xly: 'xly-elym-ir',
+  xma: 'xma-latn-so',
+  xmb: 'xmb-latn-cm',
+  xmc: 'xmc-latn-mz',
+  xmd: 'xmd-latn-cm',
+  xmf: 'xmf-geor-ge',
+  xmg: 'xmg-latn-cm',
+  xmh: 'xmh-latn-au',
+  xmj: 'xmj-latn-cm',
+  xmm: 'xmm-latn-id',
+  xmn: 'xmn-mani-cn',
+  xmo: 'xmo-latn-br',
+  xmp: 'xmp-latn-au',
+  xmq: 'xmq-latn-au',
+  xmr: 'xmr-merc-sd',
+  xmt: 'xmt-latn-id',
+  xmu: 'xmu-latn-au',
+  xmv: 'xmv-latn-mg',
+  xmw: 'xmw-latn-mg',
+  xmx: 'xmx-latn-id',
+  xmy: 'xmy-latn-au',
+  xmz: 'xmz-latn-id',
+  xna: 'xna-narb-sa',
+  xnb: 'xnb-latn-tw',
+  xni: 'xni-latn-au',
+  xnj: 'xnj-latn-tz',
+  xnk: 'xnk-latn-au',
+  xnm: 'xnm-latn-au',
+  xnn: 'xnn-latn-ph',
+  xnq: 'xnq-latn-mz',
+  xnr: 'xnr-deva-in',
+  xnt: 'xnt-latn-us',
+  xnu: 'xnu-latn-au',
+  xny: 'xny-latn-au',
+  xnz: 'xnz-latn-eg',
+  'xnz-arab': 'xnz-arab-eg',
+  xoc: 'xoc-latn-ng',
+  xod: 'xod-latn-id',
+  xog: 'xog-latn-ug',
+  xoi: 'xoi-latn-pg',
+  xok: 'xok-latn-br',
+  xom: 'xom-latn-sd',
+  'xom-ethi': 'xom-ethi-et',
+  xon: 'xon-latn-zz',
+  xoo: 'xoo-latn-br',
+  xop: 'xop-latn-pg',
+  xor: 'xor-latn-br',
+  xow: 'xow-latn-pg',
+  xpa: 'xpa-latn-au',
+  xpb: 'xpb-latn-au',
+  xpd: 'xpd-latn-au',
+  xpf: 'xpf-latn-au',
+  xpg: 'xpg-grek-tr',
+  xph: 'xph-latn-au',
+  xpi: 'xpi-ogam-gb',
+  xpj: 'xpj-latn-au',
+  xpk: 'xpk-latn-br',
+  xpl: 'xpl-latn-au',
+  xpm: 'xpm-cyrl-ru',
+  xpn: 'xpn-latn-br',
+  xpo: 'xpo-latn-mx',
+  xpq: 'xpq-latn-us',
+  xpr: 'xpr-prti-ir',
+  xpt: 'xpt-latn-au',
+  xpv: 'xpv-latn-au',
+  xpw: 'xpw-latn-au',
+  xpx: 'xpx-latn-au',
+  xpz: 'xpz-latn-au',
+  xra: 'xra-latn-br',
+  xrb: 'xrb-latn-zz',
+  xrd: 'xrd-latn-au',
+  xre: 'xre-latn-br',
+  xrg: 'xrg-latn-au',
+  xri: 'xri-latn-br',
+  xrm: 'xrm-cyrl-ru',
+  xrn: 'xrn-cyrl-ru',
+  xrr: 'xrr-latn-it',
+  xru: 'xru-latn-au',
+  xrw: 'xrw-latn-pg',
+  xsa: 'xsa-sarb-ye',
+  xsb: 'xsb-latn-ph',
+  xse: 'xse-latn-id',
+  xsh: 'xsh-latn-ng',
+  xsi: 'xsi-latn-zz',
+  xsm: 'xsm-latn-zz',
+  xsn: 'xsn-latn-ng',
+  xsp: 'xsp-latn-pg',
+  xsq: 'xsq-latn-mz',
+  xsr: 'xsr-deva-np',
+  xss: 'xss-cyrl-ru',
+  xsu: 'xsu-latn-ve',
+  xsy: 'xsy-latn-tw',
+  xta: 'xta-latn-mx',
+  xtb: 'xtb-latn-mx',
+  xtc: 'xtc-latn-sd',
+  xtd: 'xtd-latn-mx',
+  xte: 'xte-latn-id',
+  xth: 'xth-latn-au',
+  xti: 'xti-latn-mx',
+  xtj: 'xtj-latn-mx',
+  xtl: 'xtl-latn-mx',
+  xtm: 'xtm-latn-mx',
+  xtn: 'xtn-latn-mx',
+  xtp: 'xtp-latn-mx',
+  xts: 'xts-latn-mx',
+  xtt: 'xtt-latn-mx',
+  xtu: 'xtu-latn-mx',
+  xtv: 'xtv-latn-au',
+  xtw: 'xtw-latn-br',
+  xty: 'xty-latn-mx',
+  xub: 'xub-taml-in',
+  'xub-knda': 'xub-knda-in',
+  'xub-mlym': 'xub-mlym-in',
+  xud: 'xud-latn-au',
+  xuj: 'xuj-taml-in',
+  xul: 'xul-latn-au',
+  xum: 'xum-latn-it',
+  'xum-ital': 'xum-ital-it',
+  xun: 'xun-latn-au',
+  xuo: 'xuo-latn-td',
+  xut: 'xut-latn-au',
+  xuu: 'xuu-latn-na',
+  xve: 'xve-ital-it',
+  xvi: 'xvi-arab-af',
+  xvn: 'xvn-latn-es',
+  xvo: 'xvo-latn-it',
+  xvs: 'xvs-latn-it',
+  xwa: 'xwa-latn-br',
+  xwd: 'xwd-latn-au',
+  xwe: 'xwe-latn-zz',
+  xwj: 'xwj-latn-au',
+  xwk: 'xwk-latn-au',
+  xwl: 'xwl-latn-bj',
+  xwo: 'xwo-cyrl-ru',
+  xwr: 'xwr-latn-id',
+  xwt: 'xwt-latn-au',
+  xww: 'xww-latn-au',
+  xxb: 'xxb-latn-gh',
+  xxk: 'xxk-latn-id',
+  xxm: 'xxm-latn-au',
+  xxr: 'xxr-latn-br',
+  xxt: 'xxt-latn-id',
+  xya: 'xya-latn-au',
+  xyb: 'xyb-latn-au',
+  xyj: 'xyj-latn-au',
+  xyk: 'xyk-latn-au',
+  xyl: 'xyl-latn-br',
+  xyt: 'xyt-latn-au',
+  xyy: 'xyy-latn-au',
+  xzh: 'xzh-marc-cn',
+  xzp: 'xzp-latn-mx',
+  yaa: 'yaa-latn-pe',
+  yab: 'yab-latn-br',
+  yac: 'yac-latn-id',
+  yad: 'yad-latn-pe',
+  yae: 'yae-latn-ve',
+  yaf: 'yaf-latn-cd',
+  yag: 'yag-latn-cl',
+  yai: 'yai-cyrl-tj',
+  yaj: 'yaj-latn-cf',
+  yak: 'yak-latn-us',
+  yal: 'yal-latn-gn',
+  'yal-arab': 'yal-arab-gn',
+  yam: 'yam-latn-zz',
+  yan: 'yan-latn-ni',
+  yao: 'yao-latn-mz',
+  yap: 'yap-latn-fm',
+  yaq: 'yaq-latn-mx',
+  yar: 'yar-latn-ve',
+  yas: 'yas-latn-zz',
+  yat: 'yat-latn-zz',
+  yau: 'yau-latn-ve',
+  yav: 'yav-latn-cm',
+  yaw: 'yaw-latn-br',
+  yax: 'yax-latn-ao',
+  yay: 'yay-latn-zz',
+  yaz: 'yaz-latn-zz',
+  yba: 'yba-latn-zz',
+  ybb: 'ybb-latn-cm',
+  ybe: 'ybe-latn-cn',
+  'ybe-ougr': 'ybe-ougr-cn',
+  ybh: 'ybh-deva-np',
+  ybi: 'ybi-deva-np',
+  ybj: 'ybj-latn-ng',
+  ybl: 'ybl-latn-ng',
+  ybm: 'ybm-latn-pg',
+  ybn: 'ybn-latn-br',
+  ybo: 'ybo-latn-pg',
+  ybx: 'ybx-latn-pg',
+  yby: 'yby-latn-zz',
+  ycl: 'ycl-latn-cn',
+  ycn: 'ycn-latn-co',
+  yda: 'yda-latn-au',
+  yde: 'yde-latn-pg',
+  ydg: 'ydg-arab-pk',
+  ydk: 'ydk-latn-pg',
+  yea: 'yea-mlym-in',
+  'yea-knda': 'yea-knda-in',
+  yec: 'yec-latn-de',
+  yee: 'yee-latn-pg',
+  yei: 'yei-latn-cm',
+  yej: 'yej-grek-il',
+  yel: 'yel-latn-cd',
+  yer: 'yer-latn-zz',
+  yes: 'yes-latn-ng',
+  yet: 'yet-latn-id',
+  yeu: 'yeu-telu-in',
+  yev: 'yev-latn-pg',
+  yey: 'yey-latn-bw',
+  yga: 'yga-latn-au',
+  ygi: 'ygi-latn-au',
+  ygl: 'ygl-latn-pg',
+  ygm: 'ygm-latn-pg',
+  ygp: 'ygp-plrd-cn',
+  ygr: 'ygr-latn-zz',
+  ygu: 'ygu-latn-au',
+  ygw: 'ygw-latn-zz',
+  yhd: 'yhd-hebr-il',
+  yi: 'yi-hebr-001',
+  yia: 'yia-latn-au',
+  yig: 'yig-yiii-cn',
+  yih: 'yih-hebr-de',
+  yii: 'yii-latn-au',
+  yij: 'yij-latn-au',
+  yil: 'yil-latn-au',
+  yim: 'yim-latn-in',
+  yir: 'yir-latn-id',
+  yis: 'yis-latn-pg',
+  yiv: 'yiv-yiii-cn',
+  yka: 'yka-latn-ph',
+  'yka-arab': 'yka-arab-ph',
+  ykg: 'ykg-cyrl-ru',
+  yki: 'yki-latn-id',
+  ykk: 'ykk-latn-pg',
+  ykm: 'ykm-latn-pg',
+  yko: 'yko-latn-zz',
+  ykr: 'ykr-latn-pg',
+  yky: 'yky-latn-cf',
+  yla: 'yla-latn-pg',
+  ylb: 'ylb-latn-pg',
+  yle: 'yle-latn-zz',
+  ylg: 'ylg-latn-zz',
+  yli: 'yli-latn-id',
+  yll: 'yll-latn-zz',
+  ylr: 'ylr-latn-au',
+  ylu: 'ylu-latn-pg',
+  yly: 'yly-latn-nc',
+  ymb: 'ymb-latn-pg',
+  yme: 'yme-latn-pe',
+  ymg: 'ymg-latn-cd',
+  ymk: 'ymk-latn-mz',
+  'ymk-arab': 'ymk-arab-mz',
+  yml: 'yml-latn-zz',
+  ymm: 'ymm-latn-so',
+  ymn: 'ymn-latn-id',
+  ymo: 'ymo-latn-pg',
+  ymp: 'ymp-latn-pg',
+  yna: 'yna-plrd-cn',
+  ynd: 'ynd-latn-au',
+  yng: 'yng-latn-cd',
+  ynk: 'ynk-cyrl-ru',
+  ynl: 'ynl-latn-pg',
+  ynq: 'ynq-latn-ng',
+  yns: 'yns-latn-cd',
+  ynu: 'ynu-latn-co',
+  yo: 'yo-latn-ng',
+  yob: 'yob-latn-pg',
+  yog: 'yog-latn-ph',
+  yoi: 'yoi-jpan-jp',
+  yok: 'yok-latn-us',
+  yol: 'yol-latn-gb',
+  yom: 'yom-latn-cd',
+  yon: 'yon-latn-zz',
+  yot: 'yot-latn-ng',
+  yoy: 'yoy-thai-th',
+  yra: 'yra-latn-pg',
+  yrb: 'yrb-latn-zz',
+  yre: 'yre-latn-zz',
+  yrk: 'yrk-cyrl-ru',
+  yrl: 'yrl-latn-br',
+  yrm: 'yrm-latn-au',
+  yro: 'yro-latn-br',
+  yrs: 'yrs-latn-id',
+  yrw: 'yrw-latn-pg',
+  yry: 'yry-latn-au',
+  ysd: 'ysd-yiii-cn',
+  ysn: 'ysn-yiii-cn',
+  ysp: 'ysp-yiii-cn',
+  ysr: 'ysr-cyrl-ru',
+  yss: 'yss-latn-zz',
+  ysy: 'ysy-plrd-cn',
+  ytw: 'ytw-latn-pg',
+  yty: 'yty-latn-au',
+  yua: 'yua-latn-mx',
+  yub: 'yub-latn-au',
+  yuc: 'yuc-latn-us',
+  yud: 'yud-hebr-il',
+  yue: 'yue-hant-hk',
+  'yue-cn': 'yue-hans-cn',
+  'yue-hans': 'yue-hans-cn',
+  yuf: 'yuf-latn-us',
+  yug: 'yug-cyrl-ru',
+  yui: 'yui-latn-co',
+  yuj: 'yuj-latn-zz',
+  yul: 'yul-latn-cf',
+  yum: 'yum-latn-us',
+  yun: 'yun-latn-ng',
+  yup: 'yup-latn-co',
+  yuq: 'yuq-latn-bo',
+  yur: 'yur-latn-us',
+  yut: 'yut-latn-zz',
+  yuw: 'yuw-latn-zz',
+  yux: 'yux-cyrl-ru',
+  yuz: 'yuz-latn-bo',
+  yva: 'yva-latn-id',
+  yvt: 'yvt-latn-ve',
+  ywa: 'ywa-latn-pg',
+  ywg: 'ywg-latn-au',
+  ywn: 'ywn-latn-br',
+  ywq: 'ywq-plrd-cn',
+  'ywq-yiii': 'ywq-yiii-cn',
+  ywr: 'ywr-latn-au',
+  ywu: 'ywu-plrd-cn',
+  'ywu-yiii': 'ywu-yiii-cn',
+  yww: 'yww-latn-au',
+  yxa: 'yxa-latn-au',
+  yxg: 'yxg-latn-au',
+  yxl: 'yxl-latn-au',
+  yxm: 'yxm-latn-au',
+  yxu: 'yxu-latn-au',
+  yxy: 'yxy-latn-au',
+  yyr: 'yyr-latn-au',
+  yyu: 'yyu-latn-pg',
+  za: 'za-latn-cn',
+  zaa: 'zaa-latn-mx',
+  zab: 'zab-latn-mx',
+  zac: 'zac-latn-mx',
+  zad: 'zad-latn-mx',
+  zae: 'zae-latn-mx',
+  zaf: 'zaf-latn-mx',
+  zag: 'zag-latn-sd',
+  zah: 'zah-latn-ng',
+  zaj: 'zaj-latn-tz',
+  zak: 'zak-latn-tz',
+  zam: 'zam-latn-mx',
+  zao: 'zao-latn-mx',
+  zap: 'zap-latn-mx',
+  zaq: 'zaq-latn-mx',
+  zar: 'zar-latn-mx',
+  zas: 'zas-latn-mx',
+  zat: 'zat-latn-mx',
+  zau: 'zau-tibt-in',
+  'zau-arab': 'zau-arab-in',
+  zav: 'zav-latn-mx',
+  zaw: 'zaw-latn-mx',
+  zax: 'zax-latn-mx',
+  zay: 'zay-latn-et',
+  'zay-ethi': 'zay-ethi-et',
+  zaz: 'zaz-latn-ng',
+  zba: 'zba-arab-001',
+  zbc: 'zbc-latn-my',
+  zbe: 'zbe-latn-my',
+  zbt: 'zbt-latn-id',
+  zbu: 'zbu-latn-ng',
+  zbw: 'zbw-latn-my',
+  zca: 'zca-latn-mx',
+  zch: 'zch-hani-cn',
+  zdj: 'zdj-arab-km',
+  zea: 'zea-latn-nl',
+  zeg: 'zeg-latn-pg',
+  zeh: 'zeh-hani-cn',
+  zen: 'zen-tfng-mr',
+  'zen-arab': 'zen-arab-mr',
+  zga: 'zga-latn-tz',
+  zgb: 'zgb-hani-cn',
+  zgh: 'zgh-tfng-ma',
+  zgm: 'zgm-hani-cn',
+  zgn: 'zgn-hani-cn',
+  zgr: 'zgr-latn-pg',
+  zh: 'zh-hans-cn',
+  'zh-au': 'zh-hant-au',
+  'zh-bn': 'zh-hant-bn',
+  'zh-bopo': 'zh-bopo-tw',
+  'zh-gb': 'zh-hant-gb',
+  'zh-gf': 'zh-hant-gf',
+  'zh-hanb': 'zh-hanb-tw',
+  'zh-hant': 'zh-hant-tw',
+  'zh-hk': 'zh-hant-hk',
+  'zh-id': 'zh-hant-id',
+  'zh-mo': 'zh-hant-mo',
+  'zh-pa': 'zh-hant-pa',
+  'zh-pf': 'zh-hant-pf',
+  'zh-ph': 'zh-hant-ph',
+  'zh-sr': 'zh-hant-sr',
+  'zh-th': 'zh-hant-th',
+  'zh-tw': 'zh-hant-tw',
+  'zh-us': 'zh-hant-us',
+  'zh-vn': 'zh-hant-vn',
+  zhd: 'zhd-hani-cn',
+  'zhd-latn': 'zhd-latn-vn',
+  zhi: 'zhi-latn-ng',
+  zhn: 'zhn-latn-cn',
+  'zhn-hani': 'zhn-hani-cn',
+  zhw: 'zhw-latn-cm',
+  zhx: 'zhx-nshu-cn',
+  zia: 'zia-latn-zz',
+  zik: 'zik-latn-pg',
+  zil: 'zil-latn-gn',
+  zim: 'zim-latn-td',
+  zin: 'zin-latn-tz',
+  ziw: 'ziw-latn-tz',
+  ziz: 'ziz-latn-ng',
+  zka: 'zka-latn-id',
+  zkb: 'zkb-cyrl-ru',
+  zkd: 'zkd-latn-mm',
+  zko: 'zko-cyrl-ru',
+  zkp: 'zkp-latn-br',
+  zkt: 'zkt-kits-cn',
+  zku: 'zku-latn-au',
+  zkz: 'zkz-cyrl-ru',
+  zla: 'zla-latn-cd',
+  zlj: 'zlj-hani-cn',
+  'zlj-latn': 'zlj-latn-cn',
+  zlm: 'zlm-latn-tg',
+  zln: 'zln-hani-cn',
+  zlq: 'zlq-hani-cn',
+  zma: 'zma-latn-au',
+  zmb: 'zmb-latn-cd',
+  zmc: 'zmc-latn-au',
+  zmd: 'zmd-latn-au',
+  zme: 'zme-latn-au',
+  zmf: 'zmf-latn-cd',
+  zmg: 'zmg-latn-au',
+  zmh: 'zmh-latn-pg',
+  zmi: 'zmi-latn-my',
+  zmj: 'zmj-latn-au',
+  zmk: 'zmk-latn-au',
+  zml: 'zml-latn-au',
+  zmm: 'zmm-latn-au',
+  zmn: 'zmn-latn-ga',
+  zmo: 'zmo-latn-sd',
+  zmp: 'zmp-latn-cd',
+  zmq: 'zmq-latn-cd',
+  zmr: 'zmr-latn-au',
+  zms: 'zms-latn-cd',
+  zmt: 'zmt-latn-au',
+  zmu: 'zmu-latn-au',
+  zmv: 'zmv-latn-au',
+  zmw: 'zmw-latn-cd',
+  zmx: 'zmx-latn-cg',
+  zmy: 'zmy-latn-au',
+  zmz: 'zmz-latn-cd',
+  zna: 'zna-latn-td',
+  zne: 'zne-latn-zz',
+  zng: 'zng-latn-vn',
+  znk: 'znk-latn-au',
+  zns: 'zns-latn-ng',
+  zoc: 'zoc-latn-mx',
+  zoh: 'zoh-latn-mx',
+  zom: 'zom-latn-in',
+  zoo: 'zoo-latn-mx',
+  zoq: 'zoq-latn-mx',
+  zor: 'zor-latn-mx',
+  zos: 'zos-latn-mx',
+  zpa: 'zpa-latn-mx',
+  zpb: 'zpb-latn-mx',
+  zpc: 'zpc-latn-mx',
+  zpd: 'zpd-latn-mx',
+  zpe: 'zpe-latn-mx',
+  zpf: 'zpf-latn-mx',
+  zpg: 'zpg-latn-mx',
+  zph: 'zph-latn-mx',
+  zpi: 'zpi-latn-mx',
+  zpj: 'zpj-latn-mx',
+  zpk: 'zpk-latn-mx',
+  zpl: 'zpl-latn-mx',
+  zpm: 'zpm-latn-mx',
+  zpn: 'zpn-latn-mx',
+  zpo: 'zpo-latn-mx',
+  zpp: 'zpp-latn-mx',
+  zpq: 'zpq-latn-mx',
+  zpr: 'zpr-latn-mx',
+  zps: 'zps-latn-mx',
+  zpt: 'zpt-latn-mx',
+  zpu: 'zpu-latn-mx',
+  zpv: 'zpv-latn-mx',
+  zpw: 'zpw-latn-mx',
+  zpx: 'zpx-latn-mx',
+  zpy: 'zpy-latn-mx',
+  zpz: 'zpz-latn-mx',
+  zqe: 'zqe-hani-cn',
+  'zqe-latn': 'zqe-latn-cn',
+  zrn: 'zrn-latn-td',
+  zro: 'zro-latn-ec',
+  zrp: 'zrp-hebr-fr',
+  zrs: 'zrs-latn-id',
+  zsa: 'zsa-latn-pg',
+  zsr: 'zsr-latn-mx',
+  zsu: 'zsu-latn-pg',
+  zte: 'zte-latn-mx',
+  ztg: 'ztg-latn-mx',
+  ztl: 'ztl-latn-mx',
+  ztm: 'ztm-latn-mx',
+  ztn: 'ztn-latn-mx',
+  ztp: 'ztp-latn-mx',
+  ztq: 'ztq-latn-mx',
+  zts: 'zts-latn-mx',
+  ztt: 'ztt-latn-mx',
+  ztu: 'ztu-latn-mx',
+  ztx: 'ztx-latn-mx',
+  zty: 'zty-latn-mx',
+  zu: 'zu-latn-za',
+  zua: 'zua-latn-ng',
+  zuh: 'zuh-latn-pg',
+  zum: 'zum-arab-om',
+  zun: 'zun-latn-us',
+  zuy: 'zuy-latn-cm',
+  zyg: 'zyg-hani-cn',
+  zyj: 'zyj-latn-cn',
+  'zyj-hani': 'zyj-hani-cn',
+  zyn: 'zyn-hani-cn',
+  zyp: 'zyp-latn-mm',
+  zza: 'zza-latn-tr',
+  zzj: 'zzj-hani-cn'
+}
+
 
 /***/ }),
 
-/***/ "./node_modules/bcp-47/lib/regular.json":
+/***/ "./node_modules/bcp-47-normalize/lib/many.js":
+/*!***************************************************!*\
+  !*** ./node_modules/bcp-47-normalize/lib/many.js ***!
+  \***************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "many": function() { return /* binding */ many; }
+/* harmony export */ });
+/**
+ * @typedef {'script'|'region'|'variants'} Field
+ */
+
+/**
+ * @type {{region: Record<string, Array<string>>}}
+ */
+const many = {
+  region: {
+    172: [
+      'ru',
+      'am',
+      'az',
+      'by',
+      'ge',
+      'kg',
+      'kz',
+      'md',
+      'tj',
+      'tm',
+      'ua',
+      'uz'
+    ],
+    200: ['cz', 'sk'],
+    530: ['cw', 'sx', 'bq'],
+    532: ['cw', 'sx', 'bq'],
+    536: ['sa', 'iq'],
+    582: ['fm', 'mh', 'mp', 'pw'],
+    810: [
+      'ru',
+      'am',
+      'az',
+      'by',
+      'ee',
+      'ge',
+      'kz',
+      'kg',
+      'lv',
+      'lt',
+      'md',
+      'tj',
+      'tm',
+      'ua',
+      'uz'
+    ],
+    830: ['je', 'gg'],
+    890: ['rs', 'me', 'si', 'hr', 'mk', 'ba'],
+    891: ['rs', 'me'],
+    an: ['cw', 'sx', 'bq'],
+    cs: ['rs', 'me'],
+    fq: ['aq', 'tf'],
+    nt: ['sa', 'iq'],
+    pc: ['fm', 'mh', 'mp', 'pw'],
+    su: [
+      'ru',
+      'am',
+      'az',
+      'by',
+      'ee',
+      'ge',
+      'kz',
+      'kg',
+      'lv',
+      'lt',
+      'md',
+      'tj',
+      'tm',
+      'ua',
+      'uz'
+    ],
+    yu: ['rs', 'me'],
+    '062': ['034', '143'],
+    ant: ['cw', 'sx', 'bq'],
+    scg: ['rs', 'me'],
+    ntz: ['sa', 'iq'],
+    sun: [
+      'ru',
+      'am',
+      'az',
+      'by',
+      'ee',
+      'ge',
+      'kz',
+      'kg',
+      'lv',
+      'lt',
+      'md',
+      'tj',
+      'tm',
+      'ua',
+      'uz'
+    ],
+    yug: ['rs', 'me']
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/bcp-47-normalize/lib/matches.js":
+/*!******************************************************!*\
+  !*** ./node_modules/bcp-47-normalize/lib/matches.js ***!
+  \******************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "matches": function() { return /* binding */ matches; }
+/* harmony export */ });
+/**
+ * @typedef Change
+ * @property {string} from
+ * @property {string} to
+ */
+
+/**
+ * @type {Array<Change>}
+ */
+const matches = [
+  {
+    from: 'in',
+    to: 'id'
+  },
+  {
+    from: 'iw',
+    to: 'he'
+  },
+  {
+    from: 'ji',
+    to: 'yi'
+  },
+  {
+    from: 'jw',
+    to: 'jv'
+  },
+  {
+    from: 'mo',
+    to: 'ro'
+  },
+  {
+    from: 'scc',
+    to: 'sr'
+  },
+  {
+    from: 'scr',
+    to: 'hr'
+  },
+  {
+    from: 'aam',
+    to: 'aas'
+  },
+  {
+    from: 'adp',
+    to: 'dz'
+  },
+  {
+    from: 'aue',
+    to: 'ktz'
+  },
+  {
+    from: 'ayx',
+    to: 'nun'
+  },
+  {
+    from: 'bgm',
+    to: 'bcg'
+  },
+  {
+    from: 'bjd',
+    to: 'drl'
+  },
+  {
+    from: 'ccq',
+    to: 'rki'
+  },
+  {
+    from: 'cjr',
+    to: 'mom'
+  },
+  {
+    from: 'cka',
+    to: 'cmr'
+  },
+  {
+    from: 'cmk',
+    to: 'xch'
+  },
+  {
+    from: 'coy',
+    to: 'pij'
+  },
+  {
+    from: 'cqu',
+    to: 'quh'
+  },
+  {
+    from: 'drh',
+    to: 'mn'
+  },
+  {
+    from: 'drw',
+    to: 'fa-af'
+  },
+  {
+    from: 'gav',
+    to: 'dev'
+  },
+  {
+    from: 'gfx',
+    to: 'vaj'
+  },
+  {
+    from: 'ggn',
+    to: 'gvr'
+  },
+  {
+    from: 'gti',
+    to: 'nyc'
+  },
+  {
+    from: 'guv',
+    to: 'duz'
+  },
+  {
+    from: 'hrr',
+    to: 'jal'
+  },
+  {
+    from: 'ibi',
+    to: 'opa'
+  },
+  {
+    from: 'ilw',
+    to: 'gal'
+  },
+  {
+    from: 'jeg',
+    to: 'oyb'
+  },
+  {
+    from: 'kgc',
+    to: 'tdf'
+  },
+  {
+    from: 'kgh',
+    to: 'kml'
+  },
+  {
+    from: 'koj',
+    to: 'kwv'
+  },
+  {
+    from: 'krm',
+    to: 'bmf'
+  },
+  {
+    from: 'ktr',
+    to: 'dtp'
+  },
+  {
+    from: 'kvs',
+    to: 'gdj'
+  },
+  {
+    from: 'kwq',
+    to: 'yam'
+  },
+  {
+    from: 'kxe',
+    to: 'tvd'
+  },
+  {
+    from: 'kzj',
+    to: 'dtp'
+  },
+  {
+    from: 'kzt',
+    to: 'dtp'
+  },
+  {
+    from: 'lii',
+    to: 'raq'
+  },
+  {
+    from: 'lmm',
+    to: 'rmx'
+  },
+  {
+    from: 'meg',
+    to: 'cir'
+  },
+  {
+    from: 'mst',
+    to: 'mry'
+  },
+  {
+    from: 'mwj',
+    to: 'vaj'
+  },
+  {
+    from: 'myt',
+    to: 'mry'
+  },
+  {
+    from: 'nad',
+    to: 'xny'
+  },
+  {
+    from: 'ncp',
+    to: 'kdz'
+  },
+  {
+    from: 'nnx',
+    to: 'ngv'
+  },
+  {
+    from: 'nts',
+    to: 'pij'
+  },
+  {
+    from: 'oun',
+    to: 'vaj'
+  },
+  {
+    from: 'pcr',
+    to: 'adx'
+  },
+  {
+    from: 'pmc',
+    to: 'huw'
+  },
+  {
+    from: 'pmu',
+    to: 'phr'
+  },
+  {
+    from: 'ppa',
+    to: 'bfy'
+  },
+  {
+    from: 'ppr',
+    to: 'lcq'
+  },
+  {
+    from: 'pry',
+    to: 'prt'
+  },
+  {
+    from: 'puz',
+    to: 'pub'
+  },
+  {
+    from: 'sca',
+    to: 'hle'
+  },
+  {
+    from: 'skk',
+    to: 'oyb'
+  },
+  {
+    from: 'tdu',
+    to: 'dtp'
+  },
+  {
+    from: 'thc',
+    to: 'tpo'
+  },
+  {
+    from: 'thx',
+    to: 'oyb'
+  },
+  {
+    from: 'tie',
+    to: 'ras'
+  },
+  {
+    from: 'tkk',
+    to: 'twm'
+  },
+  {
+    from: 'tlw',
+    to: 'weo'
+  },
+  {
+    from: 'tmp',
+    to: 'tyj'
+  },
+  {
+    from: 'tne',
+    to: 'kak'
+  },
+  {
+    from: 'tnf',
+    to: 'fa-af'
+  },
+  {
+    from: 'tsf',
+    to: 'taj'
+  },
+  {
+    from: 'uok',
+    to: 'ema'
+  },
+  {
+    from: 'xba',
+    to: 'cax'
+  },
+  {
+    from: 'xia',
+    to: 'acn'
+  },
+  {
+    from: 'xkh',
+    to: 'waw'
+  },
+  {
+    from: 'xsj',
+    to: 'suj'
+  },
+  {
+    from: 'ybd',
+    to: 'rki'
+  },
+  {
+    from: 'yma',
+    to: 'lrr'
+  },
+  {
+    from: 'ymt',
+    to: 'mtm'
+  },
+  {
+    from: 'yos',
+    to: 'zom'
+  },
+  {
+    from: 'yuu',
+    to: 'yug'
+  },
+  {
+    from: 'asd',
+    to: 'snz'
+  },
+  {
+    from: 'dit',
+    to: 'dif'
+  },
+  {
+    from: 'llo',
+    to: 'ngt'
+  },
+  {
+    from: 'myd',
+    to: 'aog'
+  },
+  {
+    from: 'nns',
+    to: 'nbr'
+  },
+  {
+    from: 'agp',
+    to: 'apf'
+  },
+  {
+    from: 'ais',
+    to: 'ami'
+  },
+  {
+    from: 'ajt',
+    to: 'aeb'
+  },
+  {
+    from: 'baz',
+    to: 'nvo'
+  },
+  {
+    from: 'bhk',
+    to: 'fbl'
+  },
+  {
+    from: 'bic',
+    to: 'bir'
+  },
+  {
+    from: 'bjq',
+    to: 'bzc'
+  },
+  {
+    from: 'bkb',
+    to: 'ebk'
+  },
+  {
+    from: 'blg',
+    to: 'iba'
+  },
+  {
+    from: 'btb',
+    to: 'beb'
+  },
+  {
+    from: 'daf',
+    to: 'dnj'
+  },
+  {
+    from: 'dap',
+    to: 'njz'
+  },
+  {
+    from: 'djl',
+    to: 'dze'
+  },
+  {
+    from: 'dkl',
+    to: 'aqd'
+  },
+  {
+    from: 'drr',
+    to: 'kzk'
+  },
+  {
+    from: 'dud',
+    to: 'uth'
+  },
+  {
+    from: 'duj',
+    to: 'dwu'
+  },
+  {
+    from: 'dwl',
+    to: 'dbt'
+  },
+  {
+    from: 'elp',
+    to: 'amq'
+  },
+  {
+    from: 'gbc',
+    to: 'wny'
+  },
+  {
+    from: 'ggo',
+    to: 'esg'
+  },
+  {
+    from: 'ggr',
+    to: 'gtu'
+  },
+  {
+    from: 'gio',
+    to: 'aou'
+  },
+  {
+    from: 'gli',
+    to: 'kzk'
+  },
+  {
+    from: 'ill',
+    to: 'ilm'
+  },
+  {
+    from: 'izi',
+    to: 'eza'
+  },
+  {
+    from: 'jar',
+    to: 'jgk'
+  },
+  {
+    from: 'kdv',
+    to: 'zkd'
+  },
+  {
+    from: 'kgd',
+    to: 'ncq'
+  },
+  {
+    from: 'kpp',
+    to: 'jkm'
+  },
+  {
+    from: 'kxl',
+    to: 'kru'
+  },
+  {
+    from: 'kzh',
+    to: 'dgl'
+  },
+  {
+    from: 'lak',
+    to: 'ksp'
+  },
+  {
+    from: 'leg',
+    to: 'enl'
+  },
+  {
+    from: 'mgx',
+    to: 'jbk'
+  },
+  {
+    from: 'mnt',
+    to: 'wnn'
+  },
+  {
+    from: 'mof',
+    to: 'xnt'
+  },
+  {
+    from: 'mwd',
+    to: 'dmw'
+  },
+  {
+    from: 'nbf',
+    to: 'nru'
+  },
+  {
+    from: 'nbx',
+    to: 'ekc'
+  },
+  {
+    from: 'nln',
+    to: 'azd'
+  },
+  {
+    from: 'nlr',
+    to: 'nrk'
+  },
+  {
+    from: 'noo',
+    to: 'dtd'
+  },
+  {
+    from: 'nxu',
+    to: 'bpp'
+  },
+  {
+    from: 'pat',
+    to: 'kxr'
+  },
+  {
+    from: 'rmr',
+    to: 'emx'
+  },
+  {
+    from: 'sap',
+    to: 'aqt'
+  },
+  {
+    from: 'sgl',
+    to: 'isk'
+  },
+  {
+    from: 'smd',
+    to: 'kmb'
+  },
+  {
+    from: 'snb',
+    to: 'iba'
+  },
+  {
+    from: 'sul',
+    to: 'sgd'
+  },
+  {
+    from: 'sum',
+    to: 'ulw'
+  },
+  {
+    from: 'tgg',
+    to: 'bjp'
+  },
+  {
+    from: 'thw',
+    to: 'ola'
+  },
+  {
+    from: 'tid',
+    to: 'itd'
+  },
+  {
+    from: 'unp',
+    to: 'wro'
+  },
+  {
+    from: 'wgw',
+    to: 'wgb'
+  },
+  {
+    from: 'wit',
+    to: 'nol'
+  },
+  {
+    from: 'wiw',
+    to: 'nwo'
+  },
+  {
+    from: 'xrq',
+    to: 'dmw'
+  },
+  {
+    from: 'yen',
+    to: 'ynq'
+  },
+  {
+    from: 'yiy',
+    to: 'yrm'
+  },
+  {
+    from: 'zir',
+    to: 'scv'
+  },
+  {
+    from: 'sgn-br',
+    to: 'bzs'
+  },
+  {
+    from: 'sgn-co',
+    to: 'csn'
+  },
+  {
+    from: 'sgn-de',
+    to: 'gsg'
+  },
+  {
+    from: 'sgn-dk',
+    to: 'dsl'
+  },
+  {
+    from: 'sgn-fr',
+    to: 'fsl'
+  },
+  {
+    from: 'sgn-gb',
+    to: 'bfi'
+  },
+  {
+    from: 'sgn-gr',
+    to: 'gss'
+  },
+  {
+    from: 'sgn-ie',
+    to: 'isg'
+  },
+  {
+    from: 'sgn-it',
+    to: 'ise'
+  },
+  {
+    from: 'sgn-jp',
+    to: 'jsl'
+  },
+  {
+    from: 'sgn-mx',
+    to: 'mfs'
+  },
+  {
+    from: 'sgn-ni',
+    to: 'ncs'
+  },
+  {
+    from: 'sgn-nl',
+    to: 'dse'
+  },
+  {
+    from: 'sgn-no',
+    to: 'nsi'
+  },
+  {
+    from: 'sgn-pt',
+    to: 'psr'
+  },
+  {
+    from: 'sgn-se',
+    to: 'swl'
+  },
+  {
+    from: 'sgn-us',
+    to: 'ase'
+  },
+  {
+    from: 'sgn-za',
+    to: 'sfs'
+  },
+  {
+    from: 'sgn-es',
+    to: 'ssp'
+  },
+  {
+    from: 'zh-cmn',
+    to: 'zh'
+  },
+  {
+    from: 'zh-cmn-hans',
+    to: 'zh-hans'
+  },
+  {
+    from: 'zh-cmn-hant',
+    to: 'zh-hant'
+  },
+  {
+    from: 'zh-gan',
+    to: 'gan'
+  },
+  {
+    from: 'zh-wuu',
+    to: 'wuu'
+  },
+  {
+    from: 'zh-yue',
+    to: 'yue'
+  },
+  {
+    from: 'no-bokmal',
+    to: 'nb'
+  },
+  {
+    from: 'no-nynorsk',
+    to: 'nn'
+  },
+  {
+    from: 'aa-saaho',
+    to: 'ssy'
+  },
+  {
+    from: 'sh',
+    to: 'sr-latn'
+  },
+  {
+    from: 'cnr',
+    to: 'sr-me'
+  },
+  {
+    from: 'tl',
+    to: 'fil'
+  },
+  {
+    from: 'aju',
+    to: 'jrb'
+  },
+  {
+    from: 'als',
+    to: 'sq'
+  },
+  {
+    from: 'arb',
+    to: 'ar'
+  },
+  {
+    from: 'ayr',
+    to: 'ay'
+  },
+  {
+    from: 'azj',
+    to: 'az'
+  },
+  {
+    from: 'bcc',
+    to: 'bal'
+  },
+  {
+    from: 'bcl',
+    to: 'bik'
+  },
+  {
+    from: 'bxk',
+    to: 'luy'
+  },
+  {
+    from: 'bxr',
+    to: 'bua'
+  },
+  {
+    from: 'cld',
+    to: 'syr'
+  },
+  {
+    from: 'cmn',
+    to: 'zh'
+  },
+  {
+    from: 'cwd',
+    to: 'cr'
+  },
+  {
+    from: 'dgo',
+    to: 'doi'
+  },
+  {
+    from: 'dhd',
+    to: 'mwr'
+  },
+  {
+    from: 'dik',
+    to: 'din'
+  },
+  {
+    from: 'diq',
+    to: 'zza'
+  },
+  {
+    from: 'lbk',
+    to: 'bnc'
+  },
+  {
+    from: 'ekk',
+    to: 'et'
+  },
+  {
+    from: 'emk',
+    to: 'man'
+  },
+  {
+    from: 'esk',
+    to: 'ik'
+  },
+  {
+    from: 'fat',
+    to: 'ak'
+  },
+  {
+    from: 'fuc',
+    to: 'ff'
+  },
+  {
+    from: 'gaz',
+    to: 'om'
+  },
+  {
+    from: 'gbo',
+    to: 'grb'
+  },
+  {
+    from: 'gno',
+    to: 'gon'
+  },
+  {
+    from: 'gug',
+    to: 'gn'
+  },
+  {
+    from: 'gya',
+    to: 'gba'
+  },
+  {
+    from: 'hdn',
+    to: 'hai'
+  },
+  {
+    from: 'hea',
+    to: 'hmn'
+  },
+  {
+    from: 'ike',
+    to: 'iu'
+  },
+  {
+    from: 'kmr',
+    to: 'ku'
+  },
+  {
+    from: 'knc',
+    to: 'kr'
+  },
+  {
+    from: 'kng',
+    to: 'kg'
+  },
+  {
+    from: 'knn',
+    to: 'kok'
+  },
+  {
+    from: 'kpv',
+    to: 'kv'
+  },
+  {
+    from: 'lvs',
+    to: 'lv'
+  },
+  {
+    from: 'mhr',
+    to: 'chm'
+  },
+  {
+    from: 'mup',
+    to: 'raj'
+  },
+  {
+    from: 'khk',
+    to: 'mn'
+  },
+  {
+    from: 'npi',
+    to: 'ne'
+  },
+  {
+    from: 'ojg',
+    to: 'oj'
+  },
+  {
+    from: 'ory',
+    to: 'or'
+  },
+  {
+    from: 'pbu',
+    to: 'ps'
+  },
+  {
+    from: 'pes',
+    to: 'fa'
+  },
+  {
+    from: 'plt',
+    to: 'mg'
+  },
+  {
+    from: 'pnb',
+    to: 'lah'
+  },
+  {
+    from: 'quz',
+    to: 'qu'
+  },
+  {
+    from: 'rmy',
+    to: 'rom'
+  },
+  {
+    from: 'spy',
+    to: 'kln'
+  },
+  {
+    from: 'src',
+    to: 'sc'
+  },
+  {
+    from: 'swh',
+    to: 'sw'
+  },
+  {
+    from: 'ttq',
+    to: 'tmh'
+  },
+  {
+    from: 'tw',
+    to: 'ak'
+  },
+  {
+    from: 'umu',
+    to: 'del'
+  },
+  {
+    from: 'uzn',
+    to: 'uz'
+  },
+  {
+    from: 'xpe',
+    to: 'kpe'
+  },
+  {
+    from: 'xsl',
+    to: 'den'
+  },
+  {
+    from: 'ydd',
+    to: 'yi'
+  },
+  {
+    from: 'zai',
+    to: 'zap'
+  },
+  {
+    from: 'zsm',
+    to: 'ms'
+  },
+  {
+    from: 'zyb',
+    to: 'za'
+  },
+  {
+    from: 'him',
+    to: 'srx'
+  },
+  {
+    from: 'mnk',
+    to: 'man'
+  },
+  {
+    from: 'bh',
+    to: 'bho'
+  },
+  {
+    from: 'prs',
+    to: 'fa-af'
+  },
+  {
+    from: 'swc',
+    to: 'sw-cd'
+  },
+  {
+    from: 'aar',
+    to: 'aa'
+  },
+  {
+    from: 'abk',
+    to: 'ab'
+  },
+  {
+    from: 'ave',
+    to: 'ae'
+  },
+  {
+    from: 'afr',
+    to: 'af'
+  },
+  {
+    from: 'aka',
+    to: 'ak'
+  },
+  {
+    from: 'amh',
+    to: 'am'
+  },
+  {
+    from: 'arg',
+    to: 'an'
+  },
+  {
+    from: 'ara',
+    to: 'ar'
+  },
+  {
+    from: 'asm',
+    to: 'as'
+  },
+  {
+    from: 'ava',
+    to: 'av'
+  },
+  {
+    from: 'aym',
+    to: 'ay'
+  },
+  {
+    from: 'aze',
+    to: 'az'
+  },
+  {
+    from: 'bak',
+    to: 'ba'
+  },
+  {
+    from: 'bel',
+    to: 'be'
+  },
+  {
+    from: 'bul',
+    to: 'bg'
+  },
+  {
+    from: 'bih',
+    to: 'bho'
+  },
+  {
+    from: 'bis',
+    to: 'bi'
+  },
+  {
+    from: 'bam',
+    to: 'bm'
+  },
+  {
+    from: 'ben',
+    to: 'bn'
+  },
+  {
+    from: 'bod',
+    to: 'bo'
+  },
+  {
+    from: 'bre',
+    to: 'br'
+  },
+  {
+    from: 'bos',
+    to: 'bs'
+  },
+  {
+    from: 'cat',
+    to: 'ca'
+  },
+  {
+    from: 'che',
+    to: 'ce'
+  },
+  {
+    from: 'cha',
+    to: 'ch'
+  },
+  {
+    from: 'cos',
+    to: 'co'
+  },
+  {
+    from: 'cre',
+    to: 'cr'
+  },
+  {
+    from: 'ces',
+    to: 'cs'
+  },
+  {
+    from: 'chu',
+    to: 'cu'
+  },
+  {
+    from: 'chv',
+    to: 'cv'
+  },
+  {
+    from: 'cym',
+    to: 'cy'
+  },
+  {
+    from: 'dan',
+    to: 'da'
+  },
+  {
+    from: 'deu',
+    to: 'de'
+  },
+  {
+    from: 'div',
+    to: 'dv'
+  },
+  {
+    from: 'dzo',
+    to: 'dz'
+  },
+  {
+    from: 'ewe',
+    to: 'ee'
+  },
+  {
+    from: 'ell',
+    to: 'el'
+  },
+  {
+    from: 'eng',
+    to: 'en'
+  },
+  {
+    from: 'epo',
+    to: 'eo'
+  },
+  {
+    from: 'spa',
+    to: 'es'
+  },
+  {
+    from: 'est',
+    to: 'et'
+  },
+  {
+    from: 'eus',
+    to: 'eu'
+  },
+  {
+    from: 'fas',
+    to: 'fa'
+  },
+  {
+    from: 'ful',
+    to: 'ff'
+  },
+  {
+    from: 'fin',
+    to: 'fi'
+  },
+  {
+    from: 'fij',
+    to: 'fj'
+  },
+  {
+    from: 'fao',
+    to: 'fo'
+  },
+  {
+    from: 'fra',
+    to: 'fr'
+  },
+  {
+    from: 'fry',
+    to: 'fy'
+  },
+  {
+    from: 'gle',
+    to: 'ga'
+  },
+  {
+    from: 'gla',
+    to: 'gd'
+  },
+  {
+    from: 'glg',
+    to: 'gl'
+  },
+  {
+    from: 'grn',
+    to: 'gn'
+  },
+  {
+    from: 'guj',
+    to: 'gu'
+  },
+  {
+    from: 'glv',
+    to: 'gv'
+  },
+  {
+    from: 'hau',
+    to: 'ha'
+  },
+  {
+    from: 'heb',
+    to: 'he'
+  },
+  {
+    from: 'hin',
+    to: 'hi'
+  },
+  {
+    from: 'hmo',
+    to: 'ho'
+  },
+  {
+    from: 'hrv',
+    to: 'hr'
+  },
+  {
+    from: 'hat',
+    to: 'ht'
+  },
+  {
+    from: 'hun',
+    to: 'hu'
+  },
+  {
+    from: 'hye',
+    to: 'hy'
+  },
+  {
+    from: 'her',
+    to: 'hz'
+  },
+  {
+    from: 'ina',
+    to: 'ia'
+  },
+  {
+    from: 'ind',
+    to: 'id'
+  },
+  {
+    from: 'ile',
+    to: 'ie'
+  },
+  {
+    from: 'ibo',
+    to: 'ig'
+  },
+  {
+    from: 'iii',
+    to: 'ii'
+  },
+  {
+    from: 'ipk',
+    to: 'ik'
+  },
+  {
+    from: 'ido',
+    to: 'io'
+  },
+  {
+    from: 'isl',
+    to: 'is'
+  },
+  {
+    from: 'ita',
+    to: 'it'
+  },
+  {
+    from: 'iku',
+    to: 'iu'
+  },
+  {
+    from: 'jpn',
+    to: 'ja'
+  },
+  {
+    from: 'jav',
+    to: 'jv'
+  },
+  {
+    from: 'kat',
+    to: 'ka'
+  },
+  {
+    from: 'kon',
+    to: 'kg'
+  },
+  {
+    from: 'kik',
+    to: 'ki'
+  },
+  {
+    from: 'kua',
+    to: 'kj'
+  },
+  {
+    from: 'kaz',
+    to: 'kk'
+  },
+  {
+    from: 'kal',
+    to: 'kl'
+  },
+  {
+    from: 'khm',
+    to: 'km'
+  },
+  {
+    from: 'kan',
+    to: 'kn'
+  },
+  {
+    from: 'kor',
+    to: 'ko'
+  },
+  {
+    from: 'kau',
+    to: 'kr'
+  },
+  {
+    from: 'kas',
+    to: 'ks'
+  },
+  {
+    from: 'kur',
+    to: 'ku'
+  },
+  {
+    from: 'kom',
+    to: 'kv'
+  },
+  {
+    from: 'cor',
+    to: 'kw'
+  },
+  {
+    from: 'kir',
+    to: 'ky'
+  },
+  {
+    from: 'lat',
+    to: 'la'
+  },
+  {
+    from: 'ltz',
+    to: 'lb'
+  },
+  {
+    from: 'lug',
+    to: 'lg'
+  },
+  {
+    from: 'lim',
+    to: 'li'
+  },
+  {
+    from: 'lin',
+    to: 'ln'
+  },
+  {
+    from: 'lao',
+    to: 'lo'
+  },
+  {
+    from: 'lit',
+    to: 'lt'
+  },
+  {
+    from: 'lub',
+    to: 'lu'
+  },
+  {
+    from: 'lav',
+    to: 'lv'
+  },
+  {
+    from: 'mlg',
+    to: 'mg'
+  },
+  {
+    from: 'mah',
+    to: 'mh'
+  },
+  {
+    from: 'mri',
+    to: 'mi'
+  },
+  {
+    from: 'mkd',
+    to: 'mk'
+  },
+  {
+    from: 'mal',
+    to: 'ml'
+  },
+  {
+    from: 'mon',
+    to: 'mn'
+  },
+  {
+    from: 'mol',
+    to: 'ro'
+  },
+  {
+    from: 'mar',
+    to: 'mr'
+  },
+  {
+    from: 'msa',
+    to: 'ms'
+  },
+  {
+    from: 'mlt',
+    to: 'mt'
+  },
+  {
+    from: 'mya',
+    to: 'my'
+  },
+  {
+    from: 'nau',
+    to: 'na'
+  },
+  {
+    from: 'nob',
+    to: 'nb'
+  },
+  {
+    from: 'nde',
+    to: 'nd'
+  },
+  {
+    from: 'nep',
+    to: 'ne'
+  },
+  {
+    from: 'ndo',
+    to: 'ng'
+  },
+  {
+    from: 'nld',
+    to: 'nl'
+  },
+  {
+    from: 'nno',
+    to: 'nn'
+  },
+  {
+    from: 'nor',
+    to: 'no'
+  },
+  {
+    from: 'nbl',
+    to: 'nr'
+  },
+  {
+    from: 'nav',
+    to: 'nv'
+  },
+  {
+    from: 'nya',
+    to: 'ny'
+  },
+  {
+    from: 'oci',
+    to: 'oc'
+  },
+  {
+    from: 'oji',
+    to: 'oj'
+  },
+  {
+    from: 'orm',
+    to: 'om'
+  },
+  {
+    from: 'ori',
+    to: 'or'
+  },
+  {
+    from: 'oss',
+    to: 'os'
+  },
+  {
+    from: 'pan',
+    to: 'pa'
+  },
+  {
+    from: 'pli',
+    to: 'pi'
+  },
+  {
+    from: 'pol',
+    to: 'pl'
+  },
+  {
+    from: 'pus',
+    to: 'ps'
+  },
+  {
+    from: 'por',
+    to: 'pt'
+  },
+  {
+    from: 'que',
+    to: 'qu'
+  },
+  {
+    from: 'roh',
+    to: 'rm'
+  },
+  {
+    from: 'run',
+    to: 'rn'
+  },
+  {
+    from: 'ron',
+    to: 'ro'
+  },
+  {
+    from: 'rus',
+    to: 'ru'
+  },
+  {
+    from: 'kin',
+    to: 'rw'
+  },
+  {
+    from: 'san',
+    to: 'sa'
+  },
+  {
+    from: 'srd',
+    to: 'sc'
+  },
+  {
+    from: 'snd',
+    to: 'sd'
+  },
+  {
+    from: 'sme',
+    to: 'se'
+  },
+  {
+    from: 'sag',
+    to: 'sg'
+  },
+  {
+    from: 'hbs',
+    to: 'sr-latn'
+  },
+  {
+    from: 'sin',
+    to: 'si'
+  },
+  {
+    from: 'slk',
+    to: 'sk'
+  },
+  {
+    from: 'slv',
+    to: 'sl'
+  },
+  {
+    from: 'smo',
+    to: 'sm'
+  },
+  {
+    from: 'sna',
+    to: 'sn'
+  },
+  {
+    from: 'som',
+    to: 'so'
+  },
+  {
+    from: 'sqi',
+    to: 'sq'
+  },
+  {
+    from: 'srp',
+    to: 'sr'
+  },
+  {
+    from: 'ssw',
+    to: 'ss'
+  },
+  {
+    from: 'sot',
+    to: 'st'
+  },
+  {
+    from: 'sun',
+    to: 'su'
+  },
+  {
+    from: 'swe',
+    to: 'sv'
+  },
+  {
+    from: 'swa',
+    to: 'sw'
+  },
+  {
+    from: 'tam',
+    to: 'ta'
+  },
+  {
+    from: 'tel',
+    to: 'te'
+  },
+  {
+    from: 'tgk',
+    to: 'tg'
+  },
+  {
+    from: 'tha',
+    to: 'th'
+  },
+  {
+    from: 'tir',
+    to: 'ti'
+  },
+  {
+    from: 'tuk',
+    to: 'tk'
+  },
+  {
+    from: 'tgl',
+    to: 'fil'
+  },
+  {
+    from: 'tsn',
+    to: 'tn'
+  },
+  {
+    from: 'ton',
+    to: 'to'
+  },
+  {
+    from: 'tur',
+    to: 'tr'
+  },
+  {
+    from: 'tso',
+    to: 'ts'
+  },
+  {
+    from: 'tat',
+    to: 'tt'
+  },
+  {
+    from: 'twi',
+    to: 'ak'
+  },
+  {
+    from: 'tah',
+    to: 'ty'
+  },
+  {
+    from: 'uig',
+    to: 'ug'
+  },
+  {
+    from: 'ukr',
+    to: 'uk'
+  },
+  {
+    from: 'urd',
+    to: 'ur'
+  },
+  {
+    from: 'uzb',
+    to: 'uz'
+  },
+  {
+    from: 'ven',
+    to: 've'
+  },
+  {
+    from: 'vie',
+    to: 'vi'
+  },
+  {
+    from: 'vol',
+    to: 'vo'
+  },
+  {
+    from: 'wln',
+    to: 'wa'
+  },
+  {
+    from: 'wol',
+    to: 'wo'
+  },
+  {
+    from: 'xho',
+    to: 'xh'
+  },
+  {
+    from: 'yid',
+    to: 'yi'
+  },
+  {
+    from: 'yor',
+    to: 'yo'
+  },
+  {
+    from: 'zha',
+    to: 'za'
+  },
+  {
+    from: 'zho',
+    to: 'zh'
+  },
+  {
+    from: 'zul',
+    to: 'zu'
+  },
+  {
+    from: 'alb',
+    to: 'sq'
+  },
+  {
+    from: 'arm',
+    to: 'hy'
+  },
+  {
+    from: 'baq',
+    to: 'eu'
+  },
+  {
+    from: 'bur',
+    to: 'my'
+  },
+  {
+    from: 'chi',
+    to: 'zh'
+  },
+  {
+    from: 'cze',
+    to: 'cs'
+  },
+  {
+    from: 'dut',
+    to: 'nl'
+  },
+  {
+    from: 'fre',
+    to: 'fr'
+  },
+  {
+    from: 'geo',
+    to: 'ka'
+  },
+  {
+    from: 'ger',
+    to: 'de'
+  },
+  {
+    from: 'gre',
+    to: 'el'
+  },
+  {
+    from: 'ice',
+    to: 'is'
+  },
+  {
+    from: 'mac',
+    to: 'mk'
+  },
+  {
+    from: 'mao',
+    to: 'mi'
+  },
+  {
+    from: 'may',
+    to: 'ms'
+  },
+  {
+    from: 'per',
+    to: 'fa'
+  },
+  {
+    from: 'rum',
+    to: 'ro'
+  },
+  {
+    from: 'slo',
+    to: 'sk'
+  },
+  {
+    from: 'tib',
+    to: 'bo'
+  },
+  {
+    from: 'wel',
+    to: 'cy'
+  },
+  {
+    from: 'und-aaland',
+    to: 'und-ax'
+  },
+  {
+    from: 'hy-arevmda',
+    to: 'hyw'
+  },
+  {
+    from: 'und-arevmda',
+    to: 'und'
+  },
+  {
+    from: 'und-arevela',
+    to: 'und'
+  },
+  {
+    from: 'und-lojban',
+    to: 'und'
+  },
+  {
+    from: 'und-saaho',
+    to: 'und'
+  },
+  {
+    from: 'und-bokmal',
+    to: 'und'
+  },
+  {
+    from: 'und-nynorsk',
+    to: 'und'
+  },
+  {
+    from: 'und-hakka',
+    to: 'und'
+  },
+  {
+    from: 'und-xiang',
+    to: 'und'
+  },
+  {
+    from: 'und-hepburn-heploc',
+    to: 'und-alalc97'
+  }
+]
+
+
+/***/ }),
+
+/***/ "./node_modules/bcp-47/lib/normal.js":
+/*!*******************************************!*\
+  !*** ./node_modules/bcp-47/lib/normal.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "normal": function() { return /* binding */ normal; }
+/* harmony export */ });
+/** @type {Record<string, string|null>} */
+const normal = {
+  'en-gb-oed': 'en-GB-oxendict',
+  'i-ami': 'ami',
+  'i-bnn': 'bnn',
+  'i-default': null,
+  'i-enochian': null,
+  'i-hak': 'hak',
+  'i-klingon': 'tlh',
+  'i-lux': 'lb',
+  'i-mingo': null,
+  'i-navajo': 'nv',
+  'i-pwn': 'pwn',
+  'i-tao': 'tao',
+  'i-tay': 'tay',
+  'i-tsu': 'tsu',
+  'sgn-be-fr': 'sfb',
+  'sgn-be-nl': 'vgt',
+  'sgn-ch-de': 'sgg',
+  'art-lojban': 'jbo',
+  'cel-gaulish': null,
+  'no-bok': 'nb',
+  'no-nyn': 'nn',
+  'zh-guoyu': 'cmn',
+  'zh-hakka': 'hak',
+  'zh-min': null,
+  'zh-min-nan': 'nan',
+  'zh-xiang': 'hsn'
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/bcp-47/lib/parse.js":
+/*!******************************************!*\
+  !*** ./node_modules/bcp-47/lib/parse.js ***!
+  \******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parse": function() { return /* binding */ parse; }
+/* harmony export */ });
+/* harmony import */ var is_alphanumerical__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! is-alphanumerical */ "./node_modules/is-alphanumerical/index.js");
+/* harmony import */ var is_alphabetical__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! is-alphabetical */ "./node_modules/is-alphabetical/index.js");
+/* harmony import */ var is_decimal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! is-decimal */ "./node_modules/is-decimal/index.js");
+/* harmony import */ var _regular_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./regular.js */ "./node_modules/bcp-47/lib/regular.js");
+/* harmony import */ var _normal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./normal.js */ "./node_modules/bcp-47/lib/normal.js");
+/**
+ * @callback Warning
+ * @param {string} reason
+ * @param {number} code
+ * @param {number} offset
+ * @returns {void}
+ *
+ * @typedef Options
+ * @property {boolean} [normalize=true]
+ * @property {boolean} [forgiving=false]
+ * @property {Warning} [warning]
+ *
+ * @typedef Extension
+ * @property {string} singleton
+ * @property {Array<string>} extensions
+ *
+ * @typedef Schema
+ * @property {string|null|undefined} language
+ * @property {Array<string>} extendedLanguageSubtags
+ * @property {string|null|undefined} script
+ * @property {string|null|undefined} region
+ * @property {Array<string>} variants
+ * @property {Array<Extension>} extensions
+ * @property {Array<string>} privateuse
+ * @property {string|null|undefined} irregular
+ * @property {string|null|undefined} regular
+ */
+
+
+
+
+
+
+
+const own = {}.hasOwnProperty
+
+/**
+ * Parse a BCP 47 language tag.
+ *
+ * @param {string} tag
+ * @param {Options} [options]
+ * @returns {Schema}
+ */
+function parse(tag, options = {}) {
+  const result = empty()
+  const source = String(tag)
+  const value = source.toLowerCase()
+  let index = 0
+
+  // Check input.
+  if (tag === null || tag === undefined) {
+    throw new Error('Expected string, got `' + tag + '`')
+  }
+
+  // Let’s start.
+  // First: the edge cases.
+  if (own.call(_normal_js__WEBPACK_IMPORTED_MODULE_0__.normal, value)) {
+    const replacement = _normal_js__WEBPACK_IMPORTED_MODULE_0__.normal[value]
+
+    if (
+      (options.normalize === undefined ||
+        options.normalize === null ||
+        options.normalize) &&
+      typeof replacement === 'string'
+    ) {
+      return parse(replacement)
+    }
+
+    result[_regular_js__WEBPACK_IMPORTED_MODULE_1__.regular.includes(value) ? 'regular' : 'irregular'] = source
+
+    return result
+  }
+
+  // Now, to actually parse, eat what could be a language.
+  while ((0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index)) && index < 9) index++
+
+  // A language.
+  if (index > 1 /* Min 639. */ && index < 9 /* Max subtag. */) {
+    // 5 and up is a subtag.
+    // 4 is the size of reserved languages.
+    // 3 an ISO 639-2 or ISO 639-3.
+    // 2 is an ISO 639-1.
+    // <https://github.com/wooorm/iso-639-2>
+    // <https://github.com/wooorm/iso-639-3>
+    result.language = source.slice(0, index)
+
+    if (index < 4 /* Max 639. */) {
+      let groups = 0
+
+      while (
+        value.charCodeAt(index) === 45 /* `-` */ &&
+        (0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 1)) &&
+        (0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 2)) &&
+        (0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 3)) &&
+        !(0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 4))
+      ) {
+        if (groups > 2 /* Max extended language subtag count. */) {
+          return fail(
+            index,
+            3,
+            'Too many extended language subtags, expected at most 3 subtags'
+          )
+        }
+
+        // Extended language subtag.
+        result.extendedLanguageSubtags.push(source.slice(index + 1, index + 4))
+        index += 4
+        groups++
+      }
+    }
+
+    // ISO 15924 script.
+    // <https://github.com/wooorm/iso-15924>
+    if (
+      value.charCodeAt(index) === 45 /* `-` */ &&
+      (0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 1)) &&
+      (0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 2)) &&
+      (0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 3)) &&
+      (0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 4)) &&
+      !(0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 5))
+    ) {
+      result.script = source.slice(index + 1, index + 5)
+      index += 5
+    }
+
+    if (value.charCodeAt(index) === 45 /* `-` */) {
+      // ISO 3166-1 region.
+      // <https://github.com/wooorm/iso-3166>
+      if (
+        (0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 1)) &&
+        (0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 2)) &&
+        !(0,is_alphabetical__WEBPACK_IMPORTED_MODULE_2__.isAlphabetical)(value.charCodeAt(index + 3))
+      ) {
+        result.region = source.slice(index + 1, index + 3)
+        index += 3
+      }
+      // UN M49 region.
+      // <https://github.com/wooorm/un-m49>
+      else if (
+        (0,is_decimal__WEBPACK_IMPORTED_MODULE_3__.isDecimal)(value.charCodeAt(index + 1)) &&
+        (0,is_decimal__WEBPACK_IMPORTED_MODULE_3__.isDecimal)(value.charCodeAt(index + 2)) &&
+        (0,is_decimal__WEBPACK_IMPORTED_MODULE_3__.isDecimal)(value.charCodeAt(index + 3)) &&
+        !(0,is_decimal__WEBPACK_IMPORTED_MODULE_3__.isDecimal)(value.charCodeAt(index + 4))
+      ) {
+        result.region = source.slice(index + 1, index + 4)
+        index += 4
+      }
+    }
+
+    while (value.charCodeAt(index) === 45 /* `-` */) {
+      const start = index + 1
+      let offset = start
+
+      while ((0,is_alphanumerical__WEBPACK_IMPORTED_MODULE_4__.isAlphanumerical)(value.charCodeAt(offset))) {
+        if (offset - start > 7 /* Max variant. */) {
+          return fail(
+            offset,
+            1,
+            'Too long variant, expected at most 8 characters'
+          )
+        }
+
+        offset++
+      }
+
+      if (
+        // Long variant.
+        offset - start > 4 /* Min alpha numeric variant. */ ||
+        // Short variant.
+        (offset - start > 3 /* Min variant. */ &&
+          (0,is_decimal__WEBPACK_IMPORTED_MODULE_3__.isDecimal)(value.charCodeAt(start)))
+      ) {
+        result.variants.push(source.slice(start, offset))
+        index = offset
+      }
+      // Something else.
+      else {
+        break
+      }
+    }
+
+    // Extensions.
+    while (value.charCodeAt(index) === 45 /* `-` */) {
+      // Exit if this isn’t an extension.
+      if (
+        value.charCodeAt(index + 1) === 120 /* `x` */ ||
+        !(0,is_alphanumerical__WEBPACK_IMPORTED_MODULE_4__.isAlphanumerical)(value.charCodeAt(index + 1)) ||
+        value.charCodeAt(index + 2) !== 45 /* `-` */ ||
+        !(0,is_alphanumerical__WEBPACK_IMPORTED_MODULE_4__.isAlphanumerical)(value.charCodeAt(index + 3))
+      ) {
+        break
+      }
+
+      let offset = index + 2
+      let groups = 0
+
+      while (
+        value.charCodeAt(offset) === 45 /* `-` */ &&
+        (0,is_alphanumerical__WEBPACK_IMPORTED_MODULE_4__.isAlphanumerical)(value.charCodeAt(offset + 1)) &&
+        (0,is_alphanumerical__WEBPACK_IMPORTED_MODULE_4__.isAlphanumerical)(value.charCodeAt(offset + 2))
+      ) {
+        const start = offset + 1
+        offset = start + 2
+        groups++
+
+        while ((0,is_alphanumerical__WEBPACK_IMPORTED_MODULE_4__.isAlphanumerical)(value.charCodeAt(offset))) {
+          if (offset - start > 7 /* Max extension. */) {
+            return fail(
+              offset,
+              2,
+              'Too long extension, expected at most 8 characters'
+            )
+          }
+
+          offset++
+        }
+      }
+
+      if (!groups) {
+        return fail(
+          offset,
+          4,
+          'Empty extension, extensions must have at least 2 characters of content'
+        )
+      }
+
+      result.extensions.push({
+        singleton: source.charAt(index + 1),
+        extensions: source.slice(index + 3, offset).split('-')
+      })
+
+      index = offset
+    }
+  }
+  // Not a language.
+  else {
+    index = 0
+  }
+
+  // Private use.
+  if (
+    (index === 0 && value.charCodeAt(index) === 120) /* `x` */ ||
+    (value.charCodeAt(index) === 45 /* `-` */ &&
+      value.charCodeAt(index + 1) === 120) /* `x` */
+  ) {
+    index = index ? index + 2 : 1
+    let offset = index
+
+    while (
+      value.charCodeAt(offset) === 45 /* `-` */ &&
+      (0,is_alphanumerical__WEBPACK_IMPORTED_MODULE_4__.isAlphanumerical)(value.charCodeAt(offset + 1))
+    ) {
+      const start = index + 1
+      offset = start
+
+      while ((0,is_alphanumerical__WEBPACK_IMPORTED_MODULE_4__.isAlphanumerical)(value.charCodeAt(offset))) {
+        if (offset - start > 7 /* Max private use. */) {
+          return fail(
+            offset,
+            5,
+            'Too long private-use area, expected at most 8 characters'
+          )
+        }
+
+        offset++
+      }
+
+      result.privateuse.push(source.slice(index + 1, offset))
+      index = offset
+    }
+  }
+
+  if (index !== source.length) {
+    return fail(index, 6, 'Found superfluous content after tag')
+  }
+
+  return result
+
+  /**
+   * Create an empty results object.
+   *
+   * @param {number} offset
+   * @param {number} code
+   * @param {string} reason
+   * @returns {Schema}
+   */
+  function fail(offset, code, reason) {
+    if (options.warning) options.warning(reason, code, offset)
+    return options.forgiving ? result : empty()
+  }
+}
+
+/**
+ * Create an empty results object.
+ *
+ * @returns {Schema}
+ */
+function empty() {
+  return {
+    language: null,
+    extendedLanguageSubtags: [],
+    script: null,
+    region: null,
+    variants: [],
+    extensions: [],
+    privateuse: [],
+    irregular: null,
+    regular: null
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/bcp-47/lib/regular.js":
+/*!********************************************!*\
+  !*** ./node_modules/bcp-47/lib/regular.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "regular": function() { return /* binding */ regular; }
+/* harmony export */ });
+/** @type {Array<string>} */
+const regular = [
+  'art-lojban',
+  'cel-gaulish',
+  'no-bok',
+  'no-nyn',
+  'zh-guoyu',
+  'zh-hakka',
+  'zh-min',
+  'zh-min-nan',
+  'zh-xiang'
+]
+
+
+/***/ }),
+
+/***/ "./node_modules/bcp-47/lib/stringify.js":
 /*!**********************************************!*\
-  !*** ./node_modules/bcp-47/lib/regular.json ***!
+  !*** ./node_modules/bcp-47/lib/stringify.js ***!
   \**********************************************/
-/***/ ((module) => {
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-module.exports = JSON.parse('["art-lojban","cel-gaulish","no-bok","no-nyn","zh-guoyu","zh-hakka","zh-min","zh-min-nan","zh-xiang"]');
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "stringify": function() { return /* binding */ stringify; }
+/* harmony export */ });
+/**
+ * @typedef {Partial<import('./parse.js').Schema>} Schema
+ * @typedef {Partial<import('./parse.js').Extension>} Extension
+ */
+
+/**
+ * Compile a language schema to a BCP 47 language tag.
+ *
+ * @param {Schema} schema
+ * @returns {string}
+ */
+function stringify(schema = {}) {
+  /** @type {Array<string>} */
+  let result = []
+
+  if (schema.irregular) {
+    return schema.irregular
+  }
+
+  if (schema.regular) {
+    return schema.regular
+  }
+
+  if (schema.language) {
+    result = result.concat(
+      schema.language,
+      schema.extendedLanguageSubtags || [],
+      schema.script || [],
+      schema.region || [],
+      schema.variants || []
+    )
+
+    const values = schema.extensions || []
+    let index = -1
+
+    while (++index < values.length) {
+      const value = values[index]
+
+      if (value.singleton && value.extensions && value.extensions.length > 0) {
+        result.push(value.singleton, ...value.extensions)
+      }
+    }
+  }
+
+  if (schema.privateuse && schema.privateuse.length > 0) {
+    result.push('x', ...schema.privateuse)
+  }
+
+  return result.join('-')
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-alphabetical/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/is-alphabetical/index.js ***!
+  \***********************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isAlphabetical": function() { return /* binding */ isAlphabetical; }
+/* harmony export */ });
+/**
+ * Check if the given character code, or the character code at the first
+ * character, is alphabetical.
+ *
+ * @param {string|number} character
+ * @returns {boolean} Whether `character` is alphabetical.
+ */
+function isAlphabetical(character) {
+  const code =
+    typeof character === 'string' ? character.charCodeAt(0) : character
+
+  return (
+    (code >= 97 && code <= 122) /* a-z */ ||
+    (code >= 65 && code <= 90) /* A-Z */
+  )
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-alphanumerical/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/is-alphanumerical/index.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isAlphanumerical": function() { return /* binding */ isAlphanumerical; }
+/* harmony export */ });
+/* harmony import */ var is_alphabetical__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! is-alphabetical */ "./node_modules/is-alphabetical/index.js");
+/* harmony import */ var is_decimal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! is-decimal */ "./node_modules/is-decimal/index.js");
+
+
+
+/**
+ * Check if the given character code, or the character code at the first
+ * character, is alphanumerical.
+ *
+ * @param {string|number} character
+ * @returns {boolean} Whether `character` is alphanumerical.
+ */
+function isAlphanumerical(character) {
+  return (0,is_alphabetical__WEBPACK_IMPORTED_MODULE_0__.isAlphabetical)(character) || (0,is_decimal__WEBPACK_IMPORTED_MODULE_1__.isDecimal)(character)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-decimal/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/is-decimal/index.js ***!
+  \******************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isDecimal": function() { return /* binding */ isDecimal; }
+/* harmony export */ });
+/**
+ * Check if the given character code, or the character code at the first
+ * character, is decimal.
+ *
+ * @param {string|number} character
+ * @returns {boolean} Whether `character` is a decimal
+ */
+function isDecimal(character) {
+  const code =
+    typeof character === 'string' ? character.charCodeAt(0) : character
+
+  return code >= 48 && code <= 57 /* 0-9 */
+}
+
 
 /***/ })
 
@@ -29920,36 +43333,36 @@ module.exports = JSON.parse('["art-lojban","cel-gaulish","no-bok","no-nyn","zh-g
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/amd options */
-/******/ 	(() => {
+/******/ 	!function() {
 /******/ 		__webpack_require__.amdO = {};
-/******/ 	})();
+/******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
+/******/ 	!function() {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
+/******/ 		__webpack_require__.n = function(module) {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
 /******/ 			__webpack_require__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
-/******/ 	})();
+/******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
+/******/ 	!function() {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 		__webpack_require__.d = function(exports, definition) {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	})();
+/******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
+/******/ 	!function() {
 /******/ 		__webpack_require__.g = (function() {
 /******/ 			if (typeof globalThis === 'object') return globalThis;
 /******/ 			try {
@@ -29958,36 +43371,35 @@ module.exports = JSON.parse('["art-lojban","cel-gaulish","no-bok","no-nyn","zh-g
 /******/ 				if (typeof window === 'object') return window;
 /******/ 			}
 /******/ 		})();
-/******/ 	})();
+/******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
+/******/ 	!function() {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
+/******/ 		__webpack_require__.r = function(exports) {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	})();
+/******/ 	}();
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
+!function() {
 "use strict";
 /*!******************************!*\
   !*** ./src/offline/index.js ***!
   \******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "OfflineController": () => (/* reexport safe */ _controllers_OfflineController__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "OfflineController": function() { return /* reexport safe */ _controllers_OfflineController__WEBPACK_IMPORTED_MODULE_0__["default"]; }
 /* harmony export */ });
 /* harmony import */ var _controllers_OfflineController__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controllers/OfflineController */ "./src/offline/controllers/OfflineController.js");
 /**
@@ -30030,10 +43442,9 @@ if (!dashjs) {
 }
 
 dashjs.OfflineController = _controllers_OfflineController__WEBPACK_IMPORTED_MODULE_0__["default"];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dashjs);
+/* harmony default export */ __webpack_exports__["default"] = (dashjs);
 
-})();
-
+}();
 __webpack_exports__ = __webpack_exports__["default"];
 /******/ 	return __webpack_exports__;
 /******/ })()
