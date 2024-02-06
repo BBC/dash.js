@@ -302,6 +302,9 @@ app.controller('DashController', ['$scope', '$window', 'sources', 'contributors'
     $scope.scheduleWhilePausedSelected = true;
     $scope.calcSegmentAvailabilityRangeFromTimelineSelected = false;
     $scope.reuseExistingSourceBuffersSelected = true;
+    $scope.mediaSourceDurationInfinitySelected = true;
+    $scope.resetSourceBuffersForTrackSwitch = false;
+    $scope.saveLastMediaSettingsSelected = true;
     $scope.localStorageSelected = true;
     $scope.jumpGapsSelected = true;
     $scope.fastSwitchSelected = true;
@@ -665,6 +668,34 @@ app.controller('DashController', ['$scope', '$window', 'sources', 'contributors'
                 buffer: {
                     reuseExistingSourceBuffers: $scope.reuseExistingSourceBuffersSelected
                 }
+            }
+        });
+    };
+
+    $scope.toggleMediaSourceDurationInfinity = function () {
+        $scope.player.updateSettings({
+            streaming: {
+                buffer: {
+                    mediaSourceDurationInfinity: $scope.mediaSourceDurationInfinitySelected
+                }
+            }
+        });
+    };
+
+    $scope.toggleResetSourceBuffersForTrackSwitch = function () {
+        $scope.player.updateSettings({
+            streaming: {
+                buffer: {
+                    resetSourceBuffersForTrackSwitch: $scope.resetSourceBuffersForTrackSwitch
+                }
+            }
+        })
+    };
+
+    $scope.toggleSaveLastMediaSettings = function () {
+        $scope.player.updateSettings({
+            'streaming': {
+                'saveLastMediaSettingsForCurrentStreamingSession': $scope.saveLastMediaSettingsSelected
             }
         });
     };
@@ -1777,6 +1808,9 @@ app.controller('DashController', ['$scope', '$window', 'sources', 'contributors'
                 case 'muted':
                     $scope.muted = this.parseBoolean(value);
                     $scope.toggleMuted();
+                    if ($scope.muted === true){
+                        document.getElementById('muteBtn')?.click();    
+                    } 
                     break;
                 case 'drmToday':
                     $scope.drmToday = this.parseBoolean(value);
@@ -2125,6 +2159,9 @@ app.controller('DashController', ['$scope', '$window', 'sources', 'contributors'
         $scope.scheduleWhilePausedSelected = currentConfig.streaming.scheduling.scheduleWhilePaused;
         $scope.calcSegmentAvailabilityRangeFromTimelineSelected = currentConfig.streaming.timeShiftBuffer.calcFromSegmentTimeline;
         $scope.reuseExistingSourceBuffersSelected = currentConfig.streaming.buffer.reuseExistingSourceBuffers;
+        $scope.mediaSourceDurationInfinitySelected = currentConfig.streaming.buffer.mediaSourceDurationInfinity;
+        $scope.resetSourceBuffersForTrackSwitch = currentConfig.streaming.buffer.resetSourceBuffersForTrackSwitch;
+        $scope.saveLastMediaSettingsSelected = currentConfig.streaming.saveLastMediaSettingsForCurrentStreamingSession;
         $scope.localStorageSelected = currentConfig.streaming.lastBitrateCachingInfo.enabled;
         $scope.jumpGapsSelected = currentConfig.streaming.gaps.jumpGaps;
     }
