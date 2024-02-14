@@ -62,6 +62,7 @@ import Events from './events/Events';
  *            abandonLoadTimeout: 10000,
  *            wallclockTimeUpdateInterval: 100,
  *            manifestUpdateRetryInterval: 100,
+ *            liveUpdateTimeThresholdInMilliseconds: 0,
  *            cacheInitSegments: false,
  *            applyServiceDescription: true,
  *            applyProducerReferenceTime: true,
@@ -108,7 +109,9 @@ import Events from './events/Events';
  *                useAppendWindow: true,
  *                setStallState: true,
  *                avoidCurrentTimeRangePruning: false,
- *                useChangeTypeForTrackSwitch: true
+ *                useChangeTypeForTrackSwitch: true,
+ *                mediaSourceDurationInfinity: true,
+ *                resetSourceBuffersForTrackSwitch: false
  *            },
  *            gaps: {
  *                jumpGaps: true,
@@ -141,7 +144,12 @@ import Events from './events/Events';
  *            },
  *            text: {
  *                defaultEnabled: true,
+ *                dispatchForManualRendering: false,
  *                extendSegmentedCues: true,
+ *                imsc: {
+ *                    displayForcedOnlyMode: false,
+ *                    enableRollUp: true
+ *                },
  *                webvtt: {
  *                    customRenderingEnabled: false
  *                }
@@ -198,6 +206,13 @@ import Events from './events/Events';
  *                   droppedFramesRule: true,
  *                   abandonRequestsRule: true
  *                },
+ *                abrRulesParameters: {
+ *                     abandonRequestsRule: {
+ *                         graceTimeThreshold: 500,
+ *                         abandonMultiplier: 1.8,
+ *                         minLengthToAverage: 5
+ *                     }
+ *                 },
  *                bandwidthSafetyFactor: 0.9,
  *                useDefaultABRRules: true,
  *                useDeadTimeLatency: true,
@@ -332,6 +347,12 @@ import Events from './events/Events';
  * @property {boolean} [useChangeTypeForTrackSwitch=true]
  * If this flag is set to true then dash.js will use the MSE v.2 API call "changeType()" before switching to a different track.
  * Note that some platforms might not implement the changeType functio. dash.js is checking for the availability before trying to call it.
+ * @property {boolean} [mediaSourceDurationInfinity=true]
+ * If this flag is set to true then dash.js will allow `Infinity` to be set as the MediaSource duration otherwise the duration will be set to `Math.pow(2,32)` instead of `Infinity` to allow appending segments indefinitely.
+ * Some platforms such as WebOS 4.x have issues with seeking when duration is set to `Infinity`, setting this flag to false resolve this.
+ * @property {boolean} [resetSourceBuffersForTrackSwitch=false]
+ * When switching to a track that is not compatible with the currently active MSE SourceBuffers, MSE will be reset. This happens when we switch codecs on a system
+ * that does not properly implement "changeType()", such as webOS 4.0 and before.
  */
 
 /**
@@ -466,9 +487,16 @@ import Events from './events/Events';
  * @typedef {Object} Text
  * @property {boolean} [defaultEnabled=true]
  * Enable/disable subtitle rendering by default.
+ * @property {boolean} [dispatchForManualRendering=false]
+ * Enable/disable firing of CueEnter/CueExt events. This will disable the display of subtitles and should be used when you want to have full control about rendering them.
  * @property {boolean} [extendSegmentedCues=true]
  * Enable/disable patching of segmented cues in order to merge as a single cue by extending cue end time.
- * @property {object} [webvtt={customRenderingEnabled=false}]
+ * @property {boolean} [imsc.displayForcedOnlyMode=false]
+ * Enable/disable forced only mode in IMSC captions.
+ * When true, only those captions where itts:forcedDisplay="true" will be displayed.
+ * @property {boolean} [imsc.enableRollUp=true]
+ * Enable/disable rollUp style display of IMSC captions.
+ * @property {object} [webvtt.customRenderingEnabled=false]
  * Enables the custom rendering for WebVTT captions. For details refer to the "Subtitles and Captions" sample section of dash.js.
  * Custom WebVTT rendering requires the external library vtt.js that can be found in the contrib folder.
  */
@@ -564,6 +592,22 @@ import Events from './events/Events';
  */
 
 /**
+ * @typedef {Object} AbrRulesParameters
+ * @property {module:Settings~AbandonRequestRuleParameters} abandonRequestRule
+ * Configuration parameters for the AbandonRequestRule
+ */
+
+/**
+ * @typedef {Object} AbandonRequestRuleParameters
+ * @property {number} [graceTimeThreshold=500]
+ * Minimum elapsed time in milliseconds that the segment download has to run before the rule considers abandoning the download.
+ * @property {number} [abandonMultiplier]
+ * This value is multiplied with the segment duration and compared to the estimated time of the download to decide the request should be abandoned.
+ * @property {number} [minLengthToAverage]
+ * Minimum number of throughput samples required to consider abandoning the download of the segment.
+ */
+
+/**
  * @typedef {Object} AbrSettings
  * @property {string} [movingAverageMethod="slidingWindow"]
  * Sets the moving average method used for smoothing throughput estimates.
@@ -590,6 +634,7 @@ import Events from './events/Events';
  * @property {object} [trackSwitchMode={video: "neverReplace", audio: "alwaysReplace"}]
  * @property {object} [additionalAbrRules={insufficientBufferRule: true,switchHistoryRule: true,droppedFramesRule: true,abandonRequestsRule: true}]
  * Enable/Disable additional ABR rules in case ABRStrategy is set to "abrDynamic", "abrBola" or "abrThroughput".
+ * @property {module:Settings~AbrRulesParameters} abrRulesParameters Configuration options for the different ABR rules
  * @property {number} [bandwidthSafetyFactor=0.9]
  * Standard ABR throughput rules multiply the throughput by this value.
  *
@@ -703,6 +748,8 @@ import Events from './events/Events';
  * How frequently the wallclockTimeUpdated internal event is triggered (in milliseconds).
  * @property {number} [manifestUpdateRetryInterval=100]
  * For live streams, set the interval-frequency in milliseconds at which dash.js will check if the current manifest is still processed before downloading the next manifest once the minimumUpdatePeriod time has.
+ * @property {number} [liveUpdateTimeThresholdInMilliseconds=0]
+ * For live streams, postpone syncing time updates until the threshold is passed. Increase if problems occurs during live streams on low end devices.
  * @property {boolean} [cacheInitSegments=false]
  * Enables the caching of init segments to avoid requesting the init segments before each representation switch.
  * @property {boolean} [applyServiceDescription=true]
@@ -833,6 +880,7 @@ function Settings() {
             abandonLoadTimeout: 10000,
             wallclockTimeUpdateInterval: 100,
             manifestUpdateRetryInterval: 100,
+            liveUpdateTimeThresholdInMilliseconds: 0,
             cacheInitSegments: false,
             applyServiceDescription: true,
             applyProducerReferenceTime: true,
@@ -879,7 +927,9 @@ function Settings() {
                 useAppendWindow: true,
                 setStallState: true,
                 avoidCurrentTimeRangePruning: false,
-                useChangeTypeForTrackSwitch: true
+                useChangeTypeForTrackSwitch: true,
+                mediaSourceDurationInfinity: true,
+                resetSourceBuffersForTrackSwitch: false
             },
             gaps: {
                 jumpGaps: true,
@@ -912,7 +962,12 @@ function Settings() {
             },
             text: {
                 defaultEnabled: true,
+                dispatchForManualRendering: false,
                 extendSegmentedCues: true,
+                imsc: {
+                    displayForcedOnlyMode: false,
+                    enableRollUp: true
+                },
                 webvtt: {
                     customRenderingEnabled: false
                 }
@@ -980,6 +1035,13 @@ function Settings() {
                     switchHistoryRule: true,
                     droppedFramesRule: true,
                     abandonRequestsRule: true
+                },
+                abrRulesParameters: {
+                    abandonRequestsRule: {
+                        graceTimeThreshold: 500,
+                        abandonMultiplier: 1.8,
+                        minLengthToAverage: 5
+                    }
                 },
                 bandwidthSafetyFactor: 0.9,
                 useDefaultABRRules: true,
