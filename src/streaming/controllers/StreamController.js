@@ -1481,8 +1481,6 @@ function StreamController() {
         getStreams,
         getNextStream,
         getActiveStream,
-        getInitialPlayback,
-        getAutoPlay,
         refreshManifest,
         setMediaDuration,
         reset

@@ -364,10 +364,6 @@ function AbrController() {
             idx = _checkMaxBitrate(type, streamId);
             idx = _checkMaxRepresentationRatio(idx, type, streamId);
             idx = _checkPortalSize(idx, type, streamId);
-            // Apply maximum suggested bitrate from CMSD headers if enabled
-            if (settings.get().streaming.cmsd.enabled && settings.get().streaming.cmsd.abr.applyMb) {
-                idx = _checkCmsdMaxBitrate(idx, type, streamId);
-            }
             return idx;
         } catch (e) {
             return undefined

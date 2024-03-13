@@ -41,7 +41,6 @@ import Events from '../../core/events/Events';
 import Settings from '../../core/Settings';
 import Constants from '../constants/Constants';
 import LowLatencyThroughputModel from '../models/LowLatencyThroughputModel';
-import CustomParametersModel from '../models/CustomParametersModel';
 import MediaPlayerEvents from '../MediaPlayerEvents';
 
 /**
@@ -106,22 +105,6 @@ function HTTPLoader(cfg) {
 
         if (!requestModifier || !dashMetrics || !errHandler) {
             throw new Error('config object is not correct or missing');
-        }
-
-        const addHttpRequestMetric = function(success) {
-            request.requestStartDate = requestStartTime;
-            request.requestEndDate = new Date();
-            request.firstByteDate = request.firstByteDate || requestStartTime;
-            request.fileLoaderType = fileLoaderType;
-
-            const responseUrl = httpRequest.response ? httpRequest.response.responseURL : null;
-            const responseStatus = httpRequest.response ? httpRequest.response.status : null;
-            const responseHeaders = httpRequest.response && httpRequest.response.getAllResponseHeaders ? httpRequest.response.getAllResponseHeaders() :
-                httpRequest.response ? httpRequest.response.responseHeaders : null;
-
-            const cmsd = responseHeaders && settings.get().streaming.cmsd && settings.get().streaming.cmsd.enabled ? cmsdModel.parseResponseHeaders(responseHeaders, request.mediaType) : null;
-
-            dashMetrics.addHttpRequest(request, responseUrl, responseStatus, responseHeaders, success ? traces : null, cmsd);
         }
 
         const handleLoaded = function (success) {

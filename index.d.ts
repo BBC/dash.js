@@ -286,8 +286,6 @@ declare namespace dashjs {
                 portalScale?: number;
                 portalMinimum?: number;
                 usePixelRatioInLimitBitrateByPortal?: boolean;
-                portalScale?: number;
-                portalMinimum?: number;
                 maxBitrate?: {
                     audio?: number;
                     video?: number;

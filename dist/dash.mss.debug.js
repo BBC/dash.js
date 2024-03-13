@@ -4928,6 +4928,18 @@ var MediaPlayerEvents = /*#__PURE__*/function (_EventsBase) {
 
     _this.AST_IN_FUTURE = 'astInFuture';
     /**
+     * Triggered when a new baseUrl has been selected.
+     * @event MediaPlayerEvents#BASEURL_SELECTED
+     */
+
+    _this.BASEURL_SELECTED = 'baseUrlSelected';
+    /**
+     * Triggered when the BaseURLs have been updated.
+     * @event MediaPlayerEvents#BASE_URLS_UPDATED
+     */
+
+    _this.BASE_URLS_UPDATED = 'baseUrlsUpdated';
+    /**
      * Triggered when the video element's buffer state changes to stalled.
      * Check mediaType in payload to determine type (Video, Audio, FragmentedText).
      * @event MediaPlayerEvents#BUFFER_EMPTY
@@ -4996,7 +5008,25 @@ var MediaPlayerEvents = /*#__PURE__*/function (_EventsBase) {
 
     _this.LOG = 'log';
     /**
-     * Triggered when the manifest load is complete
+     * Triggered when the 'Content-Length' header for a fragment does not match the byte length.
+     * @event MediaPlayerEvents#FRAGMENT_CONTENT_LENGTH_MISMATCH
+     */
+
+    _this.FRAGMENT_CONTENT_LENGTH_MISMATCH = 'fragmentContentLengthMismatch';
+    /**
+     * Triggered when the manifest load is started
+     * @event MediaPlayerEvents#MANIFEST_LOADING_STARTED
+     */
+
+    _this.MANIFEST_LOADING_STARTED = 'manifestLoadingStarted';
+    /**
+     * Triggered when the manifest loading is finished, providing the request object information
+     * @event MediaPlayerEvents#MANIFEST_LOADING_FINISHED
+     */
+
+    _this.MANIFEST_LOADING_FINISHED = 'manifestLoadingFinished';
+    /**
+     * Triggered when the manifest load is complete, providing the payload
      * @event MediaPlayerEvents#MANIFEST_LOADED
      */
 
