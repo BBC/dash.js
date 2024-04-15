@@ -80,21 +80,20 @@ function VideoModel() {
         eventBus.off(Events.PLAYBACK_PLAYING, onPlaying, this);
     }
 
-    function onPlaybackCanPlay() {
-        if (element) {
-            element.playbackRate = previousPlaybackRate || 1;
-            element.removeEventListener('canplay', onPlaybackCanPlay);
-        }
-    }
-
     function setPlaybackRate(value, ignoreReadyState = false) {
-        if (!element) return;
-        if (!ignoreReadyState && element.readyState <= 2 && value > 0) {
-            // If media element hasn't loaded enough data to play yet, wait until it has
-            element.addEventListener('canplay', onPlaybackCanPlay);
-        } else {
-            element.playbackRate = value;
+        if (!element) {
+            return;
         }
+
+        if (value === 0 || ignoreReadyState || element.readyState > Constants.VIDEO_ELEMENT_READY_STATES.HAVE_CURRENT_DATA) {
+            element.playbackRate = value;
+            return;
+        }
+        
+        // If media element hasn't loaded enough data to play yet, wait until it has
+        waitForReadyState(Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA, () => {
+            element.playbackRate = value;
+        });
     }
 
     //TODO Move the DVR window calculations from MediaPlayer to Here.
@@ -244,6 +243,10 @@ function VideoModel() {
 
         stalledStreams.push(type);
 
+        // Option 1:
+        // appends to the end of that big boolean right below here
+        // ... && (settings.get().streaming.buffer.syntheticStallEvents.ignoreReadyState || getReadyState() >= Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA)
+
         if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && stalledStreams.length === 1) {
             logger.debug(`emitting synthetic waiting event and halting playback with playback rate 0`);
             // Halt playback until nothing is stalled.
@@ -265,8 +268,24 @@ function VideoModel() {
             stalledStreams.splice(index, 1);
         }
 
+        // syntheticStallEvents:
+        //   enable: boolean [default=false]
+        //   ignoreReadyState: boolean [default=false]
+
+        // Option 1:
+        // Check ready state at the end of this long boolean here (as before)
+
+        // Option 2:
+        // const unstall = () => { /* unstall code in here */ }
+        // if (settings.get().streaming.buffer.syntheticStalls.ignoreReadyState)
+        //   then unstall()
+        // else
+        //   if an unstall is queued already
+        //     then remove the previously queued unstall
+        //   waitForReadyState(HAVE_FUTURE_DATA, unstall)
+
         // If nothing is stalled resume playback.
-        if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && isStalled() === false && element.playbackRate === 0 && element.readyState >= Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA) {
+        if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && !isStalled() && element.playbackRate === 0) {
             logger.debug(`emitting synthetic playing event (if not paused) and resuming playback with playback rate: ${previousPlaybackRate || 1}`);
             setPlaybackRate(previousPlaybackRate || 1);
             if (!element.paused) {
