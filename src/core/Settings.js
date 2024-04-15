@@ -107,11 +107,15 @@ import Events from './events/Events';
  *                stallThreshold: 0.3,
  *                useAppendWindow: true,
  *                setStallState: true,
- *                emitSyntheticStallEvents: false,
  *                avoidCurrentTimeRangePruning: false,
  *                useChangeTypeForTrackSwitch: true,
  *                mediaSourceDurationInfinity: true,
- *                resetSourceBuffersForTrackSwitch: false
+ *                resetSourceBuffersForTrackSwitch: false,
+ *                syntheticStallEvents: {
+ *                  enabled: false,
+ *                  ignoreReadyState: false
+ *                } 
+ * 
  *            },
  *            gaps: {
  *                jumpGaps: true,
@@ -337,7 +341,7 @@ import Events from './events/Events';
  * Specifies if the appendWindow attributes of the MSE SourceBuffers should be set according to content duration from manifest.
  * @property {boolean} [setStallState=true]
  * Specifies if we record stalled streams once the stall threshold is reached
- * @property {boolean} [emitSyntheticStallEvents=false]
+ * @property {module:Settings~SyntheticStallSettings} [syntheticStallEvents]
  * Specified if we fire manual stall events once the stall threshold is reached
  * @property {boolean} [avoidCurrentTimeRangePruning=false]
  * Avoids pruning of the buffered range that contains the current playback time.
@@ -360,6 +364,17 @@ import Events from './events/Events';
  * Configuration for audio media type of tracks.
  * @property {number|boolean|string} [video]
  * Configuration for video media type of tracks.
+ */
+
+/**
+ * @typedef {Object} module:Settings~SyntheticStallSettings
+ * @property {boolean} [enabled]
+ * Fire manual stall events once the stall threshold is reached
+ * @property {boolean} [ignoreReadyState]
+ * Ignore the media element's ready state when entering and exiting a stall
+ * Enable this when either of these scenarios still occur with synthetic stalls enabled:
+ * - If the buffer is empty, but playback is not stalled.
+ * - If playback resumes, but a playing event isn't reported.
  */
 
 /**
@@ -920,11 +935,14 @@ function Settings() {
                 stallThreshold: 0.3,
                 useAppendWindow: true,
                 setStallState: true,
-                emitSyntheticStallEvents: false,
                 avoidCurrentTimeRangePruning: false,
                 useChangeTypeForTrackSwitch: true,
                 mediaSourceDurationInfinity: true,
-                resetSourceBuffersForTrackSwitch: false
+                resetSourceBuffersForTrackSwitch: false,
+                syntheticStallEvents: {
+                    enabled: false,
+                    ignoreReadyState: false
+                }
             },
             gaps: {
                 jumpGaps: true,

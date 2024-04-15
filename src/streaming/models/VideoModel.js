@@ -54,6 +54,7 @@ function VideoModel() {
         element,
         _currentTime,
         setCurrentTimeReadyStateFunction,
+        resumeReadyStateFunction,
         TTMLRenderingDiv,
         vttRenderingDiv,
         previousPlaybackRate,
@@ -243,11 +244,12 @@ function VideoModel() {
 
         stalledStreams.push(type);
 
-        // Option 1:
-        // appends to the end of that big boolean right below here
-        // ... && (settings.get().streaming.buffer.syntheticStallEvents.ignoreReadyState || getReadyState() >= Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA)
-
-        if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && stalledStreams.length === 1) {
+        if (
+            settings.get().streaming.buffer.syntheticStallEvents.enabled && 
+            element && 
+            stalledStreams.length === 1 && 
+            (settings.get().streaming.buffer.syntheticStallEvents.ignoreReadyState || getReadyState() >= Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA)
+        ) {
             logger.debug(`emitting synthetic waiting event and halting playback with playback rate 0`);
             // Halt playback until nothing is stalled.
             const event = document.createEvent('Event');
@@ -268,30 +270,25 @@ function VideoModel() {
             stalledStreams.splice(index, 1);
         }
 
-        // syntheticStallEvents:
-        //   enable: boolean [default=false]
-        //   ignoreReadyState: boolean [default=false]
 
-        // Option 1:
-        // Check ready state at the end of this long boolean here (as before)
+        if (settings.get().streaming.buffer.syntheticStallEvents.enabled && element && !isStalled() && element.playbackRate === 0) {
+            const resume = () => { 
+                logger.debug(`emitting synthetic playing event (if not paused) and resuming playback with playback rate: ${previousPlaybackRate || 1}`);
+                setPlaybackRate(previousPlaybackRate || 1);
+                if (!element.paused) {
+                    const event = document.createEvent('Event');
+                    event.initEvent('playing', true, false);
+                    element.dispatchEvent(event);
+                }
+            }
 
-        // Option 2:
-        // const unstall = () => { /* unstall code in here */ }
-        // if (settings.get().streaming.buffer.syntheticStalls.ignoreReadyState)
-        //   then unstall()
-        // else
-        //   if an unstall is queued already
-        //     then remove the previously queued unstall
-        //   waitForReadyState(HAVE_FUTURE_DATA, unstall)
-
-        // If nothing is stalled resume playback.
-        if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && !isStalled() && element.playbackRate === 0) {
-            logger.debug(`emitting synthetic playing event (if not paused) and resuming playback with playback rate: ${previousPlaybackRate || 1}`);
-            setPlaybackRate(previousPlaybackRate || 1);
-            if (!element.paused) {
-                const event = document.createEvent('Event');
-                event.initEvent('playing', true, false);
-                element.dispatchEvent(event);
+            if (settings.get().streaming.buffer.syntheticStalls.ignoreReadyState) {
+                resume()
+            } else {
+                if (resumeReadyStateFunction && resumeReadyStateFunction.func && resumeReadyStateFunction.event) {
+                    removeEventListener(resumeReadyStateFunction.event, resumeReadyStateFunction.func);
+                }       
+                resumeReadyStateFunction = waitForReadyState(Constants.VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA, resume)
             }
         }
     }
