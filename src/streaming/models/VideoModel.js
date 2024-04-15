@@ -86,7 +86,7 @@ function VideoModel() {
             return;
         }
 
-        if (value === 0 || ignoreReadyState || element.readyState > Constants.VIDEO_ELEMENT_READY_STATES.HAVE_CURRENT_DATA) {
+        if (value === 0 || ignoreReadyState) {
             element.playbackRate = value;
             return;
         }
