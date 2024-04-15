@@ -481,15 +481,18 @@ function VideoModel() {
     }
 
     function waitForReadyState(targetReadyState, callback) {
-        if (targetReadyState === Constants.VIDEO_ELEMENT_READY_STATES.HAVE_NOTHING ||
-            getReadyState() >= targetReadyState) {
+        if (
+            targetReadyState === Constants.VIDEO_ELEMENT_READY_STATES.HAVE_NOTHING ||
+            getReadyState() >= targetReadyState
+        ) {
             callback();
             return null;
-        } else {
-            // wait for the appropriate callback before checking again
-            const event = READY_STATES_TO_EVENT_NAMES[targetReadyState];
-            _listenOnce(event, callback);
         }
+
+        // wait for the appropriate callback before checking again
+        const event = READY_STATES_TO_EVENT_NAMES[targetReadyState];
+
+        return _listenOnce(event, callback);
     }
 
     function _listenOnce(event, callback) {
@@ -499,6 +502,7 @@ function VideoModel() {
             // Call the original listener.
             callback(event);
         };
+
         addEventListener(event, func);
 
         return { func, event }
