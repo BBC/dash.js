@@ -274,7 +274,9 @@ function VideoModel() {
         if (settings.get().streaming.buffer.syntheticStallEvents.enabled && element && !isStalled() && element.playbackRate === 0) {
             const resume = () => { 
                 logger.debug(`emitting synthetic playing event (if not paused) and resuming playback with playback rate: ${previousPlaybackRate || 1}`);
-                setPlaybackRate(previousPlaybackRate || 1);
+
+                setPlaybackRate(previousPlaybackRate || 1, settings.get().streaming.buffer.syntheticStalls.ignoreReadyState);
+
                 if (!element.paused) {
                     const event = document.createEvent('Event');
                     event.initEvent('playing', true, false);
