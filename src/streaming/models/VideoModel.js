@@ -105,13 +105,13 @@ function VideoModel() {
             }
             _currentTime = currentTime;
 
-            let currentTimeReadyState = Constants.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA;
+            let elementReadyStateEvent = Constants.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA;
 
             if (settings.get().streaming.seekWithoutReadyStateCheck) {
-                currentTimeReadyState = Constants.VIDEO_ELEMENT_READY_STATES.HAVE_NOTHING;
+                elementReadyStateEvent = Constants.VIDEO_ELEMENT_READY_STATES.HAVE_NOTHING;
             }
 
-            setCurrentTimeReadyStateFunction = waitForReadyState(currentTimeReadyState, () => {
+            setCurrentTimeReadyStateFunction = waitForReadyState(elementReadyStateEvent, () => {
                 if (!element) {
                     return;
                 }
