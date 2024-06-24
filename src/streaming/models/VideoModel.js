@@ -104,7 +104,14 @@ function VideoModel() {
                 removeEventListener(setCurrentTimeReadyStateFunction.event, setCurrentTimeReadyStateFunction.func);
             }
             _currentTime = currentTime;
-            setCurrentTimeReadyStateFunction = waitForReadyState(Constants.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA, () => {
+
+            let elementReadyStateEvent = Constants.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA;
+
+            if (settings.get().streaming.seekWithoutReadyStateCheck) {
+                elementReadyStateEvent = Constants.VIDEO_ELEMENT_READY_STATES.HAVE_NOTHING;
+            }
+
+            setCurrentTimeReadyStateFunction = waitForReadyState(elementReadyStateEvent, () => {
                 if (!element) {
                     return;
                 }
