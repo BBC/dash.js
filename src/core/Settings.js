@@ -775,6 +775,8 @@ import Events from './events/Events';
  * Defines the delay in milliseconds between two consecutive checks for events to be fired.
  * @property {boolean} [seekWithoutReadyStateCheck=false]
  * This allows a seek by setting currentTime regardless of the loadedmetadata event being emitted
+ * @property {boolean} [enableDashPlaybackEnded = false]
+ * This enables the synthetic ended behaviour in PlaybackController that seeks and pauses the media element
  * @property {boolean} [parseInbandPrft=false]
  * Set to true if dash.js should parse inband prft boxes (ProducerReferenceTime) and trigger events.
  * @property {module:Settings~Metrics} metrics Metric settings
@@ -901,6 +903,7 @@ function Settings() {
             parseInbandPrft: false,
             enableManifestTimescaleMismatchFix: false,
             seekWithoutReadyStateCheck: false,
+            enableDashPlaybackEnded: false,
             capabilities: {
                 filterUnsupportedEssentialProperties: true,
                 useMediaCapabilitiesApi: false
