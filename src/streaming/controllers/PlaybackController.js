@@ -699,7 +699,7 @@ function PlaybackController() {
 
     // Handle DASH PLAYBACK_ENDED event
     function _onPlaybackEnded(e) {
-        if (wallclockTimeIntervalId && e.isLast) {
+        if (settings.get().streaming.enableDashPlaybackEnded && wallclockTimeIntervalId && e.isLast) {
             // PLAYBACK_ENDED was triggered elsewhere, react.
             logger.info('onPlaybackEnded -- PLAYBACK_ENDED but native video element didn\'t fire ended');
             const seekTime = e.seekTime ? e.seekTime : getStreamEndTime();
