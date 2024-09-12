@@ -52,21 +52,6 @@ http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
                 <version>2.1</version>
             </plugin>
 
-            <!-- Clean plugin, cleans target dir before each build -->
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
-                <executions>
-                    <execution>
-                        <id>auto-clean</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- git revision plugin, pulls out the git information -->
             <plugin>
                 <groupId>ru.concerteza.buildnumber</groupId>
@@ -79,43 +64,6 @@ http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
                             <goal>extract-buildnumber</goal>
                         </goals>
                         <phase>validate</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Build the thing -->
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>0.0.16</version>
-                <executions>
-                    <execution>
-                        <id>install node and npm</id>
-                        <phase>${grunt.phase}</phase>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v10.8.0</nodeVersion>
-                            <npmVersion>6.2.0</npmVersion>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm install</id>
-                        <phase>${grunt.phase}</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>grunt</id>
-                        <phase>${grunt.phase}</phase>
-                        <goals>
-                            <goal>grunt</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
