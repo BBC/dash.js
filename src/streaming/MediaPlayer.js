@@ -162,7 +162,8 @@ function MediaPlayer() {
         videoModel,
         uriFragmentModel,
         domStorage,
-        segmentBaseController;
+        segmentBaseController,
+        retrieveManifestLoader;
 
     /*
     ---------------------------------------------------------------------------
@@ -456,6 +457,10 @@ function MediaPlayer() {
         if (offlineController) {
             offlineController.reset();
             offlineController = null;
+        }
+
+        if (retrieveManifestLoader) {
+            retrieveManifestLoader.reset();
         }
     }
 
@@ -1834,7 +1839,7 @@ function MediaPlayer() {
      * @instance
      */
     function retrieveManifest(url, callback) {
-        let manifestLoader = _createManifestLoader();
+        retrieveManifestLoader = _createManifestLoader();
         let self = this;
 
         const handler = function (e) {
@@ -1844,13 +1849,13 @@ function MediaPlayer() {
                 callback(null, e.error);
             }
             eventBus.off(Events.INTERNAL_MANIFEST_LOADED, handler, self);
-            manifestLoader.reset();
+            retrieveManifestLoader.reset();
         };
 
         eventBus.on(Events.INTERNAL_MANIFEST_LOADED, handler, self);
 
         uriFragmentModel.initialize(url);
-        manifestLoader.load(url);
+        retrieveManifestLoader.load(url);
     }
 
     /**
