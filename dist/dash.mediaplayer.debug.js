@@ -3056,11 +3056,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *                stallThreshold: 0.3,
  *                useAppendWindow: true,
  *                setStallState: true,
- *                emitSyntheticStallEvents: true,
  *                avoidCurrentTimeRangePruning: false,
  *                useChangeTypeForTrackSwitch: true,
  *                mediaSourceDurationInfinity: true,
- *                resetSourceBuffersForTrackSwitch: false
+ *                resetSourceBuffersForTrackSwitch: false,
+ *                syntheticStallEvents: {
+ *                  enabled: false,
+ *                  ignoreReadyState: false
+ *                } 
+ * 
  *            },
  *            gaps: {
  *                jumpGaps: true,
@@ -3101,6 +3105,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *            liveCatchup: {
  *                maxDrift: NaN,
  *                playbackRate: {min: NaN, max: NaN},
+ *                step: {
+ *                  start: { min: NaN, max: NaN },
+ *                  stop: { min: NaN, max: NaN }
+ *                },
  *                playbackBufferMin: 0.5,
  *                enabled: null,
  *                mode: Constants.LIVE_CATCHUP_MODE_DEFAULT
@@ -3286,7 +3294,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Specifies if the appendWindow attributes of the MSE SourceBuffers should be set according to content duration from manifest.
  * @property {boolean} [setStallState=true]
  * Specifies if we record stalled streams once the stall threshold is reached
- * @property {boolean} [emitSyntheticStallEvents=true]
+ * @property {module:Settings~SyntheticStallSettings} [syntheticStallEvents]
  * Specified if we fire manual stall events once the stall threshold is reached
  * @property {boolean} [avoidCurrentTimeRangePruning=false]
  * Avoids pruning of the buffered range that contains the current playback time.
@@ -3309,6 +3317,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Configuration for audio media type of tracks.
  * @property {number|boolean|string} [video]
  * Configuration for video media type of tracks.
+ */
+
+/**
+ * @typedef {Object} module:Settings~SyntheticStallSettings
+ * @property {boolean} [enabled]
+ * Fire manual stall events once the stall threshold is reached
+ * @property {boolean} [ignoreReadyState]
+ * Ignore the media element's ready state when entering and exiting a stall
+ * Enable this when either of these scenarios still occur with synthetic stalls enabled:
+ * - If the buffer is empty, but playback is not stalled.
+ * - If playback resumes, but a playing event isn't reported.
  */
 
 /**
@@ -3468,6 +3487,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * These playback rate limits take precedence over any PlaybackRate values in ServiceDescription elements in an MPD. If only one of the min/max properties is given a value, the property without a value will not fall back to a ServiceDescription value. Its default value of NaN will be used.
  *
  * Note: Catch-up mechanism is only applied when playing low latency live streams.
+ * @property {number} [step={start:{min: NaN, max: NaN},stop:{min: NaN, max: NaN}}]
+ * This object is used for setting the window parameters for "step" mode.
+ * 
+ * It is only applicable if the Catchup mechanism used is of mode "step".
+ * 
+ * The parameters are all percentages of the target latency. Where 1 is on target.
+ * 
+ * The start object sets the window within which catchup should begin. In the range of (0-2) (0% to 200% of the target latency).
+ * 
+ * The stop window is only applicable if a non-unity playback speed is in use. Again in In the range of (0-2) (0% to 200% of the target latency). It sets the point at which playback should return to unity (or stop catching up). This parameter prevents instability when using higher min and max playback rates and should be tuned to prevent overshooting the target.
+ * 
+ * Note: Catch-up mechanism is only applied when playing low latency live streams.
  * @property {number} [playbackBufferMin=0.5]
  * Use this parameter to specify the minimum buffer which is used for LoL+ based playback rate reduction.
  *
@@ -3478,7 +3509,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * @property {string} [mode="liveCatchupModeDefault"]
  * Use this parameter to switch between different catchup modes.
  *
- * Options: "liveCatchupModeDefault" or "liveCatchupModeLOLP".
+ * Options: "liveCatchupModeDefault" or "liveCatchupModeLOLP" or "liveCatchupModeStep".
  *
  * Note: Catch-up mechanism is automatically applied when playing low latency live streams.
  */
@@ -3707,6 +3738,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Overwrite the manifest segments base information timescale attributes with the timescale set in initialization segments
  * @property {boolean} [enableManifestTimescaleMismatchFix=false]
  * Defines the delay in milliseconds between two consecutive checks for events to be fired.
+ * @property {boolean} [seekWithoutReadyStateCheck=false]
+ * This allows a seek by setting currentTime regardless of the loadedmetadata event being emitted
+ * @property {boolean} [enableDashPlaybackEnded = false]
+ * This enables the synthetic ended behaviour in PlaybackController that seeks and pauses the media element
  * @property {boolean} [parseInbandPrft=false]
  * Set to true if dash.js should parse inband prft boxes (ProducerReferenceTime) and trigger events.
  * @property {module:Settings~Metrics} metrics Metric settings
@@ -3833,6 +3868,8 @@ function Settings() {
       enableManifestDurationMismatchFix: true,
       parseInbandPrft: false,
       enableManifestTimescaleMismatchFix: false,
+      seekWithoutReadyStateCheck: false,
+      enableDashPlaybackEnded: false,
       capabilities: {
         filterUnsupportedEssentialProperties: true,
         useMediaCapabilitiesApi: false
@@ -3870,11 +3907,14 @@ function Settings() {
         stallThreshold: 0.3,
         useAppendWindow: true,
         setStallState: true,
-        emitSyntheticStallEvents: true,
         avoidCurrentTimeRangePruning: false,
         useChangeTypeForTrackSwitch: true,
         mediaSourceDurationInfinity: true,
-        resetSourceBuffersForTrackSwitch: false
+        resetSourceBuffersForTrackSwitch: false,
+        syntheticStallEvents: {
+          enabled: false,
+          ignoreReadyState: false
+        }
       },
       gaps: {
         jumpGaps: true,
@@ -3917,6 +3957,16 @@ function Settings() {
         playbackRate: {
           min: NaN,
           max: NaN
+        },
+        step: {
+          start: {
+            min: NaN,
+            max: NaN
+          },
+          stop: {
+            min: NaN,
+            max: NaN
+          }
         },
         playbackBufferMin: 0.5,
         enabled: null,
@@ -16788,7 +16838,7 @@ function MediaPlayer() {
   var debug = (0,_core_Debug__WEBPACK_IMPORTED_MODULE_26__["default"])(context).getInstance({
     settings: settings
   });
-  var instance, logger, source, protectionData, mediaPlayerInitialized, streamingInitialized, playbackInitialized, autoPlay, providedStartTime, abrController, schemeLoaderFactory, timelineConverter, mediaController, protectionController, metricsReportingController, mssHandler, offlineController, adapter, mediaPlayerModel, customParametersModel, errHandler, baseURLController, capabilities, capabilitiesFilter, streamController, textController, gapController, playbackController, serviceDescriptionController, contentSteeringController, catchupController, dashMetrics, manifestModel, cmcdModel, cmsdModel, videoModel, uriFragmentModel, domStorage, segmentBaseController;
+  var instance, logger, source, protectionData, mediaPlayerInitialized, streamingInitialized, playbackInitialized, autoPlay, providedStartTime, abrController, schemeLoaderFactory, timelineConverter, mediaController, protectionController, metricsReportingController, mssHandler, offlineController, adapter, mediaPlayerModel, customParametersModel, errHandler, baseURLController, capabilities, capabilitiesFilter, streamController, textController, gapController, playbackController, serviceDescriptionController, contentSteeringController, catchupController, dashMetrics, manifestModel, cmcdModel, cmsdModel, videoModel, uriFragmentModel, domStorage, segmentBaseController, retrieveManifestLoader;
   /*
   ---------------------------------------------------------------------------
        INIT FUNCTIONS
@@ -17092,6 +17142,10 @@ function MediaPlayer() {
     if (offlineController) {
       offlineController.reset();
       offlineController = null;
+    }
+
+    if (retrieveManifestLoader) {
+      retrieveManifestLoader.reset();
     }
   }
   /**
@@ -18575,8 +18629,7 @@ function MediaPlayer() {
 
 
   function retrieveManifest(url, callback) {
-    var manifestLoader = _createManifestLoader();
-
+    retrieveManifestLoader = _createManifestLoader();
     var self = this;
 
     var handler = function handler(e) {
@@ -18587,12 +18640,12 @@ function MediaPlayer() {
       }
 
       eventBus.off(_core_events_Events__WEBPACK_IMPORTED_MODULE_29__["default"].INTERNAL_MANIFEST_LOADED, handler, self);
-      manifestLoader.reset();
+      retrieveManifestLoader.reset();
     };
 
     eventBus.on(_core_events_Events__WEBPACK_IMPORTED_MODULE_29__["default"].INTERNAL_MANIFEST_LOADED, handler, self);
     uriFragmentModel.initialize(url);
-    manifestLoader.load(url);
+    retrieveManifestLoader.load(url);
   }
   /**
    * Returns the source string or manifest that was attached by calling attachSource()
@@ -23499,6 +23552,13 @@ var Constants = /*#__PURE__*/function () {
 
       this.LIVE_CATCHUP_MODE_LOLP = 'liveCatchupModeLoLP';
       /**
+       *  @constant {string} LIVE_CATCHUP_MODE_STEP Throughput calculation based on moof parsing
+       *  @memberof Constants#
+       *  @static
+       */
+
+      this.LIVE_CATCHUP_MODE_STEP = 'liveCatchupModeStep';
+      /**
        *  @constant {string} MOVING_AVERAGE_SLIDING_WINDOW Moving average sliding window
        *  @memberof Constants#
        *  @static
@@ -26515,7 +26575,7 @@ function CatchupController() {
 
 
   function _startPlaybackCatchUp() {
-    // we are seeking dont do anything for now
+    // we are seeking don't do anything for now
     if (isCatchupSeekInProgress) {
       return;
     }
@@ -26544,6 +26604,11 @@ function CatchupController() {
           // Custom playback control: Based on buffer level
           var playbackBufferMin = settings.get().streaming.liveCatchup.playbackBufferMin;
           newRate = _calculateNewPlaybackRateLolP(liveCatchupPlaybackRates, currentLiveLatency, targetLiveDelay, playbackBufferMin, bufferLevel);
+        }
+
+        if (_getCatchupMode() === _constants_Constants__WEBPACK_IMPORTED_MODULE_3__["default"].LIVE_CATCHUP_MODE_STEP) {
+          // Custom playback control: Based on minimising playback rate changes
+          newRate = _calculateNewPlaybackRateStep(liveCatchupPlaybackRates, currentLiveLatency, targetLiveDelay, bufferLevel);
         } else {
           // Default playback control: Based on target and current latency
           newRate = _calculateNewPlaybackRateDefault(liveCatchupPlaybackRates, currentLiveLatency, targetLiveDelay, bufferLevel);
@@ -26553,7 +26618,7 @@ function CatchupController() {
 
         var minPlaybackRateChange = isSafari ? 0.25 : 0.02 / (0.5 / liveCatchupPlaybackRates.max); // Obtain newRate and apply to video model.  Don't change playbackrate for small variations (don't overload element with playbackrate changes)
 
-        if (newRate && Math.abs(currentPlaybackRate - newRate) >= minPlaybackRateChange) {
+        if (newRate && Math.abs(currentPlaybackRate - newRate) >= minPlaybackRateChange || newRate == 1.0) {
           // non-null
           logger.debug("[CatchupController]: Setting playback rate to ".concat(newRate));
           videoModel.setPlaybackRate(newRate);
@@ -26581,7 +26646,7 @@ function CatchupController() {
 
   function _shouldStartCatchUp() {
     try {
-      if (!playbackController.getTime() > 0 || isCatchupSeekInProgress) {
+      if (playbackController.getTime() < 0 || isCatchupSeekInProgress) {
         return false;
       }
 
@@ -26591,6 +26656,8 @@ function CatchupController() {
         var currentBuffer = playbackController.getBufferLevel();
         var playbackBufferMin = settings.get().streaming.liveCatchup.playbackBufferMin;
         return _lolpNeedToCatchUpCustom(currentBuffer, playbackBufferMin);
+      } else if (catchupMode === _constants_Constants__WEBPACK_IMPORTED_MODULE_3__["default"].LIVE_CATCHUP_MODE_STEP) {
+        return _stepNeedToCatchUp();
       } else {
         return _defaultNeedToCatchUp();
       }
@@ -26607,7 +26674,15 @@ function CatchupController() {
 
   function _getCatchupMode() {
     var playbackBufferMin = settings.get().streaming.liveCatchup.playbackBufferMin;
-    return settings.get().streaming.liveCatchup.mode === _constants_Constants__WEBPACK_IMPORTED_MODULE_3__["default"].LIVE_CATCHUP_MODE_LOLP && playbackBufferMin !== null && !isNaN(playbackBufferMin) ? _constants_Constants__WEBPACK_IMPORTED_MODULE_3__["default"].LIVE_CATCHUP_MODE_LOLP : _constants_Constants__WEBPACK_IMPORTED_MODULE_3__["default"].LIVE_CATCHUP_MODE_DEFAULT;
+    var catchupMode = _constants_Constants__WEBPACK_IMPORTED_MODULE_3__["default"].LIVE_CATCHUP_MODE_DEFAULT;
+
+    if (settings.get().streaming.liveCatchup.mode === _constants_Constants__WEBPACK_IMPORTED_MODULE_3__["default"].LIVE_CATCHUP_MODE_STEP) {
+      catchupMode = _constants_Constants__WEBPACK_IMPORTED_MODULE_3__["default"].LIVE_CATCHUP_MODE_STEP;
+    } else if (settings.get().streaming.liveCatchup.mode === _constants_Constants__WEBPACK_IMPORTED_MODULE_3__["default"].LIVE_CATCHUP_MODE_LOLP && playbackBufferMin !== null && !isNaN(playbackBufferMin)) {
+      catchupMode = _constants_Constants__WEBPACK_IMPORTED_MODULE_3__["default"].LIVE_CATCHUP_MODE_LOLP;
+    }
+
+    return catchupMode;
   }
   /**
    * Default algorithm to determine if catchup mode should be enabled
@@ -26637,6 +26712,32 @@ function CatchupController() {
     try {
       var latencyDrift = Math.abs(_getLatencyDrift());
       return latencyDrift > 0 || currentBuffer < playbackBufferMin;
+    } catch (e) {
+      return false;
+    }
+  }
+  /**
+   * Step-based algorithm to determine if catchup mode should be enabled
+   * @return {boolean}
+   * @private
+   */
+
+
+  function _stepNeedToCatchUp() {
+    try {
+      var currentLiveLatency = playbackController.getCurrentLiveLatency();
+      var targetLiveDelay = playbackController.getLiveDelay();
+      var stepSettings = mediaPlayerModel.getCatchupStepSettings();
+      var ratio = Math.abs(currentLiveLatency / targetLiveDelay); //If latency is outside of the acceptable window, consider a new speed
+
+      if (ratio < stepSettings.start.min || ratio > stepSettings.start.max) {
+        return true;
+      } //If we're already catching up, consider a new speed
+
+
+      if (playbackController.getPlaybackRate() !== 1) {
+        return true;
+      }
     } catch (e) {
       return false;
     }
@@ -26731,6 +26832,47 @@ function CatchupController() {
       }
 
       logger.debug('[LoL+ playback control_latency-based] latency: ' + currentLiveLatency + ', newRate: ' + newRate);
+    }
+
+    return newRate;
+  }
+  /**
+  * Step algorithm to calculate the new playback rate
+  * @param {object} liveCatchUpPlaybackRates
+  * @param {number} liveCatchUpPlaybackRates.min - minimum playback rate decrease limit
+  * @param {number} liveCatchUpPlaybackRates.max - maximum playback rate increase limit
+  * @param {number} currentLiveLatency
+  * @param {number} liveDelay
+  * @param {number} bufferLevel
+  * @return {number}
+  * @private
+  */
+
+
+  function _calculateNewPlaybackRateStep(liveCatchUpPlaybackRates, currentLiveLatency, liveDelay, bufferLevel) {
+    var newRate = 1.0;
+    var stepSettings = mediaPlayerModel.getCatchupStepSettings(); // Only adjust playback rates if playback has not stalled
+
+    if (!playbackStalled) {
+      var deltaLatency = currentLiveLatency - liveDelay;
+      var ratio = currentLiveLatency / liveDelay;
+
+      if (ratio > stepSettings.stop.max && deltaLatency > 0) {
+        newRate = 1 + liveCatchUpPlaybackRates.max;
+      } else if (ratio < stepSettings.stop.min && deltaLatency < 0) {
+        newRate = 1 + liveCatchUpPlaybackRates.min;
+      } else {
+        newRate = 1.0;
+      } // take into account situations in which there are buffer stalls,
+      // in which increasing playbackRate to reach target latency will
+      // just cause more and more stall situations
+
+
+      if (playbackController.getPlaybackStalled()) {
+        if (bufferLevel <= liveDelay / 2 && deltaLatency > 0) {
+          newRate = 1.0;
+        }
+      }
     }
 
     return newRate;
@@ -29647,7 +29789,7 @@ function PlaybackController() {
 
 
   function _onPlaybackEnded(e) {
-    if (wallclockTimeIntervalId && e.isLast) {
+    if (settings.get().streaming.enableDashPlaybackEnded && wallclockTimeIntervalId && e.isLast) {
       // PLAYBACK_ENDED was triggered elsewhere, react.
       logger.info('onPlaybackEnded -- PLAYBACK_ENDED but native video element didn\'t fire ended');
       var seekTime = e.seekTime ? e.seekTime : getStreamEndTime();
@@ -35625,6 +35767,12 @@ var DEFAULT_CATCHUP_PLAYBACK_RATE_MIN = -0.5;
 var DEFAULT_CATCHUP_PLAYBACK_RATE_MAX = 0.5;
 var CATCHUP_PLAYBACK_RATE_MIN_LIMIT = -0.5;
 var CATCHUP_PLAYBACK_RATE_MAX_LIMIT = 1;
+var CATCHUP_STEP_TUNING_MIN_LIMIT = 0;
+var CATCHUP_STEP_TUNING_MAX_LIMIT = 2;
+var DEFAULT_CATCHUP_STEP_TUNING_START_MIN = 0.9;
+var DEFAULT_CATCHUP_STEP_TUNING_START_MAX = 1.2;
+var DEFAULT_CATCHUP_STEP_TUNING_STOP_MIN = 0.96;
+var DEFAULT_CATCHUP_STEP_TUNING_STOP_MAX = 1.04;
 /**
  * We use this model as a wrapper/proxy between Settings.js and classes that are using parameters from Settings.js.
  * In some cases we require additional logic to be applied and the settings might need to be adjusted before being used.
@@ -35712,6 +35860,44 @@ function MediaPlayerModel() {
 
   ;
   /**
+   * Checks the supplied min ratio value for the step algorithm is a valid value and within supported limits
+   * @param {number} ratio - Supplied min ratio value 
+   * @param {boolean} log - whether to shown warning or not 
+   * @returns {number} corrected min playback rate
+   */
+
+  function _checkStepRatio(ratio, log) {
+    if (isNaN(ratio)) return 0;
+
+    if (ratio < 0) {
+      if (log) {
+        logger.warn("Supplied step algorithm ratio is a negative value when it should be positive or 0. The supplied ratio will not be applied and set to 0.");
+      }
+
+      return 0;
+    }
+
+    if (ratio < CATCHUP_STEP_TUNING_MIN_LIMIT) {
+      if (log) {
+        logger.warn("Supplied step algorithm ratio is out of range and will be limited to ".concat(CATCHUP_STEP_TUNING_MIN_LIMIT));
+      }
+
+      return CATCHUP_STEP_TUNING_MIN_LIMIT;
+    }
+
+    if (ratio > CATCHUP_STEP_TUNING_MAX_LIMIT) {
+      if (log) {
+        logger.warn("Supplied step algorithm ratio is out of range and will be limited to ".concat(CATCHUP_STEP_TUNING_MAX_LIMIT));
+      }
+
+      return CATCHUP_STEP_TUNING_MAX_LIMIT;
+    }
+
+    return ratio;
+  }
+
+  ;
+  /**
    * Returns the maximum drift allowed before applying a seek back to the live edge when the catchup mode is enabled
    * @return {number}
    */
@@ -35759,6 +35945,40 @@ function MediaPlayerModel() {
     return {
       min: DEFAULT_CATCHUP_PLAYBACK_RATE_MIN,
       max: DEFAULT_CATCHUP_PLAYBACK_RATE_MAX
+    };
+  }
+  /**
+   * Returns the tuning parameters to be used when applying the catchup mode "step"
+   * If only one of the min/max values has been set then the other will default to 0 (no playback rate change).
+   * @return {number}
+   */
+
+
+  function getCatchupStepSettings(log) {
+    var settingsStep = settings.get().streaming.liveCatchup.step;
+
+    if (!isNaN(settingsStep.start.min) || !isNaN(settingsStep.start.max) || !isNaN(settingsStep.stop.min) || !isNaN(settingsStep.stop.max)) {
+      return {
+        start: {
+          min: _checkStepRatio(settingsStep.start.min, log),
+          max: _checkStepRatio(settingsStep.start.max, log)
+        },
+        stop: {
+          min: _checkStepRatio(settingsStep.stop.min, log),
+          max: _checkStepRatio(settingsStep.stop.max, log)
+        }
+      };
+    }
+
+    return {
+      start: {
+        min: DEFAULT_CATCHUP_STEP_TUNING_START_MIN,
+        max: DEFAULT_CATCHUP_STEP_TUNING_START_MAX
+      },
+      stop: {
+        min: DEFAULT_CATCHUP_STEP_TUNING_STOP_MIN,
+        max: DEFAULT_CATCHUP_STEP_TUNING_STOP_MAX
+      }
     };
   }
   /**
@@ -35869,6 +36089,7 @@ function MediaPlayerModel() {
     getRetryAttemptsForType: getRetryAttemptsForType,
     getRetryIntervalsForType: getRetryIntervalsForType,
     getCatchupPlaybackRates: getCatchupPlaybackRates,
+    getCatchupStepSettings: getCatchupStepSettings,
     getAbrBitrateParameter: getAbrBitrateParameter,
     setConfig: setConfig,
     reset: reset
@@ -36441,7 +36662,7 @@ var READY_STATES_TO_EVENT_NAMES = function () {
 }();
 
 function VideoModel() {
-  var instance, logger, element, _currentTime, setCurrentTimeReadyStateFunction, TTMLRenderingDiv, vttRenderingDiv, previousPlaybackRate, timeout;
+  var instance, logger, element, _currentTime, setCurrentTimeReadyStateFunction, resumeReadyStateFunction, TTMLRenderingDiv, vttRenderingDiv, previousPlaybackRate, timeout;
 
   var VIDEO_MODEL_WRONG_ELEMENT_TYPE = 'element is not video or audio DOM type!';
   var context = this.context;
@@ -36463,23 +36684,22 @@ function VideoModel() {
     eventBus.off(_core_events_Events__WEBPACK_IMPORTED_MODULE_2__["default"].PLAYBACK_PLAYING, onPlaying, this);
   }
 
-  function onPlaybackCanPlay() {
-    if (element) {
-      element.playbackRate = previousPlaybackRate || 1;
-      element.removeEventListener('canplay', onPlaybackCanPlay);
-    }
-  }
-
   function setPlaybackRate(value) {
     var ignoreReadyState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    if (!element) return;
 
-    if (!ignoreReadyState && element.readyState <= 2 && value > 0) {
-      // If media element hasn't loaded enough data to play yet, wait until it has
-      element.addEventListener('canplay', onPlaybackCanPlay);
-    } else {
-      element.playbackRate = value;
+    if (!element) {
+      return;
     }
+
+    if (ignoreReadyState) {
+      element.playbackRate = value;
+      return;
+    } // If media element hasn't loaded enough data to play yet, wait until it has
+
+
+    waitForReadyState(_constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA, function () {
+      element.playbackRate = value;
+    });
   } //TODO Move the DVR window calculations from MediaPlayer to Here.
 
 
@@ -36490,7 +36710,13 @@ function VideoModel() {
       }
 
       _currentTime = currentTime;
-      setCurrentTimeReadyStateFunction = waitForReadyState(_constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_METADATA, function () {
+      var elementReadyStateEvent = _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_METADATA;
+
+      if (settings.get().streaming.seekWithoutReadyStateCheck) {
+        elementReadyStateEvent = _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_NOTHING;
+      }
+
+      setCurrentTimeReadyStateFunction = waitForReadyState(elementReadyStateEvent, function () {
         if (!element) {
           return;
         } // We don't set the same currentTime because it can cause firing unexpected Pause event in IE11
@@ -36634,13 +36860,13 @@ function VideoModel() {
 
     stalledStreams.push(type);
 
-    if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && stalledStreams.length === 1 && element.readyState >= _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA) {
-      logger.debug("emitting synthetic waiting event and halting playback with playback rate 0"); // Halt playback until nothing is stalled.
+    if (settings.get().streaming.buffer.syntheticStallEvents.enabled && element && stalledStreams.length === 1 && (settings.get().streaming.buffer.syntheticStallEvents.ignoreReadyState || getReadyState() >= _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA)) {
+      logger.debug("emitting synthetic waiting event and halting playback with playback rate 0");
+      previousPlaybackRate = element.playbackRate;
+      setPlaybackRate(0, true); // Halt playback until nothing is stalled.
 
       var event = document.createEvent('Event');
       event.initEvent('waiting', true, false);
-      previousPlaybackRate = element.playbackRate;
-      setPlaybackRate(0);
       element.dispatchEvent(event);
     }
   }
@@ -36654,17 +36880,28 @@ function VideoModel() {
 
     if (index !== -1) {
       stalledStreams.splice(index, 1);
-    } // If nothing is stalled resume playback.
+    }
 
+    if (settings.get().streaming.buffer.syntheticStallEvents.enabled && element && !isStalled() && element.playbackRate === 0) {
+      var resume = function resume() {
+        logger.debug("emitting synthetic playing event (if not paused) and resuming playback with playback rate: ".concat(previousPlaybackRate || 1));
+        setPlaybackRate(previousPlaybackRate || 1, settings.get().streaming.buffer.syntheticStallEvents.ignoreReadyState);
 
-    if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && isStalled() === false && element.playbackRate === 0 && element.readyState >= _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA) {
-      logger.debug("emitting synthetic playing event (if not paused) and resuming playback with playback rate: ".concat(previousPlaybackRate || 1));
-      setPlaybackRate(previousPlaybackRate || 1);
+        if (!element.paused) {
+          var event = document.createEvent('Event');
+          event.initEvent('playing', true, false);
+          element.dispatchEvent(event);
+        }
+      };
 
-      if (!element.paused) {
-        var event = document.createEvent('Event');
-        event.initEvent('playing', true, false);
-        element.dispatchEvent(event);
+      if (settings.get().streaming.buffer.syntheticStallEvents.ignoreReadyState) {
+        resume();
+      } else {
+        if (resumeReadyStateFunction && resumeReadyStateFunction.func && resumeReadyStateFunction.event) {
+          removeEventListener(resumeReadyStateFunction.event, resumeReadyStateFunction.func);
+        }
+
+        resumeReadyStateFunction = waitForReadyState(_constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA, resume);
       }
     }
   }
@@ -36867,12 +37104,11 @@ function VideoModel() {
     if (targetReadyState === _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_NOTHING || getReadyState() >= targetReadyState) {
       callback();
       return null;
-    } else {
-      // wait for the appropriate callback before checking again
-      var event = READY_STATES_TO_EVENT_NAMES[targetReadyState];
+    } // wait for the appropriate callback before checking again
 
-      _listenOnce(event, callback);
-    }
+
+    var event = READY_STATES_TO_EVENT_NAMES[targetReadyState];
+    return _listenOnce(event, callback);
   }
 
   function _listenOnce(event, callback) {
@@ -58775,6 +59011,8 @@ module.exports = function equal(a, b) {
  * @module imscHTML
  */
 
+var browserIsFirefox = /firefox/i.test(navigator.userAgent);
+
 ;
 (function (imscHTML, imscNames, imscStyles) {
 
@@ -58946,7 +59184,7 @@ module.exports = function equal(a, b) {
 
             } else if (isd_element.styleAttrs[imscStyles.byName.ruby.qname] === "base") {
 
-                e = document.createElement("rb");
+                e = document.createElement("span"); // rb element is deprecated in HTML
 
             } else if (isd_element.styleAttrs[imscStyles.byName.ruby.qname] === "text") {
 
@@ -59148,6 +59386,7 @@ module.exports = function equal(a, b) {
 
                 /* ignore tate-chu-yoku since line break cannot happen within */
                 e.textContent = isd_element.text;
+                e._isd_element = isd_element;
 
                 if (te) {
 
@@ -59270,7 +59509,7 @@ module.exports = function equal(a, b) {
 
             }
 
-            mergeSpans(linelist); // The earlier we can do this the less processing there will be.
+            mergeSpans(linelist, context); // The earlier we can do this the less processing there will be.
 
             /* fill line gaps linepadding */
 
@@ -59330,7 +59569,7 @@ module.exports = function equal(a, b) {
         }
     }
 
-    function mergeSpans(lineList) {
+    function mergeSpans(lineList, context) {
 
         for (var i = 0; i < lineList.length; i++) {
 
@@ -59341,7 +59580,7 @@ module.exports = function equal(a, b) {
                 var previous = line.elements[j - 1];
                 var span = line.elements[j];
 
-                if (spanMerge(previous.node, span.node)) {
+                if (spanMerge(previous.node, span.node, context)) {
 
                     //removed from DOM by spanMerge(), remove from the list too.
                     line.elements.splice(j, 1);
@@ -59395,7 +59634,11 @@ module.exports = function equal(a, b) {
 
         } else {
 
-            if (element.parentElement.nodeName === "SPAN") {
+            if (element.parentElement.nodeName === "SPAN" ||
+                element.parentElement.nodeName === "RUBY" ||
+                element.parentElement.nodeName === "RBC" ||
+                element.parentElement.nodeName === "RTC" ||
+                element.parentElement.nodeName === "RT") {
 
                 return getSpanAncestorColor(element.parentElement, ancestorList, true);
 
@@ -59406,11 +59649,16 @@ module.exports = function equal(a, b) {
         return undefined;
     }
 
-    function spanMerge(first, second) {
+    function spanMerge(first, second, context) {
 
         if (first.tagName === "SPAN" &&
             second.tagName === "SPAN" &&
             first._isd_element === second._isd_element) {
+                if (! first._isd_element) {
+                    /* we should never get here since every span should have a source ISD element */
+                    reportError(context.errorHandler, "Internal error: HTML span is not linked to a source element; cannot merge spans.");
+                    return false;
+                }
 
                 first.textContent += second.textContent;
 
@@ -59455,7 +59703,7 @@ module.exports = function equal(a, b) {
                 if (se === ee) {
 
                     // Check to see if there's any background at all
-                    elementBoundingRect = se.node.getBoundingClientRect();
+                    var elementBoundingRect = se.node.getBoundingClientRect();
                     
                     if (elementBoundingRect.width == 0 || elementBoundingRect.height == 0) {
 
@@ -59487,13 +59735,20 @@ module.exports = function equal(a, b) {
                 // End element
                 if (context.ipd === "lr") {
 
-                    ee.node.style.marginRight = negpadpxlen;
+                    // Firefox has a problem with line-breaking when a negative margin is applied.
+                    // The positioning will be wrong but don't apply when on firefox.
+                    // https://bugzilla.mozilla.org/show_bug.cgi?id=1502610
+                    if (!browserIsFirefox) {
+                        ee.node.style.marginRight = negpadpxlen;
+                    }
                     ee.node.style.paddingRight = pospadpxlen;
 
                 } else if (context.ipd === "rl") {
 
                     ee.node.style.paddingLeft = pospadpxlen;
-                    ee.node.style.marginLeft = negpadpxlen;
+                    if (!browserIsFirefox) {
+                        ee.node.style.marginLeft = negpadpxlen;
+                    }
 
                 } else if (context.ipd === "tb") {
 
@@ -59623,7 +59878,7 @@ module.exports = function equal(a, b) {
 
             var ruby = document.createElement("ruby");
 
-            var rb = document.createElement("rb");
+            var rb = document.createElement("span");  // rb element is deprecated in HTML
             rb.textContent = "\u200B";
 
             ruby.appendChild(rb);
@@ -60137,6 +60392,7 @@ module.exports = function equal(a, b) {
                     /* per IMSC1 */
 
                     for (var i = 0; i < attr.length; i++) {
+                        attr[i] = attr[i].trim();
 
                         if (attr[i] === "monospaceSerif") {
 
