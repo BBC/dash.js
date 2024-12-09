@@ -261,7 +261,7 @@ function DashAdapter() {
             idx = dashManifestModel.getIndexForAdaptation(data, manifest, streamInfo.index);
             media = convertAdaptationToMediaInfo(voAdaptations[periodId][idx]);
 
-            if (type === constants.EMBEDDED_TEXT) {
+            if (type === constants.EMBEDDED_TEXT && media && media.accessibility) {
                 let accessibilityLength = media.accessibility.length;
                 for (j = 0; j < accessibilityLength; j++) {
                     if (!media) {
