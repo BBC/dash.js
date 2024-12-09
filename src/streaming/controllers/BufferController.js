@@ -398,13 +398,17 @@ function BufferController(config) {
 
     // Prune full buffer but what is around current time position
     function pruneAllSafely() {
-        buffer.waitForUpdateEnd(() => {
-            const ranges = getAllRangesWithSafetyFactor();
-            if (!ranges || ranges.length === 0) {
-                onPlaybackProgression();
-            }
-            clearBuffers(ranges);
-        });
+        if (buffer) {
+            buffer.waitForUpdateEnd(() => {
+               const ranges = getAllRangesWithSafetyFactor();
+               if (!ranges || ranges.length === 0) {
+                  onPlaybackProgression();
+               }
+               clearBuffers(ranges);
+            });
+        } else {
+            onPlaybackProgression();
+        }
     }
 
     // Get all buffer ranges but a range around current time position
