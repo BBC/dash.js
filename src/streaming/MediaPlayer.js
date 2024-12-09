@@ -821,9 +821,13 @@ function MediaPlayer() {
         if (!playbackInitialized) {
             throw PLAYBACK_NOT_INITIALIZED_ERROR;
         }
-        if (time() < 0) {
-            return NaN;
-        }
+        /* time() can be negative if playing before the dvr window /
+         * manifest duration so this check is wrong I believe?
+         * Are there any circumstances where this should actually be used?
+         * if (time() < 0) {
+         *   return NaN;
+         * }
+         */
         return getAsUTC(time());
     }
 
