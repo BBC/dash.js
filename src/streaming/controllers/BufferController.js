@@ -400,11 +400,11 @@ function BufferController(config) {
     function pruneAllSafely() {
         if (buffer) {
             buffer.waitForUpdateEnd(() => {
-               const ranges = getAllRangesWithSafetyFactor();
-               if (!ranges || ranges.length === 0) {
-                  onPlaybackProgression();
-               }
-               clearBuffers(ranges);
+                const ranges = getAllRangesWithSafetyFactor();
+                if (!ranges || ranges.length === 0) {
+                    onPlaybackProgression();
+                }
+                clearBuffers(ranges);
             });
         } else {
             onPlaybackProgression();
