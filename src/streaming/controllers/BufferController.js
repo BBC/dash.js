@@ -507,6 +507,9 @@ function BufferController(config) {
     }
 
     function getRangeAt(time, tolerance) {
+        if (!buffer) {
+            return null;
+        }
         const ranges = buffer.getAllBufferRanges();
         let start = 0;
         let end = 0;
