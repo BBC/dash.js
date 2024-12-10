@@ -86,6 +86,9 @@ function InsufficientBufferRule(config) {
         const mediaType = rulesContext.getMediaType();
         const currentBufferState = dashMetrics.getCurrentBufferState(mediaType);
         const representationInfo = rulesContext.getRepresentationInfo();
+        if (!representationInfo) {
+            return switchRequest;
+        }
         const fragmentDuration = representationInfo.fragmentDuration;
 
         // Don't ask for a bitrate change if there is not info about buffer state or if fragmentDuration is not defined
