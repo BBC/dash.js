@@ -351,10 +351,10 @@ function CatchupController() {
             const targetLiveDelay = playbackController.getLiveDelay();
             const stepSettings = mediaPlayerModel.getCatchupStepSettings();
 
-            const ratio = Math.abs(currentLiveLatency / targetLiveDelay);
+            const deltaLatency = currentLiveLatency - targetLiveDelay;
 
             //If latency is outside of the acceptable window, consider a new speed
-            if (ratio < stepSettings.start.min || ratio > stepSettings.start.max) {
+            if (deltaLatency < (stepSettings.start.min * -1) || deltaLatency > stepSettings.start.max) {
                 return true;
             }
             //If we're already catching up, consider a new speed
@@ -477,16 +477,27 @@ function CatchupController() {
         // Only adjust playback rates if playback has not stalled
         if (!playbackStalled) {
             const deltaLatency = currentLiveLatency - liveDelay;
-            const ratio = currentLiveLatency / liveDelay;
 
-            if (ratio > stepSettings.stop.max && deltaLatency > 0) {
+
+            // Check if we need to need to speed up
+            if (deltaLatency > stepSettings.stop.max && deltaLatency > 0) {
                 newRate = 1 + liveCatchUpPlaybackRates.max
             }
-            else if (ratio < stepSettings.stop.min && deltaLatency < 0) {
+            // or slow down
+            else if (deltaLatency < (stepSettings.stop.min * -1) && deltaLatency < 0) {
                 newRate = 1 + liveCatchUpPlaybackRates.min
             }
-            else {
+
+            // Check if we need to return to 1.0
+            if (deltaLatency > (stepSettings.stop.min * -1) && deltaLatency < 0) {
                 newRate = 1.0;
+            }
+            else if (deltaLatency < stepSettings.stop.max && deltaLatency > 0) {
+                newRate = 1.0;
+            }
+            else if (deltaLatency === 0) {
+                newRate = 1.0;
+
             }
 
             // take into account situations in which there are buffer stalls,
