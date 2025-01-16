@@ -26728,9 +26728,9 @@ function CatchupController() {
       var currentLiveLatency = playbackController.getCurrentLiveLatency();
       var targetLiveDelay = playbackController.getLiveDelay();
       var stepSettings = mediaPlayerModel.getCatchupStepSettings();
-      var ratio = Math.abs(currentLiveLatency / targetLiveDelay); //If latency is outside of the acceptable window, consider a new speed
+      var deltaLatency = currentLiveLatency - targetLiveDelay; //If latency is outside of the acceptable window, consider a new speed
 
-      if (ratio < stepSettings.start.min || ratio > stepSettings.start.max) {
+      if (deltaLatency < stepSettings.start.min * -1 || deltaLatency > stepSettings.start.max) {
         return true;
       } //If we're already catching up, consider a new speed
 
@@ -26854,14 +26854,21 @@ function CatchupController() {
     var stepSettings = mediaPlayerModel.getCatchupStepSettings(); // Only adjust playback rates if playback has not stalled
 
     if (!playbackStalled) {
-      var deltaLatency = currentLiveLatency - liveDelay;
-      var ratio = currentLiveLatency / liveDelay;
+      var deltaLatency = currentLiveLatency - liveDelay; // Check if we need to need to speed up
 
-      if (ratio > stepSettings.stop.max && deltaLatency > 0) {
+      if (deltaLatency > stepSettings.stop.max && deltaLatency > 0) {
         newRate = 1 + liveCatchUpPlaybackRates.max;
-      } else if (ratio < stepSettings.stop.min && deltaLatency < 0) {
+      } // or slow down
+      else if (deltaLatency < stepSettings.stop.min * -1 && deltaLatency < 0) {
         newRate = 1 + liveCatchUpPlaybackRates.min;
-      } else {
+      } // Check if we need to return to 1.0
+
+
+      if (deltaLatency > stepSettings.stop.min * -1 && deltaLatency < 0) {
+        newRate = 1.0;
+      } else if (deltaLatency < stepSettings.stop.max && deltaLatency > 0) {
+        newRate = 1.0;
+      } else if (deltaLatency === 0) {
         newRate = 1.0;
       } // take into account situations in which there are buffer stalls,
       // in which increasing playbackRate to reach target latency will
@@ -35768,11 +35775,10 @@ var DEFAULT_CATCHUP_PLAYBACK_RATE_MAX = 0.5;
 var CATCHUP_PLAYBACK_RATE_MIN_LIMIT = -0.5;
 var CATCHUP_PLAYBACK_RATE_MAX_LIMIT = 1;
 var CATCHUP_STEP_TUNING_MIN_LIMIT = 0;
-var CATCHUP_STEP_TUNING_MAX_LIMIT = 2;
-var DEFAULT_CATCHUP_STEP_TUNING_START_MIN = 0.9;
-var DEFAULT_CATCHUP_STEP_TUNING_START_MAX = 1.2;
-var DEFAULT_CATCHUP_STEP_TUNING_STOP_MIN = 0.96;
-var DEFAULT_CATCHUP_STEP_TUNING_STOP_MAX = 1.04;
+var DEFAULT_CATCHUP_STEP_TUNING_START_MIN = 0;
+var DEFAULT_CATCHUP_STEP_TUNING_START_MAX = 1;
+var DEFAULT_CATCHUP_STEP_TUNING_STOP_MIN = 0;
+var DEFAULT_CATCHUP_STEP_TUNING_STOP_MAX = 1;
 /**
  * We use this model as a wrapper/proxy between Settings.js and classes that are using parameters from Settings.js.
  * In some cases we require additional logic to be applied and the settings might need to be adjusted before being used.
@@ -35860,40 +35866,32 @@ function MediaPlayerModel() {
 
   ;
   /**
-   * Checks the supplied min ratio value for the step algorithm is a valid value and within supported limits
-   * @param {number} ratio - Supplied min ratio value 
+   * Checks the supplied min value for the step algorithm is a valid value and within supported limits
+   * @param {number} value - Supplied min value (seconds)
    * @param {boolean} log - whether to shown warning or not 
    * @returns {number} corrected min playback rate
    */
 
-  function _checkStepRatio(ratio, log) {
-    if (isNaN(ratio)) return 0;
+  function _checkStepSettings(value, log) {
+    if (isNaN(value)) return 0;
 
-    if (ratio < 0) {
+    if (value < 0) {
       if (log) {
-        logger.warn("Supplied step algorithm ratio is a negative value when it should be positive or 0. The supplied ratio will not be applied and set to 0.");
+        logger.warn("Supplied step algorithm value is a negative value when it should be positive or 0. The supplied value will not be applied and set to 0.");
       }
 
       return 0;
     }
 
-    if (ratio < CATCHUP_STEP_TUNING_MIN_LIMIT) {
+    if (value < CATCHUP_STEP_TUNING_MIN_LIMIT) {
       if (log) {
-        logger.warn("Supplied step algorithm ratio is out of range and will be limited to ".concat(CATCHUP_STEP_TUNING_MIN_LIMIT));
+        logger.warn("Supplied step algorithm value is out of range and will be limited to ".concat(CATCHUP_STEP_TUNING_MIN_LIMIT));
       }
 
       return CATCHUP_STEP_TUNING_MIN_LIMIT;
     }
 
-    if (ratio > CATCHUP_STEP_TUNING_MAX_LIMIT) {
-      if (log) {
-        logger.warn("Supplied step algorithm ratio is out of range and will be limited to ".concat(CATCHUP_STEP_TUNING_MAX_LIMIT));
-      }
-
-      return CATCHUP_STEP_TUNING_MAX_LIMIT;
-    }
-
-    return ratio;
+    return value;
   }
 
   ;
@@ -35960,12 +35958,12 @@ function MediaPlayerModel() {
     if (!isNaN(settingsStep.start.min) || !isNaN(settingsStep.start.max) || !isNaN(settingsStep.stop.min) || !isNaN(settingsStep.stop.max)) {
       return {
         start: {
-          min: _checkStepRatio(settingsStep.start.min, log),
-          max: _checkStepRatio(settingsStep.start.max, log)
+          min: _checkStepSettings(settingsStep.start.min, log),
+          max: _checkStepSettings(settingsStep.start.max, log)
         },
         stop: {
-          min: _checkStepRatio(settingsStep.stop.min, log),
-          max: _checkStepRatio(settingsStep.stop.max, log)
+          min: _checkStepSettings(settingsStep.stop.min, log),
+          max: _checkStepSettings(settingsStep.stop.max, log)
         }
       };
     }
