@@ -91,6 +91,9 @@ App.prototype._applyParameters = function () {
     var settings = this._getCurrentSettings();
 
     this.player.updateSettings({
+        debug: {
+            logLevel: dashjs.Debug.LOG_LEVEL_DEBUG
+        },
         streaming: {
             delay: {
                 liveDelay: settings.targetLatency
