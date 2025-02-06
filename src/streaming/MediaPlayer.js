@@ -270,6 +270,8 @@ function MediaPlayer() {
      * @instance
      */
     function initialize(view, source, autoPlay, startTime = NaN) {
+        console.log(`dashjs: MediaPlayer.js initialize`);
+
         if (!capabilities) {
             capabilities = Capabilities(context).getInstance();
             capabilities.setConfig({

@@ -16935,6 +16935,7 @@ function MediaPlayer() {
 
   function initialize(view, source, autoPlay) {
     var startTime = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : NaN;
+    console.log("dashjs: MediaPlayer.js initialize");
 
     if (!capabilities) {
       capabilities = (0,_utils_Capabilities__WEBPACK_IMPORTED_MODULE_14__["default"])(context).getInstance();
