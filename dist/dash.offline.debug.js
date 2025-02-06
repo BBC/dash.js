@@ -1396,11 +1396,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *                stallThreshold: 0.3,
  *                useAppendWindow: true,
  *                setStallState: true,
- *                emitSyntheticStallEvents: true,
  *                avoidCurrentTimeRangePruning: false,
  *                useChangeTypeForTrackSwitch: true,
  *                mediaSourceDurationInfinity: true,
- *                resetSourceBuffersForTrackSwitch: false
+ *                resetSourceBuffersForTrackSwitch: false,
+ *                syntheticStallEvents: {
+ *                  enabled: false,
+ *                  ignoreReadyState: false
+ *                } 
+ * 
  *            },
  *            gaps: {
  *                jumpGaps: true,
@@ -1626,7 +1630,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Specifies if the appendWindow attributes of the MSE SourceBuffers should be set according to content duration from manifest.
  * @property {boolean} [setStallState=true]
  * Specifies if we record stalled streams once the stall threshold is reached
- * @property {boolean} [emitSyntheticStallEvents=true]
+ * @property {module:Settings~SyntheticStallSettings} [syntheticStallEvents]
  * Specified if we fire manual stall events once the stall threshold is reached
  * @property {boolean} [avoidCurrentTimeRangePruning=false]
  * Avoids pruning of the buffered range that contains the current playback time.
@@ -1649,6 +1653,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Configuration for audio media type of tracks.
  * @property {number|boolean|string} [video]
  * Configuration for video media type of tracks.
+ */
+
+/**
+ * @typedef {Object} module:Settings~SyntheticStallSettings
+ * @property {boolean} [enabled]
+ * Fire manual stall events once the stall threshold is reached
+ * @property {boolean} [ignoreReadyState]
+ * Ignore the media element's ready state when entering and exiting a stall
+ * Enable this when either of these scenarios still occur with synthetic stalls enabled:
+ * - If the buffer is empty, but playback is not stalled.
+ * - If playback resumes, but a playing event isn't reported.
  */
 
 /**
@@ -2047,6 +2062,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Overwrite the manifest segments base information timescale attributes with the timescale set in initialization segments
  * @property {boolean} [enableManifestTimescaleMismatchFix=false]
  * Defines the delay in milliseconds between two consecutive checks for events to be fired.
+ * @property {boolean} [seekWithoutReadyStateCheck=false]
+ * This allows a seek by setting currentTime regardless of the loadedmetadata event being emitted
+ * @property {boolean} [enableDashPlaybackEnded = false]
+ * This enables the synthetic ended behaviour in PlaybackController that seeks and pauses the media element
  * @property {boolean} [parseInbandPrft=false]
  * Set to true if dash.js should parse inband prft boxes (ProducerReferenceTime) and trigger events.
  * @property {module:Settings~Metrics} metrics Metric settings
@@ -2173,6 +2192,8 @@ function Settings() {
       enableManifestDurationMismatchFix: true,
       parseInbandPrft: false,
       enableManifestTimescaleMismatchFix: false,
+      seekWithoutReadyStateCheck: false,
+      enableDashPlaybackEnded: false,
       capabilities: {
         filterUnsupportedEssentialProperties: true,
         useMediaCapabilitiesApi: false
@@ -2210,11 +2231,14 @@ function Settings() {
         stallThreshold: 0.3,
         useAppendWindow: true,
         setStallState: true,
-        emitSyntheticStallEvents: true,
         avoidCurrentTimeRangePruning: false,
         useChangeTypeForTrackSwitch: true,
         mediaSourceDurationInfinity: true,
-        resetSourceBuffersForTrackSwitch: false
+        resetSourceBuffersForTrackSwitch: false,
+        syntheticStallEvents: {
+          enabled: false,
+          ignoreReadyState: false
+        }
       },
       gaps: {
         jumpGaps: true,

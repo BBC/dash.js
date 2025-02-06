@@ -3056,11 +3056,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *                stallThreshold: 0.3,
  *                useAppendWindow: true,
  *                setStallState: true,
- *                emitSyntheticStallEvents: true,
  *                avoidCurrentTimeRangePruning: false,
  *                useChangeTypeForTrackSwitch: true,
  *                mediaSourceDurationInfinity: true,
- *                resetSourceBuffersForTrackSwitch: false
+ *                resetSourceBuffersForTrackSwitch: false,
+ *                syntheticStallEvents: {
+ *                  enabled: false,
+ *                  ignoreReadyState: false
+ *                } 
+ * 
  *            },
  *            gaps: {
  *                jumpGaps: true,
@@ -3286,7 +3290,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Specifies if the appendWindow attributes of the MSE SourceBuffers should be set according to content duration from manifest.
  * @property {boolean} [setStallState=true]
  * Specifies if we record stalled streams once the stall threshold is reached
- * @property {boolean} [emitSyntheticStallEvents=true]
+ * @property {module:Settings~SyntheticStallSettings} [syntheticStallEvents]
  * Specified if we fire manual stall events once the stall threshold is reached
  * @property {boolean} [avoidCurrentTimeRangePruning=false]
  * Avoids pruning of the buffered range that contains the current playback time.
@@ -3309,6 +3313,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Configuration for audio media type of tracks.
  * @property {number|boolean|string} [video]
  * Configuration for video media type of tracks.
+ */
+
+/**
+ * @typedef {Object} module:Settings~SyntheticStallSettings
+ * @property {boolean} [enabled]
+ * Fire manual stall events once the stall threshold is reached
+ * @property {boolean} [ignoreReadyState]
+ * Ignore the media element's ready state when entering and exiting a stall
+ * Enable this when either of these scenarios still occur with synthetic stalls enabled:
+ * - If the buffer is empty, but playback is not stalled.
+ * - If playback resumes, but a playing event isn't reported.
  */
 
 /**
@@ -3707,6 +3722,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * Overwrite the manifest segments base information timescale attributes with the timescale set in initialization segments
  * @property {boolean} [enableManifestTimescaleMismatchFix=false]
  * Defines the delay in milliseconds between two consecutive checks for events to be fired.
+ * @property {boolean} [seekWithoutReadyStateCheck=false]
+ * This allows a seek by setting currentTime regardless of the loadedmetadata event being emitted
+ * @property {boolean} [enableDashPlaybackEnded = false]
+ * This enables the synthetic ended behaviour in PlaybackController that seeks and pauses the media element
  * @property {boolean} [parseInbandPrft=false]
  * Set to true if dash.js should parse inband prft boxes (ProducerReferenceTime) and trigger events.
  * @property {module:Settings~Metrics} metrics Metric settings
@@ -3833,6 +3852,8 @@ function Settings() {
       enableManifestDurationMismatchFix: true,
       parseInbandPrft: false,
       enableManifestTimescaleMismatchFix: false,
+      seekWithoutReadyStateCheck: false,
+      enableDashPlaybackEnded: false,
       capabilities: {
         filterUnsupportedEssentialProperties: true,
         useMediaCapabilitiesApi: false
@@ -3870,11 +3891,14 @@ function Settings() {
         stallThreshold: 0.3,
         useAppendWindow: true,
         setStallState: true,
-        emitSyntheticStallEvents: true,
         avoidCurrentTimeRangePruning: false,
         useChangeTypeForTrackSwitch: true,
         mediaSourceDurationInfinity: true,
-        resetSourceBuffersForTrackSwitch: false
+        resetSourceBuffersForTrackSwitch: false,
+        syntheticStallEvents: {
+          enabled: false,
+          ignoreReadyState: false
+        }
       },
       gaps: {
         jumpGaps: true,
@@ -16788,7 +16812,7 @@ function MediaPlayer() {
   var debug = (0,_core_Debug__WEBPACK_IMPORTED_MODULE_26__["default"])(context).getInstance({
     settings: settings
   });
-  var instance, logger, source, protectionData, mediaPlayerInitialized, streamingInitialized, playbackInitialized, autoPlay, providedStartTime, abrController, schemeLoaderFactory, timelineConverter, mediaController, protectionController, metricsReportingController, mssHandler, offlineController, adapter, mediaPlayerModel, customParametersModel, errHandler, baseURLController, capabilities, capabilitiesFilter, streamController, textController, gapController, playbackController, serviceDescriptionController, contentSteeringController, catchupController, dashMetrics, manifestModel, cmcdModel, cmsdModel, videoModel, uriFragmentModel, domStorage, segmentBaseController;
+  var instance, logger, source, protectionData, mediaPlayerInitialized, streamingInitialized, playbackInitialized, autoPlay, providedStartTime, abrController, schemeLoaderFactory, timelineConverter, mediaController, protectionController, metricsReportingController, mssHandler, offlineController, adapter, mediaPlayerModel, customParametersModel, errHandler, baseURLController, capabilities, capabilitiesFilter, streamController, textController, gapController, playbackController, serviceDescriptionController, contentSteeringController, catchupController, dashMetrics, manifestModel, cmcdModel, cmsdModel, videoModel, uriFragmentModel, domStorage, segmentBaseController, retrieveManifestLoader;
   /*
   ---------------------------------------------------------------------------
        INIT FUNCTIONS
@@ -17092,6 +17116,10 @@ function MediaPlayer() {
     if (offlineController) {
       offlineController.reset();
       offlineController = null;
+    }
+
+    if (retrieveManifestLoader) {
+      retrieveManifestLoader.reset();
     }
   }
   /**
@@ -18575,8 +18603,7 @@ function MediaPlayer() {
 
 
   function retrieveManifest(url, callback) {
-    var manifestLoader = _createManifestLoader();
-
+    retrieveManifestLoader = _createManifestLoader();
     var self = this;
 
     var handler = function handler(e) {
@@ -18587,12 +18614,12 @@ function MediaPlayer() {
       }
 
       eventBus.off(_core_events_Events__WEBPACK_IMPORTED_MODULE_29__["default"].INTERNAL_MANIFEST_LOADED, handler, self);
-      manifestLoader.reset();
+      retrieveManifestLoader.reset();
     };
 
     eventBus.on(_core_events_Events__WEBPACK_IMPORTED_MODULE_29__["default"].INTERNAL_MANIFEST_LOADED, handler, self);
     uriFragmentModel.initialize(url);
-    manifestLoader.load(url);
+    retrieveManifestLoader.load(url);
   }
   /**
    * Returns the source string or manifest that was attached by calling attachSource()
@@ -23859,6 +23886,7 @@ function AbrController() {
 
   function _initializeAbrStrategy(type) {
     var strategy = settings.get().streaming.abr.ABRStrategy;
+    console.log("ABR strategy ".concat(strategy));
 
     if (strategy === _constants_Constants__WEBPACK_IMPORTED_MODULE_1__["default"].ABR_STRATEGY_L2A) {
       isUsingBufferOccupancyAbrDict[type] = false;
@@ -29647,7 +29675,7 @@ function PlaybackController() {
 
 
   function _onPlaybackEnded(e) {
-    if (wallclockTimeIntervalId && e.isLast) {
+    if (settings.get().streaming.enableDashPlaybackEnded && wallclockTimeIntervalId && e.isLast) {
       // PLAYBACK_ENDED was triggered elsewhere, react.
       logger.info('onPlaybackEnded -- PLAYBACK_ENDED but native video element didn\'t fire ended');
       var seekTime = e.seekTime ? e.seekTime : getStreamEndTime();
@@ -36441,7 +36469,7 @@ var READY_STATES_TO_EVENT_NAMES = function () {
 }();
 
 function VideoModel() {
-  var instance, logger, element, _currentTime, setCurrentTimeReadyStateFunction, TTMLRenderingDiv, vttRenderingDiv, previousPlaybackRate, timeout;
+  var instance, logger, element, _currentTime, setCurrentTimeReadyStateFunction, resumeReadyStateFunction, TTMLRenderingDiv, vttRenderingDiv, previousPlaybackRate, timeout;
 
   var VIDEO_MODEL_WRONG_ELEMENT_TYPE = 'element is not video or audio DOM type!';
   var context = this.context;
@@ -36463,23 +36491,22 @@ function VideoModel() {
     eventBus.off(_core_events_Events__WEBPACK_IMPORTED_MODULE_2__["default"].PLAYBACK_PLAYING, onPlaying, this);
   }
 
-  function onPlaybackCanPlay() {
-    if (element) {
-      element.playbackRate = previousPlaybackRate || 1;
-      element.removeEventListener('canplay', onPlaybackCanPlay);
-    }
-  }
-
   function setPlaybackRate(value) {
     var ignoreReadyState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    if (!element) return;
 
-    if (!ignoreReadyState && element.readyState <= 2 && value > 0) {
-      // If media element hasn't loaded enough data to play yet, wait until it has
-      element.addEventListener('canplay', onPlaybackCanPlay);
-    } else {
-      element.playbackRate = value;
+    if (!element) {
+      return;
     }
+
+    if (ignoreReadyState) {
+      element.playbackRate = value;
+      return;
+    } // If media element hasn't loaded enough data to play yet, wait until it has
+
+
+    waitForReadyState(_constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA, function () {
+      element.playbackRate = value;
+    });
   } //TODO Move the DVR window calculations from MediaPlayer to Here.
 
 
@@ -36490,7 +36517,13 @@ function VideoModel() {
       }
 
       _currentTime = currentTime;
-      setCurrentTimeReadyStateFunction = waitForReadyState(_constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_METADATA, function () {
+      var elementReadyStateEvent = _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_METADATA;
+
+      if (settings.get().streaming.seekWithoutReadyStateCheck) {
+        elementReadyStateEvent = _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_NOTHING;
+      }
+
+      setCurrentTimeReadyStateFunction = waitForReadyState(elementReadyStateEvent, function () {
         if (!element) {
           return;
         } // We don't set the same currentTime because it can cause firing unexpected Pause event in IE11
@@ -36634,13 +36667,13 @@ function VideoModel() {
 
     stalledStreams.push(type);
 
-    if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && stalledStreams.length === 1 && element.readyState >= _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA) {
-      logger.debug("emitting synthetic waiting event and halting playback with playback rate 0"); // Halt playback until nothing is stalled.
+    if (settings.get().streaming.buffer.syntheticStallEvents.enabled && element && stalledStreams.length === 1 && (settings.get().streaming.buffer.syntheticStallEvents.ignoreReadyState || getReadyState() >= _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA)) {
+      logger.debug("emitting synthetic waiting event and halting playback with playback rate 0");
+      previousPlaybackRate = element.playbackRate;
+      setPlaybackRate(0, true); // Halt playback until nothing is stalled.
 
       var event = document.createEvent('Event');
       event.initEvent('waiting', true, false);
-      previousPlaybackRate = element.playbackRate;
-      setPlaybackRate(0);
       element.dispatchEvent(event);
     }
   }
@@ -36654,17 +36687,28 @@ function VideoModel() {
 
     if (index !== -1) {
       stalledStreams.splice(index, 1);
-    } // If nothing is stalled resume playback.
+    }
 
+    if (settings.get().streaming.buffer.syntheticStallEvents.enabled && element && !isStalled() && element.playbackRate === 0) {
+      var resume = function resume() {
+        logger.debug("emitting synthetic playing event (if not paused) and resuming playback with playback rate: ".concat(previousPlaybackRate || 1));
+        setPlaybackRate(previousPlaybackRate || 1, settings.get().streaming.buffer.syntheticStallEvents.ignoreReadyState);
 
-    if (settings.get().streaming.buffer.emitSyntheticStallEvents && element && isStalled() === false && element.playbackRate === 0 && element.readyState >= _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA) {
-      logger.debug("emitting synthetic playing event (if not paused) and resuming playback with playback rate: ".concat(previousPlaybackRate || 1));
-      setPlaybackRate(previousPlaybackRate || 1);
+        if (!element.paused) {
+          var event = document.createEvent('Event');
+          event.initEvent('playing', true, false);
+          element.dispatchEvent(event);
+        }
+      };
 
-      if (!element.paused) {
-        var event = document.createEvent('Event');
-        event.initEvent('playing', true, false);
-        element.dispatchEvent(event);
+      if (settings.get().streaming.buffer.syntheticStallEvents.ignoreReadyState) {
+        resume();
+      } else {
+        if (resumeReadyStateFunction && resumeReadyStateFunction.func && resumeReadyStateFunction.event) {
+          removeEventListener(resumeReadyStateFunction.event, resumeReadyStateFunction.func);
+        }
+
+        resumeReadyStateFunction = waitForReadyState(_constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_FUTURE_DATA, resume);
       }
     }
   }
@@ -36867,12 +36911,11 @@ function VideoModel() {
     if (targetReadyState === _constants_Constants__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO_ELEMENT_READY_STATES.HAVE_NOTHING || getReadyState() >= targetReadyState) {
       callback();
       return null;
-    } else {
-      // wait for the appropriate callback before checking again
-      var event = READY_STATES_TO_EVENT_NAMES[targetReadyState];
+    } // wait for the appropriate callback before checking again
 
-      _listenOnce(event, callback);
-    }
+
+    var event = READY_STATES_TO_EVENT_NAMES[targetReadyState];
+    return _listenOnce(event, callback);
   }
 
   function _listenOnce(event, callback) {
@@ -58775,6 +58818,8 @@ module.exports = function equal(a, b) {
  * @module imscHTML
  */
 
+var browserIsFirefox = /firefox/i.test(navigator.userAgent);
+
 ;
 (function (imscHTML, imscNames, imscStyles) {
 
@@ -58946,7 +58991,7 @@ module.exports = function equal(a, b) {
 
             } else if (isd_element.styleAttrs[imscStyles.byName.ruby.qname] === "base") {
 
-                e = document.createElement("rb");
+                e = document.createElement("span"); // rb element is deprecated in HTML
 
             } else if (isd_element.styleAttrs[imscStyles.byName.ruby.qname] === "text") {
 
@@ -59148,6 +59193,7 @@ module.exports = function equal(a, b) {
 
                 /* ignore tate-chu-yoku since line break cannot happen within */
                 e.textContent = isd_element.text;
+                e._isd_element = isd_element;
 
                 if (te) {
 
@@ -59270,7 +59316,7 @@ module.exports = function equal(a, b) {
 
             }
 
-            mergeSpans(linelist); // The earlier we can do this the less processing there will be.
+            mergeSpans(linelist, context); // The earlier we can do this the less processing there will be.
 
             /* fill line gaps linepadding */
 
@@ -59330,7 +59376,7 @@ module.exports = function equal(a, b) {
         }
     }
 
-    function mergeSpans(lineList) {
+    function mergeSpans(lineList, context) {
 
         for (var i = 0; i < lineList.length; i++) {
 
@@ -59341,7 +59387,7 @@ module.exports = function equal(a, b) {
                 var previous = line.elements[j - 1];
                 var span = line.elements[j];
 
-                if (spanMerge(previous.node, span.node)) {
+                if (spanMerge(previous.node, span.node, context)) {
 
                     //removed from DOM by spanMerge(), remove from the list too.
                     line.elements.splice(j, 1);
@@ -59395,7 +59441,11 @@ module.exports = function equal(a, b) {
 
         } else {
 
-            if (element.parentElement.nodeName === "SPAN") {
+            if (element.parentElement.nodeName === "SPAN" ||
+                element.parentElement.nodeName === "RUBY" ||
+                element.parentElement.nodeName === "RBC" ||
+                element.parentElement.nodeName === "RTC" ||
+                element.parentElement.nodeName === "RT") {
 
                 return getSpanAncestorColor(element.parentElement, ancestorList, true);
 
@@ -59406,11 +59456,16 @@ module.exports = function equal(a, b) {
         return undefined;
     }
 
-    function spanMerge(first, second) {
+    function spanMerge(first, second, context) {
 
         if (first.tagName === "SPAN" &&
             second.tagName === "SPAN" &&
             first._isd_element === second._isd_element) {
+                if (! first._isd_element) {
+                    /* we should never get here since every span should have a source ISD element */
+                    reportError(context.errorHandler, "Internal error: HTML span is not linked to a source element; cannot merge spans.");
+                    return false;
+                }
 
                 first.textContent += second.textContent;
 
@@ -59455,7 +59510,7 @@ module.exports = function equal(a, b) {
                 if (se === ee) {
 
                     // Check to see if there's any background at all
-                    elementBoundingRect = se.node.getBoundingClientRect();
+                    var elementBoundingRect = se.node.getBoundingClientRect();
                     
                     if (elementBoundingRect.width == 0 || elementBoundingRect.height == 0) {
 
@@ -59487,13 +59542,20 @@ module.exports = function equal(a, b) {
                 // End element
                 if (context.ipd === "lr") {
 
-                    ee.node.style.marginRight = negpadpxlen;
+                    // Firefox has a problem with line-breaking when a negative margin is applied.
+                    // The positioning will be wrong but don't apply when on firefox.
+                    // https://bugzilla.mozilla.org/show_bug.cgi?id=1502610
+                    if (!browserIsFirefox) {
+                        ee.node.style.marginRight = negpadpxlen;
+                    }
                     ee.node.style.paddingRight = pospadpxlen;
 
                 } else if (context.ipd === "rl") {
 
                     ee.node.style.paddingLeft = pospadpxlen;
-                    ee.node.style.marginLeft = negpadpxlen;
+                    if (!browserIsFirefox) {
+                        ee.node.style.marginLeft = negpadpxlen;
+                    }
 
                 } else if (context.ipd === "tb") {
 
@@ -59623,7 +59685,7 @@ module.exports = function equal(a, b) {
 
             var ruby = document.createElement("ruby");
 
-            var rb = document.createElement("rb");
+            var rb = document.createElement("span");  // rb element is deprecated in HTML
             rb.textContent = "\u200B";
 
             ruby.appendChild(rb);
@@ -60137,6 +60199,7 @@ module.exports = function equal(a, b) {
                     /* per IMSC1 */
 
                     for (var i = 0; i < attr.length; i++) {
+                        attr[i] = attr[i].trim();
 
                         if (attr[i] === "monospaceSerif") {
 
