@@ -43,8 +43,8 @@ import SwitchRequestHistory from '../rules/SwitchRequestHistory';
 import DroppedFramesHistory from '../rules/DroppedFramesHistory';
 import ThroughputHistory from '../rules/ThroughputHistory';
 import Debug from '../../core/Debug';
-import {HTTPRequest} from '../vo/metrics/HTTPRequest';
-import {checkInteger} from '../utils/SupervisorTools';
+import { HTTPRequest } from '../vo/metrics/HTTPRequest';
+import { checkInteger } from '../utils/SupervisorTools';
 import MediaPlayerEvents from '../MediaPlayerEvents';
 
 const DEFAULT_VIDEO_BITRATE = 1000;
@@ -149,6 +149,7 @@ function AbrController() {
 
     function _initializeAbrStrategy(type) {
         const strategy = settings.get().streaming.abr.ABRStrategy;
+        console.log(`ABR strategy ${strategy}`);
 
         if (strategy === Constants.ABR_STRATEGY_L2A) {
             isUsingBufferOccupancyAbrDict[type] = false;
