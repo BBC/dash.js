@@ -355,6 +355,7 @@ function CatchupController() {
 
             //If latency is outside of the acceptable window, consider a new speed
             if (deltaLatency < (stepSettings.start.min * -1) || deltaLatency > stepSettings.start.max) {
+                logger.debug(`[_stepNeedToCatchUp] latency offset ${deltaLatency}`);
                 return true;
             }
             //If we're already catching up, consider a new speed
@@ -509,6 +510,8 @@ function CatchupController() {
                 }
             }
         }
+
+        logger.debug(`[_calculateNewPlaybackRateStep] rate being changed to ${newRate}`);
         return newRate;
     }
 
